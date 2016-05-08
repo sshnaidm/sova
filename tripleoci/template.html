@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <title>TripleO jobs</title>
+</head>
+<body>
+
+<ul class="nav nav-tabs">
+
+    {% for data in (ci, periodic) %}
+        {% set dataloop = loop %}
+        {% for key in data %}
+            {%  if loop.first %}<li class="disabled"><a><strong>
+                {% if 'periodic' in key %}Periodic jobs{% else %}Gate jobs{% endif %}:</strong></a></li>
+            {% endif %}
+          <li{%  if loop.first and dataloop.first %} class="active"{% endif %}><a data-toggle="tab" href="#{{ key }}">{{ key }}</a></li>
+        {% endfor %}
+        <div class="clearfix"></div>
+    {% endfor %}
+    <li><a data-toggle="tab" href="#" id="all">All</a></li>
+    <li><a data-toggle="tab" href="#errors">Top</a></li>
+</ul>
+
+<div class="tab-content">
+
+{% for data in (ci, periodic) %}
+    {% set rowloop = loop %}
+    {% for key in data %}
+        <div id="{{ key }}" class="tab-pane fade{% if rowloop.first and loop.first%} in active{%  endif %}">
+        <div class="panel panel-default">
+            <div class="panel-heading "><h4>{{ key }}</h4></div>
+            <div class="panel-body">
+                <strong>{{ key }}</strong> statistics:<br/>
+                {% if data == periodic %}{% set main=periodic_stats %}{% else %}{% set main=ci_stats %}{% endif %}
+                {% if data == ci %}
+                Today: {% if main.today %}{% set stat=main.today.job_stats[key] %}<strong>
+                    <span style="color:red">{{ (stat.infra|default(0)*100/stat.len)|int }}%</span>/
+                    <span style="color:blue">{{ (stat.code|default(0)*100/stat.len)|round|int }}%</span>/
+                    <span style="color:black">{{ ((stat.len - stat.infra|default(0) - stat.code|default(0))|default(0)*100/stat.len)|round|int }}</span>%</strong> of <strong>{{ stat.len }}</strong> jobs <strong>
+                    (<span style="color:red">{{ stat.infra|default(0) }}</span>/
+                    <span style="color:blue">{{ stat.code|default(0) }}</span>/
+                    <span style="color:black">{{ (stat.len - stat.infra|default(0) - stat.code|default(0))|default(0) }}</span>)</strong>
+                {% else %}N/A
+                {% endif %}<br/>
+                Yesterday: {% if main.yesterday %}{% set stat=main.yesterday.job_stats[key] %}<strong>
+                    <span style="color:red">{{ (stat.infra|default(0)*100/stat.len)|round|int }}%</span>/
+                    <span style="color:blue">{{ (stat.code|default(0)*100/stat.len)|round|int }}%</span>/
+                    <span style="color:black">{{ ((stat.len - stat.infra|default(0) - stat.code|default(0))|default(0)*100/stat.len)|round|int }}</span>%</strong> of <strong>{{ stat.len }}</strong> jobs <strong>
+                    (<span style="color:red">{{ stat.infra|default(0) }}</span>/
+                    <span style="color:blue">{{ stat.code|default(0) }}</span>/
+                    <span style="color:black">{{ (stat.len - stat.infra|default(0) - stat.code|default(0))|default(0) }}</span>)</strong>
+                {% else %}N/A
+                {% endif %}<br/>
+                {% endif %}
+                Week: {% if main.week %}{% set stat=main.week.job_stats[key] %}<strong>
+                    <span style="color:red">{{ (stat.infra|default(0)*100/stat.len)|round|int }}%</span>/
+                    <span style="color:blue">{{ (stat.code|default(0)*100/stat.len)|round|int }}%</span>/
+                    <span style="color:black">{{ ((stat.len - stat.infra|default(0) - stat.code|default(0))|default(0)*100/stat.len)|round|int }}</span>%</strong> of <strong>{{ stat.len }}</strong> jobs <strong>
+                    (<span style="color:red">{{ stat.infra|default(0) }}</span>/
+                    <span style="color:blue">{{ stat.code|default(0) }}</span>/
+                    <span style="color:black">{{ (stat.len - stat.infra|default(0) - stat.code|default(0))|default(0) }}</span>)</strong>
+                {% else %}N/A
+                {% endif %}<br/>
+                Overall: {% if main.all_times %}{% set stat=main.all_times.job_stats[key] %}<strong>
+                    <span style="color:red">{{ (stat.infra|default(0)*100/stat.len)|round|int }}%</span>/
+                    <span style="color:blue">{{ (stat.code|default(0)*100/stat.len)|round|int }}%</span>/
+                    <span style="color:black">{{ ((stat.len - stat.infra|default(0) - stat.code|default(0))|default(0)*100/stat.len)|round|int }}</span>% </strong> of <strong>{{ stat.len }}</strong> jobs <strong>
+                    (<span style="color:red">{{ stat.infra|default(0) }}</span>/
+                    <span style="color:blue">{{ stat.code|default(0) }}</span>/
+                    <span style="color:black">{{ (stat.len - stat.infra|default(0) - stat.code|default(0))|default(0) }}</span>)</strong>
+                {% else %}N/A
+                {% endif %}<br/>
+                <br/>
+                {% if data == ci %}All gate jobs{% else %}All periodic jobs{% endif %}:
+                {% if main.all_stats %}{% set stat=main.all_stats %}<strong>
+                    <span style="color:red">{{ (stat.infra|default(0)*100/stat.len)|round|int }}%</span>/
+                    <span style="color:blue">{{ (stat.code|default(0)*100/stat.len)|round|int}}%</span>/
+                    <span style="color:black">{{ ((stat.len - stat.infra|default(0) - stat.code|default(0))|default(0)*100/stat.len)|round|int }}</span>% </strong> of <strong>{{ stat.len }}</strong> jobs <strong>
+                    (<span style="color:red">{{ stat.infra|default(0) }}</span>/
+                    <span style="color:blue">{{ stat.code|default(0) }}</span>/
+                    <span style="color:black">{{ (stat.len - stat.infra|default(0) - stat.code|default(0))|default(0) }}</span>)</strong>
+                {% else %}N/A
+                {% endif %}<br/>
+
+            </div>
+        </div>
+            <table class="table table-hover">
+            <thead><td>Date</td><td>Length</td><td>Reason</td><td>Patch</td><td>Logs</td><td>Project</td><td>Branch</td><td>Build</td></thead>
+            {%  for i in data[key] %}
+                <tr style="color:{% if i.reason and 'infra' in i.tags %}red{% elif i.reason %}blue{% else %}black{% endif %}">
+                    {# Date #}
+                    <td style="color:{% if i.reason and 'infra' in i.tags %}red{% elif i.reason %}blue{% else %}black{% endif %}">
+                    | {{  i.job.datetime }} |
+                    </td>
+                    {# Length #}
+                    <td style="color:{% if i.reason and 'infra' in i.tags %}red{% elif i.reason %}blue{% else %}black{% endif %}">
+                    | {{  i.job.length }} min |
+                    </td>
+                    {# Reason #}
+                    <td style="color:{% if i.reason and 'infra' in i.tags %}red{% elif i.reason %}blue{% else %}black{% endif %}">
+                    | {{ i.msg | join(' ')}} |
+                    </td>
+                    {# Patchset #}
+                    {% if not i.periodic %}
+                    <td>
+                        | {%  if i.job.patchset.patchset_url %}
+                            <a data-toggle="tooltip" data-placement="top" title="{{ i.job.patch.subject }}"
+                               href="{{ i.job.patchset.patchset_url }}">{{ i.job.patch.patch_number }},{{ i.job.patchset.number }}</a>
+                        <a tabindex="0" class="btn" role="button" data-toggle="popover" data-trigger="focus" data-html="true"
+                           title="Subject: {{ i.job.patch.subject }}" data-content="Author: {{ i.job.patch.owner.name }}<br>Commit:<br> {{ i.job.patch.commitmsg.split("Change-Id")[0] }}"><strong>?</strong></a>
+                        {%  else %}No patch URL{%  endif %} |
+                    </td>
+                    {% endif %}
+                    {# Logs #}
+                    <td>
+                    | <a href="{{ i.job.log_url }}">Logs</a> |
+                    </td>
+                    {# Project #}
+                    {% if not i.periodic %}
+                    <td>
+                    | <a href="https://review.openstack.org/#/q/status:open+project:{{ i.job.patch.project }}">{{ i.job.patch.project.split("/")[1]|default(i.job.patch.project) }}</a> |
+                    </td>
+                    {% endif %}
+                    {# Branch #}
+                    {% if not i.periodic %}
+                    <td>
+                    | <a  data-toggle="tooltip" data-placement="top" title="{{ i.job.patch.topic|default('') }}" href="https://review.openstack.org/#/q/status:open+branch:{{ i.job.branch }}+project:{{ i.job.patch.project|default('') }}">{{ i.job.branch }}</a> |
+                    </td>
+                    {% endif %}
+                    {# Build #}
+                    <td>
+                    | {% if  i.job.build_url %}<a href="{{ i.job.build_url }}">Jenkins</a>{% else %}No URL{% endif %} |
+                    </td>
+                </tr>
+            {%  endfor %}
+            </table>
+        </div>
+    {% endfor %}
+<hr>
+{% endfor %}
+<br/><br/>
+<div id="errors" class="tab-pane fade">
+    <table class="table table-hover">
+    <thead><td>Count</td><td>Error</td></thead>
+        {% for e in errors_top %}
+            <tr style="color:black">
+                <td>{{ e.1 }}</td>
+                <td>{{ e.0 }}</td>
+            </tr>
+    {% endfor %}
+    </table>
+</div>
+
+</div>
+<script>
+$('#all').on('click',function(){
+  $('#all').parent().addClass('active');
+  $('.tab-pane').addClass('active in');
+  $('[data-toggle="tab"]').parent().removeClass('active');
+});
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip();
+});
+$(function () {
+  $('[data-toggle="popover"]').popover();
+});
+</script>
+</body>
+</html>
