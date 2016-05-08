@@ -11,8 +11,8 @@ import time
 from collections import Counter
 from requests import ConnectionError
 
-import config
-from config import log
+import tripleoci.config as config
+from tripleoci.config import log
 
 requests.packages.urllib3.disable_warnings()
 
@@ -58,13 +58,14 @@ class Gerrit(object):
     """
 
     def __init__(self, period=None):
-        self.key_path = os.path.join(DIR, "robi_id_rsa")
+        self.key_path = os.path.join(DIR, "..", "robi_id_rsa")
         self.ssh = None
         self.period = period
 
     def get_project_patches(self, projects):
         def filtered(x):
-            return [json.loads(i) for i in x.splitlines() if 'project' in i]
+            return [json.loads(i.decode())
+                    for i in x.splitlines() if 'project' in i.decode()]
 
         def calc_date(x):
             return (
@@ -126,7 +127,11 @@ class Web(object):
         """
         log.debug("GET {url} with ignore404={i}".format(
             url=self.url, i=str(ignore404)))
-        req = requests.get(self.url)
+        try:
+            req = requests.get(self.url)
+        except ConnectionError:
+            log.error("Connection error when retriving {}".format(self.url))
+            return None
         if req.status_code != 200:
             if not (ignore404 and req.status_code == 404):
                 log.error("Page {url} got status {code}".format(
@@ -152,7 +157,7 @@ class JobFile(object):
     """
 
     def __init__(self, job, path=config.DOWNLOAD_PATH, file_link=None,
-                 build=None):
+                 build=None, offline=False):
         self.job_dir = os.path.join(path, job.log_hash)
         if not os.path.exists(self.job_dir):
             os.makedirs(self.job_dir)
@@ -162,6 +167,7 @@ class JobFile(object):
         self.file_path = None
         self.build = build
         self.file_name = None
+        self.offline = offline
 
     def get_file(self):
         """
@@ -170,6 +176,8 @@ class JobFile(object):
                 /logs/overcloud-controller-0.tar.xz//var/log/neutron/server.log
         :return: path to gzipped file
         """
+        if self.offline:
+            return self.dummy_file()
         if self.build:
             return self.get_build_page()
         if "//" in self.file_link:
@@ -177,24 +185,39 @@ class JobFile(object):
         else:
             return self.get_regular_file()
 
+    def dummy_file(self):
+        if "//" in self.file_link:
+            tar_file_link, intern_path = self.file_link.split("//")
+            tar_base_name = os.path.basename(tar_file_link)
+            tar_prefix = tar_base_name.split(".")[0]
+            tar_root_dir = os.path.join(self.job_dir, tar_prefix)
+            self.file_path = os.path.join(tar_root_dir, intern_path)
+        else:
+            self.file_name = os.path.basename(
+                self.file_link).split(".gz")[0] + ".gz"
+            self.file_path = os.path.join(self.job_dir, self.file_name)
+        return self.file_path if os.path.exists(self.file_path) else None
+
+
+
     def get_build_page(self):
         web = Web(url=self.build)
-        try:
-            req = web.get()
-        except ConnectionError:
+        req = web.get()
+        if not req:
             log.error("Jenkins page {} is unavailable".format(self.build))
             return None
         if req.status_code != 200:
             return None
         else:
             self.file_path = os.path.join(self.job_dir, "build_page.gz")
-            with gzip.open(self.file_path, "wb") as f:
-                f.write(req.content)
+            with gzip.open(self.file_path, "wt") as f:
+                f.write(req.text)
             return self.file_path
 
     def get_regular_file(self):
         log.debug("Get regular file {}".format(self.file_link))
-        self.file_name = os.path.basename(self.file_link).rstrip(".gz") + ".gz"
+        self.file_name = os.path.basename(
+            self.file_link).split(".gz")[0] + ".gz"
         self.file_path = os.path.join(self.job_dir, self.file_name)
         if os.path.exists(self.file_path):
             log.debug("File {} is already downloaded".format(self.file_path))
@@ -203,17 +226,19 @@ class JobFile(object):
             web = Web(url=self.file_url)
             ignore404 = self.file_link == "/console.html"
             req = web.get(ignore404=ignore404)
-            if req.status_code != 200 and self.file_link == "/console.html":
+            if (req
+                    and req.status_code != 200
+                    and self.file_link == "/console.html"):
                 self.file_url += ".gz"
                 web = Web(url=self.file_url)
                 log.debug("Trying to download gzipped console")
                 req = web.get()
-            if req.status_code != 200:
+            if not req or req.status_code != 200:
                 log.error("Failed to retrieve URL: {}".format(self.file_url))
                 return None
             else:
-                with gzip.open(self.file_path, "wb") as f:
-                    f.write(req.content)
+                with gzip.open(self.file_path, "wt") as f:
+                    f.write(req.text)
             return self.file_path
 
     def _extract(self, tar, root_dir, file_path):
@@ -248,14 +273,14 @@ class JobFile(object):
         if not os.path.exists(tar_file_path):
             web = Web(url=self.file_url)
             req = web.get()
-            if req.status_code != 200:
+            if not req or req.status_code != 200:
                 return None
             else:
-                with open(tar_file_path, "wb") as f:
-                    f.write(req.content)
+                with open(tar_file_path, "wt") as f:
+                    f.write(req.text)
         if self._extract(tar_file_path, tar_root_dir, intern_path):
-            with open(self.file_path, 'rb') as f:
-                with gzip.open(self.file_path + ".gz", 'wb') as zipped_file:
+            with open(self.file_path, 'r') as f:
+                with gzip.open(self.file_path + ".gz", 'wt') as zipped_file:
                     zipped_file.writelines(f)
             os.remove(self.file_path)
             self.file_path += ".gz"

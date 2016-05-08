@@ -1,13 +1,14 @@
+from __future__ import print_function
 import json
-import config
-from config import log
-from utils import Gerrit
-from analysis import analyze
-from periodic import Periodic
-from patches import Patch
-from filters import Filter
+import tripleoci.config as config
+from tripleoci.utils import Gerrit
+from tripleoci.analysis import analyze
+from tripleoci.periodic import Periodic
+from tripleoci.patches import Patch
+from tripleoci.filters import Filter
 
-DEBUG = False
+
+DEBUG = True
 
 
 def meow(days=None,
@@ -73,9 +74,9 @@ def meow(days=None,
 
 
 def main():
-    for m in meow(limit=10, periodic=True):
+    for m in meow(limit=10, periodic=False):
         # print m["text"]
-        print m
+        print(m)
 
 
 if __name__ == "__main__":

@@ -2,13 +2,13 @@ import jinja2
 import os
 import pickle
 
-from watchcat import meow
-from utils import top, statistics
+from tripleoci.watchcat import meow
+from tripleoci.utils import top, statistics
 
 DEBUG = False
 
 
-def htmlize():
+def create_html():
     """
         This function runs job analysis by calling meow() and creates HTML page
         with all data it received.
@@ -39,15 +39,15 @@ def htmlize():
                                                     "ci_status"),
                              periodic=True)
 
-        with open("/tmp/ci_data_dump", "w") as g:
+        with open("/tmp/ci_data_dump", "wb") as g:
             pickle.dump(ci_data, g)
-        with open("/tmp/periodic_data_dump", "w") as g:
+        with open("/tmp/periodic_data_dump", "wb") as g:
             pickle.dump(periodic_data, g)
     # For debug mode
     else:
-        with open("/tmp/ci_data_dump", "rb") as g:
+        with open("/tmp/ci_data_dump", "r") as g:
             ci_data = pickle.load(g)
-        with open("/tmp/periodic_data_dump", "rb") as g:
+        with open("/tmp/periodic_data_dump", "r") as g:
             periodic_data = pickle.load(g)
 
     errors_top = top(ci_data)
@@ -72,7 +72,7 @@ def htmlize():
 
 
 def main():
-    htmlize()
+    create_html()
 
 
 if __name__ == '__main__':

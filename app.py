@@ -1,8 +1,8 @@
-from tripleoci.page import htmlize
+from tripleoci.page import create_html
 
 
 def main():
-    htmlize()
+    create_html()
 
 
 if __name__ == "__main__":

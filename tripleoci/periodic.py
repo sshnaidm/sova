@@ -5,10 +5,10 @@ import fileinput
 import re
 from lxml import etree
 
-import config
-from config import log
-from patches import Job
-from utils import Web
+import tripleoci.config as config
+from tripleoci.config import log
+from tripleoci.patches import Job
+from tripleoci.utils import Web
 
 # Jobs regexps
 branch_re = re.compile(r"\+ export ZUUL_BRANCH=(\S+)")
@@ -32,7 +32,7 @@ class Periodic(object):
     def _get_index(self):
         web = Web(self.per_url)
         req = web.get()
-        if req.status_code != 200:
+        if not req or req.status_code != 200:
             log.error("Can not retrieve periodic page {}".format(self.per_url))
             return None
         return req.content
@@ -45,12 +45,12 @@ class Periodic(object):
             return path
         web = Web(job["log_url"] + "/console.html")
         req = web.get(ignore404=True)
-        if req.status_code == 404:
+        if req and req.status_code == 404:
             url = job["log_url"] + "/console.html.gz"
             web = Web(url=url)
             log.debug("Trying to download gzipped console")
             req = web.get()
-        if req.status_code != 200:
+        if not req or req.status_code != 200:
             log.error("Failed to retrieve console: {}".format(job["log_url"]))
             return None
         else:
@@ -95,6 +95,7 @@ class Periodic(object):
         else:
             for line in fileinput.input(console,
                                         openhook=fileinput.hook_compressed):
+                line = line.decode()
                 if "Finished: SUCCESS" in line:
                     j['fail'] = False
                     j['status'] = 'SUCCESS'

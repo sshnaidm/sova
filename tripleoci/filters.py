@@ -1,6 +1,6 @@
 import datetime
 
-import config
+import tripleoci.config as config
 
 
 class Filter(object):
@@ -77,7 +77,7 @@ class Filter(object):
             return True
         today = datetime.date.today()
         dates = []
-        for i in xrange(days):
+        for i in range(days):
             dates.append(self._day_format(today - datetime.timedelta(days=i)))
         job_date = self._job_day_format(job.ts)
         return job_date in dates

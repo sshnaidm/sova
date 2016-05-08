@@ -1,10 +1,11 @@
 import fileinput
 import re
 
-from config import log
-from patterns import PATTERNS
-from utils import JobFile
+from tripleoci.config import log
+from tripleoci.patterns import PATTERNS
+from tripleoci.utils import JobFile
 
+DEBUG = False
 
 def analyze(job, down_path):
     def line_match(pat, line):
@@ -35,7 +36,7 @@ def analyze(job, down_path):
              "log: {log_url}")
 
     msg = set()
-    console = JobFile(job, path=down_path).get_file()
+    console = JobFile(job, path=down_path, offline=DEBUG).get_file()
     if not console:
         message['text'] = 'No console file'
         message['msg'] = set(message['text'])
@@ -44,7 +45,8 @@ def analyze(job, down_path):
         return message
     files = PATTERNS.keys()
     for file in files:
-        jfile = JobFile(job, path=down_path, file_link=file).get_file()
+        jfile = JobFile(job, path=down_path, file_link=file, offline=DEBUG
+                        ).get_file()
         if not jfile:
             log.error("File {} is not downloaded, "
                       "skipping its patterns".format(file))
@@ -54,6 +56,7 @@ def analyze(job, down_path):
                 log.debug("Opening file for scan: {}".format(jfile))
                 for line in fileinput.input(
                         jfile, openhook=fileinput.hook_compressed):
+                    line = line.decode()
                     for p in PATTERNS[file]:
                         if (line_match(p["pattern"], line) and
                                 p["msg"] not in msg):
