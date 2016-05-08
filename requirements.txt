@@ -1,0 +1,4 @@
+paramiko
+requests
+lxml
+jinja2
