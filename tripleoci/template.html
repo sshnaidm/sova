@@ -97,7 +97,7 @@
             </div>
         </div>
             <table class="table table-hover">
-            <thead><td>Date</td><td>Length</td><td>Reason</td><td>Patch</td><td>Logs</td><td>Project</td><td>Branch</td><td>Build</td></thead>
+            <thead><td>Date</td><td>Length</td><td>Reason</td><td>Patch</td><td>Logs</td>{% if data == ci %}<td>Project</td><td>Branch</td>{% endif %}<td>Logstash</td></thead>
             {%  for i in data[key] %}
                 <tr style="color:{% if i.reason and 'infra' in i.tags %}red{% elif i.reason %}blue{% else %}black{% endif %}">
                     {# Date #}
@@ -110,7 +110,7 @@
                     </td>
                     {# Reason #}
                     <td style="color:{% if i.reason and 'infra' in i.tags %}red{% elif i.reason %}blue{% else %}black{% endif %}">
-                    | {{ i.msg | join(' ')}} |
+                    | {{ i.msg.keys() | join(' ')}} |
                     </td>
                     {# Patchset #}
                     {% if not i.periodic %}
@@ -139,9 +139,9 @@
                     | <a  data-toggle="tooltip" data-placement="top" title="{{ i.job.patch.topic|default('') }}" href="https://review.openstack.org/#/q/status:open+branch:{{ i.job.branch }}+project:{{ i.job.patch.project|default('') }}">{{ i.job.branch }}</a> |
                     </td>
                     {% endif %}
-                    {# Build #}
+                    {# Logstash #}
                     <td>
-                    | {% if  i.job.build_url %}<a href="{{ i.job.build_url }}">Jenkins</a>{% else %}No URL{% endif %} |
+                    | {% if i.logstash_url %}<a href="{{ i.logstash_url }}">Logstash</a>{% else %} - {% endif %} |
                     </td>
                 </tr>
             {%  endfor %}

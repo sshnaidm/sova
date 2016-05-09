@@ -23,138 +23,161 @@ PATTERNS = {
             "msg": "Overcloud stack installation: SUCCESS.",
             # Tag that marks problem: infra, code, or nothing special
             "tag": "info",
+            "logstash": '',
         },
         {
             "id": 2,
             "pattern": "Stack overcloud CREATE_FAILED",
             "msg": "Overcloud stack: FAILED.",
             "tag": "info",
+            "logstash": '',
         },
         {
             "id": 3,
             "pattern": "No valid host was found. There are not enough hosts",
             "msg": "No valid host was found.",
             "tag": "code",
+            "logstash": 'No valid host was found. There are not enough hosts',
         },
         {
             "id": 4,
             "pattern": "Failed to connect to trunk.rdoproject.org port 80",
             "msg": "Connection failure to trunk.rdoproject.org.",
             "tag": "infra",
+            "logstash": 'Failed to connect to trunk.rdoproject.org',
         },
         {
             "id": 5,
             "pattern": "Overloud pingtest, FAIL",
             "msg": "Overcloud pingtest FAILED.",
             "tag": "code",
+            "logstash": '',
         },
         {
             "id": 6,
             "pattern": "Overcloud pingtest, failed",
             "msg": "Overcloud pingtest FAILED.",
             "tag": "code",
+            "logstash": '',
         },
         {
             "id": 7,
             "pattern": "Error contacting Ironic server: Node ",
             "msg": "Ironic introspection FAIL.",
             "tag": "code",
+            "logstash": 'Error contacting Ironic server: Node',
         },
         {
             "id": 8,
             "pattern": "Introspection completed with errors:",
             "msg": "Ironic introspection FAIL.",
             "tag": "code",
+            "logstash": 'Introspection completed with errors:',
         },
         {
             "id": 9,
             "pattern": ": Introspection timeout",
             "msg": "Introspection timeout.",
             "tag": "code",
+            "logstash": ': Introspection timeout',
         },
         {
             "id": 10,
             "pattern": "is locked by host localhost.localdomain, please retry",
             "msg": "Ironic: Host locking error.",
             "tag": "code",
+            "logstash": '',
         },
         {
             "id": 11,
             "pattern": "Timed out waiting for node ",
             "msg": "Ironic node register FAIL: timeout for node.",
             "tag": "code",
+            "logstash": 'Timed out waiting for node ',
         },
         {
             "id": 12,
             "pattern": "Killed                  ./testenv-client -b",
             "msg": "Killed by timeout.",
             "tag": "infra",
+            'logstash': 'GATE_RETVAL=137'
         },
         {
             "id": 13,
             "pattern": timeout_re,
             "msg": "Killed by timeout.",
             "tag": "infra",
+            'logstash': 'GATE_RETVAL=137'
         },
         {
             "id": 14,
             "pattern": puppet_re,
             "msg": "Puppet {} FAIL.",
             "tag": "code",
+            "logstash": puppet_re,
         },
         {
             "id": 15,
             "pattern": exec_re,
             "msg": "Program {} FAIL.",
             "tag": "code",
+            "logstash": exec_re,
         },
         {
             "id": 16,
             "pattern": "ERROR:dlrn:cmd failed. See logs at",
             "msg": "Delorean FAIL.",
             "tag": "code",
+            'logstash': 'ERROR:dlrn:cmd failed. See logs at'
         },
         {
             "id": 17,
             "pattern": "500 Internal Server Error: Failed to upload image",
             "msg": "Glance upload FAIL.",
             "tag": "code",
+            'logstash': '500 Internal Server Error: Failed to upload image'
         },
         {
             "id": 18,
             "pattern": "Slave went offline during the build",
             "msg": "Jenkins slave FAIL.",
             "tag": "infra",
+            "logstash": '',
         },
         {
             "id": 19,
             "pattern": resolving_re,
             "msg": "DNS resolve of {} FAIL.",
             "tag": "infra",
+            "logstash": resolving_re,
         },
         {
             "id": 20,
             "pattern": "fatal: The remote end hung up unexpectedly",
             "msg": "Git clone repo FAIL.",
             "tag": "infra",
+            "logstash": 'fatal: The remote end hung up unexpectedly',
         },
         {
             "id": 21,
             "pattern": "Create timed out       | CREATE_FAILED",
             "msg": "Overcloud create timed out.",
             "tag": "code",
+            "logstash": '',
         },
         {
             "id": 22,
             "pattern": "[overcloud]: CREATE_FAILED Create timed out",
             "msg": "Overcloud create timed out.",
             "tag": "code",
+            "logstash": '',
         },
         {
             "id": 23,
             "pattern": "FATAL: no longer a configured node for ",
             "msg": "Slave FAIL: no longer a configured node",
             "tag": "infra",
+            "logstash": 'FATAL: no longer a configured node for',
         },
         {
             "id": 24,
@@ -162,6 +185,8 @@ PATTERNS = {
                         "No such file or directory"),
             "msg": "Delorean repo build FAIL.",
             "tag": "code",
+            "logstash": ("cd: /opt/stack/new/delorean/data/repos: "
+                         "No such file or directory"),
         },
         {
             "id": 25,
@@ -169,6 +194,7 @@ PATTERNS = {
                         "java.lang.InterruptedException"),
             "msg": "Jenkins slave FAIL: InterruptedException",
             "tag": "infra",
+            "logstash": '[ERROR] - SEVERE ERROR occurs: java.lang',
         },
         {
             "id": 26,
@@ -176,6 +202,8 @@ PATTERNS = {
                         "/opt/stack/new/tripleo-ci/toci_gate_test.sh"),
             "msg": "Main script timeout",
             "tag": "infra",
+            "logstash": ('Killed                  bash -xe '
+                         '/opt/stack/new/tripleo-ci/toci_gate_test.sh')
         },
         {
             "id": 27,
@@ -183,30 +211,36 @@ PATTERNS = {
                         "returned non-zero exit status"),
             "msg": "Undercloud install FAIL.",
             "tag": "code",
+            'logstash': ('Command \'instack-install-undercloud\' '
+                         'returned non-zero exit status'),
         },
         {
             "id": 28,
             "pattern": failed_deps_re,
             "msg": "Failed to build dep {}.",
             "tag": "infra",
+            "logstash": failed_deps_re,
         },
         {
             "id": 29,
             "pattern": curl_re,
             "msg": "Failed to upload/get image: {}.",
-            "tag": "infra"
+            "tag": "infra",
+            "logstash": curl_re,
         },
         {
             "id": 30,
             "pattern": "error: command 'gcc' failed with exit status 1",
             "msg": "Failed to compile deps.",
-            "tag": "infra"
+            "tag": "infra",
+            "logstash": "error: command 'gcc' failed with exit status 1",
         },
         {
             "id": 31,
             "pattern": "crm_resource for openstack",
             "msg": "'crm_resource' check failed because timeout.",
-            "tag": "infra"
+            "tag": "infra",
+            "logstash": 'crm_resource for openstack'
         },
     ],
 
@@ -216,6 +250,7 @@ PATTERNS = {
             "pattern": puppet_re,
             "msg": "Puppet {} FAIL.",
             "tag": "code",
+            "logstash": puppet_re,
         },
     ],
     '/logs/postci.txt.gz': [
@@ -224,6 +259,7 @@ PATTERNS = {
             "pattern": puppet_re,
             "msg": "Puppet {} FAIL.",
             "tag": "code",
+            "logstash": puppet_re,
         },
     ],
     # '/logs/overcloud-controller-0.tar.xz//var/log/neutron/server.log': [

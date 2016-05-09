@@ -45,9 +45,9 @@ def create_html():
             pickle.dump(periodic_data, g)
     # For debug mode
     else:
-        with open("/tmp/ci_data_dump", "r") as g:
+        with open("/tmp/ci_data_dump", "rb") as g:
             ci_data = pickle.load(g)
-        with open("/tmp/periodic_data_dump", "r") as g:
+        with open("/tmp/periodic_data_dump", "rb") as g:
             periodic_data = pickle.load(g)
 
     errors_top = top(ci_data)

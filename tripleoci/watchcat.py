@@ -8,7 +8,7 @@ from tripleoci.patches import Patch
 from tripleoci.filters import Filter
 
 
-DEBUG = True
+DEBUG = False
 
 
 def meow(days=None,

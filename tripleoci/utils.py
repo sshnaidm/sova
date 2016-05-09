@@ -10,6 +10,7 @@ import tarfile
 import time
 from collections import Counter
 from requests import ConnectionError
+from six.moves.urllib.parse import quote
 
 import tripleoci.config as config
 from tripleoci.config import log
@@ -290,9 +291,8 @@ class JobFile(object):
 
 
 def top(data):
-    msgs = [j for i in data for j in i['msg'] if
-            "info" not in i['tags'] and
-            j != 'Reason was NOT FOUND. Please investigate']
+    msgs = [j for i in data
+            for j in i['msg'] if i['msg'][j] not in ('info', '')]
     xtop = Counter(msgs)
     return xtop.most_common()
 
@@ -334,3 +334,18 @@ def statistics(data, periodic=False):
     stat_dict['week'] = _get_stats(
         [i for i in data if i['job'].ts.date() in week])
     return stat_dict
+
+def urlize_logstash(msgs):
+    msgs = list(filter(None, msgs))
+    if not msgs:
+        return None
+    if len(msgs) > 1:
+        msg = "(" + " OR ".join(msgs) + ")"
+    else:
+        msg = msgs[0]
+    query = (msg +
+             (' AND build_name:*tripleo-ci-* AND tags:console AND voting:1 '
+              'AND build_status:FAILURE'))
+    base_url = 'http://logstash.openstack.org/#/dashboard/file/logstash.json?query='
+    url = base_url + quote(query.replace('"', '\\"'))
+    return url

@@ -3,9 +3,10 @@ import re
 
 from tripleoci.config import log
 from tripleoci.patterns import PATTERNS
-from tripleoci.utils import JobFile
+from tripleoci.utils import JobFile, urlize_logstash
 
 DEBUG = False
+
 
 def analyze(job, down_path):
     def line_match(pat, line):
@@ -19,14 +20,21 @@ def analyze(job, down_path):
         if isinstance(pat, str):
             return pat in line
 
+    def compile_logstash(line, pat_stash):
+        if isinstance(pat_stash, re._pattern_type):
+            return 'message:"' + pat_stash.search(line).group() + '"'
+        else:
+            return 'message:"' + pat_stash + '"'
+
     message = {
         "text": '',
         "tags": set(),
-        "msg": set(),
+        "msg": dict(),
         "reason": True,
         "job": job,
         "periodic": "periodic" in job.name,
         'patterns': set(),
+        'logstash_url': set(),
     }
     templ = ("{date}\t"
              "{job_type:38}\t"
@@ -35,13 +43,12 @@ def analyze(job, down_path):
              "{delim}\t"
              "log: {log_url}")
 
-    msg = set()
+    msg = dict()
     console = JobFile(job, path=down_path, offline=DEBUG).get_file()
     if not console:
         message['text'] = 'No console file'
-        message['msg'] = set(message['text'])
+        message['msg'] = {'No console file': 'infra'}
         message['tags'] = ['infra']
-        message['reason'] = True
         return message
     files = PATTERNS.keys()
     for file in files:
@@ -59,26 +66,33 @@ def analyze(job, down_path):
                     line = line.decode()
                     for p in PATTERNS[file]:
                         if (line_match(p["pattern"], line) and
-                                p["msg"] not in msg):
+                                    p["msg"] not in msg):
                             log.debug("Found pattern {} in file {}:{}".format(
                                 repr(p), file, jfile))
-                            msg.add(p["msg"].format(
-                                line_match(p["pattern"], line)))
+                            msg.update({p["msg"].format(
+                                line_match(p["pattern"], line)): p["tag"]})
                             message['tags'].add(p["tag"])
                             message['patterns'].add(p['id'])
+                            if p['logstash']:
+                                message['logstash_url'].add(compile_logstash(
+                                    line, p['logstash']))
 
             except Exception as e:
                 log.error("Exception when parsing {}: {}".format(
                     jfile, str(e)))
-                msg = {"Error when parsing logs. Please investigate"}
+                msg = {"Error when parsing logs.": 'info'}
                 message['reason'] = False
-                message['tags'].add("unknown")
+                message['tags'].add("info")
     if not msg:
         log.debug("No patterns in job files {}".format(job))
-        msg = {"Reason was NOT FOUND. Please investigate"}
+        msg = {"Reason was NOT FOUND.": 'info'}
         message['reason'] = False
-        message['tags'].add("unknown")
+        message['tags'].add("info")
+    if not [i for i in message['tags'] if i not in ('info', '')]:
+        message['reason'] = False
+        msg.update({"Please investigate.": 'info'})
     message['msg'] = msg
+    message['logstash_url'] = urlize_logstash(message['logstash_url'])
     message['text'] = templ.format(
         msg=" ".join(sorted(msg)),
         delim="||" if message['reason'] else "XX",
