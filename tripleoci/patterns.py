@@ -204,7 +204,7 @@ PATTERNS = {
         },
         {
             "id": 31,
-            "pattern": "Killed by signal 15.",
+            "pattern": "crm_resource for openstack",
             "msg": "'crm_resource' check failed because timeout.",
             "tag": "infra"
         },
