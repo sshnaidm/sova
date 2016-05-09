@@ -244,15 +244,6 @@ PATTERNS = {
         },
     ],
 
-    '/logs/postci.log': [
-        {
-            "id": 201,
-            "pattern": puppet_re,
-            "msg": "Puppet {} FAIL.",
-            "tag": "code",
-            "logstash": puppet_re,
-        },
-    ],
     '/logs/postci.txt.gz': [
         {
             "id": 202,
@@ -260,6 +251,13 @@ PATTERNS = {
             "msg": "Puppet {} FAIL.",
             "tag": "code",
             "logstash": puppet_re,
+        },
+        {
+            "id": 202,
+            "pattern": "Can't connect to local MySQL server through socket",
+            "msg": "MySQL failure.",
+            "tag": "code",
+            "logstash": "Can't connect to local MySQL server through socket",
         },
     ],
     # '/logs/overcloud-controller-0.tar.xz//var/log/neutron/server.log': [
@@ -271,3 +269,4 @@ PATTERNS = {
     #     },
     # ]
 }
+PATTERNS['/logs/postci.log'] = PATTERNS['/logs/postci.txt.gz']
