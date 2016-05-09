@@ -2,7 +2,7 @@ import re
 
 # Patterns regexps
 timeout_re = re.compile(r"Killed\s+timeout -s 9 ")
-puppet_re = re.compile(r"\"deploy_stderr\": \".+?1;31mError: .+?\W(\w+)::")
+puppet_re = re.compile(r"1;31mError: .+?\W(\w+)::")
 resolving_re = re.compile(
     r"Could not resolve host: (\S+); Name or service not known")
 exec_re = re.compile(r"mError: (\S+?) \S+ returned 1 instead of one of")
