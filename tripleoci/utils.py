@@ -2,12 +2,12 @@ import contextlib
 import datetime
 import gzip
 import json
-import lzma
 import os
 import paramiko
 import requests
 import tarfile
 import time
+from backports import lzma
 from collections import Counter
 from requests import ConnectionError
 from six.moves.urllib.parse import quote
@@ -65,8 +65,9 @@ class Gerrit(object):
 
     def get_project_patches(self, projects):
         def filtered(x):
-            return [json.loads(i.decode())
-                    for i in x.splitlines() if 'project' in i.decode()]
+            return [json.loads(i.decode(errors='ignore'))
+                    for i in x.splitlines()
+                    if 'project' in i.decode(errors='ignore')]
 
         def calc_date(x):
             return (
@@ -199,8 +200,6 @@ class JobFile(object):
             self.file_path = os.path.join(self.job_dir, self.file_name)
         return self.file_path if os.path.exists(self.file_path) else None
 
-
-
     def get_build_page(self):
         web = Web(url=self.build)
         req = web.get()
@@ -277,7 +276,7 @@ class JobFile(object):
             if not req or req.status_code != 200:
                 return None
             else:
-                with open(tar_file_path, "wt") as f:
+                with open(tar_file_path, "w") as f:
                     f.write(req.text)
         if self._extract(tar_file_path, tar_root_dir, intern_path):
             with open(self.file_path, 'r') as f:
@@ -335,8 +334,9 @@ def statistics(data, periodic=False):
         [i for i in data if i['job'].ts.date() in week])
     return stat_dict
 
+
 def urlize_logstash(msgs):
-    msgs = list(filter(None, msgs))
+    msgs = [i for i in msgs if i]
     if not msgs:
         return None
     if len(msgs) > 1:
@@ -346,6 +346,7 @@ def urlize_logstash(msgs):
     query = (msg +
              (' AND build_name:*tripleo-ci-* AND tags:console AND voting:1 '
               'AND build_status:FAILURE'))
-    base_url = 'http://logstash.openstack.org/#/dashboard/file/logstash.json?query='
+    base_url = ('http://logstash.openstack.org/'
+                '#/dashboard/file/logstash.json?query=')
     url = base_url + quote(query.replace('"', '\\"'))
     return url

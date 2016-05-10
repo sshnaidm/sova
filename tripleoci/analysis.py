@@ -56,7 +56,7 @@ def analyze(job, down_path):
                         ).get_file()
         if not jfile:
             log.warn("File {} is not downloaded, "
-                      "skipping its patterns".format(file))
+                     "skipping its patterns".format(file))
             continue
         else:
             try:
@@ -66,7 +66,7 @@ def analyze(job, down_path):
                     line = line.decode()
                     for p in PATTERNS[file]:
                         if (line_match(p["pattern"], line) and
-                                    p["msg"] not in msg):
+                           p["msg"] not in msg):
                             log.debug("Found pattern {} in file {}:{}".format(
                                 repr(p), file, jfile))
                             msg.update({p["msg"].format(
