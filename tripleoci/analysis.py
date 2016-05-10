@@ -55,7 +55,7 @@ def analyze(job, down_path):
         jfile = JobFile(job, path=down_path, file_link=file, offline=DEBUG
                         ).get_file()
         if not jfile:
-            log.error("File {} is not downloaded, "
+            log.warn("File {} is not downloaded, "
                       "skipping its patterns".format(file))
             continue
         else:

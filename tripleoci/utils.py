@@ -135,7 +135,7 @@ class Web(object):
             return None
         if req.status_code != 200:
             if not (ignore404 and req.status_code == 404):
-                log.error("Page {url} got status {code}".format(
+                log.warn("Page {url} got status {code}".format(
                     url=self.url, code=req.status_code))
         return req
 
@@ -235,7 +235,7 @@ class JobFile(object):
                 log.debug("Trying to download gzipped console")
                 req = web.get()
             if not req or req.status_code != 200:
-                log.error("Failed to retrieve URL: {}".format(self.file_url))
+                log.warn("Failed to retrieve URL: {}".format(self.file_url))
                 return None
             else:
                 with gzip.open(self.file_path, "wt") as f:
