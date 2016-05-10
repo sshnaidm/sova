@@ -2,3 +2,4 @@ paramiko
 requests
 lxml
 jinja2
+pylzma

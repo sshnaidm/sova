@@ -1,1 +1,2 @@
-dnf install python34 python34-devel libffi-devel || dnf install python3 python3-devel libffi-devel
+sudo dnf install -y python34 python34-devel || sudo dnf install -y python3 python3-devel
+sudo dnf install -y libffi-devel python-pip python-virtualenv gcc redhat-rpm-config openssl-devel libxml2-devel libxslt-devel
