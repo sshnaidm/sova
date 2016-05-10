@@ -45,7 +45,7 @@ class Periodic(object):
             return path
         web = Web(job["log_url"] + "/console.html")
         req = web.get(ignore404=True)
-        if req and req.status_code == 404:
+        if req is not None and req.status_code == 404:
             url = job["log_url"] + "/console.html.gz"
             web = Web(url=url)
             log.debug("Trying to download gzipped console")
@@ -87,11 +87,13 @@ class Periodic(object):
         j.update({
             'status': 'FAILURE',
             'fail': True,
-            'branch': ''
+            'branch': '',
+            'length': 0,
         })
         console = self._get_console(j)
         if not console:
             log.error("Failed to get console for periodic {}".format(repr(j)))
+            return None
         else:
             for line in fileinput.input(console,
                                         openhook=fileinput.hook_compressed):
@@ -119,7 +121,10 @@ class Periodic(object):
         jobs = self.parse_index(index)[:self.limit]
         for j in jobs:
             raw = self._get_more_data(j)
-            yield PeriodicJob(**raw)
+            if raw is None:
+                log.error("Failed to process job {}".format(repr(j)))
+            else:
+                yield PeriodicJob(**raw)
 
 
 class PeriodicJob(Job):
