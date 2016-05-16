@@ -76,7 +76,7 @@ class Gerrit(object):
 
         data = []
 
-        cmd_template = ('gerrit query "status: open project: '
+        cmd_template = ('gerrit query "status: reviewed project: '
                         '{project} '
                         'branch: {branch}" '
                         '--comments '
