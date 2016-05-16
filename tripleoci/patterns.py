@@ -242,6 +242,13 @@ PATTERNS = {
             "tag": "infra",
             "logstash": 'crm_resource for openstack'
         },
+        {
+            "id": 32,
+            "pattern": "failed to open 'instack.qcow2': No such file or",
+            "msg": "FAIL to build image instack.qcow2.",
+            "tag": "code",
+            "logstash": "failed to open 'instack.qcow2': No such file or",
+        },
     ],
 
     '/logs/postci.txt.gz': [
