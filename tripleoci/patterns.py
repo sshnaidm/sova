@@ -30,7 +30,7 @@ PATTERNS = {
             "pattern": "Stack overcloud CREATE_FAILED",
             "msg": "Overcloud stack: FAILED.",
             "tag": "info",
-            "logstash": '',
+            "logstash": 'Stack overcloud CREATE_FAILED',
         },
         {
             "id": 3,
@@ -160,7 +160,7 @@ PATTERNS = {
         },
         {
             "id": 21,
-            "pattern": "Create timed out       | CREATE_FAILED",
+            "pattern": "Create timed out",
             "msg": "Overcloud create timed out.",
             "tag": "code",
             "logstash": '',
@@ -248,6 +248,13 @@ PATTERNS = {
             "msg": "FAIL to build image instack.qcow2.",
             "tag": "code",
             "logstash": "failed to open 'instack.qcow2': No such file or",
+        },
+        {
+            "id": 33,
+            "pattern": "Stack overcloud UPDATE_FAILED",
+            "msg": "Stack update FAILED.",
+            "tag": "info",
+            "logstash": 'Stack overcloud UPDATE_FAILED',
         },
     ],
 
