@@ -263,12 +263,14 @@ PATTERNS = {
             "pattern": git_re,
             "msg": "DNS resolve of {} FAIL.",
             "tag": "infra",
+            "logstash": git_re,
         },
         {
             "id": 35,
             "pattern": deploy_re,
             "msg": "Deployment exited with code {}.",
             "tag": "code",
+            "logstash": deploy_re,
         },
     ],
 

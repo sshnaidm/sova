@@ -95,7 +95,7 @@ class Periodic(object):
             log.error("Failed to get console for periodic {}".format(repr(j)))
             return None
         else:
-            finput = fileinput.input(console,
+            finput = fileinput.FileInput(console,
                                         openhook=fileinput.hook_compressed)
             for line in finput:
                 line = line.decode()

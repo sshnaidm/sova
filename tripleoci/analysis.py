@@ -61,7 +61,7 @@ def analyze(job, down_path):
         else:
             try:
                 log.debug("Opening file for scan: {}".format(jfile))
-                finput = fileinput.input(
+                finput = fileinput.FileInput(
                         jfile, openhook=fileinput.hook_compressed)
                 for line in finput:
                     line = line.decode()
