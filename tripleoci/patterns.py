@@ -8,6 +8,7 @@ resolving_re = re.compile(
 exec_re = re.compile(r"mError: (\S+?) \S+ returned 1 instead of one of")
 failed_deps_re = re.compile(r"Failed to build (.*)")
 curl_re = re.compile(r"curl: \S*? couldn't open file \"(.*?)\"")
+git_re = re.compile(r"fatal: Unable to look up (\S+)")
 
 # Patterns to search in files
 PATTERNS = {
@@ -255,6 +256,12 @@ PATTERNS = {
             "msg": "Stack update FAILED.",
             "tag": "info",
             "logstash": 'Stack overcloud UPDATE_FAILED',
+        },
+        {
+            "id": 34,
+            "pattern": git_re,
+            "msg": "DNS resolve of {} FAIL.",
+            "tag": "infra",
         },
     ],
 
