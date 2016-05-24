@@ -95,8 +95,9 @@ class Periodic(object):
             log.error("Failed to get console for periodic {}".format(repr(j)))
             return None
         else:
-            for line in fileinput.input(console,
-                                        openhook=fileinput.hook_compressed):
+            finput = fileinput.input(console,
+                                        openhook=fileinput.hook_compressed)
+            for line in finput:
                 line = line.decode()
                 if "Finished: SUCCESS" in line:
                     j['fail'] = False
@@ -114,6 +115,7 @@ class Periodic(object):
                 if "Finished: " in line:
                     end = ts_re.search(line).group(1)
             j['length'] = delta(end, start) if start and end else 0
+            finput.close()
         return j
 
     def get_jobs(self):

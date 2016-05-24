@@ -61,8 +61,9 @@ def analyze(job, down_path):
         else:
             try:
                 log.debug("Opening file for scan: {}".format(jfile))
-                for line in fileinput.input(
-                        jfile, openhook=fileinput.hook_compressed):
+                finput = fileinput.input(
+                        jfile, openhook=fileinput.hook_compressed)
+                for line in finput:
                     line = line.decode()
                     for p in PATTERNS[file]:
                         if (line_match(p["pattern"], line) and
@@ -76,6 +77,7 @@ def analyze(job, down_path):
                             if p['logstash']:
                                 message['logstash_url'].add(compile_logstash(
                                     line, p['logstash']))
+                finput.close()
 
             except Exception as e:
                 log.error("Exception when parsing {}: {}".format(
