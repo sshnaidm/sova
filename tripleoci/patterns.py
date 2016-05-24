@@ -9,6 +9,7 @@ exec_re = re.compile(r"mError: (\S+?) \S+ returned 1 instead of one of")
 failed_deps_re = re.compile(r"Failed to build (.*)")
 curl_re = re.compile(r"curl: \S*? couldn't open file \"(.*?)\"")
 git_re = re.compile(r"fatal: Unable to look up (\S+)")
+deploy_re = re.compile(r"Deployment exited with non-zero status code: (\d+)")
 
 # Patterns to search in files
 PATTERNS = {
@@ -262,6 +263,12 @@ PATTERNS = {
             "pattern": git_re,
             "msg": "DNS resolve of {} FAIL.",
             "tag": "infra",
+        },
+        {
+            "id": 35,
+            "pattern": deploy_re,
+            "msg": "Deployment exited with code {}.",
+            "tag": "code",
         },
     ],
 
