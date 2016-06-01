@@ -43,11 +43,11 @@ def meow(days=None,
             g = Gerrit(period=days)
             gerrit = g.get_project_patches(config.PROJECTS)
             # Dump gerrit data for investigation
-            with open("/tmp/gerrit", "w") as f:
+            with open(config.TMP_DIR + "/gerrit", "w") as f:
                 f.write(json.dumps(gerrit))
         # If debug mode
         else:
-            with open("/tmp/gerrit", "r") as f:
+            with open(config.TMP_DIR + "/gerrit", "r") as f:
                 gerrit = json.loads(f.read())
         jobs = (job for patch in gerrit for job in Patch(patch).jobs)
     else:

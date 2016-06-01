@@ -7,6 +7,7 @@ logging.basicConfig(
 log = logging.getLogger('watchcat')
 log.setLevel(logging.DEBUG)
 
+DIR = os.path.dirname(os.path.realpath(__file__))
 # https://github.com/openstack-infra/project-config/blob/master/
 # gerritbot/channels.yaml
 PROJECTS = (
@@ -42,7 +43,20 @@ PERIODIC_URLS = [
     'http://logs.openstack.org/periodic/periodic-tripleo-ci-f22-upgrades/',
 ]
 
-DOWNLOAD_PATH = os.path.join(os.environ["HOME"], "ci_status")
+DOWNLOAD_PATH = os.environ.get('OPENSHIFT_DATA_DIR',
+                               os.path.join(os.environ["HOME"], "ci_status"))
+if not os.path.exists(DOWNLOAD_PATH):
+    os.makedirs(DOWNLOAD_PATH)
+TMP_DIR = os.environ.get('OPENSHIFT_TMP_DIR', "/tmp/")
+if os.path.exists(os.path.join(DIR, "..", "robi_id_rsa")):
+    SSH_PRIV_KEY = os.path.join(DIR, "..", "robi_id_rsa")
+elif os.path.exists(os.path.join(os.environ.get('OPENSHIFT_DATA_DIR', "./"),
+                                 "robi_id_rsa")):
+    SSH_PRIV_KEY = os.path.join(os.environ.get('OPENSHIFT_DATA_DIR', "./"),
+                                "robi_id_rsa")
+else:
+    SSH_PRIV_KEY = None
+INDEX_HTML = os.path.join(DOWNLOAD_PATH, "index.html")
 SSH_TIMEOUT = 120
 GERRIT_REQ_TIMEOUT = 2
 GERRIT_PATCH_LIMIT = 200

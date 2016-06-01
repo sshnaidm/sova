@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 import os
-
-from flaskapp import app as application
 virtenv = os.path.join(os.environ.get('OPENSHIFT_PYTHON_DIR','.'), 'virtenv')
 
+from flaskapp import app as application
 #
 # Below for testing only
 #

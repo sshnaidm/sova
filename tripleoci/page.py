@@ -2,6 +2,7 @@ import jinja2
 import os
 import pickle
 
+from tripleoci import config
 from tripleoci.watchcat import meow
 from tripleoci.utils import top, statistics
 
@@ -29,25 +30,24 @@ def create_html():
                        days=8,
                        job_type=None,
                        exclude="gate-tripleo-ci-f22-containers",
-                       down_path=os.path.join(os.environ["HOME"], "ci_status"))
+                       down_path=config.DOWNLOAD_PATH)
 
         periodic_data = meow(limit=None,
                              days=7,
                              job_type=None,
                              exclude=None,
-                             down_path=os.path.join(os.environ["HOME"],
-                                                    "ci_status"),
+                             down_path=config.DOWNLOAD_PATH,
                              periodic=True)
 
-        with open("/tmp/ci_data_dump", "wb") as g:
+        with open(config.TMP_DIR + "/ci_data_dump", "wb") as g:
             pickle.dump(ci_data, g)
-        with open("/tmp/periodic_data_dump", "wb") as g:
+        with open(config.TMP_DIR + "/periodic_data_dump", "wb") as g:
             pickle.dump(periodic_data, g)
     # For debug mode
     else:
-        with open("/tmp/ci_data_dump", "rb") as g:
+        with open(config.TMP_DIR + "/ci_data_dump", "rb") as g:
             ci_data = pickle.load(g)
-        with open("/tmp/periodic_data_dump", "rb") as g:
+        with open(config.TMP_DIR + "/periodic_data_dump", "rb") as g:
             periodic_data = pickle.load(g)
 
     errors_top = top(ci_data)
@@ -66,7 +66,7 @@ def create_html():
         'periodic_stats': per_stats,
         "errors_top": errors_top,
     })
-    with open(os.path.join(work_dir, "index.html"), "w") as f:
+    with open(config.INDEX_HTML, "w") as f:
         # f.write(html.encode('utf-8'))
         f.write(html.encode('ascii', 'ignore').decode('ascii'))
 

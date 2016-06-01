@@ -17,8 +17,6 @@ from tripleoci.config import log
 
 requests.packages.urllib3.disable_warnings()
 
-DIR = os.path.dirname(os.path.realpath(__file__))
-
 
 class SSH(object):
     """
@@ -59,7 +57,7 @@ class Gerrit(object):
     """
 
     def __init__(self, period=None):
-        self.key_path = os.path.join(DIR, "..", "robi_id_rsa")
+        self.key_path = config.SSH_PRIV_KEY
         self.ssh = None
         self.period = period
 
