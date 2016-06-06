@@ -42,6 +42,12 @@ PERIODIC_URLS = [
     'http://logs.openstack.org/periodic/periodic-tripleo-ci-f22-nonha/',
     'http://logs.openstack.org/periodic/periodic-tripleo-ci-f22-upgrades/',
     'http://logs.openstack.org/periodic/periodic-tripleo-ci-f22-ha-tempest/',
+    'http://logs.openstack.org/periodic/periodic-tripleo-ci-centos-7-upgrades',
+    'http://logs.openstack.org/periodic/periodic-tripleo-ci-centos-7-ha',
+    'http://logs.openstack.org/periodic/periodic-tripleo-ci-centos-7-nonha',
+    'http://logs.openstack.org/periodic/periodic-tripleo-ci-centos-7-ha-liberty',
+    'http://logs.openstack.org/periodic/periodic-tripleo-ci-centos-7-ha-mitaka',
+    'http://logs.openstack.org/periodic/periodic-tripleo-ci-centos-7-ha-tempest',
 ]
 
 DOWNLOAD_PATH = os.environ.get('OPENSHIFT_DATA_DIR',
@@ -68,4 +74,9 @@ GERRIT_BRANCHES = ("master", "stable/liberty", "stable/mitaka")
 TRACKED_JOBS = ("gate-tripleo-ci-f22-upgrades",
                 "gate-tripleo-ci-f22-nonha",
                 "gate-tripleo-ci-f22-ha",
-                "gate-tripleo-ci-f22-containers")
+                "gate-tripleo-ci-f22-containers",
+                "gate-tripleo-ci-centos-7-ha",
+                "gate-tripleo-ci-centos-7-nonha",
+                "gate-tripleo-ci-centos-7-upgrades",
+                "gate-tripleo-ci-centos-7-ha-tempest"
+                )
