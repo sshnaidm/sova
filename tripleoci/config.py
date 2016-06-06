@@ -41,6 +41,7 @@ PERIODIC_URLS = [
     'http://logs.openstack.org/periodic/periodic-tripleo-ci-f22-ha/',
     'http://logs.openstack.org/periodic/periodic-tripleo-ci-f22-nonha/',
     'http://logs.openstack.org/periodic/periodic-tripleo-ci-f22-upgrades/',
+    'http://logs.openstack.org/periodic/periodic-tripleo-ci-f22-ha-tempest/',
 ]
 
 DOWNLOAD_PATH = os.environ.get('OPENSHIFT_DATA_DIR',
