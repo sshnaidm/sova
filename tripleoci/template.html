@@ -45,7 +45,7 @@
                 <strong>{{ key }}</strong> statistics:<br/>
                 {% if data == periodic %}{% set main=periodic_stats %}{% else %}{% set main=ci_stats %}{% endif %}
                 {% if data == ci %}
-                Today: {% if main.today %}{% set stat=main.today.job_stats[key] %}<strong>
+                Today: {% if main.today and key in main.today.job_stats %}{% set stat=main.today.job_stats[key] %}<strong>
                     <span style="color:red">{{ (stat.infra|default(0)*100/stat.len)|int }}%</span>/
                     <span style="color:blue">{{ (stat.code|default(0)*100/stat.len)|round|int }}%</span>/
                     <span style="color:black">{{ ((stat.len - stat.infra|default(0) - stat.code|default(0))|default(0)*100/stat.len)|round|int }}</span>%</strong> of <strong>{{ stat.len }}</strong> jobs <strong>
@@ -54,7 +54,7 @@
                     <span style="color:black">{{ (stat.len - stat.infra|default(0) - stat.code|default(0))|default(0) }}</span>)</strong>
                 {% else %}N/A
                 {% endif %}<br/>
-                Yesterday: {% if main.yesterday %}{% set stat=main.yesterday.job_stats[key] %}<strong>
+                Yesterday: {% if main.yesterday and key in main.yesterday.job_stats %}{% set stat=main.yesterday.job_stats[key] %}<strong>
                     <span style="color:red">{{ (stat.infra|default(0)*100/stat.len)|round|int }}%</span>/
                     <span style="color:blue">{{ (stat.code|default(0)*100/stat.len)|round|int }}%</span>/
                     <span style="color:black">{{ ((stat.len - stat.infra|default(0) - stat.code|default(0))|default(0)*100/stat.len)|round|int }}</span>%</strong> of <strong>{{ stat.len }}</strong> jobs <strong>
@@ -64,7 +64,7 @@
                 {% else %}N/A
                 {% endif %}<br/>
                 {% endif %}
-                Week: {% if main.week %}{% set stat=main.week.job_stats[key] %}<strong>
+                Week: {% if main.week and key in main.week.job_stats %}{% set stat=main.week.job_stats[key] %}<strong>
                     <span style="color:red">{{ (stat.infra|default(0)*100/stat.len)|round|int }}%</span>/
                     <span style="color:blue">{{ (stat.code|default(0)*100/stat.len)|round|int }}%</span>/
                     <span style="color:black">{{ ((stat.len - stat.infra|default(0) - stat.code|default(0))|default(0)*100/stat.len)|round|int }}</span>%</strong> of <strong>{{ stat.len }}</strong> jobs <strong>
@@ -73,7 +73,7 @@
                     <span style="color:black">{{ (stat.len - stat.infra|default(0) - stat.code|default(0))|default(0) }}</span>)</strong>
                 {% else %}N/A
                 {% endif %}<br/>
-                Overall: {% if main.all_times %}{% set stat=main.all_times.job_stats[key] %}<strong>
+                Overall: {% if main.all_times and key in main.all_times.job_stats %}{% set stat=main.all_times.job_stats[key] %}<strong>
                     <span style="color:red">{{ (stat.infra|default(0)*100/stat.len)|round|int }}%</span>/
                     <span style="color:blue">{{ (stat.code|default(0)*100/stat.len)|round|int }}%</span>/
                     <span style="color:black">{{ ((stat.len - stat.infra|default(0) - stat.code|default(0))|default(0)*100/stat.len)|round|int }}</span>% </strong> of <strong>{{ stat.len }}</strong> jobs <strong>
