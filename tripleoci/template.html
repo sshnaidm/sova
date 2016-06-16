@@ -97,19 +97,19 @@
             </div>
         </div>
             <table class="table table-hover">
-            <thead><td>Date</td><td>Length</td><td>Reason</td><td>Patch</td><td>Logs</td>{% if data == ci %}<td>Project</td><td>Branch</td>{% endif %}<td>Logstash</td></thead>
+            <thead><td>Date</td><td>Length</td><td>Reason</td>{% if data == ci %}<td>Patch</td>{% endif %}<td>Logs</td>{% if data == ci %}<td>Project</td><td>Branch</td>{% endif %}<td>Logstash</td></thead>
             {%  for i in data[key] %}
-                <tr style="color:{% if i.reason and 'infra' in i.tags %}red{% elif i.reason %}blue{% else %}black{% endif %}">
+                <tr style="color:{% if i.reason and 'infra' in i.tags %}red{% elif i.success %}green{% elif i.reason %}blue{% else %}black{% endif %}">
                     {# Date #}
-                    <td style="color:{% if i.reason and 'infra' in i.tags %}red{% elif i.reason %}blue{% else %}black{% endif %}">
+                    <td style="color:{% if i.reason and 'infra' in i.tags %}red{% elif i.success %}green{% elif i.reason %}blue{% else %}black{% endif %}">
                     | {{  i.job.datetime }} |
                     </td>
                     {# Length #}
-                    <td style="color:{% if i.reason and 'infra' in i.tags %}red{% elif i.reason %}blue{% else %}black{% endif %}">
+                    <td style="color:{% if i.reason and 'infra' in i.tags %}red{% elif i.success %}green{% elif i.reason %}blue{% else %}black{% endif %}">
                     | {{  i.job.length }} min |
                     </td>
                     {# Reason #}
-                    <td style="color:{% if i.reason and 'infra' in i.tags %}red{% elif i.reason %}blue{% else %}black{% endif %}">
+                    <td style="color:{% if i.reason and 'infra' in i.tags %}red{% elif i.success %}green{% elif i.reason %}blue{% else %}black{% endif %}">
                     | {{ i.msg.keys() | join(' ')}} |
                     </td>
                     {# Patchset #}

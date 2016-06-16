@@ -35,6 +35,7 @@ def analyze(job, down_path):
         "periodic": "periodic" in job.name,
         'patterns': set(),
         'logstash_url': set(),
+        'success': job.status == 'SUCCESS',
     }
     templ = ("{date}\t"
              "{job_type:38}\t"
@@ -49,6 +50,12 @@ def analyze(job, down_path):
         message['text'] = 'No console file'
         message['msg'] = {'No console file': 'infra'}
         message['tags'] = ['infra']
+        return message
+    if message['success']:
+        message['text'] = 'SUCCESS'
+        message['msg'] = {'SUCCESS': ''}
+        message['reason'] = False
+        message['tags'] = ['']
         return message
     files = PATTERNS.keys()
     for file in files:

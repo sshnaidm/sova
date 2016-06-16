@@ -37,7 +37,8 @@ def create_html():
                              job_type=None,
                              exclude=None,
                              down_path=config.DOWNLOAD_PATH,
-                             periodic=True)
+                             periodic=True,
+                             fail=False)
 
         with open(config.TMP_DIR + "/ci_data_dump", "wb") as g:
             pickle.dump(ci_data, g)

@@ -36,12 +36,6 @@ PROJECTS = (
 )
 
 PERIODIC_URLS = [
-    'http://logs.openstack.org/periodic/periodic-tripleo-ci-f22-ha-liberty/',
-    'http://logs.openstack.org/periodic/periodic-tripleo-ci-f22-ha-mitaka/',
-    'http://logs.openstack.org/periodic/periodic-tripleo-ci-f22-ha/',
-    'http://logs.openstack.org/periodic/periodic-tripleo-ci-f22-nonha/',
-    'http://logs.openstack.org/periodic/periodic-tripleo-ci-f22-upgrades/',
-    'http://logs.openstack.org/periodic/periodic-tripleo-ci-f22-ha-tempest/',
     'http://logs.openstack.org/periodic/periodic-tripleo-ci-centos-7-upgrades',
     'http://logs.openstack.org/periodic/periodic-tripleo-ci-centos-7-ha',
     'http://logs.openstack.org/periodic/periodic-tripleo-ci-centos-7-nonha',
@@ -71,10 +65,7 @@ GERRIT_HOST = "review.openstack.org"
 GERRIT_PORT = 29418
 GERRIT_USER = "robo"
 GERRIT_BRANCHES = ("master", "stable/liberty", "stable/mitaka")
-TRACKED_JOBS = ("gate-tripleo-ci-f22-upgrades",
-                "gate-tripleo-ci-f22-nonha",
-                "gate-tripleo-ci-f22-ha",
-                "gate-tripleo-ci-f22-containers",
+TRACKED_JOBS = (
                 "gate-tripleo-ci-centos-7-ha",
                 "gate-tripleo-ci-centos-7-nonha",
                 "gate-tripleo-ci-centos-7-upgrades",
