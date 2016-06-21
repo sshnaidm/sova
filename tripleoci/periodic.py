@@ -99,20 +99,23 @@ class Periodic(object):
                                         openhook=fileinput.hook_compressed)
             for line in finput:
                 line = line.decode()
-                if "Finished: SUCCESS" in line:
+                if ("Finished: SUCCESS" in line or
+                            '[Zuul] Job complete, result: SUCCESS' in line):
                     j['fail'] = False
                     j['status'] = 'SUCCESS'
-                elif "Finished: FAILURE" in line:
+                elif ("Finished: FAILURE" in line or
+                              '[Zuul] Job complete, result: FAILURE' in line):
                     j['fail'] = True
                     j['status'] = 'FAILURE'
-                elif "Finished: ABORTED" in line:
+                elif ("Finished: ABORTED" in line or
+                              '[Zuul] Job complete, result: ABORTED' in line):
                     j['fail'] = True
                     j['status'] = 'ABORTED'
                 if branch_re.search(line):
                     j['branch'] = branch_re.search(line).group(1)
-                if 'Started by user' in line:
+                if 'Started by user' in line or '[Zuul] Launched by' in line:
                     start = ts_re.search(line).group(1)
-                if "Finished: " in line:
+                if "Finished: " in line or '[Zuul] Job complete' in line:
                     end = ts_re.search(line).group(1)
             j['length'] = delta(end, start) if start and end else 0
             finput.close()
