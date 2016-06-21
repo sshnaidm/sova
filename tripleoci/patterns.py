@@ -272,6 +272,13 @@ PATTERNS = {
             "tag": "code",
             "logstash": deploy_re,
         },
+        {
+            "id": 36,
+            "pattern": 'Error: No connected Gearman servers',
+            "msg": "Gearman problem.",
+            "tag": "infra",
+            "logstash": "No connected Gearman servers",
+        },
     ],
 
     '/logs/postci.txt.gz': [
