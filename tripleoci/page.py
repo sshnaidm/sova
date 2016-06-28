@@ -27,13 +27,13 @@ def create_html():
     work_dir = os.path.dirname(__file__)
     if not DEBUG:
         ci_data = meow(limit=None,
-                       days=8,
+                       days=14,
                        job_type=None,
                        exclude="gate-tripleo-ci-f22-containers",
                        down_path=config.DOWNLOAD_PATH)
 
         periodic_data = meow(limit=None,
-                             days=7,
+                             days=14,
                              job_type=None,
                              exclude=None,
                              down_path=config.DOWNLOAD_PATH,
