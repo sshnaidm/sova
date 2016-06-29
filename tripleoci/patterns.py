@@ -279,6 +279,13 @@ PATTERNS = {
             "tag": "infra",
             "logstash": "No connected Gearman servers",
         },
+        {
+            "id": 37,
+            "pattern": 'Overcloud pingtest FAILED',
+            "msg": "Overcloud pingtest FAILED.",
+            "tag": "code",
+            "logstash": "Overcloud pingtest FAILED",
+        },
     ],
 
     '/logs/postci.txt.gz': [
