@@ -74,7 +74,7 @@ def analyze(job, down_path):
                     line = line.decode()
                     for p in PATTERNS[file]:
                         if (line_match(p["pattern"], line) and
-                           p["msg"] not in msg):
+                           p["msg"].lower() not in [i.lower() for i in msg]):
                             log.debug("Found pattern {} in file {}:{}".format(
                                 repr(p), file, jfile))
                             msg.update({p["msg"].format(
