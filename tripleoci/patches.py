@@ -1,10 +1,20 @@
 import datetime
 import re
+import time
 
 JOB_RE = re.compile(r"(\S+) (http://logs.openstack.org/\S+) "
                     r": (FAILURE|SUCCESS) in ([hms \d]+)")
 PATCH_RE = re.compile(r"Patch Set (\d+):")
 TIME_RE = re.compile(r"((?P<hour>\d+)h)? *((?P<min>\d+)m)? *((?P<sec>\d+)s)?")
+
+
+def utc_delta():
+    ts = time.time()
+    utc_offset = (datetime.datetime.fromtimestamp(ts) -
+                  datetime.datetime.utcfromtimestamp(ts)).total_seconds()
+    return datetime.timedelta(seconds=utc_offset)
+
+UTC_OFFSET = utc_delta()
 
 
 class Patch(object):
@@ -99,12 +109,15 @@ class Job(object):
         self.patchset = patchset
         self.ts = timestamp
         self.branch = self.patch.branch if self.patch else ""
-        self.datetime = self.ts.strftime("%m-%d %H:%M")
+        self.datetime = self._to_utc(self.ts.strftime("%m-%d %H:%M"))
         self.log_hash = self.hashed(self.log_url)
         self.periodic = False
 
     def hashed(self, url):
         return url.strip("/").split("/")[-1]
+
+    def _to_utc(self, ts):
+        return ts - UTC_OFFSET
 
     def __repr__(self):
         return str({'name': self.name,

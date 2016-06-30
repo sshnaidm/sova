@@ -1,7 +1,6 @@
 import logging
 import os
 
-
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 log = logging.getLogger('watchcat')
@@ -66,12 +65,12 @@ GERRIT_PORT = 29418
 GERRIT_USER = "robo"
 GERRIT_BRANCHES = ("master", "stable/liberty", "stable/mitaka")
 TRACKED_JOBS = (
-                "gate-tripleo-ci-centos-7-ha",
-                "gate-tripleo-ci-centos-7-nonha",
-                "gate-tripleo-ci-centos-7-upgrades",
-                "gate-tripleo-ci-centos-7-ha-tempest",
-                "gate-tripleo-ci-centos-7-nonha-liberty",
-                "gate-tripleo-ci-centos-7-ha-liberty",
-                "gate-tripleo-ci-centos-7-nonha-mitaka",
-                "gate-tripleo-ci-centos-7-ha-mitaka"
-                )
+    "gate-tripleo-ci-centos-7-ha",
+    "gate-tripleo-ci-centos-7-nonha",
+    "gate-tripleo-ci-centos-7-upgrades",
+    "gate-tripleo-ci-centos-7-ha-tempest",
+    "gate-tripleo-ci-centos-7-nonha-liberty",
+    "gate-tripleo-ci-centos-7-ha-liberty",
+    "gate-tripleo-ci-centos-7-nonha-mitaka",
+    "gate-tripleo-ci-centos-7-ha-mitaka"
+)
