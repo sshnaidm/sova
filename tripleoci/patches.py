@@ -109,7 +109,7 @@ class Job(object):
         self.patchset = patchset
         self.ts = timestamp
         self.branch = self.patch.branch if self.patch else ""
-        self.datetime = self._to_utc(self.ts.strftime("%m-%d %H:%M"))
+        self.datetime = self._to_utc(self.ts).strftime("%m-%d %H:%M")
         self.log_hash = self.hashed(self.log_url)
         self.periodic = False
 

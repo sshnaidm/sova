@@ -71,7 +71,7 @@ class Periodic(object):
             job["log_hash"] = lhash
             job["log_url"] = self.per_url.rstrip("/") + "/" + lhash
             job["ts"] = datetime.datetime.strptime(td2.text.strip(),
-                                                   "%d-%b-%Y %H:%M")
+                                                   "%Y-%m-%d %H:%M")
             job["name"] = self.per_url.rstrip("/").split("/")[-1]
             jobs.append(job)
         return sorted(jobs, key=lambda x: x['ts'], reverse=True)
