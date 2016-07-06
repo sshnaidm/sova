@@ -297,11 +297,18 @@ PATTERNS = {
             "logstash": puppet_re,
         },
         {
-            "id": 202,
+            "id": 203,
             "pattern": "Can't connect to local MySQL server through socket",
             "msg": "MySQL failure.",
             "tag": "code",
             "logstash": "Can't connect to local MySQL server through socket",
+        },
+        {
+            "id": 204,
+            "pattern": "Could not evaluate: Cannot allocate memory - fork(2)",
+            "msg": "Puppet memory fail.",
+            "tag": "infra",
+            "logstash": "Could not evaluate: Cannot allocate memory - fork",
         },
     ],
     # '/logs/overcloud-controller-0.tar.xz//var/log/neutron/server.log': [
