@@ -41,6 +41,12 @@ PERIODIC_URLS = [
     'http://logs.openstack.org/periodic/periodic-tripleo-ci-centos-7-ha-liberty',
     'http://logs.openstack.org/periodic/periodic-tripleo-ci-centos-7-ha-mitaka',
     'http://logs.openstack.org/periodic/periodic-tripleo-ci-centos-7-ha-tempest',
+    'http://logs.openstack.org/periodic/periodic-tripleo-ci-centos-7-ovb-ha-liberty',
+    'http://logs.openstack.org/periodic/periodic-tripleo-ci-centos-7-ovb-ha-mitaka',
+    'http://logs.openstack.org/periodic/periodic-tripleo-ci-centos-7-ovb-ha-tempest',
+    'http://logs.openstack.org/periodic/periodic-tripleo-ci-centos-7-ovb-ha',
+    'http://logs.openstack.org/periodic/periodic-tripleo-ci-centos-7-ovb-nonha',
+    'http://logs.openstack.org/periodic/periodic-tripleo-ci-centos-7-ovb-upgrades',
 ]
 
 DOWNLOAD_PATH = os.environ.get('OPENSHIFT_DATA_DIR',
