@@ -60,12 +60,16 @@ def create_html():
         extensions=['jinja2.ext.autoescape'],
         autoescape=True)
     template = JINJA_ENVIRONMENT.get_template('template.html')
+    ci_data, periodic_data = list(ci_data), list(periodic_data)
+    branches = sorted(
+        set([i['job'].branch.replace("stable/", "") for i in ci_data]))
     html = template.render({
         "ci": by_job_type(list(ci_data)),
         "periodic": by_job_type(list(periodic_data)),
         'ci_stats': stats,
         'periodic_stats': per_stats,
         "errors_top": errors_top,
+        "branches": branches,
     })
     with open(config.INDEX_HTML, "w") as f:
         # f.write(html.encode('utf-8'))

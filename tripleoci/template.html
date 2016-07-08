@@ -21,11 +21,30 @@
 
     {% for data in (ci, periodic) %}
         {% set dataloop = loop %}
-        {% for key in data %}
-            {%  if loop.first %}<li class="disabled"><a><strong>
-                {% if 'periodic' in key %}Periodic jobs{% else %}Gate jobs{% endif %}:</strong></a></li>
-            {% endif %}
-          <li{%  if loop.first and dataloop.first %} class="active"{% endif %}><a data-toggle="tab" href="#{{ key }}">{{ key }}</a></li>
+
+        <h2 align="center">
+                {% if data==periodic %}Periodic jobs{% else %}Gate jobs{% endif %}</h2>
+
+        {% set alljobs=data.keys()|list %}
+        {% for branch in branches if branch != 'master' %}
+            {% set brloop = loop %}
+            <h3>{{ branch|capitalize }}</h3>
+
+            {% for key in data %}
+                {% set keyloop = loop %}
+                {% if branch in key %}
+                <li{%  if brloop.first and dataloop.first and loop.first %} class="active"{% endif %}><a data-toggle="tab" href="#{{ key }}">{{ key }}</a></li>
+                {% if alljobs.remove(key) %}{% endif %}
+                {% endif %}
+            {% endfor %}
+            <div class="clearfix"></div>
+        {% endfor %}
+        <div class="clearfix"></div>
+        <h3>Master</h3>
+        {% set master_jobs=data.keys|reject() %}
+        {% for key in alljobs %}
+            {% set keyloop = loop %}
+            <li{% if dataloop.first and loop.first %} class="active"{% endif %}><a data-toggle="tab" href="#{{ key }}">{{ key }}</a></li>
         {% endfor %}
         <div class="clearfix"></div>
     {% endfor %}
