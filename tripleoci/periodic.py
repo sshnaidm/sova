@@ -32,7 +32,7 @@ class Periodic(object):
     def _get_index(self):
         web = Web(self.per_url)
         req = web.get()
-        if not req or req.status_code != 200:
+        if req is None or int(req.status_code) != 200:
             log.error("Can not retrieve periodic page {}".format(self.per_url))
             return None
         return req.content
@@ -43,14 +43,14 @@ class Periodic(object):
         if os.path.exists(path):
             log.debug("Console is already here: {}".format(path))
             return path
-        web = Web(job["log_url"] + "/console.html")
+        web = Web(job["log_url"] + "/console.html.gz")
         req = web.get(ignore404=True)
-        if req is not None and req.status_code == 404:
-            url = job["log_url"] + "/console.html.gz"
+        if req is not None and int(req.status_code) == 404:
+            url = job["log_url"] + "/console.html"
             web = Web(url=url)
-            log.debug("Trying to download gzipped console")
+            log.debug("Trying to download raw console")
             req = web.get()
-        if not req or req.status_code != 200:
+        if req is None or int(req.status_code) != 200:
             log.error("Failed to retrieve console: {}".format(job["log_url"]))
             return None
         else:
@@ -123,7 +123,10 @@ class Periodic(object):
 
     def get_jobs(self):
         index = self._get_index()
-        jobs = self.parse_index(index)[:self.limit]
+        if index:
+            jobs = self.parse_index(index)[:self.limit]
+        else:
+            jobs = []
         for j in jobs:
             raw = self._get_more_data(j)
             if raw is None:

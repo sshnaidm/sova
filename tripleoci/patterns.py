@@ -288,7 +288,7 @@ PATTERNS = {
         },
     ],
 
-    '/logs/postci.txt.gz': [
+    '/logs/postci.txt': [
         {
             "id": 202,
             "pattern": puppet_re,
@@ -320,4 +320,3 @@ PATTERNS = {
     #     },
     # ]
 }
-PATTERNS['/logs/postci.log'] = PATTERNS['/logs/postci.txt.gz']

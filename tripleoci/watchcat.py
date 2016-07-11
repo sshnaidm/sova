@@ -2,7 +2,7 @@ from __future__ import print_function
 import json
 import tripleoci.config as config
 from tripleoci.utils import Gerrit
-from tripleoci.analysis import analyze
+from tripleoci.analysis import analyze_all
 from tripleoci.periodic import Periodic
 from tripleoci.patches import Patch
 from tripleoci.filters import Filter
@@ -67,9 +67,7 @@ def meow(days=None,
         periodic=periodic
     )
     filtered = f.run()
-    ready = []
-    for job in filtered:
-        ready.append(analyze(job, down_path=down_path))
+    ready = analyze_all(filtered, down_path=down_path)
     return ready
 
 

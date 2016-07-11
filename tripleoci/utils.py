@@ -132,8 +132,17 @@ class Web(object):
         except ConnectionError:
             log.error("Connection error when retriving {}".format(self.url))
             return None
-        if req.status_code != 200:
-            if not (ignore404 and req.status_code == 404):
+        except Exception as e:
+            log.error("Unknown error when retriving {}: {}".format(
+                self.url, str(e)))
+            try:
+                req = requests.get(self.url)
+            except Exception as e:
+                log.error("Giving up with error {}: {}".format(
+                self.url, str(e)))
+                return None
+        if int(req.status_code) != 200:
+            if not (ignore404 and int(req.status_code) == 404):
                 log.warn("Page {url} got status {code}".format(
                     url=self.url, code=req.status_code))
         return req
@@ -162,7 +171,7 @@ class JobFile(object):
         if not os.path.exists(self.job_dir):
             os.makedirs(self.job_dir)
         # /logs/undercloud.tar.gz//var/log/nova/nova-compute.log
-        self.file_link = file_link or "/console.html"
+        self.file_link = file_link or "console.html"
         self.file_url = job.log_url + self.file_link.split("//")[0]
         self.file_path = None
         self.build = build
@@ -201,10 +210,10 @@ class JobFile(object):
     def get_build_page(self):
         web = Web(url=self.build)
         req = web.get()
-        if not req:
+        if req is None:
             log.error("Jenkins page {} is unavailable".format(self.build))
             return None
-        if req.status_code != 200:
+        if int(req.status_code) != 200:
             return None
         else:
             self.file_path = os.path.join(self.job_dir, "build_page.gz")
@@ -219,25 +228,39 @@ class JobFile(object):
         self.file_path = os.path.join(self.job_dir, self.file_name)
         if os.path.exists(self.file_path):
             log.debug("File {} is already downloaded".format(self.file_path))
-            return self.file_path
         else:
-            web = Web(url=self.file_url)
-            ignore404 = self.file_link == "/console.html"
-            req = web.get(ignore404=ignore404)
-            if (req
-                    and req.status_code != 200
-                    and self.file_link == "/console.html"):
-                self.file_url += ".gz"
-                web = Web(url=self.file_url)
-                log.debug("Trying to download gzipped console")
-                req = web.get()
-            if not req or req.status_code != 200:
-                log.warn("Failed to retrieve URL: {}".format(self.file_url))
+            file_try1 = self.file_url + ".gz"
+            web = Web(url=file_try1)
+            req = web.get(ignore404=True)
+            if req is None:
+                log.warn("Failed to retrieve URL, request is None: {}".format(
+                        file_try1))
                 return None
-            else:
+            elif int(req.status_code) == 404:
+                if self.file_url.endswith(".html"):
+                    file_try2 = self.file_url
+                elif self.file_url.endswith(".txt"):
+                    file_try2 = self.file_url[:-4] + ".log"
+                else:
+                    log.warn("Failed to retrieve URL, tried once: {}".format(
+                        file_try1))
+                    return None
+                web = Web(url=file_try2)
+                log.debug("Trying to download raw file {}".format(file_try2))
+                req = web.get()
+                if req is None or int(req.status_code) != 200:
+                    log.warn("Failed to retrieve URL, tried twice: {}".format(
+                        file_try2))
+                    return None
+            elif int(req.status_code) not in (200, 404):
+                log.warn(
+                    "Failed to retrieve URL, request failure: {} {}".format(
+                        file_try1, req.status_code))
+                return None
+            if int(req.status_code) == 200:
                 with gzip.open(self.file_path, "wt") as f:
                     f.write(req.text)
-            return self.file_path
+        return self.file_path
 
     def _extract(self, tar, root_dir, file_path):
         log.debug("Extracting file {} from {} in {}".format(
@@ -271,7 +294,7 @@ class JobFile(object):
         if not os.path.exists(tar_file_path):
             web = Web(url=self.file_url)
             req = web.get()
-            if not req or req.status_code != 200:
+            if req is None or int(req.status_code) != 200:
                 return None
             else:
                 with open(tar_file_path, "w") as f:

@@ -1,14 +1,26 @@
 import fileinput
 import re
 
+from gevent.pool import Pool
+from gevent import monkey
+monkey.patch_all()
+
 from tripleoci.config import log
 from tripleoci.patterns import PATTERNS
 from tripleoci.utils import JobFile, urlize_logstash
 
 DEBUG = False
 
+def analyze_all(jobs, down_path):
+    p = Pool(50)
+    results = []
+    for k, j in enumerate(jobs):
+        results.append(p.spawn(analyze, j, down_path, k))
+    p.join()
+    return [i.get() for i in results]
 
-def analyze(job, down_path):
+
+def analyze(job, down_path, num):
     def line_match(pat, line):
         if isinstance(pat, re._pattern_type):
             if not pat.search(line):
@@ -26,6 +38,7 @@ def analyze(job, down_path):
         else:
             return 'message:"' + pat_stash + '"'
 
+    log.debug("Starting task {}".format(num))
     message = {
         "text": '',
         "tags": set(),

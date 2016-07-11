@@ -29,7 +29,6 @@ def create_html():
         ci_data = meow(limit=None,
                        days=14,
                        job_type=None,
-                       exclude="gate-tripleo-ci-f22-containers",
                        down_path=config.DOWNLOAD_PATH)
 
         periodic_data = meow(limit=None,
@@ -60,7 +59,6 @@ def create_html():
         extensions=['jinja2.ext.autoescape'],
         autoescape=True)
     template = JINJA_ENVIRONMENT.get_template('template.html')
-    ci_data, periodic_data = list(ci_data), list(periodic_data)
     branches = sorted(
         set([i['job'].branch.replace("stable/", "") for i in ci_data]))
     html = template.render({
