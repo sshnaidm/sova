@@ -26,12 +26,11 @@ PROJECTS = (
     'openstack/tripleo-image-elements',
     'openstack/tripleo-incubator',
     'openstack/tripleo-puppet-elements',
-    'openstack/puppet-pacemaker',
-    'openstack/puppet-tripleo',
     'openstack/tripleo-docs',
     'openstack/tripleo-quickstart',
     'openstack/tripleo-specs',
     'openstack/tripleo-ui',
+    '^openstack/puppet-.*'
 )
 
 PERIODIC_URLS = [
