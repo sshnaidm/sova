@@ -286,6 +286,13 @@ PATTERNS = {
             "tag": "code",
             "logstash": "Overcloud pingtest FAILED",
         },
+        {
+            "id": 38,
+            "pattern": '... FAILED',
+            "msg": "Tempest tests FAILED.",
+            "tag": "code",
+            "logstash": "... FAILED",
+        },
     ],
 
     '/logs/postci.txt': [
