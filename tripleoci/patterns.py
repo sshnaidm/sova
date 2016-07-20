@@ -293,6 +293,13 @@ PATTERNS = {
             "tag": "code",
             "logstash": "... FAILED",
         },
+        {
+            "id": 39,
+            "pattern": 'No more mirrors to try',
+            "msg": "Network issue 'No more mirrors'.",
+            "tag": "infra",
+            "logstash": "No more mirrors to try",
+        },
     ],
 
     '/logs/postci.txt': [
