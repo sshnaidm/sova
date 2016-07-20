@@ -80,5 +80,7 @@ TRACKED_JOBS = (
     "gate-tripleo-ci-centos-7-ha-mitaka",
     "gate-tripleo-ci-centos-7-ovb-ha",
     "gate-tripleo-ci-centos-7-ovb-nonha",
-    "gate-tripleo-ci-centos-7-ovb-ha-tempest"
+    "gate-tripleo-ci-centos-7-ovb-ha-tempest",
+    "gate-tripleo-ci-centos-7-ovb-ha-liberty",
+    "gate-tripleo-ci-centos-7-ovb-ha-mitaka",
 )
