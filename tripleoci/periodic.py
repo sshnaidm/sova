@@ -83,7 +83,7 @@ class Periodic(object):
         def delta(e, s):
             return (self._parse_ts(e) - self._parse_ts(s)).seconds / 60
 
-        start = end = None
+        start = end = last = None
         j.update({
             'status': 'FAILURE',
             'fail': True,
@@ -117,7 +117,11 @@ class Periodic(object):
                     start = ts_re.search(line).group(1)
                 if "Finished: " in line or '[Zuul] Job complete' in line:
                     end = ts_re.search(line).group(1)
+                if ts_re.search(line):
+                    last = ts_re.search(line).group(1)
+            end = end or last
             j['length'] = delta(end, start) if start and end else 0
+            j['ts'] = self._parse_ts(end) if end else j['ts']
             finput.close()
         return j
 
