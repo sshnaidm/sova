@@ -43,6 +43,9 @@ class SSH(object):
         except paramiko.ssh_exception.SSHException as e:
             log.error("SSH command failed: {}\n{}".format(cmd, e))
             return None, None, None
+        except EOFError as e:
+            log.error("SSH command failed with: {}\n{}".format(cmd, e))
+            return None, None, None
         return stdin, stdout.read(), stderr.read()
 
     def close(self):
