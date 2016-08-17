@@ -33,8 +33,13 @@ class Periodic(object):
         web = Web(self.per_url)
         req = web.get()
         if req is None or int(req.status_code) != 200:
-            log.error("Can not retrieve periodic page {}".format(self.per_url))
-            return None
+            log.warning(
+                "Trying again to download periodic page ".format(self.per_url))
+            req = web.get()
+            if req is None or int(req.status_code) != 200:
+                log.error(
+                    "Can not retrieve periodic page {}".format(self.per_url))
+                return None
         return req.content
 
     def _get_console(self, job):
