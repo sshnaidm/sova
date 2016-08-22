@@ -161,20 +161,6 @@ PATTERNS = {
             "logstash": 'fatal: The remote end hung up unexpectedly',
         },
         {
-            "id": 21,
-            "pattern": "Create timed out",
-            "msg": "Overcloud create timed out.",
-            "tag": "code",
-            "logstash": '',
-        },
-        {
-            "id": 22,
-            "pattern": "[overcloud]: CREATE_FAILED Create timed out",
-            "msg": "Overcloud create timed out.",
-            "tag": "code",
-            "logstash": '',
-        },
-        {
             "id": 23,
             "pattern": "FATAL: no longer a configured node for ",
             "msg": "Slave FAIL: no longer a configured node",
@@ -304,27 +290,37 @@ PATTERNS = {
 
     '/logs/postci.txt': [
         {
-            "id": 202,
+            "id": 200,
             "pattern": puppet_re,
             "msg": "Puppet {} FAIL.",
             "tag": "code",
             "logstash": puppet_re,
         },
         {
-            "id": 203,
+            "id": 201,
             "pattern": "Can't connect to local MySQL server through socket",
             "msg": "MySQL failure.",
             "tag": "code",
             "logstash": "Can't connect to local MySQL server through socket",
         },
         {
-            "id": 204,
+            "id": 202,
             "pattern": "Could not evaluate: Cannot allocate memory - fork(2)",
             "msg": "Puppet memory fail.",
             "tag": "infra",
             "logstash": "Could not evaluate: Cannot allocate memory - fork",
         },
     ],
+
+    '/logs/undercloud/var/log/ironic/ironic-conductor.txt': [
+        {
+            "id": 300,
+            "pattern": "Timeout reached while waiting for callback for node",
+            "msg": "Ironic deployment timeout.",
+            "tag": "code",
+            "logstash": "Timeout reached while waiting for callback for node",
+        },
+    ]
     # '/logs/overcloud-controller-0.tar.xz//var/log/neutron/server.log': [
     #     {
     #         "id": 1849,
