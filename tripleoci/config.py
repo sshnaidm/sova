@@ -83,6 +83,8 @@ TRACKED_JOBS = (
     "gate-tripleo-ci-centos-7-ovb-ha-tempest",
     "gate-tripleo-ci-centos-7-ovb-ha-liberty",
     "gate-tripleo-ci-centos-7-ovb-ha-mitaka",
-    "gate-tripleo-ci-centos-7-nonha-multinode-nv",
-    'gate-tripleo-ci-centos-7-undercloud-nv',
+    "gate-tripleo-ci-centos-7-ovb-nonha-liberty",
+    "gate-tripleo-ci-centos-7-ovb-nonha-mitaka",
+    "gate-tripleo-ci-centos-7-nonha-multinode",
+    "gate-tripleo-ci-centos-7-undercloud"
 )
