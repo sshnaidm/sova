@@ -162,6 +162,10 @@
                     <td>
                     | {% if i.logstash_url %}<a href="{{ i.logstash_url }}">Logstash</a>{% else %} - {% endif %} |
                     </td>
+                    {# Tempest statistics #}
+                    {% if 'tempest' in i.job.name %}
+                        <!-- tempest_stats:{{ i.job.name }},{{ i.job.ts.strftime('%s') }},{% if i.success %}SUCCESS{% else %}FAILURE{% endif %}: -->
+                    {% endif %}
                 </tr>
             {%  endfor %}
             </table>
