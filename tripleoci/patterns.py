@@ -286,6 +286,20 @@ PATTERNS = {
             "tag": "infra",
             "logstash": "No more mirrors to try",
         },
+        {
+            "id": 40,
+            "pattern": 'ERROR - The gearman Job has failed',
+            "msg": "Gearman task FAILED.",
+            "tag": "infra",
+            "logstash": "The gearman Job has failed",
+        },
+        {
+            "id": 41,
+            "pattern": "ERROR - Couldn't retrieve env",
+            "msg": "Environment setup FAILED.",
+            "tag": "infra",
+            "logstash": "ERROR - Couldn't retrieve env",
+        },
     ],
 
     '/logs/postci.txt': [
