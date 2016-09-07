@@ -300,6 +300,13 @@ PATTERNS = {
             "tag": "infra",
             "logstash": "ERROR - Couldn't retrieve env",
         },
+        {
+            "id": 42,
+            "pattern": 'Command "python setup.py egg_info" failed with error code 1',
+            "msg": "Pip install FAIL.",
+            "tag": "infra",
+            "logstash": "Command \"python setup.py egg_info\" failed with error code 1",
+        },
     ],
 
     '/logs/postci.txt': [
