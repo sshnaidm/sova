@@ -46,6 +46,8 @@ PERIODIC_URLS = [
     'http://logs.openstack.org/periodic/periodic-tripleo-ci-centos-7-ovb-ha',
     'http://logs.openstack.org/periodic/periodic-tripleo-ci-centos-7-ovb-nonha',
     'http://logs.openstack.org/periodic/periodic-tripleo-ci-centos-7-ovb-upgrades',
+    "http://logs.openstack.org/periodic/periodic-tripleo-ci-centos-7-ovb-updates",
+
 ]
 
 DOWNLOAD_PATH = os.environ.get('OPENSHIFT_DATA_DIR',
@@ -68,7 +70,7 @@ GERRIT_PATCH_LIMIT = 200
 GERRIT_HOST = "review.openstack.org"
 GERRIT_PORT = 29418
 GERRIT_USER = "robo"
-GERRIT_BRANCHES = ("master", "stable/liberty", "stable/mitaka")
+GERRIT_BRANCHES = ("master", "stable/liberty", "stable/mitaka", "stable/newton")
 TRACKED_JOBS = (
     "gate-tripleo-ci-centos-7-ha",
     "gate-tripleo-ci-centos-7-nonha",
@@ -86,5 +88,13 @@ TRACKED_JOBS = (
     "gate-tripleo-ci-centos-7-ovb-nonha-liberty",
     "gate-tripleo-ci-centos-7-ovb-nonha-mitaka",
     "gate-tripleo-ci-centos-7-nonha-multinode",
-    "gate-tripleo-ci-centos-7-undercloud"
+    "gate-tripleo-ci-centos-7-undercloud",
+    "gate-tripleo-ci-centos-7-ovb-nonha-puppet-liberty",
+    "gate-tripleo-ci-centos-7-ovb-nonha-puppet-mitaka",
+    "gate-tripleo-ci-centos-7-scenario002-multinode",
+    "gate-tripleo-ci-centos-7-scenario003-multinode",
+    "gate-tripleo-ci-centos-7-ovb-nonha-newton",
+    "gate-tripleo-ci-centos-7-ovb-ha-newton",
+#    "gate-tripleo-ci-centos-7-ovb-updates",
+#    "gate-tripleo-ci-centos-7-ovb-ha-ipv6"
 )
