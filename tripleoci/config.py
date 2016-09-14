@@ -47,6 +47,7 @@ PERIODIC_URLS = [
     'http://logs.openstack.org/periodic/periodic-tripleo-ci-centos-7-ovb-nonha',
     'http://logs.openstack.org/periodic/periodic-tripleo-ci-centos-7-ovb-upgrades',
     "http://logs.openstack.org/periodic/periodic-tripleo-ci-centos-7-ovb-updates",
+    "http://logs.openstack.org/periodic/periodic-tripleo-ci-centos-7-ovb-ha-newton"
 
 ]
 
