@@ -307,12 +307,19 @@ PATTERNS = {
             "tag": "infra",
             "logstash": "Command \"python setup.py egg_info\" failed with error code 1",
         },
-{
+        {
             "id": 43,
             "pattern": 'MessagingTimeout: Timed out waiting for a reply to message ID',
             "msg": "Message timeout.",
             "tag": "code",
             "logstash": "MessagingTimeout: Timed out waiting for a reply to message ID",
+        },
+        {
+            "id": 44,
+            "pattern": "504 Gateway Time-out: The server didn't respond in time",
+            "msg": "Gateway timeout 504.",
+            "tag": "infra",
+            "logstash": "504 Gateway Time-out: The server didn't respond in time",
         },
     ],
 
