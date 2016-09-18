@@ -307,6 +307,13 @@ PATTERNS = {
             "tag": "infra",
             "logstash": "Command \"python setup.py egg_info\" failed with error code 1",
         },
+{
+            "id": 43,
+            "pattern": 'MessagingTimeout: Timed out waiting for a reply to message ID',
+            "msg": "Message timeout.",
+            "tag": "code",
+            "logstash": "MessagingTimeout: Timed out waiting for a reply to message ID",
+        },
     ],
 
     '/logs/postci.txt': [
