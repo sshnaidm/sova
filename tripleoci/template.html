@@ -59,6 +59,10 @@
     <li><a data-toggle="tab" href="#errors">Top</a></li>
 </ul>
 
+<div class="clearfix"></div>
+<button class="btn btn-primary" type="button" id="showsuccess"><span class="glyphicon glyphicon-collapse-up"></span> Show successes </button>
+<div class="clearfix"></div>
+
 <div class="tab-content">
 
 {% for data in (ci, periodic) %}
@@ -68,7 +72,7 @@
         <div class="panel panel-default">
             <div class="panel-heading "><h4>{{ key }}</h4></div>
             <div class="panel-body">
-                <strong>{{ key }}</strong> statistics:<br/>
+                <strong>{{ key }}</strong> statistics: (<span style="color:red">Red - <strong>infra</strong></span>, <span style="color:blue">Blue - <strong>code</strong></span>, <span style="color:black">Black - <strong>unknown</strong></span> issues)<br/>
                 {% if data == periodic %}{% set main=periodic_stats %}{% else %}{% set main=ci_stats %}{% endif %}
                 {% if data == ci %}
                 Today: {% if main.today and key in main.today.job_stats %}{% set stat=main.today.job_stats[key] %}<strong>
@@ -125,7 +129,7 @@
             <table class="table table-hover">
             <thead><td>Date</td><td>Length</td><td>Reason</td>{% if data == ci %}<td>Patch</td>{% endif %}<td>Logs</td>{% if data == ci %}<td>Project</td><td>Branch</td>{% endif %}<td>Logstash</td></thead>
             {%  for i in data[key] %}
-                <tr style="color:{% if i.reason and 'infra' in i.tags %}red{% elif i.success %}green{% elif i.reason %}blue{% else %}black{% endif %}">
+                <tr style="color:{% if i.reason and 'infra' in i.tags %}red{% elif i.success %}green{% elif i.reason %}blue{% else %}black{% endif %}"{% if i.success and not i.periodic %} class="collapse" id="success"{% endif %}>
                     {# Date #}
                     <td style="color:{% if i.reason and 'infra' in i.tags %}red{% elif i.success %}green{% elif i.reason %}blue{% else %}black{% endif %}">
                     | {{  i.job.datetime }} |
@@ -199,6 +203,12 @@ $('#all').on('click',function(){
   $('#all').parent().addClass('active');
   $('.tab-pane').addClass('active in');
   $('[data-toggle="tab"]').parent().removeClass('active');
+});
+$('#showsuccess').on('click',function(){
+    $('.collapse').toggleClass('in');
+    var hide='<span class="glyphicon glyphicon-collapse-up"></span> Hide successes ';
+    var show='<span class="glyphicon glyphicon-collapse-up"></span> Show successes ';
+    $(this).html() == show ? $(this).html(hide) : $(this).html(show);
 });
 $(function () {
   $('[data-toggle="tooltip"]').tooltip();

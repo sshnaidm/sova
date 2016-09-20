@@ -27,8 +27,9 @@ def create_html():
     work_dir = os.path.dirname(__file__)
     if not DEBUG:
         ci_data = meow(limit=None,
-                       days=14,
+                       days=8,
                        job_type=None,
+                       fail=False,
                        down_path=config.DOWNLOAD_PATH)
 
         periodic_data = meow(limit=None,
@@ -39,15 +40,19 @@ def create_html():
                              periodic=True,
                              fail=False)
 
-        with open(config.TMP_DIR + "/ci_data_dump", "wb") as g:
+        with open(
+                os.path.join(config.DOWNLOAD_PATH, "ci_data_dump"), "wb") as g:
             pickle.dump(ci_data, g)
-        with open(config.TMP_DIR + "/periodic_data_dump", "wb") as g:
+        with open(os.path.join(config.DOWNLOAD_PATH, "periodic_data_dump"),
+                  "wb") as g:
             pickle.dump(periodic_data, g)
     # For debug mode
     else:
-        with open(config.TMP_DIR + "/ci_data_dump", "rb") as g:
+        with open(
+                os.path.join(config.DOWNLOAD_PATH, "ci_data_dump"), "rb") as g:
             ci_data = pickle.load(g)
-        with open(config.TMP_DIR + "/periodic_data_dump", "rb") as g:
+        with open(os.path.join(config.DOWNLOAD_PATH, "periodic_data_dump"),
+                  "rb") as g:
             periodic_data = pickle.load(g)
 
     errors_top = top(ci_data)
