@@ -323,6 +323,13 @@ PATTERNS = {
             "tag": "infra",
             "logstash": "504 Gateway Time-out: The server didn't respond in time",
         },
+        {
+            "id": 45,
+            "pattern": "Exception registering nodes:",
+            "msg": "Node registration FAIL.",
+            "tag": "code",
+            "logstash": "Exception registering nodes:",
+        },
     ],
 
     '/logs/postci.txt': [
