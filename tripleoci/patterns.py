@@ -10,6 +10,8 @@ failed_deps_re = re.compile(r"Failed to build (.*)")
 curl_re = re.compile(r"curl: \S*? couldn't open file \"(.*?)\"")
 git_re = re.compile(r"fatal: Unable to look up (\S+)")
 deploy_re = re.compile(r"Deployment exited with non-zero status code: (\d+)")
+hiera_re = re.compile(r"Error: Could not find data item (\w+) in any Hiera "
+                      r"data file and no default supplied")
 
 # Patterns to search in files
 PATTERNS = {
@@ -344,6 +346,13 @@ PATTERNS = {
             "msg": "Puppet memory fail.",
             "tag": "infra",
             "logstash": "Could not evaluate: Cannot allocate memory - fork",
+        },
+        {
+            "id": 203,
+            "pattern": hiera_re,
+            "msg": "No {} in Hiera.",
+            "tag": "code",
+            "logstash": hiera_re,
         },
     ],
 
