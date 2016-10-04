@@ -17,7 +17,8 @@ command_exe = re.compile(r"Job for (.+) failed because the control "
                          r"process exited with error code.")
 zcl_re = re.compile(r"stderr: 'fatal: unable to access "
                     r"'http.+/devstack-gate/.*Network is unreachable.*")
-gitnet_re = re.compile(r"fatal: unable to access 'http.*Network is unreachable")
+gitnet_re = re.compile(
+    r"fatal: unable to access 'http.*Network is unreachable")
 ssh_re = re.compile(r"ssh: connect to host .+ port .+: No route to host")
 
 # Patterns to search in files
@@ -311,24 +312,30 @@ PATTERNS = {
         },
         {
             "id": 42,
-            "pattern": 'Command "python setup.py egg_info" failed with error code 1',
+            "pattern": ('Command "python setup.py egg_info" '
+                        'failed with error code 1'),
             "msg": "Pip install FAIL.",
             "tag": "infra",
-            "logstash": "Command \"python setup.py egg_info\" failed with error code 1",
+            "logstash": ("Command \"python setup.py egg_info\" "
+                         "failed with error code 1"),
         },
         {
             "id": 43,
-            "pattern": 'MessagingTimeout: Timed out waiting for a reply to message ID',
+            "pattern": ('MessagingTimeout: Timed out waiting for a reply '
+                        'to message ID'),
             "msg": "Message timeout.",
             "tag": "code",
-            "logstash": "MessagingTimeout: Timed out waiting for a reply to message ID",
+            "logstash": ("MessagingTimeout: Timed out waiting for a reply "
+                         "to message ID"),
         },
         {
             "id": 44,
-            "pattern": "504 Gateway Time-out: The server didn't respond in time",
+            "pattern": ("504 Gateway Time-out: "
+                        "The server didn't respond in time"),
             "msg": "Gateway timeout 504.",
             "tag": "infra",
-            "logstash": "504 Gateway Time-out: The server didn't respond in time",
+            "logstash": ("504 Gateway Time-out: "
+                         "The server didn't respond in time"),
         },
         {
             "id": 45,
@@ -344,7 +351,7 @@ PATTERNS = {
             "msg": "HTTP 400 Error.",
             "tag": "code",
             "logstash": ("400 Bad Request: Client disconnected before "
-                        "sending all data to backend (HTTP 400)"),
+                         "sending all data to backend (HTTP 400)"),
         },
         {
             "id": 47,

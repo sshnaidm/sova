@@ -3,13 +3,14 @@ import re
 
 from gevent.pool import Pool
 from gevent import monkey
-monkey.patch_all()
+monkey.patch_all()  # noqa
 
 from tripleoci.config import log
 from tripleoci.patterns import PATTERNS
 from tripleoci.utils import JobFile, urlize_logstash
 
 DEBUG = False
+
 
 def analyze_all(jobs, down_path):
     p = Pool(50)
@@ -82,7 +83,7 @@ def analyze(job, down_path, num):
             try:
                 log.debug("Opening file for scan: {}".format(jfile))
                 finput = fileinput.FileInput(
-                        jfile, openhook=fileinput.hook_compressed)
+                    jfile, openhook=fileinput.hook_compressed)
                 for line in finput:
                     line = line.decode()
                     for p in PATTERNS[file]:

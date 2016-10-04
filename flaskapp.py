@@ -1,9 +1,9 @@
+from flask import Flask
+from flask import send_from_directory
 import os
-from flask import Flask, send_from_directory
-
 from tripleoci import config
-app = Flask(__name__)
 
+app = Flask(__name__)
 work_dir = os.path.dirname(__file__)
 
 

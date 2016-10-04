@@ -33,21 +33,22 @@ PROJECTS = (
     '^openstack/puppet-.*'
 )
 
+PERIODIC_LOGS_URL = 'http://logs.openstack.org/periodic'
 PERIODIC_URLS = [
-    'http://logs.openstack.org/periodic/periodic-tripleo-ci-centos-7-upgrades',
-    'http://logs.openstack.org/periodic/periodic-tripleo-ci-centos-7-ha',
-    'http://logs.openstack.org/periodic/periodic-tripleo-ci-centos-7-nonha',
-    'http://logs.openstack.org/periodic/periodic-tripleo-ci-centos-7-ha-liberty',
-    'http://logs.openstack.org/periodic/periodic-tripleo-ci-centos-7-ha-mitaka',
-    'http://logs.openstack.org/periodic/periodic-tripleo-ci-centos-7-ha-tempest',
-    'http://logs.openstack.org/periodic/periodic-tripleo-ci-centos-7-ovb-ha-liberty',
-    'http://logs.openstack.org/periodic/periodic-tripleo-ci-centos-7-ovb-ha-mitaka',
-    'http://logs.openstack.org/periodic/periodic-tripleo-ci-centos-7-ovb-ha-tempest',
-    'http://logs.openstack.org/periodic/periodic-tripleo-ci-centos-7-ovb-ha',
-    'http://logs.openstack.org/periodic/periodic-tripleo-ci-centos-7-ovb-nonha',
-    'http://logs.openstack.org/periodic/periodic-tripleo-ci-centos-7-ovb-upgrades',
-    "http://logs.openstack.org/periodic/periodic-tripleo-ci-centos-7-ovb-updates",
-    "http://logs.openstack.org/periodic/periodic-tripleo-ci-centos-7-ovb-ha-newton"
+    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-upgrades',
+    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ha',
+    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-nonha',
+    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ha-liberty',
+    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ha-mitaka',
+    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ha-tempest',
+    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-liberty',
+    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-mitaka',
+    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-tempest',
+    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha',
+    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-nonha',
+    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-upgrades',
+    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-updates',
+    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-newton'
 
 ]
 
@@ -71,7 +72,8 @@ GERRIT_PATCH_LIMIT = 200
 GERRIT_HOST = "review.openstack.org"
 GERRIT_PORT = 29418
 GERRIT_USER = "robo"
-GERRIT_BRANCHES = ("master", "stable/liberty", "stable/mitaka", "stable/newton")
+GERRIT_BRANCHES = ("master", "stable/liberty",
+                   "stable/mitaka", "stable/newton")
 TRACKED_JOBS = (
     "gate-tripleo-ci-centos-7-ha",
     "gate-tripleo-ci-centos-7-nonha",
@@ -96,6 +98,6 @@ TRACKED_JOBS = (
     "gate-tripleo-ci-centos-7-scenario003-multinode",
     "gate-tripleo-ci-centos-7-ovb-nonha-newton",
     "gate-tripleo-ci-centos-7-ovb-ha-newton",
-#    "gate-tripleo-ci-centos-7-ovb-updates",
-#    "gate-tripleo-ci-centos-7-ovb-ha-ipv6"
+    # "gate-tripleo-ci-centos-7-ovb-updates",
+    # "gate-tripleo-ci-centos-7-ovb-ha-ipv6"
 )

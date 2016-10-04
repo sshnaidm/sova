@@ -142,7 +142,7 @@ class Web(object):
                 req = requests.get(self.url)
             except Exception as e:
                 log.error("Giving up with error {}: {}".format(
-                self.url, str(e)))
+                    self.url, str(e)))
                 return None
         if int(req.status_code) != 200:
             if not (ignore404 and int(req.status_code) == 404):
@@ -237,7 +237,7 @@ class JobFile(object):
             req = web.get(ignore404=True)
             if req is None:
                 log.warn("Failed to retrieve URL, request is None: {}".format(
-                        file_try1))
+                         file_try1))
                 return None
             elif int(req.status_code) == 404:
                 if self.file_url.endswith(".html"):

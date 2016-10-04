@@ -101,19 +101,19 @@ class Periodic(object):
             return None
         else:
             finput = fileinput.FileInput(console,
-                                        openhook=fileinput.hook_compressed)
+                                         openhook=fileinput.hook_compressed)
             for line in finput:
                 line = line.decode()
                 if ("Finished: SUCCESS" in line or
-                            '[Zuul] Job complete, result: SUCCESS' in line):
+                        '[Zuul] Job complete, result: SUCCESS' in line):
                     j['fail'] = False
                     j['status'] = 'SUCCESS'
                 elif ("Finished: FAILURE" in line or
-                              '[Zuul] Job complete, result: FAILURE' in line):
+                        '[Zuul] Job complete, result: FAILURE' in line):
                     j['fail'] = True
                     j['status'] = 'FAILURE'
                 elif ("Finished: ABORTED" in line or
-                              '[Zuul] Job complete, result: ABORTED' in line):
+                        '[Zuul] Job complete, result: ABORTED' in line):
                     j['fail'] = True
                     j['status'] = 'ABORTED'
                 if branch_re.search(line):
