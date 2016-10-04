@@ -12,6 +12,9 @@ git_re = re.compile(r"fatal: Unable to look up (\S+)")
 deploy_re = re.compile(r"Deployment exited with non-zero status code: (\d+)")
 hiera_re = re.compile(r"Error: Could not find data item (\w+) in any Hiera "
                       r"data file and no default supplied")
+puppetexec_re = re.compile(r"mError: /Stage\[main\]/\w+/Exec\[(.+)\]:")
+command_exe = re.compile(r"Job for (.+) failed because the control "
+                         r"process exited with error code.")
 
 # Patterns to search in files
 PATTERNS = {
@@ -330,6 +333,22 @@ PATTERNS = {
             "tag": "code",
             "logstash": "Exception registering nodes:",
         },
+        {
+            "id": 46,
+            "pattern": ("400 Bad Request: Client disconnected before "
+                        "sending all data to backend (HTTP 400)"),
+            "msg": "HTTP 400 Error.",
+            "tag": "code",
+            "logstash": ("400 Bad Request: Client disconnected before "
+                        "sending all data to backend (HTTP 400)"),
+        },
+        {
+            "id": 47,
+            "pattern": command_exe,
+            "msg": "{} FAIL.",
+            "tag": "code",
+            "logstash": command_exe,
+        },
     ],
 
     '/logs/postci.txt': [
@@ -360,6 +379,20 @@ PATTERNS = {
             "msg": "No {} in Hiera.",
             "tag": "code",
             "logstash": hiera_re,
+        },
+        {
+            "id": 204,
+            "pattern": hiera_re,
+            "msg": "No {} in Hiera.",
+            "tag": "code",
+            "logstash": hiera_re,
+        },
+        {
+            "id": 205,
+            "pattern": puppetexec_re,
+            "msg": "{} FAIL.",
+            "tag": "code",
+            "logstash": puppetexec_re,
         },
     ],
 
