@@ -15,6 +15,10 @@ hiera_re = re.compile(r"Error: Could not find data item (\w+) in any Hiera "
 puppetexec_re = re.compile(r"mError: /Stage\[main\]/\w+/Exec\[(.+)\]:")
 command_exe = re.compile(r"Job for (.+) failed because the control "
                          r"process exited with error code.")
+zcl_re = re.compile(r"stderr: 'fatal: unable to access "
+                    r"'http.+/devstack-gate/.*Network is unreachable.*")
+gitnet_re = re.compile(r"fatal: unable to access 'http.*Network is unreachable")
+ssh_re = re.compile(r"ssh: connect to host .+ port .+: No route to host")
 
 # Patterns to search in files
 PATTERNS = {
@@ -132,10 +136,10 @@ PATTERNS = {
         },
         {
             "id": 16,
-            "pattern": "ERROR:dlrn:cmd failed. See logs at",
+            "pattern": "ERROR:dlrn:",
             "msg": "Delorean FAIL.",
             "tag": "code",
-            'logstash': 'ERROR:dlrn:cmd failed. See logs at'
+            'logstash': 'ERROR:dlrn:'
         },
         {
             "id": 17,
@@ -348,6 +352,34 @@ PATTERNS = {
             "msg": "{} FAIL.",
             "tag": "code",
             "logstash": command_exe,
+        },
+        {
+            "id": 48,
+            "pattern": zcl_re,
+            "msg": "Zuul-cloner network FAIL.",
+            "tag": "infra",
+            "logstash": 'Network is unreachable',
+        },
+        {
+            "id": 49,
+            "pattern": gitnet_re,
+            "msg": "Network FAIL.",
+            "tag": "infra",
+            "logstash": 'Network is unreachable',
+        },
+        {
+            "id": 50,
+            "pattern": ssh_re,
+            "msg": "SSH to host FAIL.",
+            "tag": "code",
+            "logstash": 'port 22: No route to host',
+        },
+        {
+            "id": 51,
+            "pattern": "CommandError: No image with a name or ID of",
+            "msg": "No image on the host.",
+            "tag": "code",
+            "logstash": 'CommandError: No image with a name or ID of',
         },
     ],
 
