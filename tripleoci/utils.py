@@ -337,13 +337,23 @@ def statistics(data, periodic=False):
             res['job_stats'][name]['succ'] = len(
                 [i for i in arr
                  if i['job'].name == name and not i['job'].fail])
+            res['job_stats'][name]['fail'] = len(
+                [i for i in arr
+                 if i['job'].name == name and i['job'].fail])
+            res['job_stats'][name]['unknown'] = len(
+                [i for i in arr if i['job'].name == name and i['job'].fail
+                 and not i['reason']])
         return res
 
-    zeroed = {'infra': 0, 'len': 0, 'unknown': 0, 'code': 0, 'succ': 0}
+    zeroed = {'infra': 0, 'len': 0, 'unknown': 0, 'code': 0, 'succ': 0,
+              'fail': 0}
     tags = [j for i in data for j in i['tags']]
     all_stats = {k: v for k, v in Counter(tags).items() if k}
     all_stats['len'] = len(data)
     all_stats['succ'] = len([j for j in data if j['success']])
+    all_stats['fail'] = len([j for j in data if not j['success']])
+    all_stats['unknown'] = len([j for j in data
+                                if not j['success'] and not j['reason']])
     stat_dict = {'all_stats': all_stats}
     stat_dict['all_times'] = _get_stats(data)
     if not periodic:

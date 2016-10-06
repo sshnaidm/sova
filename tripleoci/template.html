@@ -78,29 +78,31 @@
                 Today: {% if main.today and key in main.today.job_stats %}{% set stat=main.today.job_stats[key] %}<strong>
                     <span style="color:red">{{ (stat.infra|default(0)*100/stat.len)|int }}%</span>/
                     <span style="color:blue">{{ (stat.code|default(0)*100/stat.len)|round|int }}%</span>/
-                    <span style="color:black">{{ ((stat.len - stat.infra|default(0) - stat.code|default(0) - stat.succ|default(0))|default(0)*100/stat.len)|round|int }}%</span>/
+                    <span style="color:black">{{ (stat.unknown|default(0)*100/stat.len)|round|int }}%</span>/
                     <span style="color:green">{{ (stat.succ|default(0)*100/stat.len)|round|int }}%</span>
                     </strong> of <strong>{{ stat.len }}</strong> jobs <strong>
 
                     (<span style="color:red">{{ stat.infra|default(0) }}</span>/
                     <span style="color:blue">{{ stat.code|default(0) }}</span>/
-                    <span style="color:black">{{ (stat.len - stat.infra|default(0) - stat.code|default(0) - stat.succ|default(0))|default(0) }}/</span>
+                    <span style="color:black">{{ stat.unknown|default(0) }}/</span>
                     <span style="color:green">{{ stat.succ|default(0) }}</span>
                     )</strong>
+                    == unraveled: <strong>{{ 100 - (stat.unknown|default(0)*100/stat.fail)|round|int }}%</strong> of failures ==
                 {% else %}N/A
                 {% endif %}<br/>
                 Yesterday: {% if main.yesterday and key in main.yesterday.job_stats %}{% set stat=main.yesterday.job_stats[key] %}<strong>
                     <span style="color:red">{{ (stat.infra|default(0)*100/stat.len)|round|int }}%</span>/
                     <span style="color:blue">{{ (stat.code|default(0)*100/stat.len)|round|int }}%</span>/
-                    <span style="color:black">{{ ((stat.len - stat.infra|default(0) - stat.code|default(0) - stat.succ|default(0))|default(0)*100/stat.len)|round|int }}%</span>/
+                    <span style="color:black">{{ (stat.unknown|default(0)*100/stat.len)|round|int }}%</span>/
                     <span style="color:green">{{ (stat.succ|default(0)*100/stat.len)|round|int }}%</span>
                     </strong> of <strong>{{ stat.len }}</strong> jobs <strong>
 
                     (<span style="color:red">{{ stat.infra|default(0) }}</span>/
                     <span style="color:blue">{{ stat.code|default(0) }}</span>/
-                    <span style="color:black">{{ (stat.len - stat.infra|default(0) - stat.code|default(0) - stat.succ|default(0))|default(0) }}/</span>
+                    <span style="color:black">{{ stat.unknown|default(0) }}/</span>
                     <span style="color:green">{{ stat.succ|default(0) }}</span>
                     )</strong>
+                    == unraveled: <strong>{{ 100 - (stat.unknown|default(0)*100/stat.fail)|round|int }}%</strong> of failures ==
                 {% else %}N/A
                 {% endif %}<br/>
                 {% endif %}
@@ -113,23 +115,25 @@
 
                     (<span style="color:red">{{ stat.infra|default(0) }}</span>/
                     <span style="color:blue">{{ stat.code|default(0) }}</span>/
-                    <span style="color:black">{{ (stat.len - stat.infra|default(0) - stat.code|default(0) - stat.succ|default(0))|default(0) }}/</span>
+                    <span style="color:black">{{ stat.unknown|default(0) }}/</span>
                     <span style="color:green">{{ stat.succ|default(0) }}</span>
                     )</strong>
+                    == unraveled: <strong>{{ 100 - (stat.unknown|default(0)*100/stat.fail)|round|int }}%</strong> of failures ==
                 {% else %}N/A
                 {% endif %}<br/>
                 Overall: {% if main.all_times and key in main.all_times.job_stats %}{% set stat=main.all_times.job_stats[key] %}<strong>
                     <span style="color:red">{{ (stat.infra|default(0)*100/stat.len)|round|int }}%</span>/
                     <span style="color:blue">{{ (stat.code|default(0)*100/stat.len)|round|int }}%</span>/
-                    <span style="color:black">{{ ((stat.len - stat.infra|default(0) - stat.code|default(0) - stat.succ|default(0))|default(0)*100/stat.len)|round|int }}%</span>/
+                    <span style="color:black">{{ (stat.unknown|default(0)*100/stat.len)|round|int }}%</span>/
                     <span style="color:green">{{ (stat.succ|default(0)*100/stat.len)|round|int }}%</span>
                     </strong> of <strong>{{ stat.len }}</strong> jobs <strong>
 
                     (<span style="color:red">{{ stat.infra|default(0) }}</span>/
                     <span style="color:blue">{{ stat.code|default(0) }}</span>/
-                    <span style="color:black">{{ (stat.len - stat.infra|default(0) - stat.code|default(0) - stat.succ|default(0))|default(0) }}/</span>
+                    <span style="color:black">{{ stat.unknown|default(0) }}/</span>
                     <span style="color:green">{{ stat.succ|default(0) }}</span>
                     )</strong>
+                    == unraveled: <strong>{{ 100 - (stat.unknown|default(0)*100/stat.fail)|round|int }}%</strong> of failures ==
                 {% else %}N/A
                 {% endif %}<br/>
                 <br/>
@@ -137,15 +141,16 @@
                 {% if main.all_stats %}{% set stat=main.all_stats %}<strong>
                     <span style="color:red">{{ (stat.infra|default(0)*100/stat.len)|round|int }}%</span>/
                     <span style="color:blue">{{ (stat.code|default(0)*100/stat.len)|round|int}}%</span>/
-                    <span style="color:black">{{ ((stat.len - stat.infra|default(0) - stat.code|default(0) - stat.succ|default(0))|default(0)*100/stat.len)|round|int }}%</span>/
+                    <span style="color:black">{{ (stat.unknown|default(0)*100/stat.len)|round|int }}%</span>/
                     <span style="color:green">{{ (stat.succ|default(0)*100/stat.len)|round|int }}%</span>
                     </strong> of <strong>{{ stat.len }}</strong> jobs <strong>
 
                     (<span style="color:red">{{ stat.infra|default(0) }}</span>/
                     <span style="color:blue">{{ stat.code|default(0) }}</span>/
-                    <span style="color:black">{{ (stat.len - stat.infra|default(0) - stat.code|default(0) - stat.succ|default(0))|default(0) }}/</span>
+                    <span style="color:black">{{ stat.unknown|default(0) }}/</span>
                     <span style="color:green">{{ stat.succ|default(0) }}</span>
                     )</strong>
+                    == unraveled: <strong>{{ 100 - (stat.unknown|default(0)*100/stat.fail)|round|int }}%</strong> of failures ==
                 {% else %}N/A
                 {% endif %}<br/>
 

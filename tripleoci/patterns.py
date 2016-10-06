@@ -388,6 +388,13 @@ PATTERNS = {
             "tag": "code",
             "logstash": 'CommandError: No image with a name or ID of',
         },
+        {
+            "id": 52,
+            "pattern": "Not enough nodes - available",
+            "msg": "Not enough nodes are available.",
+            "tag": "code",
+            "logstash": 'Not enough nodes - available',
+        },
     ],
 
     '/logs/postci.txt': [
