@@ -334,12 +334,16 @@ def statistics(data, periodic=False):
                 k: v for k, v in Counter(job_tags).items() if k}
             res['job_stats'][name]['len'] = len(
                 [i for i in arr if i['job'].name == name])
+            res['job_stats'][name]['succ'] = len(
+                [i for i in arr
+                 if i['job'].name == name and not i['job'].fail])
         return res
 
-    zeroed = {'infra': 0, 'len': 0, 'unknown': 0, 'code': 0}
+    zeroed = {'infra': 0, 'len': 0, 'unknown': 0, 'code': 0, 'succ': 0}
     tags = [j for i in data for j in i['tags']]
     all_stats = {k: v for k, v in Counter(tags).items() if k}
     all_stats['len'] = len(data)
+    all_stats['succ'] = len([j for j in data if j['success']])
     stat_dict = {'all_stats': all_stats}
     stat_dict['all_times'] = _get_stats(data)
     if not periodic:
