@@ -20,6 +20,7 @@ zcl_re = re.compile(r"stderr: 'fatal: unable to access "
 gitnet_re = re.compile(
     r"fatal: unable to access 'http.*Network is unreachable")
 ssh_re = re.compile(r"ssh: connect to host .+ port .+: No route to host")
+pup_module_re = re.compile(r'mError: .* at /etc/puppet/modules/([^/]+)/')
 
 # Patterns to search in files
 PATTERNS = {
@@ -439,6 +440,13 @@ PATTERNS = {
             "msg": "{} FAIL.",
             "tag": "code",
             "logstash": puppetexec_re,
+        },
+        {
+            "id": 206,
+            "pattern": pup_module_re,
+            "msg": "Puppet module '{}' FAIL.",
+            "tag": "code",
+            "logstash": pup_module_re,
         },
     ],
 
