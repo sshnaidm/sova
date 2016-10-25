@@ -1,8 +1,8 @@
 import fileinput
 import re
 
-from gevent.pool import Pool
 from gevent import monkey
+from gevent.pool import Pool
 monkey.patch_all()  # noqa
 
 from tripleoci.config import log

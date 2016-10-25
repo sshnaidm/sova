@@ -10,10 +10,12 @@ DEBUG = False
 
 
 def create_html():
-    """
+    """Create HTML page
+
         This function runs job analysis by calling meow() and creates HTML page
         with all data it received.
         HTML is created by Jinja templating template.html file.
+
     :return: writes index.html file in current directory
     """
 

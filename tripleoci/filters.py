@@ -4,9 +4,7 @@ import tripleoci.config as config
 
 
 class Filter(object):
-    """
-        Class for filtering jobs to remain only requested.
-    """
+    """Class for filtering jobs to remain only requested."""
     def __init__(self,
                  data,
                  days=None,
@@ -17,7 +15,8 @@ class Filter(object):
                  exclude=None,
                  job_type=None,
                  periodic=False):
-        """
+        """Filter class
+
             Receives a lot of filtering arguments:
 
         :param data: job data (Job class object)
@@ -47,7 +46,8 @@ class Filter(object):
         ]
 
     def run(self):
-        """
+        """Combine filters
+
             It contains a chain of filters.
             default - leave only tracked jobs (TRACKED_JOBS in config.py)
                         but it's not relevant in periodic jobs

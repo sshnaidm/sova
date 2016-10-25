@@ -7,11 +7,11 @@ import paramiko
 import requests
 import tarfile
 import time
+
 from backports import lzma
 from collections import Counter
 from requests import ConnectionError
 from six.moves.urllib.parse import quote
-
 import tripleoci.config as config
 from tripleoci.config import log
 
@@ -19,7 +19,8 @@ requests.packages.urllib3.disable_warnings()
 
 
 class SSH(object):
-    """
+    """SSH
+
         SSH class, just for any connection
     """
 
@@ -54,7 +55,8 @@ class SSH(object):
 
 
 class Gerrit(object):
-    """
+    """Get Gerrit changes
+
         Gerrit class, it connects to upstream Gerrit and run queries.
         It downloads all info about patches from given projects.
     """
@@ -111,7 +113,8 @@ class Gerrit(object):
 
 
 class Web(object):
-    """
+    """Download web page
+
         Web class for downloading web page
     """
 
@@ -119,7 +122,8 @@ class Web(object):
         self.url = url
 
     def get(self, ignore404=False):
-        """
+        """Get web file
+
             Sometimes console.html is gzipped on logs server and console.html
             is not available anymore, so here it silently fails when trying to
             download console.html and then tries to get console.html.gz
@@ -152,7 +156,8 @@ class Web(object):
 
 
 class JobFile(object):
-    """
+    """Get files of job
+
         JobFile downloads file from saved logs of the job.
         It supports two modes: gzipped flat file and file from *.tar.xz.
         If we need /var/log/neutron/server.log from overcloud-control.tar.xz
@@ -165,7 +170,6 @@ class JobFile(object):
         All files related to job are saved in job directory that named as log
         hash in URL to prevent collisions.
         If file presents on disk it doesn't download it.
-
     """
 
     def __init__(self, job, path=config.DOWNLOAD_PATH, file_link=None,
@@ -182,12 +186,13 @@ class JobFile(object):
         self.offline = offline
 
     def get_file(self):
-        """
-            "//" mean we need to download tar.xz and then extract file
-            after "//" from it:
+        '''Get file
+
+        Double slash "//" means we need to download tar.xz and then
+           to extract file after "//" from it:
                 /logs/overcloud-controller-0.tar.xz//var/log/neutron/server.log
         :return: path to gzipped file
-        """
+        '''
         if self.offline:
             return self.dummy_file()
         if self.build:
@@ -341,8 +346,8 @@ def statistics(data, periodic=False):
                 [i for i in arr
                  if i['job'].name == name and i['job'].fail])
             res['job_stats'][name]['unknown'] = len(
-                [i for i in arr if i['job'].name == name and i['job'].fail
-                 and not i['reason']])
+                [i for i in arr if i['job'].name == name and
+                 i['job'].fail and not i['reason']])
         return res
 
     zeroed = {'infra': 0, 'len': 0, 'unknown': 0, 'code': 0, 'succ': 0,

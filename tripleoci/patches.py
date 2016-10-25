@@ -18,7 +18,8 @@ UTC_OFFSET = utc_delta()
 
 
 class Patch(object):
-    """
+    """Patch pbject
+
         Class that creates Patch object from patch data from gerrit.
         It contains various info the could be useful for reports.
     """
@@ -79,7 +80,8 @@ class Patch(object):
 
 
 class Patchset(object):
-    """
+    """Patchset object
+
         Class that creates Patchset object from patchset data from gerrit.
         It contains various info the could be useful for reports.
     """
@@ -93,7 +95,8 @@ class Patchset(object):
 
 
 class Job(object):
-    """
+    """Job object
+
         Class that creates Job object from patch data from gerrit.
         It's extracted from all comments to patch that are done by Jenkins.
         It contains various info the could be useful for reports.

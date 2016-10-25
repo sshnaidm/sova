@@ -1,8 +1,9 @@
 import datetime
-import os
-import gzip
 import fileinput
+import gzip
+import os
 import re
+
 from lxml import etree
 
 import tripleoci.config as config
@@ -16,7 +17,8 @@ ts_re = re.compile(r"(201\d-[01]\d-[0123]\d [012]\d:\d\d):\d\d\.\d\d\d")
 
 
 class Periodic(object):
-    """
+    """Periodic job object
+
         Class that actually parses periodic jobs HTML page.
         It tries to extract all available info from the page, but
         some info could be found only in console.html, for example
@@ -145,9 +147,7 @@ class Periodic(object):
 
 
 class PeriodicJob(Job):
-    """
-        Class that contains all necessary info for periodic job.
-    """
+    """Class that contains all necessary info for periodic job."""
     def __init__(self, **kwargs):
         super(PeriodicJob, self).__init__(
             name=kwargs["name"],

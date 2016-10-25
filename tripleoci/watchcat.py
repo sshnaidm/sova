@@ -1,11 +1,12 @@
 from __future__ import print_function
 import json
 import tripleoci.config as config
-from tripleoci.utils import Gerrit
+
 from tripleoci.analysis import analyze_all
-from tripleoci.periodic import Periodic
-from tripleoci.patches import Patch
 from tripleoci.filters import Filter
+from tripleoci.patches import Patch
+from tripleoci.periodic import Periodic
+from tripleoci.utils import Gerrit
 
 
 DEBUG = False
@@ -21,7 +22,8 @@ def meow(days=None,
          down_path=config.DOWNLOAD_PATH,
          periodic=False,
          ):
-    """
+    """Main function
+
         This function actually runs the whole work,
         you can import it anywhere and run with parameters:
 
