@@ -396,6 +396,13 @@ PATTERNS = {
             "tag": "code",
             "logstash": 'Not enough nodes - available',
         },
+        {
+            "id": 53,
+            "pattern": "Timing out after 300 seconds:",
+            "msg": "Pingtest stack timeout.",
+            "tag": "code",
+            "logstash": 'Timing out after 300 seconds:',
+        },
     ],
 
     '/logs/postci.txt': [
