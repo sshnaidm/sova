@@ -330,57 +330,105 @@ def top(data):
     return xtop.most_common()
 
 
-def statistics(data, periodic=False):
-    def _get_stats(arr):
-        res = {'job_stats': {}}
-        if not arr:
-            return {}
-        for job_data in arr:
-            name = job_data['job'].name
-            res['job_stats'][name] = zeroed
-            job_tags = [j for i in arr if i['job'].name == name
-                        for j in i['tags']]
-            res['job_stats'][name] = {
-                k: v for k, v in Counter(job_tags).items() if k}
-            res['job_stats'][name]['len'] = len(
-                [i for i in arr if i['job'].name == name])
-            res['job_stats'][name]['succ'] = len(
-                [i for i in arr
-                 if i['job'].name == name and not i['job'].fail])
-            res['job_stats'][name]['fail'] = len(
-                [i for i in arr
-                 if i['job'].name == name and i['job'].fail])
-            res['job_stats'][name]['unknown'] = len(
-                [i for i in arr if i['job'].name == name and
-                 i['job'].fail and not i['reason']])
-        return res
+def statistics(data):
 
-    zeroed = {'infra': 0, 'len': 0, 'unknown': 0, 'code': 0, 'succ': 0,
-              'fail': 0}
-    tags = [j for i in data for j in i['tags']]
-    all_stats = {k: v for k, v in Counter(tags).items() if k}
-    all_stats['len'] = len(data)
-    all_stats['succ'] = len([j for j in data if j['success']])
-    all_stats['fail'] = len([j for j in data if not j['success']])
-    all_stats['unknown'] = len([j for j in data
-                                if not j['success'] and not j['reason']])
-    stat_dict = {'all_stats': all_stats}
-    stat_dict['all_times'] = _get_stats(data)
-    if not periodic:
-        today = datetime.date.today()
-        stat_dict['today'] = _get_stats(
-            [i for i in data if i['job'].ts.date() == today])
-        yesterday = (
-            datetime.datetime.today() - datetime.timedelta(days=1)
-        ).date()
-        stat_dict['yesterday'] = _get_stats(
-            [i for i in data if i['job'].ts.date() == yesterday])
-    week = [
-        (datetime.datetime.today() - datetime.timedelta(days=i)
-         ).date() for i in range(7)]
-    stat_dict['week'] = _get_stats(
-        [i for i in data if i['job'].ts.date() in week])
-    return stat_dict
+    def calc_today_str():
+        return datetime.date.today().strftime("%m-%d")
+
+    def calc_yesterday_str():
+        return (datetime.datetime.today() - datetime.timedelta(days=1)
+                ).date().strftime("%m-%d")
+
+    def calc_week():
+        return [(datetime.datetime.today() -
+                 datetime.timedelta(days=i)).date().strftime("%m-%d")
+                for i in range(7)]
+
+    chart_data = []
+    for job in data:
+        if job['job'].status == 'SUCCESS':
+            chart_category = 'succ'
+        elif 'infra' in job['tags']:
+            chart_category = 'infra'
+        elif 'code' in job['tags']:
+            chart_category = 'code'
+        else:
+            chart_category = 'unknown'
+        # Take only first part from "'11-09 22:24'"
+        chart_date = job['job'].datetime.split()[0]
+        chart_name = job['job'].name
+        chart_period = job['periodic']
+        chart_data.append({
+            'category': chart_category,
+            'date': chart_date,
+            'name': chart_name,
+            'periodic': chart_period,
+            "uuid": chart_name + "_" + "_".join(job['job'].datetime.split())
+        })
+    all_statistics = dict(Counter([i['category'] for i in chart_data]))
+
+    names = set([i['name'] for i in chart_data])
+    all_by_job_name = {}
+    for name in names:
+        all_by_job_name[name] = [i for i in chart_data if i['name'] == name]
+
+    job_by_name = {}
+    for name in names:
+        job_by_name[name] = dict(
+            Counter([i['category'] for i in all_by_job_name[name]]))
+
+    dates = set([i['date'] for i in chart_data])
+    all_by_date = {}
+    for date in dates:
+        all_by_date[date] = dict(
+            Counter([i['category'] for i in chart_data if i['date'] == date]))
+
+    jobs_by_date = {}
+    for name in names:
+        jobs_by_date[name] = {}
+        for date in set([i['date'] for i in all_by_job_name[name]]):
+            jobs_by_date[name][date] = dict(Counter(
+                [i['category'] for i in all_by_job_name[name] if
+                 i['date'] == date]))
+
+    today_jobs = {}
+    today = calc_today_str()
+    for name in names:
+        today_jobs[name] = dict(Counter([i['category'] for i in chart_data
+                                         if i['date'] == today
+                                         and i['name'] == name]))
+    today_jobs_all = dict(Counter([i['category'] for i in chart_data
+                                   if i['date'] == today]))
+    yesterday_jobs = {}
+    yesterday = calc_yesterday_str()
+    for name in names:
+        yesterday_jobs[name] = dict(Counter([i['category'] for i in chart_data
+                                             if i['date'] == yesterday
+                                             and i['name'] == name]))
+    yesterday_jobs_all = dict(Counter([i['category'] for i in chart_data
+                                       if i['date'] == yesterday]))
+    week_jobs = {}
+    week = calc_week()
+    for name in names:
+        week_jobs[name] = dict(Counter([i['category'] for i in chart_data
+                                        if i['date'] in week
+                                        and i['name'] == name]))
+    week_jobs_all = dict(Counter([i['category'] for i in chart_data
+                                  if i['date'] in week]))
+
+    return {
+        "all_statistics": all_statistics,
+        "all_by_job_name": all_by_job_name,
+        "all_by_date": all_by_date,
+        "jobs_by_date": jobs_by_date,
+        "today_jobs": today_jobs,
+        "yesterday_jobs": yesterday_jobs,
+        "job_by_name": job_by_name,
+        "week_jobs": week_jobs,
+        "today_jobs_all": today_jobs_all,
+        "yesterday_jobs_all": yesterday_jobs_all,
+        "week_jobs_all": week_jobs_all
+    }
 
 
 def urlize_logstash(msgs):

@@ -59,7 +59,7 @@ def create_html():
 
     errors_top = top(ci_data)
     stats, per_stats = statistics(ci_data), statistics(
-        periodic_data, periodic=True)
+        periodic_data)
 
     JINJA_ENVIRONMENT = jinja2.Environment(
         loader=jinja2.FileSystemLoader(work_dir),
