@@ -105,7 +105,9 @@ class Gerrit(object):
                 out, err = self.ssh.exe(command)[1:]
                 if err:
                     log.error("Error with ssh:{}".format(err))
-                data += filtered(out) if out else []
+                real_data = filtered(out) if out else []
+                log.debug("Length of result is {}".format(len(real_data)))
+                data += real_data
             self.ssh.close()
             # Let's not ddos Gerrit
             time.sleep(1)
