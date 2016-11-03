@@ -12,7 +12,7 @@ git_re = re.compile(r"fatal: Unable to look up (\S+)")
 deploy_re = re.compile(r"Deployment exited with non-zero status code: (\d+)")
 hiera_re = re.compile(r"Error: Could not find data item (\w+) in any Hiera "
                       r"data file and no default supplied")
-puppetexec_re = re.compile(r"mError: /Stage\[main\]/\w+/Exec\[(.+)\]:")
+puppetexec_re = re.compile(r"mError: /Stage\[main\]/\w+/Exec\[(.+?)\]")
 command_exe = re.compile(r"Job for (.+) failed because the control "
                          r"process exited with error code.")
 zcl_re = re.compile(r"stderr: 'fatal: unable to access "
