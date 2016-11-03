@@ -35,18 +35,11 @@ PROJECTS = (
 
 PERIODIC_LOGS_URL = 'http://logs.openstack.org/periodic'
 PERIODIC_URLS = [
-    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-upgrades',
-    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ha',
-    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-nonha',
-    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ha-liberty',
-    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ha-mitaka',
-    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ha-tempest',
     PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-liberty',
     PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-mitaka',
     PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-tempest',
     PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha',
     PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-nonha',
-    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-upgrades',
     PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-updates',
     PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-newton'
 
