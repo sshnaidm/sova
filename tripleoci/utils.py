@@ -239,7 +239,10 @@ class JobFile(object):
         if os.path.exists(self.file_path):
             log.debug("File {} is already downloaded".format(self.file_path))
         else:
-            file_try1 = self.file_url + ".gz"
+            if "." not in self.file_url.split("/")[-1]:
+                file_try1 = self.file_url
+            else:
+                file_try1 = self.file_url + ".gz"
             web = Web(url=file_try1)
             req = web.get(ignore404=True)
             if req is None:
