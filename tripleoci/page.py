@@ -67,7 +67,9 @@ def create_html():
         autoescape=True)
     template = JINJA_ENVIRONMENT.get_template('template.html')
     branches = sorted(
-        set([i['job'].branch.replace("stable/", "") for i in ci_data]))
+        set([i['job'].branch.replace("stable/", "") for i in ci_data] +
+            [i.replace("stable/", "") for i in config.GERRIT_BRANCHES]))
+
     html = template.render({
         "ci": by_job_type(list(ci_data)),
         "periodic": by_job_type(list(periodic_data)),
