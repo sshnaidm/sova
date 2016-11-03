@@ -465,7 +465,16 @@ PATTERNS = {
             "tag": "code",
             "logstash": "Timeout reached while waiting for callback for node",
         },
-    ]
+    ],
+    '/logs/undercloud/var/log/messages': [
+        {
+            "id": 400,
+            "pattern": "systemd: memcached.service failed.",
+            "msg": "Memcached FAIL.",
+            "tag": "code",
+            "logstash": "systemd: memcached.service failed.",
+        },
+    ],
     # '/logs/overcloud-controller-0.tar.xz//var/log/neutron/server.log': [
     #     {
     #         "id": 1849,
