@@ -404,6 +404,13 @@ PATTERNS = {
             "tag": "code",
             "logstash": 'Timing out after 300 seconds:',
         },
+        {
+            "id": 54,
+            "pattern": "504 Gateway Time-out",
+            "msg": "504 Gateway Time-out",
+            "tag": "code",
+            "logstash": '504 Gateway Time-out',
+        },
     ],
 
     '/logs/postci.txt': [
