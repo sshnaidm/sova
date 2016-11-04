@@ -22,7 +22,10 @@ def analyze_all(jobs, down_path):
 
 
 def analyze(job, down_path, num):
-    def line_match(pat, line):
+    def line_match(pat, line, exclude=None):
+        exclude = exclude or []
+        if any([i in line for i in exclude]):
+            return False
         if isinstance(pat, re._pattern_type):
             if not pat.search(line):
                 return False
@@ -87,8 +90,10 @@ def analyze(job, down_path, num):
                 for line in finput:
                     line = line.decode()
                     for p in PATTERNS[file]:
-                        if (line_match(p["pattern"], line) and
-                           p["msg"].lower() not in [i.lower() for i in msg]):
+                        line_matched = (line_match(
+                            p["pattern"], line, exclude=p.get("exclude")
+                        ) and p["msg"].lower() not in [i.lower() for i in msg])
+                        if line_matched:
                             log.debug("Found pattern {} in file {}:{}".format(
                                 repr(p), file, jfile))
                             msg.update({p["msg"].format(

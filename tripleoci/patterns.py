@@ -21,6 +21,7 @@ gitnet_re = re.compile(
     r"fatal: unable to access 'http.*Network is unreachable")
 ssh_re = re.compile(r"ssh: connect to host .+ port .+: No route to host")
 pup_module_re = re.compile(r'mError: .* at /etc/puppet/modules/([^/]+)/')
+service_fail_re = re.compile(r"systemd: (\S+).service failed")
 
 # Patterns to search in files
 PATTERNS = {
@@ -469,10 +470,11 @@ PATTERNS = {
     '/logs/undercloud/var/log/messages': [
         {
             "id": 400,
-            "pattern": "systemd: memcached.service failed.",
-            "msg": "Memcached FAIL.",
+            "pattern": service_fail_re,
+            "msg": "{} service FAIL.",
             "tag": "code",
-            "logstash": "systemd: memcached.service failed.",
+            "logstash": "",
+            "exclude": ["glean@", "docker-storage-setup"]
         },
     ],
     # '/logs/overcloud-controller-0.tar.xz//var/log/neutron/server.log': [
