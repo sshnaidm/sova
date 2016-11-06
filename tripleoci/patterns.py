@@ -407,9 +407,16 @@ PATTERNS = {
         {
             "id": 54,
             "pattern": "504 Gateway Time-out",
-            "msg": "504 Gateway Time-out",
+            "msg": "504 Gateway Time-out.",
             "tag": "code",
             "logstash": '504 Gateway Time-out',
+        },
+        {
+            "id": 55,
+            "pattern": "Gateway Time-out (HTTP 504)",
+            "msg": "504 Gateway Time-out.",
+            "tag": "code",
+            "logstash": 'Gateway Time-out (HTTP 504)',
         },
     ],
 
