@@ -22,6 +22,7 @@ gitnet_re = re.compile(
 ssh_re = re.compile(r"ssh: connect to host .+ port .+: No route to host")
 pup_module_re = re.compile(r'mError: .* at /etc/puppet/modules/([^/]+)/')
 service_fail_re = re.compile(r"systemd: (\S+).service failed")
+fail_refresh_re = re.compile(r"\[([\w-]+)\]: Failed to call refresh")
 
 # Patterns to search in files
 PATTERNS = {
@@ -469,6 +470,13 @@ PATTERNS = {
             "msg": "Puppet module '{}' FAIL.",
             "tag": "code",
             "logstash": pup_module_re,
+        },
+        {
+            "id": 207,
+            "pattern": fail_refresh_re,
+            "msg": "{} FAIL.",
+            "tag": "code",
+            "logstash": fail_refresh_re,
         },
     ],
 
