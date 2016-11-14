@@ -192,7 +192,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xs-12 col-md-3">
-        <h3>Master</h3>
+        <h3>Master-{{ key|replace('ci', 'gate') }}</h3>
         {% set master_jobs=data.keys|reject() %}
         {% for key in alljobs %}
             {% set keyloop = loop %}
@@ -203,7 +203,7 @@
         {% for branch in branches|reverse if branch != 'master' %}
             {% set brloop = loop %}
             <div class="col-xs-12 col-md-3">
-            <h3>{{ branch|capitalize }}</h3>
+            <h3>{{ branch|capitalize }}-{{ key|replace('ci', 'gate') }}</h3>
 
             {% for key in data %}
                 {% set keyloop = loop %}
