@@ -189,8 +189,20 @@
 
 
         {% set alljobs=data.keys()|list %}
-        {% for branch in branches if branch != 'master' %}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12 col-md-3">
+        <h3>Master</h3>
+        {% set master_jobs=data.keys|reject() %}
+        {% for key in alljobs %}
+            {% set keyloop = loop %}
+            <li{% if dataloop.first and loop.first %} class="active"{% endif %}><a data-toggle="tab" href="#{{ key }}">{{ key }}</a></li><div class="clearfix"></div>
+        {% endfor %}
+        </div>
+
+        {% for branch in branches|reverse if branch != 'master' %}
             {% set brloop = loop %}
+            <div class="col-xs-12 col-md-3">
             <h3>{{ branch|capitalize }}</h3>
 
             {% for key in data %}
@@ -200,15 +212,12 @@
                 {% if alljobs.remove(key) %}{% endif %}
                 {% endif %}
             {% endfor %}
-            <div class="clearfix"></div>
+            </div>
+            <!--<div class="clearfix"></div> -->
         {% endfor %}
-        <div class="clearfix"></div>
-        <h3>Master</h3>
-        {% set master_jobs=data.keys|reject() %}
-        {% for key in alljobs %}
-            {% set keyloop = loop %}
-            <li{% if dataloop.first and loop.first %} class="active"{% endif %}><a data-toggle="tab" href="#{{ key }}">{{ key }}</a></li><div class="clearfix"></div>
-        {% endfor %}
+        </div></div>
+        <!--  div class="clearfix"></div> -->
+
         <div class="clearfix"></div>
     {% endfor %}
     <li><a data-toggle="tab" href="#" id="all">All</a></li>
