@@ -58,7 +58,7 @@
                                   ['Passed',             {{ main.today_jobs_all.succ|default(0) }} ],
                                   ['Infra issues',       {{ main.today_jobs_all.infra|default(0) }} ],
                                   ['Code issues',        {{ main.today_jobs_all.code|default(0) }} ],
-                                  ['Unraveled failures', {{ main.today_jobs_all.unknown|default(0) }} ],
+                                  ['Unknown failures', {{ main.today_jobs_all.unknown|default(0) }} ],
                                   {% if not main.today_jobs_all %}['No data', 1]{% endif %}
                                 ]);
                                 var options = {
@@ -85,7 +85,7 @@
                                   ['Passed',             {{ main.yesterday_jobs_all.succ|default(0) }} ],
                                   ['Infra issues',       {{ main.yesterday_jobs_all.infra|default(0) }} ],
                                   ['Code issues',        {{ main.yesterday_jobs_all.code|default(0) }} ],
-                                  ['Unraveled failures', {{ main.yesterday_jobs_all.unknown|default(0) }} ],
+                                  ['Unknown failures', {{ main.yesterday_jobs_all.unknown|default(0) }} ],
                                   {% if not main.yesterday_jobs_all %}['No data', 1]{% endif %}
                                 ]);
                                 var options = {
@@ -111,7 +111,7 @@
                                   ['Passed',             {{ main.week_jobs_all.succ|default(0) }} ],
                                   ['Infra issues',       {{ main.week_jobs_all.infra|default(0) }} ],
                                   ['Code issues',        {{ main.week_jobs_all.code|default(0) }} ],
-                                  ['Unraveled failures', {{ main.week_jobs_all.unknown|default(0) }} ],
+                                  ['Unknown failures', {{ main.week_jobs_all.unknown|default(0) }} ],
                                   {% if not main.week_jobs_all %}['No data', 1]{% endif %}
                                 ]);
                                 var options = {
@@ -137,7 +137,7 @@
                                   ['Passed',             {{ main.all_statistics.succ|default(0) }} ],
                                   ['Infra issues',       {{ main.all_statistics.infra|default(0) }} ],
                                   ['Code issues',        {{ main.all_statistics.code|default(0) }} ],
-                                  ['Unraveled failures', {{ main.all_statistics.unknown|default(0) }} ],
+                                  ['Unknown failures', {{ main.all_statistics.unknown|default(0) }} ],
                                   {% if not main.all_statistics %}['No data', 1]{% endif %}
                                 ]);
                                 var options = {
@@ -160,7 +160,7 @@
                     google.charts.setOnLoadCallback({{ key }}_dyn);
                     function {{ key }}_dyn() {
                     var data = google.visualization.arrayToDataTable([
-                        ['Date', 'Passed', 'Infra issues', 'Code issues', 'Unraveled failures', { role: 'annotation' }],
+                        ['Date', 'Passed', 'Infra issues', 'Code issues', 'Unknown failures', { role: 'annotation' }],
                         {% for date in main.all_by_date.keys()|sort %}
                             ['{{ date }}', {{ main.all_by_date[date].succ|default(0) }},{{ main.all_by_date[date].infra|default(0) }},{{ main.all_by_date[date].code|default(0) }},{{ main.all_by_date[date].unknown|default(0) }},''],
                         {% endfor %}
@@ -252,7 +252,7 @@
                                   ['Passed',             {{ main.today_jobs[key].succ|default(0) }} ],
                                   ['Infra issues',       {{ main.today_jobs[key].infra|default(0) }} ],
                                   ['Code issues',        {{ main.today_jobs[key].code|default(0) }} ],
-                                  ['Unraveled failures', {{ main.today_jobs[key].unknown|default(0) }} ],
+                                  ['Unknown failures', {{ main.today_jobs[key].unknown|default(0) }} ],
                                   {% if not main.today_jobs[key] %}['No data', 1]{% endif %}
                                 ]);
                                 var options = {
@@ -278,7 +278,7 @@
                                   ['Passed',             {{ main.yesterday_jobs[key].succ|default(0) }} ],
                                   ['Infra issues',       {{ main.yesterday_jobs[key].infra|default(0) }} ],
                                   ['Code issues',        {{ main.yesterday_jobs[key].code|default(0) }} ],
-                                  ['Unraveled failures', {{ main.yesterday_jobs[key].unknown|default(0) }} ],
+                                  ['Unknown failures', {{ main.yesterday_jobs[key].unknown|default(0) }} ],
                                   {% if not main.yesterday_jobs[key] %}['No data', 1]{% endif %}
                                 ]);
                                 var options = {
@@ -304,7 +304,7 @@
                                   ['Passed',             {{ main.week_jobs[key].succ|default(0) }} ],
                                   ['Infra issues',       {{ main.week_jobs[key].infra|default(0) }} ],
                                   ['Code issues',        {{ main.week_jobs[key].code|default(0) }} ],
-                                  ['Unraveled failures', {{ main.week_jobs[key].unknown|default(0) }} ],
+                                  ['Unknown failures', {{ main.week_jobs[key].unknown|default(0) }} ],
                                   {% if not main.week_jobs[key] %}['No data', 1]{% endif %}
                                 ]);
                                 var options = {
@@ -330,7 +330,7 @@
                                   ['Passed',             {{ main.job_by_name[key].succ|default(0) }} ],
                                   ['Infra issues',       {{ main.job_by_name[key].infra|default(0) }} ],
                                   ['Code issues',        {{ main.job_by_name[key].code|default(0) }} ],
-                                  ['Unraveled failures', {{ main.job_by_name[key].unknown|default(0) }} ],
+                                  ['Unknown failures', {{ main.job_by_name[key].unknown|default(0) }} ],
                                   {% if not main.job_by_name[key] %}['No data', 1]{% endif %}
                                 ]);
                                 var options = {
@@ -356,7 +356,7 @@
                         google.charts.setOnLoadCallback({{ key|replace("-","_") }}_dyn);
                         function {{ key|replace("-","_") }}_dyn() {
                         var data = google.visualization.arrayToDataTable([
-                            ['Date', 'Passed', 'Infra issues', 'Code issues', 'Unraveled failures', { role: 'annotation' }],
+                            ['Date', 'Passed', 'Infra issues', 'Code issues', 'Unknown failures', { role: 'annotation' }],
                             {% for date in main.jobs_by_date[key].keys()|sort %}
                                 ['{{ date }}', {{ main.jobs_by_date[key][date].succ|default(0) }},{{ main.jobs_by_date[key][date].infra|default(0) }},{{ main.jobs_by_date[key][date].code|default(0) }},{{ main.jobs_by_date[key][date].unknown|default(0) }},''],
                             {% endfor %}
