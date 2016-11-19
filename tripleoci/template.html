@@ -189,12 +189,18 @@
 
 
         {% set alljobs=data.keys()|list %}
+        {% set master_jobs=alljobs %}
+        {% for j in alljobs %}
+            {% set ifmaster=True %}
+            {% for branch in branches if branch != 'master' %}
+                {% if branch in j %}{% do master_jobs.remove(j) %} {% endif %}
+            {% endfor %}
+        {% endfor %}
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xs-12 col-md-3">
         <h3>Master-{{ key|replace('ci', 'gate') }}</h3>
-        {% set master_jobs=data.keys|reject() %}
-        {% for key in alljobs %}
+        {% for key in master_jobs %}
             {% set keyloop = loop %}
             <li{% if dataloop.first and loop.first %} class="active"{% endif %}><a data-toggle="tab" href="#{{ key }}">{{ key }}</a></li><div class="clearfix"></div>
         {% endfor %}
@@ -209,7 +215,6 @@
                 {% set keyloop = loop %}
                 {% if branch in key %}
                 <li{%  if brloop.first and dataloop.first and loop.first %} class="active"{% endif %}><a data-toggle="tab" href="#{{ key }}">{{ key }}</a></li><div class="clearfix"></div>
-                {% if alljobs.remove(key) %}{% endif %}
                 {% endif %}
             {% endfor %}
             </div>

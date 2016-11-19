@@ -63,7 +63,9 @@ def create_html():
 
     JINJA_ENVIRONMENT = jinja2.Environment(
         loader=jinja2.FileSystemLoader(work_dir),
-        extensions=['jinja2.ext.autoescape'],
+        extensions=['jinja2.ext.autoescape',
+                    'jinja2.ext.do',
+                    'jinja2.ext.loopcontrols'],
         autoescape=True)
     template = JINJA_ENVIRONMENT.get_template('template.html')
     branches = sorted(
