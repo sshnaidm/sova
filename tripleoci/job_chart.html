@@ -1,0 +1,141 @@
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-xs-12 col-md-3">
+            <script type="text/javascript">
+                google.charts.setOnLoadCallback({{ key|replace("-","_") }}_today);
+
+                function {{ key|replace("-","_") }}_today() {
+                var data = google.visualization.arrayToDataTable([
+                  ['Job status', 'Percents'],
+                  ['Passed',             {{ main.today_jobs[key].succ|default(0) }} ],
+                  ['Infra issues',       {{ main.today_jobs[key].infra|default(0) }} ],
+                  ['Code issues',        {{ main.today_jobs[key].code|default(0) }} ],
+                  ['Unknown failures', {{ main.today_jobs[key].unknown|default(0) }} ],
+                  {% if not main.today_jobs[key] %}['No data', 1]{% endif %}
+                ]);
+                var options = {
+                  title: 'Today',
+                  pieHole: 0.4,
+                    colors: ['#109618', '#DC3912', '#3366CC', '#FF9900', 'black'],
+                    //legend: {position:'top', alignment: 'center'},
+                    //chartArea:{left:5,top:5,width:'100%',height:'100%'}
+                };
+                var chart = new google.visualization.PieChart(document.getElementById('{{ key }}_today'));
+                chart.draw(data, options);
+                }
+            </script>
+            <div id="{{ key }}_today"></div>
+        </div>
+        <div class="col-xs-12 col-md-3">
+            <script type="text/javascript">
+                google.charts.setOnLoadCallback({{ key|replace("-","_") }}_yesterday);
+
+                function {{ key|replace("-","_") }}_yesterday() {
+                var data = google.visualization.arrayToDataTable([
+                  ['Job status', 'Percents'],
+                  ['Passed',             {{ main.yesterday_jobs[key].succ|default(0) }} ],
+                  ['Infra issues',       {{ main.yesterday_jobs[key].infra|default(0) }} ],
+                  ['Code issues',        {{ main.yesterday_jobs[key].code|default(0) }} ],
+                  ['Unknown failures', {{ main.yesterday_jobs[key].unknown|default(0) }} ],
+                  {% if not main.yesterday_jobs[key] %}['No data', 1]{% endif %}
+                ]);
+                var options = {
+                  title: 'Yesterday',
+                  pieHole: 0.4,
+                    colors: ['#109618', '#DC3912', '#3366CC', '#FF9900', 'black'],
+                    //legend: {position:'top', alignment: 'center'},
+                    //chartArea:{left:5,top:5,width:'100%',height:'100%'}
+                };
+                var chart = new google.visualization.PieChart(document.getElementById('{{ key }}_yesterday'));
+                chart.draw(data, options);
+                }
+            </script>
+            <div id="{{ key }}_yesterday"></div>
+        </div>
+        <div class="col-xs-12 col-md-3">
+            <script type="text/javascript">
+                google.charts.setOnLoadCallback({{ key|replace("-","_") }}_week);
+
+                function {{ key|replace("-","_") }}_week() {
+                var data = google.visualization.arrayToDataTable([
+                  ['Job status', 'Percents'],
+                  ['Passed',             {{ main.week_jobs[key].succ|default(0) }} ],
+                  ['Infra issues',       {{ main.week_jobs[key].infra|default(0) }} ],
+                  ['Code issues',        {{ main.week_jobs[key].code|default(0) }} ],
+                  ['Unknown failures', {{ main.week_jobs[key].unknown|default(0) }} ],
+                  {% if not main.week_jobs[key] %}['No data', 1]{% endif %}
+                ]);
+                var options = {
+                  title: 'Week',
+                  pieHole: 0.4,
+                    colors: ['#109618', '#DC3912', '#3366CC', '#FF9900', 'black'],
+                    //legend: {position:'top', alignment: 'center'},
+                    //chartArea:{left:5,top:5,width:'100%',height:'100%'}
+                };
+                var chart = new google.visualization.PieChart(document.getElementById('{{ key }}_week'));
+                chart.draw(data, options);
+                }
+            </script>
+            <div id="{{ key }}_week"></div>
+        </div>
+        <div class="col-xs-12 col-md-3">
+            <script type="text/javascript">
+                google.charts.setOnLoadCallback({{ key|replace("-","_") }}_overall);
+
+                function {{ key|replace("-","_") }}_overall() {
+                var data = google.visualization.arrayToDataTable([
+                  ['Job status', 'Percents'],
+                  ['Passed',             {{ main.job_by_name[key].succ|default(0) }} ],
+                  ['Infra issues',       {{ main.job_by_name[key].infra|default(0) }} ],
+                  ['Code issues',        {{ main.job_by_name[key].code|default(0) }} ],
+                  ['Unknown failures', {{ main.job_by_name[key].unknown|default(0) }} ],
+                  {% if not main.job_by_name[key] %}['No data', 1]{% endif %}
+                ]);
+                var options = {
+                  title: 'Overall',
+                  pieHole: 0.4,
+                    colors: ['#109618', '#DC3912', '#3366CC', '#FF9900', 'black'],
+                    //legend: {position:'top', alignment: 'center'},
+                    //chartArea:{left:5,top:5,width:'100%',height:'100%'}
+                };
+                var chart = new google.visualization.PieChart(document.getElementById('{{ key }}_overall'));
+                chart.draw(data, options);
+                }
+            </script>
+            <div id="{{ key }}_overall"></div>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-xs-12 col-md-6">
+            <script type="text/javascript">
+                google.charts.setOnLoadCallback({{ key|replace("-","_") }}_dyn);
+                function {{ key|replace("-","_") }}_dyn() {
+                var data = google.visualization.arrayToDataTable([
+                    ['Date', 'Passed', 'Infra issues', 'Code issues', 'Unknown failures', { role: 'annotation' }],
+                    {% for date in main.jobs_by_date[key].keys()|sort %}
+                        ['{{ date }}', {{ main.jobs_by_date[key][date].succ|default(0) }},{{ main.jobs_by_date[key][date].infra|default(0) }},{{ main.jobs_by_date[key][date].code|default(0) }},{{ main.jobs_by_date[key][date].unknown|default(0) }},''],
+                    {% endfor %}
+                    {% if not main.jobs_by_date[key] %}
+                        ['No data', 1, '']
+                    {% endif %}
+                  ]);
+                var options = {
+                    title: 'Dynamics of {{ key }}',
+                    isStacked: 'percent',
+                    height: 150,
+                    width: 800,
+                    legend: {position: 'none'},
+                    colors: ['#109618', '#DC3912', '#3366CC', '#FF9900', 'black'],
+                    hAxis: {format:'MM-dd'},
+                    vAxis: {minValue: 0}
+                };
+                var chart = new google.visualization.ColumnChart(document.getElementById('{{ key }}_dyn'));
+                chart.draw(data, options);
+                }
+            </script>
+            <div id="{{ key }}_dyn" style="width: 800px;"></div>
+        </div>
+    </div>
+</div>

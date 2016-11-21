@@ -395,24 +395,24 @@ def statistics(data):
     today = calc_today_str()
     for name in names:
         today_jobs[name] = dict(Counter([i['category'] for i in chart_data
-                                         if i['date'] == today
-                                         and i['name'] == name]))
+                                         if i['date'] == today and
+                                         i['name'] == name]))
     today_jobs_all = dict(Counter([i['category'] for i in chart_data
                                    if i['date'] == today]))
     yesterday_jobs = {}
     yesterday = calc_yesterday_str()
     for name in names:
         yesterday_jobs[name] = dict(Counter([i['category'] for i in chart_data
-                                             if i['date'] == yesterday
-                                             and i['name'] == name]))
+                                             if i['date'] == yesterday and
+                                             i['name'] == name]))
     yesterday_jobs_all = dict(Counter([i['category'] for i in chart_data
                                        if i['date'] == yesterday]))
     week_jobs = {}
     week = calc_week()
     for name in names:
         week_jobs[name] = dict(Counter([i['category'] for i in chart_data
-                                        if i['date'] in week
-                                        and i['name'] == name]))
+                                        if i['date'] in week and
+                                        i['name'] == name]))
     week_jobs_all = dict(Counter([i['category'] for i in chart_data
                                   if i['date'] in week]))
 

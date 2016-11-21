@@ -1,0 +1,54 @@
+<table class="table table-hover">
+    <thead><td>Date</td><td>Length</td><td>Reason</td>{% if data == ci %}<td>Patch</td>{% endif %}<td>Logs</td>{% if data == ci %}<td>Project</td><td>Branch</td>{% endif %}<td>Logstash</td></thead>
+    {%  for i in data[key] %}
+    <tr style="color:{% if i.reason and 'infra' in i.tags %}red{% elif i.success %}green{% elif i.reason %}blue{% else %}black{% endif %}"{% if i.success and not i.periodic %} class="collapse" id="success"{% endif %}>
+        {# Date #}
+        <td style="color:{% if i.reason and 'infra' in i.tags %}red{% elif i.success %}green{% elif i.reason %}blue{% else %}black{% endif %}">
+        | {{  i.job.datetime }} |
+        </td>
+        {# Length #}
+        <td style="color:{% if i.reason and 'infra' in i.tags %}red{% elif i.success %}green{% elif i.reason %}blue{% else %}black{% endif %}">
+        | {{  i.job.length }} min |
+        </td>
+        {# Reason #}
+        <td style="color:{% if i.reason and 'infra' in i.tags %}red{% elif i.success %}green{% elif i.reason %}blue{% else %}black{% endif %}">
+        | {{ i.msg.keys() | join(' ')}} |
+        </td>
+        {# Patchset #}
+        {% if not i.periodic %}
+        <td>
+            | {%  if i.job.patchset.patchset_url %}
+                <a data-toggle="tooltip" data-placement="top" title="{{ i.job.patch.subject }}"
+                   href="{{ i.job.patchset.patchset_url }}">{{ i.job.patch.patch_number }},{{ i.job.patchset.number }}</a>
+            <a tabindex="0" class="btn" role="button" data-toggle="popover" data-trigger="focus" data-html="true"
+               title="Subject: {{ i.job.patch.subject }}" data-content="Author: {{ i.job.patch.owner.name }}<br>Commit:<br> {{ i.job.patch.commitmsg.split("Change-Id")[0] }}"><strong>?</strong></a>
+            {%  else %}No patch URL{%  endif %} |
+        </td>
+        {% endif %}
+        {# Logs #}
+        <td>
+        | <a href="{{ i.job.log_url }}">Logs</a> |
+        </td>
+        {# Project #}
+        {% if not i.periodic %}
+        <td>
+        | <a href="https://review.openstack.org/#/q/status:open+project:{{ i.job.patch.project }}">{{ i.job.patch.project.split("/")[1]|default(i.job.patch.project) }}</a> |
+        </td>
+        {% endif %}
+        {# Branch #}
+        {% if not i.periodic %}
+        <td>
+        | <a  data-toggle="tooltip" data-placement="top" title="{{ i.job.patch.topic|default('') }}" href="https://review.openstack.org/#/q/status:open+branch:{{ i.job.branch }}+project:{{ i.job.patch.project|default('') }}">{{ i.job.branch }}</a> |
+        </td>
+        {% endif %}
+        {# Logstash #}
+        <td>
+        | {% if i.logstash_url %}<a href="{{ i.logstash_url }}">Logstash</a>{% else %} - {% endif %} |
+        </td>
+        {# Tempest statistics #}
+        {% if 'tempest' in i.job.name %}
+            <!-- tempest_stats:{{ i.job.name }},{{ i.job.ts.strftime('%s') }},{% if i.success %}SUCCESS{% else %}FAILURE{% endif %}: -->
+        {% endif %}
+    </tr>
+    {%  endfor %}
+</table>

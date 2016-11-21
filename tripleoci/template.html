@@ -32,438 +32,95 @@
     </h3>
 </div>
 
+<div class="tabbable boxed parentTabs">
 
-<ul class="nav nav-tabs">
 
-    {% for data in (ci, periodic) %}
-        {% set dataloop = loop %}
+    <ul class="nav nav-tabs">
+        {% for data in (ci, periodic) %}
+            {% set dataloop = loop %}
 
-        <h2 align="center">
-                {% if data==periodic %}Periodic jobs
+                {% if data==periodic %}
+                    <li><a href="#periodictab"><h2>Periodic jobs</h2></a></li>
                 {% set main=periodic_stats %}{% set key='periodic' %}
-                {% else %}Gate jobs
-                {% set main=ci_stats %}{% set key='ci' %}
-                {% endif %}</h2>
-                {% if main.all_statistics %}{% set stat=main.all_statistics %}
-
-                    <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-xs-12 col-md-3">
-                            <script type="text/javascript">
-                                google.charts.setOnLoadCallback({{ key }}_today);
-
-                                function {{ key }}_today() {
-                                var data = google.visualization.arrayToDataTable([
-                                  ['Job status', 'Percents'],
-                                  ['Passed',             {{ main.today_jobs_all.succ|default(0) }} ],
-                                  ['Infra issues',       {{ main.today_jobs_all.infra|default(0) }} ],
-                                  ['Code issues',        {{ main.today_jobs_all.code|default(0) }} ],
-                                  ['Unknown failures', {{ main.today_jobs_all.unknown|default(0) }} ],
-                                  {% if not main.today_jobs_all %}['No data', 1]{% endif %}
-                                ]);
-                                var options = {
-                                  title: 'Today',
-                                  pieHole: 0.4,
-                                    colors: ['#109618', '#DC3912', '#3366CC', '#FF9900', 'black'],
-                                    //legend: {position:'top', alignment: 'center'},
-                                    //chartArea:{left:5,top:5,width:'100%',height:'100%'}
-                                };
-                                var chart = new google.visualization.PieChart(document.getElementById('{{ key }}_all_today'));
-                                chart.draw(data, options);
-                                }
-                            </script>
-                            <div id="{{ key }}_all_today"></div>
-
-                        </div>
-                        <div class="col-xs-12 col-md-3">
-                            <script type="text/javascript">
-                                google.charts.setOnLoadCallback({{ key }}_yesterday);
-
-                                function {{ key }}_yesterday() {
-                                var data = google.visualization.arrayToDataTable([
-                                  ['Job status', 'Percents'],
-                                  ['Passed',             {{ main.yesterday_jobs_all.succ|default(0) }} ],
-                                  ['Infra issues',       {{ main.yesterday_jobs_all.infra|default(0) }} ],
-                                  ['Code issues',        {{ main.yesterday_jobs_all.code|default(0) }} ],
-                                  ['Unknown failures', {{ main.yesterday_jobs_all.unknown|default(0) }} ],
-                                  {% if not main.yesterday_jobs_all %}['No data', 1]{% endif %}
-                                ]);
-                                var options = {
-                                  title: 'Yesterday',
-                                  pieHole: 0.4,
-                                    colors: ['#109618', '#DC3912', '#3366CC', '#FF9900', 'black'],
-                                    //legend: {position:'top', alignment: 'center'},
-                                    //chartArea:{left:5,top:5,width:'100%',height:'100%'}
-                                };
-                                var chart = new google.visualization.PieChart(document.getElementById('{{ key }}_all_yesterday'));
-                                chart.draw(data, options);
-                                }
-                            </script>
-                            <div id="{{ key }}_all_yesterday"></div>
-                        </div>
-                        <div class="col-xs-12 col-md-3">
-                            <script type="text/javascript">
-                                google.charts.setOnLoadCallback({{ key }}_week);
-
-                                function {{ key }}_week() {
-                                var data = google.visualization.arrayToDataTable([
-                                  ['Job status', 'Percents'],
-                                  ['Passed',             {{ main.week_jobs_all.succ|default(0) }} ],
-                                  ['Infra issues',       {{ main.week_jobs_all.infra|default(0) }} ],
-                                  ['Code issues',        {{ main.week_jobs_all.code|default(0) }} ],
-                                  ['Unknown failures', {{ main.week_jobs_all.unknown|default(0) }} ],
-                                  {% if not main.week_jobs_all %}['No data', 1]{% endif %}
-                                ]);
-                                var options = {
-                                  title: 'Week',
-                                  pieHole: 0.4,
-                                    colors: ['#109618', '#DC3912', '#3366CC', '#FF9900', 'black'],
-                                    //legend: {position:'top', alignment: 'center'},
-                                    //chartArea:{left:5,top:5,width:'100%',height:'100%'}
-                                };
-                                var chart = new google.visualization.PieChart(document.getElementById('{{ key }}_all_week'));
-                                chart.draw(data, options);
-                                }
-                            </script>
-                            <div id="{{ key }}_all_week"></div>
-                        </div>
-                        <div class="col-xs-12 col-md-3">
-                            <script type="text/javascript">
-                                google.charts.setOnLoadCallback({{ key }}_overall);
-
-                                function {{ key }}_overall() {
-                                var data = google.visualization.arrayToDataTable([
-                                  ['Job status', 'Percents'],
-                                  ['Passed',             {{ main.all_statistics.succ|default(0) }} ],
-                                  ['Infra issues',       {{ main.all_statistics.infra|default(0) }} ],
-                                  ['Code issues',        {{ main.all_statistics.code|default(0) }} ],
-                                  ['Unknown failures', {{ main.all_statistics.unknown|default(0) }} ],
-                                  {% if not main.all_statistics %}['No data', 1]{% endif %}
-                                ]);
-                                var options = {
-                                  title: 'Overall',
-                                  pieHole: 0.4,
-                                    colors: ['#109618', '#DC3912', '#3366CC', '#FF9900', 'black'],
-                                    //legend: {position:'top', alignment: 'center'},
-                                    //chartArea:{left:5,top:5,width:'100%',height:'100%'}
-                                };
-                                var chart = new google.visualization.PieChart(document.getElementById('{{ key }}_overall'));
-                                chart.draw(data, options);
-                                }
-                            </script>
-                            <div id="{{ key }}_overall"></div>
-                        </div>
-                    </div>
-                    </div>
-                <div>
-                <script type="text/javascript">
-                    google.charts.setOnLoadCallback({{ key }}_dyn);
-                    function {{ key }}_dyn() {
-                    var data = google.visualization.arrayToDataTable([
-                        ['Date', 'Passed', 'Infra issues', 'Code issues', 'Unknown failures', { role: 'annotation' }],
-                        {% for date in main.all_by_date.keys()|sort %}
-                            ['{{ date }}', {{ main.all_by_date[date].succ|default(0) }},{{ main.all_by_date[date].infra|default(0) }},{{ main.all_by_date[date].code|default(0) }},{{ main.all_by_date[date].unknown|default(0) }},''],
-                        {% endfor %}
-                        {% if not main.all_by_date %}
-                            ['No data', 1, '']
-                        {% endif %}
-                      ]);
-                    var options = {
-                        title: 'Dynamics of {{ key }} jobs',
-                        isStacked: 'percent',
-                        height: 200,
-                        legend: {position: 'top', maxLines: 3},
-                        colors: ['#109618', '#DC3912', '#3366CC', '#FF9900', 'black'],
-                        hAxis: {format:'MM-dd'},
-                        vAxis: {minValue: 0}
-                    };
-                    var chart = new google.visualization.ColumnChart(document.getElementById('{{ key }}_dyn'));
-                    chart.draw(data, options);
-                    }
-                </script>
-                <div id="{{ key }}_dyn"></div>
-                </div>
-
                 {% else %}
+                    <li class="active"><a href="#citab"><h2>Gate jobs</h2></a></li>
+                {% set main=ci_stats %}{% set key='ci' %}
                 {% endif %}
 
-
-        {% set alljobs=data.keys()|list %}
-        {% set master_jobs=alljobs %}
-        {% for j in alljobs %}
-            {% set ifmaster=True %}
-            {% for branch in branches if branch != 'master' %}
-                {% if branch in j %}{% do master_jobs.remove(j) %} {% endif %}
-            {% endfor %}
         {% endfor %}
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-xs-12 col-md-3">
-        <h3>Master-{{ key|replace('ci', 'gate') }}</h3>
-        {% for key in master_jobs %}
-            {% set keyloop = loop %}
-            <li{% if dataloop.first and loop.first %} class="active"{% endif %}><a data-toggle="tab" href="#{{ key }}">{{ key }}</a></li><div class="clearfix"></div>
-        {% endfor %}
-        </div>
+    </ul>
 
-        {% for branch in branches|reverse if branch != 'master' %}
-            {% set brloop = loop %}
-            <div class="col-xs-12 col-md-3">
-            <h3>{{ branch|capitalize }}-{{ key|replace('ci', 'gate') }}</h3>
 
-            {% for key in data %}
-                {% set keyloop = loop %}
-                {% if branch in key %}
-                <li{%  if brloop.first and dataloop.first and loop.first %} class="active"{% endif %}><a data-toggle="tab" href="#{{ key }}">{{ key }}</a></li><div class="clearfix"></div>
+    <div class="tab-content">
+    {% for data in (ci, periodic) %}
+        {% if data==periodic %}{% set main=periodic_stats %}{% set key='periodic' %}
+        {% else %}{% set main=ci_stats %}{% set key='ci' %}
+        {% endif %}
+
+        <div class="tab-pane fade {% if loop.first %}active in{% endif %}" id="{{ key }}tab">
+            <div class="tabbable">
+                {% if main.all_statistics %}{% set stat=main.all_statistics %}
+                    {% include 'main_chart.html' %}
                 {% endif %}
-            {% endfor %}
-            </div>
-            <!--<div class="clearfix"></div> -->
-        {% endfor %}
-        </div></div>
-        <!--  div class="clearfix"></div> -->
+                <ul class="nav nav-tabs">
+                    {% include 'jobs_list.html' %}
+                </ul>
 
-        <div class="clearfix"></div>
-    {% endfor %}
-    <li><a data-toggle="tab" href="#" id="all">All</a></li>
-    <li><a data-toggle="tab" href="#errors">Top</a></li>
-</ul>
+<!--
+                    <li><a data-toggle="tab" href="#" id="all">All</a></li>
+                    <li><a data-toggle="tab" href="#errors">Top</a></li>
+-->
 
-<div class="clearfix"></div>
-<button class="btn btn-primary" type="button" id="showsuccess"><span class="glyphicon glyphicon-collapse-up"></span> Show successes </button>
-<div class="clearfix"></div>
+                <div class="clearfix"></div>
+                <button class="btn btn-primary" type="button" id="showsuccess"><span class="glyphicon glyphicon-collapse-up"></span> Show successes </button>
+                <div class="clearfix"></div>
 
-<div class="tab-content">
+                <div class="tab-content">
 
-{% for data in (ci, periodic) %}
-    {% set rowloop = loop %}
-    {% for key in data %}
-        <div id="{{ key }}" class="tab-pane fade{% if rowloop.first and loop.first%} in active{%  endif %}">
-        <div class="panel panel-default">
-            <div class="panel-heading "><h4>{{ key }}</h4></div>
-            <div class="panel-body">
 
-                {% if data == periodic %}{% set main=periodic_stats %}{% else %}{% set main=ci_stats %}{% endif %}
-                 <div class="container-fluid">
-                    <div class="row">
 
-                        <div class="col-xs-12 col-md-3">
-                            <script type="text/javascript">
-                                google.charts.setOnLoadCallback({{ key|replace("-","_") }}_today);
+                    {% set rowloop = loop %}
+                    {% for key in data %}
 
-                                function {{ key|replace("-","_") }}_today() {
-                                var data = google.visualization.arrayToDataTable([
-                                  ['Job status', 'Percents'],
-                                  ['Passed',             {{ main.today_jobs[key].succ|default(0) }} ],
-                                  ['Infra issues',       {{ main.today_jobs[key].infra|default(0) }} ],
-                                  ['Code issues',        {{ main.today_jobs[key].code|default(0) }} ],
-                                  ['Unknown failures', {{ main.today_jobs[key].unknown|default(0) }} ],
-                                  {% if not main.today_jobs[key] %}['No data', 1]{% endif %}
-                                ]);
-                                var options = {
-                                  title: 'Today',
-                                  pieHole: 0.4,
-                                    colors: ['#109618', '#DC3912', '#3366CC', '#FF9900', 'black'],
-                                    //legend: {position:'top', alignment: 'center'},
-                                    //chartArea:{left:5,top:5,width:'100%',height:'100%'}
-                                };
-                                var chart = new google.visualization.PieChart(document.getElementById('{{ key }}_today'));
-                                chart.draw(data, options);
-                                }
-                            </script>
-                            <div id="{{ key }}_today"></div>
+
+                        <div id="{{ key }}" class="tab-pane fade{% if rowloop.first and loop.first%} in active{%  endif %}">
+                        <div class="panel panel-default">
+                            <div class="panel-heading "><h4>{{ key }}</h4></div>
+                            <div class="panel-body">
+                            <i>{{ key }}</i><br>
+
+                                {% if data == periodic %}{% set main=periodic_stats %}{% else %}{% set main=ci_stats %}{% endif %}
+                                 {% include 'job_chart.html' %}
+
+                            </div>
                         </div>
-                        <div class="col-xs-12 col-md-3">
-                            <script type="text/javascript">
-                                google.charts.setOnLoadCallback({{ key|replace("-","_") }}_yesterday);
 
-                                function {{ key|replace("-","_") }}_yesterday() {
-                                var data = google.visualization.arrayToDataTable([
-                                  ['Job status', 'Percents'],
-                                  ['Passed',             {{ main.yesterday_jobs[key].succ|default(0) }} ],
-                                  ['Infra issues',       {{ main.yesterday_jobs[key].infra|default(0) }} ],
-                                  ['Code issues',        {{ main.yesterday_jobs[key].code|default(0) }} ],
-                                  ['Unknown failures', {{ main.yesterday_jobs[key].unknown|default(0) }} ],
-                                  {% if not main.yesterday_jobs[key] %}['No data', 1]{% endif %}
-                                ]);
-                                var options = {
-                                  title: 'Yesterday',
-                                  pieHole: 0.4,
-                                    colors: ['#109618', '#DC3912', '#3366CC', '#FF9900', 'black'],
-                                    //legend: {position:'top', alignment: 'center'},
-                                    //chartArea:{left:5,top:5,width:'100%',height:'100%'}
-                                };
-                                var chart = new google.visualization.PieChart(document.getElementById('{{ key }}_yesterday'));
-                                chart.draw(data, options);
-                                }
-                            </script>
-                            <div id="{{ key }}_yesterday"></div>
+                          {% include 'jobs_table.html' %}
                         </div>
-                        <div class="col-xs-12 col-md-3">
-                            <script type="text/javascript">
-                                google.charts.setOnLoadCallback({{ key|replace("-","_") }}_week);
-
-                                function {{ key|replace("-","_") }}_week() {
-                                var data = google.visualization.arrayToDataTable([
-                                  ['Job status', 'Percents'],
-                                  ['Passed',             {{ main.week_jobs[key].succ|default(0) }} ],
-                                  ['Infra issues',       {{ main.week_jobs[key].infra|default(0) }} ],
-                                  ['Code issues',        {{ main.week_jobs[key].code|default(0) }} ],
-                                  ['Unknown failures', {{ main.week_jobs[key].unknown|default(0) }} ],
-                                  {% if not main.week_jobs[key] %}['No data', 1]{% endif %}
-                                ]);
-                                var options = {
-                                  title: 'Week',
-                                  pieHole: 0.4,
-                                    colors: ['#109618', '#DC3912', '#3366CC', '#FF9900', 'black'],
-                                    //legend: {position:'top', alignment: 'center'},
-                                    //chartArea:{left:5,top:5,width:'100%',height:'100%'}
-                                };
-                                var chart = new google.visualization.PieChart(document.getElementById('{{ key }}_week'));
-                                chart.draw(data, options);
-                                }
-                            </script>
-                            <div id="{{ key }}_week"></div>
-                        </div>
-                        <div class="col-xs-12 col-md-3">
-                            <script type="text/javascript">
-                                google.charts.setOnLoadCallback({{ key|replace("-","_") }}_overall);
-
-                                function {{ key|replace("-","_") }}_overall() {
-                                var data = google.visualization.arrayToDataTable([
-                                  ['Job status', 'Percents'],
-                                  ['Passed',             {{ main.job_by_name[key].succ|default(0) }} ],
-                                  ['Infra issues',       {{ main.job_by_name[key].infra|default(0) }} ],
-                                  ['Code issues',        {{ main.job_by_name[key].code|default(0) }} ],
-                                  ['Unknown failures', {{ main.job_by_name[key].unknown|default(0) }} ],
-                                  {% if not main.job_by_name[key] %}['No data', 1]{% endif %}
-                                ]);
-                                var options = {
-                                  title: 'Overall',
-                                  pieHole: 0.4,
-                                    colors: ['#109618', '#DC3912', '#3366CC', '#FF9900', 'black'],
-                                    //legend: {position:'top', alignment: 'center'},
-                                    //chartArea:{left:5,top:5,width:'100%',height:'100%'}
-                                };
-                                var chart = new google.visualization.PieChart(document.getElementById('{{ key }}_overall'));
-                                chart.draw(data, options);
-                                }
-                            </script>
-                            <div id="{{ key }}_overall"></div>
-                        </div>
-                    </div>
-
-                <br/>
-
-            <div class="row">
-                <div class="col-xs-12 col-md-6">
-                    <script type="text/javascript">
-                        google.charts.setOnLoadCallback({{ key|replace("-","_") }}_dyn);
-                        function {{ key|replace("-","_") }}_dyn() {
-                        var data = google.visualization.arrayToDataTable([
-                            ['Date', 'Passed', 'Infra issues', 'Code issues', 'Unknown failures', { role: 'annotation' }],
-                            {% for date in main.jobs_by_date[key].keys()|sort %}
-                                ['{{ date }}', {{ main.jobs_by_date[key][date].succ|default(0) }},{{ main.jobs_by_date[key][date].infra|default(0) }},{{ main.jobs_by_date[key][date].code|default(0) }},{{ main.jobs_by_date[key][date].unknown|default(0) }},''],
-                            {% endfor %}
-                            {% if not main.jobs_by_date[key] %}
-                                ['No data', 1, '']
-                            {% endif %}
-                          ]);
-                        var options = {
-                            title: 'Dynamics of {{ key }}',
-                            isStacked: 'percent',
-                            height: 150,
-                            width: 800,
-                            legend: {position: 'none'},
-                            colors: ['#109618', '#DC3912', '#3366CC', '#FF9900', 'black'],
-                            hAxis: {format:'MM-dd'},
-                            vAxis: {minValue: 0}
-                        };
-                        var chart = new google.visualization.ColumnChart(document.getElementById('{{ key }}_dyn'));
-                        chart.draw(data, options);
-                        }
-                    </script>
-                <div id="{{ key }}_dyn" style="width: 800px;"></div>
+                    {% endfor %}
+                <hr>
                 </div>
-            </div>
 
-            </div>
-            </div>
         </div>
+        </div>
+                {% endfor %}
 
-            <table class="table table-hover">
-            <thead><td>Date</td><td>Length</td><td>Reason</td>{% if data == ci %}<td>Patch</td>{% endif %}<td>Logs</td>{% if data == ci %}<td>Project</td><td>Branch</td>{% endif %}<td>Logstash</td></thead>
-            {%  for i in data[key] %}
-                <tr style="color:{% if i.reason and 'infra' in i.tags %}red{% elif i.success %}green{% elif i.reason %}blue{% else %}black{% endif %}"{% if i.success and not i.periodic %} class="collapse" id="success"{% endif %}>
-                    {# Date #}
-                    <td style="color:{% if i.reason and 'infra' in i.tags %}red{% elif i.success %}green{% elif i.reason %}blue{% else %}black{% endif %}">
-                    | {{  i.job.datetime }} |
-                    </td>
-                    {# Length #}
-                    <td style="color:{% if i.reason and 'infra' in i.tags %}red{% elif i.success %}green{% elif i.reason %}blue{% else %}black{% endif %}">
-                    | {{  i.job.length }} min |
-                    </td>
-                    {# Reason #}
-                    <td style="color:{% if i.reason and 'infra' in i.tags %}red{% elif i.success %}green{% elif i.reason %}blue{% else %}black{% endif %}">
-                    | {{ i.msg.keys() | join(' ')}} |
-                    </td>
-                    {# Patchset #}
-                    {% if not i.periodic %}
-                    <td>
-                        | {%  if i.job.patchset.patchset_url %}
-                            <a data-toggle="tooltip" data-placement="top" title="{{ i.job.patch.subject }}"
-                               href="{{ i.job.patchset.patchset_url }}">{{ i.job.patch.patch_number }},{{ i.job.patchset.number }}</a>
-                        <a tabindex="0" class="btn" role="button" data-toggle="popover" data-trigger="focus" data-html="true"
-                           title="Subject: {{ i.job.patch.subject }}" data-content="Author: {{ i.job.patch.owner.name }}<br>Commit:<br> {{ i.job.patch.commitmsg.split("Change-Id")[0] }}"><strong>?</strong></a>
-                        {%  else %}No patch URL{%  endif %} |
-                    </td>
-                    {% endif %}
-                    {# Logs #}
-                    <td>
-                    | <a href="{{ i.job.log_url }}">Logs</a> |
-                    </td>
-                    {# Project #}
-                    {% if not i.periodic %}
-                    <td>
-                    | <a href="https://review.openstack.org/#/q/status:open+project:{{ i.job.patch.project }}">{{ i.job.patch.project.split("/")[1]|default(i.job.patch.project) }}</a> |
-                    </td>
-                    {% endif %}
-                    {# Branch #}
-                    {% if not i.periodic %}
-                    <td>
-                    | <a  data-toggle="tooltip" data-placement="top" title="{{ i.job.patch.topic|default('') }}" href="https://review.openstack.org/#/q/status:open+branch:{{ i.job.branch }}+project:{{ i.job.patch.project|default('') }}">{{ i.job.branch }}</a> |
-                    </td>
-                    {% endif %}
-                    {# Logstash #}
-                    <td>
-                    | {% if i.logstash_url %}<a href="{{ i.logstash_url }}">Logstash</a>{% else %} - {% endif %} |
-                    </td>
-                    {# Tempest statistics #}
-                    {% if 'tempest' in i.job.name %}
-                        <!-- tempest_stats:{{ i.job.name }},{{ i.job.ts.strftime('%s') }},{% if i.success %}SUCCESS{% else %}FAILURE{% endif %}: -->
-                    {% endif %}
-                </tr>
-            {%  endfor %}
-            </table>
-        </div>
-    {% endfor %}
-<hr>
-{% endfor %}
+
+
+    </div>
+
+
 <br/><br/>
-<div id="errors" class="tab-pane fade">
-    <table class="table table-hover">
-    <thead><td>Count</td><td>Error</td></thead>
-        {% for e in errors_top %}
-            <tr style="color:black">
-                <td>{{ e.1 }}</td>
-                <td>{{ e.0 }}</td>
-            </tr>
-    {% endfor %}
-    </table>
-</div>
+
+{% include 'errors.html' %}
 
 </div>
 <script>
+$("ul.nav-tabs a").click(function (e) {
+  e.preventDefault();
+    $('.nav li').removeClass('active');
+    $(this).tab('show');
+});
 $('#all').on('click',function(){
   $('#all').parent().addClass('active');
   $('.tab-pane').addClass('active in');
