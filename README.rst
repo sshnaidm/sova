@@ -9,6 +9,56 @@ This tools puprose is to scan current jobs in TripleO CI and report about their
 failure reasons.
 In addition it could be used for tracking infra issues, bugs, etc.
 
+Setup a development environment
+-------------------------------
+
+*Based on a clean Fedora 24 cloud image*
+
+*STEPS*::
+
+	useradd sova
+	update sudoers  w/ %sova   ALL=(ALL)       NOPASSWD: ALL
+	su - sova
+
+	sudo yum install -y \
+	git \
+	python3-virtualenv \
+	git \
+	gcc \
+	python-devel \
+	libyaml \
+	libffi* \
+	libxml2* \
+	libxslt* \
+	python-lxml \
+	libxslt-python \
+	redhat-rpm-config \
+	openssl-devel
+
+	git clone https://github.com/sshnaidm/sova.git
+	cd sova
+
+	virtualenv-3 ~/virtenv
+	source ~/virtenv/bin/activate
+	pip install -r requirements.txt
+
+	# setup gerrit authentication
+	# contact #oooq on freenode to get the required ssh key, robi_id_rsa
+
+	chmod 600 /tmp/robi_id_rsa
+	cp /tmp/robi_id_rsa ~/sova/
+
+	python manual.py
+	# wait for the data to be populated
+
+	# update the flask config to listen on all ports
+	s/app.run()/app.run(host='0.0.0.0')/ on flaskapp.py
+
+	python flaskapp.py
+
+	# now point your browser at <ip>:5000 and you should have the equivalent of http://status-tripleoci.rhcloud.com/
+
+
 History
 ---------
 
