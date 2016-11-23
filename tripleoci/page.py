@@ -6,7 +6,7 @@ from tripleoci import config
 from tripleoci.watchcat import meow
 from tripleoci.utils import top, statistics
 
-DEBUG = True
+DEBUG = False
 
 
 def create_html():
