@@ -1,0 +1,55 @@
+
+  
+    
+      
+      ::selection {
+        background: black;
+      }
+      ::-moz-selection {
+        background: black;
+      }
+      .filtered{
+        filter: url(#filter);
+      }
+     	.st0{fill:#E6E6E6;}
+    	.st1{fill:#CCCCCC;}
+    	.st2{fill:#B3B3B3;}
+    	.st3{fill:#808080;}
+    	.st4{fill:#F2F2F2;}
+    	.st5{fill:none;stroke:#808080;stroke-width:7;stroke-miterlimit:10;}
+    	.st6{fill:#535353;}
+        .st7{fill:#C3C3C3;}
+      
+    
+    
+      
+      
+      
+    
+  
+  
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  
+
