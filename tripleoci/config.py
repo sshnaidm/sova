@@ -91,6 +91,8 @@ TRACKED_JOBS = (
     "gate-tripleo-ci-centos-7-scenario003-multinode",
     "gate-tripleo-ci-centos-7-ovb-nonha-newton",
     "gate-tripleo-ci-centos-7-ovb-ha-newton",
+    "gate-tripleo-ci-centos-7-ovb-ha-oooq",
+    "gate-tripleo-ci-centos-7-ovb-nonha-oooq",
     # "gate-tripleo-ci-centos-7-ovb-updates",
     # "gate-tripleo-ci-centos-7-ovb-ha-ipv6"
 )
