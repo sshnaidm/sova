@@ -419,6 +419,15 @@ PATTERNS = {
             "tag": "code",
             "logstash": 'Gateway Time-out (HTTP 504)',
         },
+        {
+            "id": 56,
+            "pattern": ("Retrying (Retry(total=0, connect=None, read=None, "
+                       "redirect=None)) after connection broken by"),
+            "msg": "Pip networking timeout.",
+            "tag": "infra",
+            "logstash": ("Retrying (Retry(total=0, connect=None, read=None, "
+                       "redirect=None)) after connection broken by"),
+        },
     ],
 
     '/logs/postci.txt': [
