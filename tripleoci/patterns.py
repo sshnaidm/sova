@@ -23,6 +23,8 @@ ssh_re = re.compile(r"ssh: connect to host .+ port .+: No route to host")
 pup_module_re = re.compile(r'mError: .* at /etc/puppet/modules/([^/]+)/')
 service_fail_re = re.compile(r"systemd: (\S+).service failed")
 fail_refresh_re = re.compile(r"\[([\w-]+)\]: Failed to call refresh")
+iron_space_re = re.compile(r"Disk volume where .* "
+                           r"is located doesn't have enough disk space")
 
 # Patterns to search in files
 PATTERNS = {
@@ -422,11 +424,11 @@ PATTERNS = {
         {
             "id": 56,
             "pattern": ("Retrying (Retry(total=0, connect=None, read=None, "
-                       "redirect=None)) after connection broken by"),
+                        "redirect=None)) after connection broken by"),
             "msg": "Pip networking timeout.",
             "tag": "infra",
             "logstash": ("Retrying (Retry(total=0, connect=None, read=None, "
-                       "redirect=None)) after connection broken by"),
+                         "redirect=None)) after connection broken by"),
         },
     ],
 
@@ -497,6 +499,14 @@ PATTERNS = {
             "tag": "code",
             "logstash": "Timeout reached while waiting for callback for node",
         },
+        {
+            "id": 301,
+            "pattern": iron_space_re,
+            "msg": "No space on disk for Ironic.",
+            "tag": "infra",
+            "logstash": "is located doesn't have enough disk space. Required",
+        },
+
     ],
     '/logs/undercloud/var/log/messages': [
         {
