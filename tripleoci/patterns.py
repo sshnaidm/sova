@@ -430,6 +430,13 @@ PATTERNS = {
             "logstash": ("Retrying (Retry(total=0, connect=None, read=None, "
                          "redirect=None)) after connection broken by"),
         },
+        {
+            "id": 57,
+            "pattern": "Could not evaluate: Cannot allocate memory - fork(2)",
+            "msg": "Puppet memory fail.",
+            "tag": "infra",
+            "logstash": "Could not evaluate: Cannot allocate memory - fork",
+        },
     ],
 
     '/logs/postci.txt': [
