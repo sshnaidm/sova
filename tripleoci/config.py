@@ -35,7 +35,6 @@ PROJECTS = (
 
 PERIODIC_LOGS_URL = 'http://logs.openstack.org/periodic'
 PERIODIC_URLS = [
-    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-liberty',
     PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-mitaka',
     PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-tempest',
     PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha',
@@ -65,34 +64,32 @@ GERRIT_PATCH_LIMIT = 200
 GERRIT_HOST = "review.openstack.org"
 GERRIT_PORT = 29418
 GERRIT_USER = "robo"
-GERRIT_BRANCHES = ("master", "stable/liberty",
-                   "stable/mitaka", "stable/newton")
+GERRIT_BRANCHES = ("master", "stable/mitaka", "stable/newton")
 TRACKED_JOBS = (
-    "gate-tripleo-ci-centos-7-ha",
-    "gate-tripleo-ci-centos-7-nonha",
-    "gate-tripleo-ci-centos-7-upgrades",
-    "gate-tripleo-ci-centos-7-ha-tempest",
-    "gate-tripleo-ci-centos-7-nonha-liberty",
-    "gate-tripleo-ci-centos-7-ha-liberty",
-    "gate-tripleo-ci-centos-7-nonha-mitaka",
-    "gate-tripleo-ci-centos-7-ha-mitaka",
-    "gate-tripleo-ci-centos-7-ovb-ha",
-    "gate-tripleo-ci-centos-7-ovb-nonha",
-    "gate-tripleo-ci-centos-7-ovb-ha-tempest",
-    "gate-tripleo-ci-centos-7-ovb-ha-liberty",
-    "gate-tripleo-ci-centos-7-ovb-ha-mitaka",
-    "gate-tripleo-ci-centos-7-ovb-nonha-liberty",
     "gate-tripleo-ci-centos-7-ovb-nonha-mitaka",
-    "gate-tripleo-ci-centos-7-nonha-multinode",
-    "gate-tripleo-ci-centos-7-undercloud",
-    "gate-tripleo-ci-centos-7-ovb-nonha-puppet-liberty",
-    "gate-tripleo-ci-centos-7-ovb-nonha-puppet-mitaka",
-    "gate-tripleo-ci-centos-7-scenario002-multinode",
-    "gate-tripleo-ci-centos-7-scenario003-multinode",
+    "gate-tripleo-ci-centos-7-ovb-ha-mitaka",
     "gate-tripleo-ci-centos-7-ovb-nonha-newton",
     "gate-tripleo-ci-centos-7-ovb-ha-newton",
+    "gate-tripleo-ci-centos-7-ovb-ha",
+    "gate-tripleo-ci-centos-7-ovb-nonha",
+
+    "gate-tripleo-ci-centos-7-ovb-ha-tempest",
+    "gate-tripleo-ci-centos-7-ovb-ha-ipv6",
+    "gate-tripleo-ci-centos-7-ovb-ha-oooq-nv",
+    "gate-tripleo-ci-centos-7-ovb-nonha-oooq-nv",
+    "gate-tripleo-ci-centos-7-ovb-containers-oooq",
     "gate-tripleo-ci-centos-7-ovb-ha-oooq",
     "gate-tripleo-ci-centos-7-ovb-nonha-oooq",
-    # "gate-tripleo-ci-centos-7-ovb-updates",
-    # "gate-tripleo-ci-centos-7-ovb-ha-ipv6"
+    "gate-tripleo-ci-centos-7-ovb-updates-nv",
+
+    "gate-tripleo-ci-centos-7-nonha-multinode",
+    "gate-tripleo-ci-centos-7-scenario001-multinode",
+    "gate-tripleo-ci-centos-7-scenario002-multinode",
+    "gate-tripleo-ci-centos-7-scenario003-multinode",
+    "gate-tripleo-ci-centos-7-scenario004-multinode",
+    "gate-tripleo-ci-centos-7-nonha-multinode-updates-nv",
+
+    "gate-tripleo-ci-centos-7-undercloud",
+    "gate-tripleo-ci-centos-7-undercloud-upgrades-nv",
+    "gate-tripleo-ci-centos-7-undercloud-containers"
 )
