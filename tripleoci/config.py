@@ -10,6 +10,8 @@ DIR = os.path.dirname(os.path.realpath(__file__))
 # https://github.com/openstack-infra/project-config/blob/master/
 # gerritbot/channels.yaml
 PROJECTS = (
+    'openstack/tripleo-quickstart',
+    'openstack/tripleo-quickstart-extras',
     'openstack/tripleo-heat-templates',
     'openstack/dib-utils',
     'openstack/diskimage-builder',
