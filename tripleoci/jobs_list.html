@@ -11,7 +11,7 @@
     <div class="row">
         <div class="col-xs-12 col-md-3">
             <h3>Master-{{ key|replace('ci', 'gate') }}</h3>
-            {% for key in master_jobs %}
+            {% for key in master_jobs|sort %}
                 {% set keyloop = loop %}
                 <li{% if loop.first %} class="active"{% endif %}><a data-toggle="tab" href="#{{ key }}">{{ key }}</a></li><div class="clearfix"></div>
             {% endfor %}
@@ -22,7 +22,7 @@
             <div class="col-xs-12 col-md-3">
                 <h3>{{ branch|capitalize }}-{{ key|replace('ci', 'gate') }}</h3>
 
-                {% for key in data %}
+                {% for key in data|sort %}
                     {% set keyloop = loop %}
                     {% if branch in key %}
                     <li{%  if brloop.first and loop.first %} class="active"{% endif %}><a data-toggle="tab" href="#{{ key }}">{{ key }}</a></li><div class="clearfix"></div>
