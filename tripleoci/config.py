@@ -80,8 +80,6 @@ TRACKED_JOBS = (
     "gate-tripleo-ci-centos-7-ovb-ha-oooq-nv",
     "gate-tripleo-ci-centos-7-ovb-nonha-oooq-nv",
     "gate-tripleo-ci-centos-7-ovb-containers-oooq",
-    "gate-tripleo-ci-centos-7-ovb-ha-oooq",
-    "gate-tripleo-ci-centos-7-ovb-nonha-oooq",
     "gate-tripleo-ci-centos-7-ovb-updates-nv",
 
     "gate-tripleo-ci-centos-7-nonha-multinode",
