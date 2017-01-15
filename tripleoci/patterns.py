@@ -437,6 +437,13 @@ PATTERNS = {
             "tag": "infra",
             "logstash": "Could not evaluate: Cannot allocate memory - fork",
         },
+        {
+            "id": 58,
+            "pattern": "Exception introspecting nodes",
+            "msg": "Introspection FAIL.",
+            "tag": "code",
+            "logstash": "Exception introspecting nodes",
+        },
     ],
 
     '/logs/postci.txt': [
