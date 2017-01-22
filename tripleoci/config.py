@@ -42,8 +42,8 @@ PERIODIC_URLS = [
     PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha',
     PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-nonha',
     PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-updates',
-    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-newton'
-
+    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-newton',
+    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-nonha-tempest-oooq',
 ]
 
 DOWNLOAD_PATH = os.environ.get('OPENSHIFT_DATA_DIR',
