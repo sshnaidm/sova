@@ -43,6 +43,7 @@ PERIODIC_URLS = [
     PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-nonha',
     PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-updates',
     PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-newton',
+    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-ocata',
     PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-nonha-tempest-oooq',
 ]
 
@@ -66,12 +67,14 @@ GERRIT_PATCH_LIMIT = 200
 GERRIT_HOST = "review.openstack.org"
 GERRIT_PORT = 29418
 GERRIT_USER = "robo"
-GERRIT_BRANCHES = ("master", "stable/mitaka", "stable/newton")
+GERRIT_BRANCHES = ("master", "stable/mitaka", "stable/newton", "stable/ocata")
 TRACKED_JOBS = (
     "gate-tripleo-ci-centos-7-ovb-nonha-mitaka",
     "gate-tripleo-ci-centos-7-ovb-ha-mitaka",
     "gate-tripleo-ci-centos-7-ovb-nonha-newton",
     "gate-tripleo-ci-centos-7-ovb-ha-newton",
+    "gate-tripleo-ci-centos-7-ovb-nonha-ocata",
+    "gate-tripleo-ci-centos-7-ovb-ha-ocata",
     "gate-tripleo-ci-centos-7-ovb-ha",
     "gate-tripleo-ci-centos-7-ovb-nonha",
 
