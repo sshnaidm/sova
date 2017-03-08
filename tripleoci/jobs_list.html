@@ -13,7 +13,19 @@
             <h3>Master-{{ key|replace('ci', 'gate') }}</h3>
             {% for key in master_jobs|sort %}
                 {% set keyloop = loop %}
+                {% if 'oooq' not in key %}
                 <li{% if loop.first %} class="active"{% endif %}><a data-toggle="tab" href="#{{ key }}">{{ key }}</a></li><div class="clearfix"></div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <div class="col-xs-12 col-md-3">
+            <h3>OOOQ-{{ key|replace('ci', 'gate') }}</h3>
+            {% for key in master_jobs|sort %}
+                {% set keyloop = loop %}
+                {% if 'oooq' in key %}
+                <li{% if loop.first %} class="active"{% endif %}><a data-toggle="tab" href="#{{ key }}">{{ key }}</a></li><div class="clearfix"></div>
+                {% endif %}
             {% endfor %}
         </div>
 
