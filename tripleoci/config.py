@@ -97,7 +97,6 @@ TRACKED_JOBS = (
     "gate-tripleo-ci-centos-7-scenario003-multinode",
     "gate-tripleo-ci-centos-7-scenario004-multinode",
     "gate-tripleo-ci-centos-7-nonha-multinode-updates-nv",
-    "gate-tripleo-ci-centos-7-nonha-multinode-oooq-nv",
     "gate-tripleo-ci-centos-7-multinode-upgrades-nv",
 
     "gate-tripleo-ci-centos-7-nonha-multinode-oooq",
