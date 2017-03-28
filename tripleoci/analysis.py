@@ -13,7 +13,7 @@ DEBUG = False
 
 
 def analyze_all(jobs, down_path):
-    p = Pool(50)
+    p = Pool(70)
     results = []
     for k, j in enumerate(jobs):
         results.append(p.spawn(analyze, j, down_path, k))

@@ -137,7 +137,7 @@ class Web(object):
         log.debug("GET {url} with ignore404={i}".format(
             url=self.url, i=str(ignore404)))
         try:
-            req = requests.get(self.url)
+            req = requests.get(self.url, timeout=config.WEB_TIMEOUT)
         except ConnectionError:
             log.error("Connection error when retriving {}".format(self.url))
             return None
@@ -145,7 +145,7 @@ class Web(object):
             log.error("Unknown error when retriving {}: {}".format(
                 self.url, str(e)))
             try:
-                req = requests.get(self.url)
+                req = requests.get(self.url, timeout=config.WEB_TIMEOUT)
             except Exception as e:
                 log.error("Giving up with error {}: {}".format(
                     self.url, str(e)))
