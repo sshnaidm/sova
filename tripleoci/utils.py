@@ -145,7 +145,7 @@ class Web(object):
             log.error("Unknown error when retriving {}: {}".format(
                 self.url, str(e)))
             try:
-                req = requests.get(self.url, timeout=config.WEB_TIMEOUT)
+                req = requests.get(self.url, timeout=config.WEB_TIMEOUT_LATE)
             except Exception as e:
                 log.error("Giving up with error {}: {}".format(
                     self.url, str(e)))
