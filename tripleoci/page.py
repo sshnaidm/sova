@@ -28,12 +28,6 @@ def create_html():
 
     work_dir = os.path.dirname(__file__)
     if not DEBUG:
-        ci_data = meow(limit=None,
-                       days=8,
-                       job_type=None,
-                       fail=False,
-                       down_path=config.DOWNLOAD_PATH)
-
         periodic_data = meow(limit=None,
                              days=14,
                              job_type=None,
@@ -41,6 +35,11 @@ def create_html():
                              down_path=config.DOWNLOAD_PATH,
                              periodic=True,
                              fail=False)
+        ci_data = meow(limit=None,
+                       days=8,
+                       job_type=None,
+                       fail=False,
+                       down_path=config.DOWNLOAD_PATH)
 
         with open(
                 os.path.join(config.DOWNLOAD_PATH, "ci_data_dump"), "wb") as g:
