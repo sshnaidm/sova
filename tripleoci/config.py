@@ -38,7 +38,6 @@ PROJECTS = (
 PERIODIC_LOGS_URL = 'http://logs.openstack.org/periodic'
 PERIODIC_URLS = [
     PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-mitaka',
-    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-tempest',
     PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha',
     PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-nonha',
     PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-updates',
@@ -68,7 +67,6 @@ else:
 INDEX_HTML = os.path.join(DOWNLOAD_PATH, "index.html")
 SSH_TIMEOUT = 120
 WEB_TIMEOUT = (3.05, 1)
-WEB_TIMEOUT_LATE = (3.05, 5)
 GERRIT_REQ_TIMEOUT = 2
 GERRIT_PATCH_LIMIT = 200
 GERRIT_HOST = "review.openstack.org"

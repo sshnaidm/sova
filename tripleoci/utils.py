@@ -11,6 +11,7 @@ import time
 from backports import lzma
 from collections import Counter
 from requests import ConnectionError
+from requests.exceptions import Timeout
 from six.moves.urllib.parse import quote
 import tripleoci.config as config
 from tripleoci.config import log
@@ -141,15 +142,13 @@ class Web(object):
         except ConnectionError:
             log.error("Connection error when retriving {}".format(self.url))
             return None
+        except Timeout:
+            log.error("Timeout reached when retriving {}".format(self.url))
+            return None
         except Exception as e:
             log.error("Unknown error when retriving {}: {}".format(
                 self.url, str(e)))
-            try:
-                req = requests.get(self.url, timeout=config.WEB_TIMEOUT_LATE)
-            except Exception as e:
-                log.error("Giving up with error {}: {}".format(
-                    self.url, str(e)))
-                return None
+            return None
         if int(req.status_code) != 200:
             if not (ignore404 and int(req.status_code) == 404):
                 log.warn("Page {url} got status {code}".format(
@@ -238,6 +237,8 @@ class JobFile(object):
         self.file_path = os.path.join(self.job_dir, self.file_name)
         if os.path.exists(self.file_path):
             log.debug("File {} is already downloaded".format(self.file_path))
+        elif os.path.exists(self.file_path + "_404"):
+            return None
         else:
             if "." not in self.file_url.split("/")[-1]:
                 file_try1 = self.file_url
@@ -264,6 +265,8 @@ class JobFile(object):
                 if req is None or int(req.status_code) != 200:
                     log.warn("Failed to retrieve URL, tried twice: {}".format(
                         file_try2))
+                    if req and int(req.status_code) == 404:
+                        open(self.file_path + "_404", "a").close()
                     return None
             elif int(req.status_code) not in (200, 404):
                 log.warn(

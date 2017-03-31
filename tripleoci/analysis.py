@@ -13,7 +13,7 @@ DEBUG = False
 
 
 def analyze_all(jobs, down_path):
-    p = Pool(70)
+    p = Pool(50)
     results = []
     for k, j in enumerate(jobs):
         results.append(p.spawn(analyze, j, down_path, k))
@@ -64,8 +64,8 @@ def analyze(job, down_path, num):
     msg = dict()
     console = JobFile(job, path=down_path, offline=DEBUG).get_file()
     if not console:
-        message['text'] = 'No console file'
-        message['msg'] = {'No console file': 'infra'}
+        message['text'] = 'Failed to fetch logs'
+        message['msg'] = {'Failed to fetch logs': 'infra'}
         message['tags'] = ['infra']
         return message
     if message['success']:
