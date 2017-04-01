@@ -258,6 +258,7 @@ class JobFile(object):
                 else:
                     log.warn("Failed to retrieve URL, tried once: {}".format(
                         file_try1))
+                    open(self.file_path + "_404", "a").close()
                     return None
                 web = Web(url=file_try2)
                 log.debug("Trying to download raw file {}".format(file_try2))
@@ -265,7 +266,7 @@ class JobFile(object):
                 if req is None or int(req.status_code) != 200:
                     log.warn("Failed to retrieve URL, tried twice: {}".format(
                         file_try2))
-                    if req and int(req.status_code) == 404:
+                    if req is not None and int(req.status_code) == 404:
                         open(self.file_path + "_404", "a").close()
                     return None
             elif int(req.status_code) not in (200, 404):
