@@ -246,11 +246,12 @@ class JobFile(object):
                 file_try1 = self.file_url + ".gz"
             web = Web(url=file_try1)
             req = web.get(ignore404=True)
-            if req is None:
-                log.warn("Failed to retrieve URL, request is None: {}".format(
-                         file_try1))
-                return None
-            elif int(req.status_code) == 404:
+            if req is None or int(req.status_code) == 404:
+                # Treat connection error as 404
+                if req is None:
+                    log.warn(
+                        "Failed to retrieve URL, request is None: {}".format(
+                            file_try1))
                 if self.file_url.endswith(".html"):
                     file_try2 = self.file_url
                 elif self.file_url.endswith(".txt"):
