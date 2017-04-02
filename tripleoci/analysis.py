@@ -42,6 +42,11 @@ def analyze(job, down_path, num):
         else:
             return 'message:"' + pat_stash + '"'
 
+    def filter_by_job_name(job_name, job_files):
+        if "multinode" in job_name:
+            job_files = [f for f in job_files if "ironic" not in f]
+        return job_files
+
     log.debug("Starting task {}".format(num))
     message = {
         "text": '',
@@ -75,7 +80,7 @@ def analyze(job, down_path, num):
         message['tags'] = ['']
         return message
     files = PATTERNS.keys()
-    for file in files:
+    for file in filter_by_job_name(job.name, files):
         jfile = JobFile(job, path=down_path, file_link=file, offline=DEBUG
                         ).get_file()
         if not jfile:

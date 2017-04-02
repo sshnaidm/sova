@@ -25,6 +25,13 @@ service_fail_re = re.compile(r"systemd: (\S+).service failed")
 fail_refresh_re = re.compile(r"\[([\w-]+)\]: Failed to call refresh")
 iron_space_re = re.compile(r"Disk volume where .* "
                            r"is located doesn't have enough disk space")
+# OOOQ patterns for console
+oooq_validate_fail = re.compile('overcloud-validate.sh 2>&1 .*"rc": 1')
+oooq_image_build_fail = re.compile('overcloud_image_build_script.sh 2>&1 .*"rc": 1')
+oooq_undercloud_fail = re.compile('undercloud-install.sh 2>&1 .*"rc": 1')
+oooq_command_fail = re.compile(
+    '^.*"cmd": "(?:set -o pipefail && )*([^\s]*).*"rc": 1.*\n(?!.*ignoring).*',
+    re.MULTILINE)
 
 # Patterns to search in files
 PATTERNS = {
@@ -444,6 +451,55 @@ PATTERNS = {
             "tag": "code",
             "logstash": "Exception introspecting nodes",
         },
+        {
+            # OOOQ related
+            "id": 59,
+            "pattern": oooq_validate_fail,
+            "msg": "Overcloud pingtest FAILED.",
+            "tag": "code",
+            "logstash": "",
+        },
+        {
+            # OOOQ related
+            "id": 59,
+            "pattern": oooq_validate_fail,
+            "msg": "Overcloud pingtest FAILED.",
+            "tag": "code",
+            "logstash": "",
+        },
+        {
+            # OOOQ related
+            "id": 60,
+            "pattern": oooq_command_fail,
+            "msg": "{} fail.",
+            "tag": "code",
+            "logstash": oooq_command_fail,
+        },
+        {
+            # OOOQ related
+            "id": 61,
+            "pattern": '"overcloud_deploy_result": "failed"',
+            "msg": "Overcloud stack: FAILED.",
+            "tag": "info",
+            "logstash": '"overcloud_deploy_result": "failed"',
+        },
+        {
+            # OOOQ related
+            "id": 62,
+            "pattern": oooq_image_build_fail,
+            "msg": "FAIL to build image.",
+            "tag": "code",
+            "logstash": oooq_image_build_fail,
+        },
+        {
+            # OOOQ related
+            "id": 63,
+            "pattern": oooq_undercloud_fail,
+            "msg": "Undercloud install FAIL.",
+            "tag": "code",
+            "logstash": oooq_undercloud_fail,
+        },
+
     ],
 
     '/logs/postci.txt': [
