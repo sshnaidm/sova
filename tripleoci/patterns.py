@@ -499,6 +499,14 @@ PATTERNS = {
             "tag": "code",
             "logstash": oooq_undercloud_fail,
         },
+        {
+            # OOOQ related
+            "id": 64,
+            "pattern": "setup script run by this job failed - exit code: 143",
+            "msg": "Forced to stop.",
+            "tag": "infra",
+            "logstash": "setup script run by this job failed - exit code: 143",
+        },
 
     ],
 
