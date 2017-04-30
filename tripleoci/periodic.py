@@ -120,10 +120,14 @@ class Periodic(object):
                     j['status'] = 'ABORTED'
                 if branch_re.search(line):
                     j['branch'] = branch_re.search(line).group(1)
-                if 'Started by user' in line or '[Zuul] Launched by' in line:
-                    start = ts_re.search(line).group(1)
-                if "Finished: " in line or '[Zuul] Job complete' in line:
-                    end = ts_re.search(line).group(1)
+                try:
+                    if 'Started by user' in line or '[Zuul] Launched by' in line:
+                        start = ts_re.search(line).group(1)
+                    if "Finished: " in line or '[Zuul] Job complete' in line:
+                        end = ts_re.search(line).group(1)
+                except Exception as e:
+                    log.error(e)
+                    return None
                 if ts_re.search(line):
                     last = ts_re.search(line).group(1)
             end = end or last
