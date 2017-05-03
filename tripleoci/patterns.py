@@ -27,7 +27,8 @@ iron_space_re = re.compile(r"Disk volume where .* "
                            r"is located doesn't have enough disk space")
 # OOOQ patterns for console
 oooq_validate_fail = re.compile('overcloud-validate.sh 2>&1 .*"rc": 1')
-oooq_image_build_fail = re.compile('overcloud_image_build_script.sh 2>&1 .*"rc": 1')
+oooq_image_build_fail = re.compile(
+    'overcloud_image_build_script.sh 2>&1 .*"rc": 1')
 oooq_undercloud_fail = re.compile('undercloud-install.sh 2>&1 .*"rc": 1')
 oooq_command_fail = re.compile(
     '^.*"cmd": "(?:set -o pipefail && )*([^\s]*).*"rc": 1.*\n(?!.*ignoring).*',
