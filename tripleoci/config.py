@@ -47,10 +47,14 @@ PERIODIC_URLS = [
     '/periodic-tripleo-ci-centos-7-ovb-nonha-tempest-oooq-ocata',
     PERIODIC_LOGS_URL +
     '/periodic-tripleo-ci-centos-7-ovb-nonha-tempest-oooq-master',
-    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-scenario001-multinode-oooq',
-    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-scenario002-multinode-oooq',
-    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-scenario003-multinode-oooq',
-    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-scenario004-multinode-oooq',
+    PERIODIC_LOGS_URL +
+    '/periodic-tripleo-ci-centos-7-scenario001-multinode-oooq',
+    PERIODIC_LOGS_URL +
+    '/periodic-tripleo-ci-centos-7-scenario002-multinode-oooq',
+    PERIODIC_LOGS_URL +
+    '/periodic-tripleo-ci-centos-7-scenario003-multinode-oooq',
+    PERIODIC_LOGS_URL +
+    '/periodic-tripleo-ci-centos-7-scenario004-multinode-oooq',
 ]
 
 DOWNLOAD_PATH = os.environ.get('OPENSHIFT_DATA_DIR',
