@@ -26,7 +26,7 @@ def create_html():
             d[job_type] = [i for i in l if i["job"].name == job_type]
         return d
 
-    work_dir = os.path.dirname(__file__)
+    work_dir = config.TEMPLATE_DIR
     if not DEBUG:
         periodic_data = meow(limit=None,
                              days=14,
