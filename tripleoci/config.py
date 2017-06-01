@@ -8,6 +8,7 @@ log.setLevel(logging.DEBUG)
 
 DIR = os.path.dirname(os.path.realpath(__file__))
 TEMPLATE_DIR = os.path.abspath(os.path.join(DIR, '..', 'html'))
+PATTERN_FILE = os.path.join(DIR, 'data', 'patterns.yml')
 # https://github.com/openstack-infra/project-config/blob/master/
 # gerritbot/channels.yaml
 PROJECTS = (
