@@ -33,7 +33,8 @@ oooq_undercloud_fail = re.compile('undercloud-install.sh 2>&1 .*"rc": 1')
 oooq_command_fail = re.compile(
     '^.*"cmd": "(?:set -o pipefail && )*([^\s]*).*"rc": 1.*\n(?!.*ignoring).*',
     re.MULTILINE)
-
+oooq_tempest_fail = re.compile(
+        '^.*"cmd": ".* (tempest_output\.log).*"rc": 1.*\n(?!.*ignoring).*')
 # Patterns to search in files
 PATTERNS = {
     # file that should contain the pattern
@@ -508,6 +509,14 @@ PATTERNS = {
             "tag": "infra",
             "logstash": "setup script run by this job failed - exit code: 143",
         },
+        {
+            # OOOQ related
+            "id": 65,
+            "pattern": oooq_tempest_fail,
+            "msg": "Tempest test failure.",
+            "tag": "code",
+            "logstash": oooq_tempest_fail,
+        }
 
     ],
 
