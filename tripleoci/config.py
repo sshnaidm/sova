@@ -34,7 +34,9 @@ PROJECTS = (
     'openstack/tripleo-quickstart',
     'openstack/tripleo-specs',
     'openstack/tripleo-ui',
-    '^openstack/puppet-.*'
+    '^openstack/puppet-.*',
+    'openstack/neutron',
+    'openstack/nova',
 )
 
 PERIODIC_LOGS_URL = 'http://logs.openstack.org/periodic'
