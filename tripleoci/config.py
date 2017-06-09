@@ -100,6 +100,8 @@ GERRIT_HOST = "review.openstack.org"
 GERRIT_PORT = 29418
 GERRIT_USER = "robo"
 GERRIT_BRANCHES = ("master", "stable/newton", "stable/ocata")
+PERIODIC_DAYS = 14
+GATE_DAYS = 8
 TRACKED_JOBS = (
     "gate-tripleo-ci-centos-7-ovb-ha",
     "gate-tripleo-ci-centos-7-ovb-nonha",
