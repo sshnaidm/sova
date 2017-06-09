@@ -80,14 +80,15 @@ class Gerrit(object):
 
         data = []
 
-        cmd_template = ('gerrit query "status: reviewed project: '
-                        '{project} '
-                        'branch: {branch}" '
+        cmd_template = ('gerrit query '
+                        'status:reviewed '
+                        'project:{project} '
+                        'branch:{branch} '
                         '--comments '
                         '--format JSON '
-                        'limit: {limit} '
+                        'limit:{limit} '
                         '--patch-sets '
-                        '--current-patch-set')
+                        '--current-patch-set ')
         if self.period:
             cmd_template += ' after:"{date}"'.format(
                 date=calc_date(self.period))
