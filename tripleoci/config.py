@@ -84,43 +84,39 @@ GERRIT_PORT = 29418
 GERRIT_USER = "robo"
 GERRIT_BRANCHES = ("master", "stable/newton", "stable/ocata")
 TRACKED_JOBS = (
-    "gate-tripleo-ci-centos-7-ovb-nonha-newton",
-    "gate-tripleo-ci-centos-7-ovb-ha-newton",
-    "gate-tripleo-ci-centos-7-ovb-nonha-ocata",
-    "gate-tripleo-ci-centos-7-ovb-ha-ocata",
     "gate-tripleo-ci-centos-7-ovb-ha",
     "gate-tripleo-ci-centos-7-ovb-nonha",
+    "gate-tripleo-ci-centos-7-ovb-updates",
 
-    "gate-tripleo-ci-centos-7-ovb-ha-tempest",
-    "gate-tripleo-ci-centos-7-ovb-ha-ipv6",
-    "gate-tripleo-ci-centos-7-ovb-ha-oooq-nv",
     "gate-tripleo-ci-centos-7-ovb-ha-oooq",
     "gate-tripleo-ci-centos-7-ovb-ha-oooq-ocata",
     "gate-tripleo-ci-centos-7-ovb-ha-oooq-newton",
-    "gate-tripleo-ci-centos-7-ovb-nonha-oooq-nv",
     "gate-tripleo-ci-centos-7-ovb-containers-oooq-nv",
     "gate-tripleo-ci-centos-7-ovb-containers-oooq",
-    "gate-tripleo-ci-centos-7-ovb-updates",
-
-    "gate-tripleo-ci-centos-7-nonha-multinode",
-    "gate-tripleo-ci-centos-7-scenario001-multinode",
-    "gate-tripleo-ci-centos-7-scenario002-multinode",
-    "gate-tripleo-ci-centos-7-scenario003-multinode",
-    "gate-tripleo-ci-centos-7-scenario004-multinode",
-    "gate-tripleo-ci-centos-7-nonha-multinode-updates-nv",
-    "gate-tripleo-ci-centos-7-multinode-upgrades-nv",
 
     "gate-tripleo-ci-centos-7-nonha-multinode-oooq",
-    "gate-tripleo-ci-centos-7-undercloud-oooq",
-    "gate-tripleo-ci-centos-7-undercloud-containers",
-    "gate-tripleo-ci-centos-7-undercloud-containers-nv",
     "gate-tripleo-ci-centos-7-scenario001-multinode-oooq",
     "gate-tripleo-ci-centos-7-scenario002-multinode-oooq",
     "gate-tripleo-ci-centos-7-scenario003-multinode-oooq",
     "gate-tripleo-ci-centos-7-scenario004-multinode-oooq",
     "gate-tripleo-ci-centos-7-scenario005-multinode-oooq",
 
-    "gate-tripleo-ci-centos-7-undercloud",
+    "gate-tripleo-ci-centos-7-scenario001-multinode-upgrades-nv",
+    "gate-tripleo-ci-centos-7-scenario002-multinode-upgrades-nv",
+    "gate-tripleo-ci-centos-7-scenario003-multinode-upgrades-nv",
+    "gate-tripleo-ci-centos-7-scenario004-multinode-upgrades-nv",
+
+    "gate-tripleo-ci-centos-7-containers-multinode-nv",
+    "gate-tripleo-ci-centos-7-nonha-multinode-updates-nv",
+    "gate-tripleo-ci-centos-7-3nodes-multinode-nv",
+    "gate-tripleo-ci-centos-7-multinode-upgrades-nv",
+    "gate-tripleo-ci-centos-7-containers-multinode-upgrades-nv",
+
+    "gate-tripleo-ci-centos-7-undercloud-oooq",
     "gate-tripleo-ci-centos-7-undercloud-upgrades-nv",
-    "gate-tripleo-ci-centos-7-undercloud-containers"
+    "gate-tripleo-ci-centos-7-undercloud-containers",
+    "gate-tripleo-ci-centos-7-undercloud-containers-nv",
+
+    "gate-tripleo-ci-centos-7-ovb-fakeha-caserver",
+    "gate-tripleo-ci-centos-7-ovb-ha-tempest-oooq"
 )
