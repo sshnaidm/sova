@@ -35,8 +35,25 @@ PROJECTS = (
     'openstack/tripleo-specs',
     'openstack/tripleo-ui',
     '^openstack/puppet-.*',
+# Non-TripleO repositories
     'openstack/neutron',
     'openstack/nova',
+    'openstack/aodh',
+    'openstack/barbican',
+    'openstack/ceilometer',
+    'openstack/congress',
+    'openstack/ec2api',
+    'openstack/gnocchi',
+    'openstack/heat',
+    'openstack/ironic',
+    'openstack/keystone',
+    'openstack/mistral',
+    'openstack/osc-lib',
+    'openstack/panko',
+    'openstack/python-openstackclient',
+    'openstack/python-neutronclient',
+    'openstack/tacker',
+    'openstack/zaqar',
 )
 
 PERIODIC_LOGS_URL = 'http://logs.openstack.org/periodic'
