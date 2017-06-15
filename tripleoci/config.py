@@ -64,6 +64,11 @@ PERIODIC_URLS = [
     PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-fakeha-caserver',
     PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-newton',
     PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-ocata',
+
+    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-oooq',
+    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-oooq-ocata',
+    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-oooq-newton',
+
     PERIODIC_LOGS_URL +
     '/periodic-tripleo-ci-centos-7-ovb-nonha-tempest-oooq-ocata',
     PERIODIC_LOGS_URL +
