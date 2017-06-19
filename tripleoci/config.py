@@ -131,6 +131,16 @@ TRACKED_JOBS = (
     "gate-tripleo-ci-centos-7-scenario003-multinode-upgrades-nv",
     "gate-tripleo-ci-centos-7-scenario004-multinode-upgrades-nv",
 
+    "gate-tripleo-ci-centos-7-scenario001-multinode-oooq-container",
+    "gate-tripleo-ci-centos-7-scenario002-multinode-oooq-container",
+    "gate-tripleo-ci-centos-7-scenario003-multinode-oooq-container",
+    "gate-tripleo-ci-centos-7-scenario004-multinode-oooq-container",
+
+    "gate-tripleo-ci-centos-7-scenario001-multinode-oooq-container-upgrades",
+    "gate-tripleo-ci-centos-7-scenario002-multinode-oooq-container-upgrades",
+    "gate-tripleo-ci-centos-7-scenario003-multinode-oooq-container-upgrades",
+    "gate-tripleo-ci-centos-7-scenario004-multinode-oooq-container-upgrades",
+
     "gate-tripleo-ci-centos-7-containers-multinode-nv",
     "gate-tripleo-ci-centos-7-nonha-multinode-updates-nv",
     "gate-tripleo-ci-centos-7-3nodes-multinode-nv",
