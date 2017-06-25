@@ -131,6 +131,8 @@ TRACKED_JOBS = (
     "gate-tripleo-ci-centos-7-scenario003-multinode-oooq-puppet",
     "gate-tripleo-ci-centos-7-scenario004-multinode-oooq-puppet",
     "gate-tripleo-ci-centos-7-scenario005-multinode-oooq-puppet",
+    "gate-tripleo-ci-centos-7-scenario001-multinode-oooq-puppet-nv",
+    "gate-tripleo-ci-centos-7-scenario002-multinode-oooq-puppet-nv",
 
     "gate-tripleo-ci-centos-7-scenario001-multinode-upgrades-nv",
     "gate-tripleo-ci-centos-7-scenario002-multinode-upgrades-nv",
@@ -148,10 +150,13 @@ TRACKED_JOBS = (
     "gate-tripleo-ci-centos-7-scenario004-multinode-oooq-container-upgrades",
 
     "gate-tripleo-ci-centos-7-containers-multinode-nv",
+    "gate-tripleo-ci-centos-7-containers-multinode",
     "gate-tripleo-ci-centos-7-nonha-multinode-updates-nv",
     "gate-tripleo-ci-centos-7-3nodes-multinode-nv",
     "gate-tripleo-ci-centos-7-multinode-upgrades-nv",
+    "gate-tripleo-ci-centos-7-multinode-upgrades",
     "gate-tripleo-ci-centos-7-containers-multinode-upgrades-nv",
+    "gate-tripleo-ci-centos-7-containers-multinode-upgrades",
 
     "gate-tripleo-ci-centos-7-undercloud-oooq",
     "gate-tripleo-ci-centos-7-undercloud-upgrades-nv",
