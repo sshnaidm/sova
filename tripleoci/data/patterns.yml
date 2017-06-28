@@ -423,4 +423,9 @@ patterns:
       msg: "{} service FAIL."
       pattern: "service_fail_re"
       tag: "command_exe"
-
+  "/logs/undercloud/var/log/extra/logstash.txt":
+    - id: 500
+      logstash: " is not pingable."
+      msg: "Ping timeout when deploying OC."
+      pattern: " is not pingable."
+      tag: "infra"
