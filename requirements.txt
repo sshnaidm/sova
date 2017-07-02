@@ -2,7 +2,7 @@ PyYAML
 Flask
 paramiko
 requests
-lxml
+lxml==3.4.4
 jinja2
 pylzma
 backports.lzma
