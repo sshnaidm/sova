@@ -5,11 +5,14 @@ from gevent import monkey
 from gevent.pool import Pool
 monkey.patch_all()  # noqa
 
-from tripleoci.config import log
-from tripleoci.patterns import PATTERNS
+from tripleoci.config import log, PATTERN_FILE
+from tripleoci.patterns import Pattern
 from tripleoci.utils import JobFile, urlize_logstash
 
 DEBUG = False
+
+pattern = Pattern(PATTERN_FILE)
+PATTERNS = pattern.patterns
 
 
 def analyze_all(jobs, down_path):

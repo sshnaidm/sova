@@ -29,14 +29,14 @@ def create_html():
     work_dir = config.TEMPLATE_DIR
     if not DEBUG:
         periodic_data = meow(limit=None,
-                             days=14,
+                             days=config.PERIODIC_DAYS,
                              job_type=None,
                              exclude=None,
                              down_path=config.DOWNLOAD_PATH,
                              periodic=True,
                              fail=False)
         ci_data = meow(limit=None,
-                       days=8,
+                       days=config.GATE_DAYS,
                        job_type=None,
                        fail=False,
                        down_path=config.DOWNLOAD_PATH)
