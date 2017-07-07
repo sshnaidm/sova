@@ -80,6 +80,9 @@ PERIODIC_URLS = [
 
 DOWNLOAD_PATH = os.environ.get('OPENSHIFT_DATA_DIR',
                                os.path.join(os.environ["HOME"], "ci_status"))
+# For running in container
+if os.access("/cidata", os.W_OK):
+    DOWNLOAD_PATH = "/cidata"
 if not os.path.exists(DOWNLOAD_PATH):
     os.makedirs(DOWNLOAD_PATH)
 TMP_DIR = os.environ.get('OPENSHIFT_TMP_DIR', "/tmp/")
