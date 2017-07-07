@@ -92,6 +92,8 @@ elif os.path.exists(os.path.join(os.environ.get('OPENSHIFT_DATA_DIR', "./"),
                                  "robi_id_rsa")):
     SSH_PRIV_KEY = os.path.join(os.environ.get('OPENSHIFT_DATA_DIR', "./"),
                                 "robi_id_rsa")
+elif os.path.exists(os.path.join(DOWNLOAD_PATH, "robi_id_rsa")):
+    SSH_PRIV_KEY = os.path.join(DOWNLOAD_PATH, "robi_id_rsa")
 else:
     SSH_PRIV_KEY = None
 INDEX_HTML = os.path.join(DOWNLOAD_PATH, "index.html")
