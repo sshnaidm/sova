@@ -1,5 +1,13 @@
 #!/bin/bash
 
+function install_crontab {
+    pkill crond
+    crontab -l > /tmp/all_crontab
+    cat /app/crontab >> /tmp/all_crontab
+    cat /tmp/all_crontab | crontab -
+    crond -L /cidata/cron.log
+}
+
 while getopts 'hdp' flag; do
   	case "${flag}" in
         h)
@@ -26,6 +34,8 @@ if [ -e /debug1 ]; then
 	exec python flaskapp.py
 elif [ -e /prod ]; then
     echo "Running app in production mode!"
+    touch /cidata/index.html
+    install_crontab
     exec uwsgi --ini /uwsgi.ini
 else
     exec /bin/bash

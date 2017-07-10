@@ -6,4 +6,4 @@ if [[ -z "$MOUNT_DIR" || ! -d "$MOUNT_DIR" ]]; then
 fi
 
 echo "Service starts on port 8000"
-docker run --name cistatus --rm -it -v $1:/cidata:z -p 8000:8090 dockerhub.io/sshnaidm/sova -d
+docker run --name cistatus --rm -it -v $1:/cidata:z -p 8000:8090 docker.io/sshnaidm/sova -d

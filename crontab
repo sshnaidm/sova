@@ -1,0 +1,2 @@
+0     *       *       *       *       /usr/bin/python /app/manual.py &> /cidata/manual.log
+0     0       *       *       *       find /cidata/ -type d -mtime +21 -exec rm -rf "{}" \; 2>&1 | tee /cidata/clean.log

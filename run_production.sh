@@ -5,4 +5,4 @@ if [[ -z "$MOUNT_DIR" || ! -d "$MOUNT_DIR" ]]; then
     exit 1
 fi
 
-docker run --name cistatus -v $1:/cidata:z -d -p 8000:8090 dockerhub.io/sshnaidm/sova -p
+docker run --name cistatus -v $1:/cidata:z -d -p 80:8090 --restart always docker.io/sshnaidm/sova -p

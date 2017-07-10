@@ -28,7 +28,7 @@ COPY requirements.txt /requirements.txt
 COPY test-requirements.txt /test-requirements.txt
 
 RUN pip3 install --upgrade -r /requirements.txt -r /test-requirements.txt && \
-    mkdir -p /cidata && touch /cidata/index.html
+    mkdir -p /cidata
 
 COPY . /app
 COPY entrypoint.sh /entrypoint.sh
