@@ -164,5 +164,7 @@ TRACKED_JOBS = (
     "gate-tripleo-ci-centos-7-undercloud-containers-nv",
 
     "gate-tripleo-ci-centos-7-ovb-fakeha-caserver",
-    "gate-tripleo-ci-centos-7-ovb-ha-tempest-oooq"
+    "gate-tripleo-ci-centos-7-ovb-ha-tempest-oooq",
+
+    "gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024"
 )
