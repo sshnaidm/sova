@@ -58,7 +58,8 @@ PROJECTS = (
 
 PERIODIC_LOGS_URL = 'http://logs.openstack.org/periodic'
 PERIODIC_URLS = [
-    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-updates',
+    PERIODIC_LOGS_URL + ('/periodic-tripleo-ci-centos-7-'
+                         'ovb-1ctlr_1comp_1ceph-featureset024'),
     PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-fakeha-caserver',
     PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-oooq',
     PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-ocata-oooq',
