@@ -3,8 +3,10 @@
 function install_crontab {
     pkill crond
     crontab -l > /tmp/all_crontab
-    cat /app/crontab >> /tmp/all_crontab
-    cat /tmp/all_crontab | crontab -
+    if [[ ! $(grep -Fxq "$(cat /app/crontab)" /tmp/all_crontab) ]]; then
+        cat /app/crontab >> /tmp/all_crontab
+        cat /tmp/all_crontab | crontab -
+    fi
     crond -L /cidata/cron.log
 }
 
