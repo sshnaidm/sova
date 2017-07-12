@@ -1,0 +1,16 @@
+work_dir: '/home/{{ ansible_user }}'
+web_port: 80
+hook_port: 8080
+docker_image: sshnaidm/sova
+docker_container_name: cistatus
+start_script: run_production.sh
+git_repo_path: '{{ work_dir }}/sova'
+git_repo: https://github.com/sshnaidm/sova.git
+mount_point: '{{ work_dir }}//cidata'
+docker_compose_file: "{{ work_dir }}/docker-compose.yaml"
+redeploy_script: '{{ work_dir }}/renew-container.sh'
+docker_hook_url: https://raw.githubusercontent.com/sshnaidm/docker-hook/master/docker-hook
+docker_hook: '{{ work_dir }}//docker-hook'
+docker_hook_log: '{{ mount_point }}//docker-hook.log'
+token_path: '~/.token'
+gerrit_ssh_key: '~/.ssh/robi_id_rsa'

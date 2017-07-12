@@ -1,0 +1,12 @@
+version: '2'
+services:
+
+  www:
+    container_name: {{ docker_container_name }}
+    restart: always
+    image: {{ docker_image }}
+    ports:
+      - "{{ web_port }}:8090"
+    volumes:
+      - {{ mount_point }}:/cidata:z
+    command: "-p"

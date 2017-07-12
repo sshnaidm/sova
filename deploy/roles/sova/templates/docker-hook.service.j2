@@ -1,0 +1,8 @@
+[Unit]
+Description=Docker hook service
+
+[Service]
+ExecStart=/usr/bin/python {{ docker_hook }} -t {{ auth_token }} -c {{ redeploy_script }} --port {{ hook_port }} &> {{ docker_hook_log }}
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,5 @@
+- name: Deploy sova container
+  hosts: all
+  gather_facts: yes
+  roles:
+    - sova
