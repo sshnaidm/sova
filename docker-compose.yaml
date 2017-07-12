@@ -1,0 +1,12 @@
+version: '2'
+services:
+
+  www:
+    container_name: cistatus
+    restart: always
+    image: sshnaidm/sova
+    ports:
+      - "80:8090"
+    volumes:
+      - ~/cidata:/cidata:z
+    command: "-p"
