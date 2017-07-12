@@ -1,0 +1,2 @@
+[sova_host]
+cistatus.tripleo.org ansible_user=centos
