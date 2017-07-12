@@ -7,7 +7,7 @@ function install_crontab {
         cat /app/crontab >> /tmp/all_crontab
         cat /tmp/all_crontab | crontab -
     fi
-    crond -L /cidata/cron.log
+    crond -L /cidata/logs/cron.log
 }
 
 while getopts 'hdp' flag; do
@@ -31,6 +31,7 @@ while getopts 'hdp' flag; do
   	esac
   done
 
+mkdir -p /cidata/logs
 if [ -e /debug1 ]; then
 	echo "Running app in debug mode!"
 	exec python flaskapp.py
