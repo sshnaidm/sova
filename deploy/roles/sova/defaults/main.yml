@@ -12,5 +12,7 @@ redeploy_script: '{{ work_dir }}/renew-container.sh'
 docker_hook_url: https://raw.githubusercontent.com/sshnaidm/docker-hook/master/docker-hook
 docker_hook: '{{ work_dir }}//docker-hook'
 docker_hook_log: '{{ mount_point }}//docker-hook.log'
-token_path: '~/.token'
+local_token_path: '~/.token'
+remote_token_path: '{{ local_token_path }}'
+save_token_on_remote: true
 gerrit_ssh_key: '~/.ssh/robi_id_rsa'

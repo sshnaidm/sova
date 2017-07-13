@@ -9,6 +9,11 @@
     - curl
   become: yes
 
+- name: Clone sova repo
+  git:
+    repo: '{{ git_repo }}'
+    dest: '{{ git_repo_path }}'
+
 - name: Download pip
   get_url:
     url: https://bootstrap.pypa.io/get-pip.py
@@ -107,19 +112,9 @@
     dest: '{{ docker_hook }}'
     mode: a+x
 
-- name: Clone sova repo
-  git:
-    repo: '{{ git_repo }}'
-    dest: '{{ git_repo_path }}'
-
 - name: Check if token exists on remote machine
   stat:
-    path: '{{ token_path }}'
-  register: token_stat
-
-- name: Check if token exists on remote machine
-  stat:
-    path: '{{ token_path }}'
+    path: '{{ remote_token_path }}'
   register: token_stat
 
 - when: token_stat.stat.exists
@@ -127,7 +122,7 @@
 
   - name: Show auth token
     no_log: true
-    command: "cat {{ token_path }}"
+    command: "cat {{ remote_token_path }}"
     register: token
     changed_when: false
 
@@ -141,7 +136,7 @@
 
   - name: Check if token exists on local machine
     stat:
-      path: '{{ token_path }}'
+      path: '{{ local_token_path }}'
     register: token_stat
     failed_when: not token_stat.stat.exists
     delegate_to: localhost
@@ -149,8 +144,14 @@
   - name: Get auth token
     no_log: true
     set_fact:
-      auth_token: "{{ lookup('pipe', 'cat {{ token_path }}') }}"
+      auth_token: "{{ lookup('pipe', 'cat {{ local_token_path }}') }}"
 
+- name: Save token on remote machine
+  no_log: true
+  copy:
+    src: '{{ local_token_path }}'
+    dest: '{{ remote_token_path }}'
+  when: save_token_on_remote|bool
 
 - name: Check if Gerrit SSH key presents on remote host
   stat:
