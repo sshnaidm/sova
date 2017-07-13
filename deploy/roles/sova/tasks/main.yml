@@ -62,11 +62,8 @@
   become: yes
 
 - name: Create redeploying script
-  copy:
-    content: |
-      #!/bin/bash
-      docker-compose -f {{ docker_compose_file }} pull
-      docker-compose -f {{ docker_compose_file }} up
+  template:
+    src: redeploy.sh.j2
     dest: '{{ redeploy_script }}'
     mode: a+x
 
