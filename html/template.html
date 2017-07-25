@@ -16,6 +16,10 @@
     <script type="text/javascript" src="http://www.gstatic.com/charts/loader.js"></script>
 
     <link rel="stylesheet" href="http://tripleo.org/_static/tweaks.css">
+    <!-- JQuery Datatables.net -->
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
+    <!-- JQuery Datatables.net CSS -->
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
 
     <title>TripleO jobs</title>
 
@@ -131,6 +135,8 @@ $('#all').on('click',function(){
   $('#all').parent().addClass('active');
   $('.tab-pane').addClass('active in');
   $('[data-toggle="tab"]').parent().removeClass('active');
+  var table = $('#job_data').DataTable();
+  table.clear();
 });
 $('#showsuccess').on('click',function(){
     $('.collapse').toggleClass('in');
@@ -144,6 +150,14 @@ $(function () {
 $(function () {
   $('[data-toggle="popover"]').popover();
 });
+
+$(function () {
+  $('table').DataTable( {
+      "order": [[ 0, "desc" ]],
+      "pageLength": 100
+  } );
+});
+
 </script>
 </body>
 </html>
