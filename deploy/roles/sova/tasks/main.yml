@@ -61,7 +61,9 @@
   # Use this dirty hack to relogin the user
   # https://github.com/ansible/ansible-modules-core/issues/921
   - name: Kill SSH to relogin the user for changed group
-    shell: sleep 1; pkill -u {{ ansible_user }} sshd
+    shell: |
+      sleep 1
+      ps ux | grep ssh | grep pts | grep -v grep | awk {'print $2'} | xargs kill
     async: 3
     poll: 2
     when: groupadd|changed
