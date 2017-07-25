@@ -38,7 +38,7 @@
   become: yes
 
 - name: Find out docker group name
-  shell: grep docker /etc/group | cut -d":" -f1
+  shell: grep docker /etc/group | cut -d":" -f1 | head -1
   register: docker_group
   changed_when: false
 
