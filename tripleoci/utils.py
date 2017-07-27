@@ -14,7 +14,7 @@ from requests import ConnectionError
 from requests.exceptions import Timeout
 from six.moves.urllib.parse import quote
 import tripleoci.config as config
-from tripleoci.config import log
+from tripleoci.config import log, ACTIVE_PLUGIN_CONFIG
 
 requests.packages.urllib3.disable_warnings()
 
@@ -122,8 +122,9 @@ class Web(object):
         Web class for downloading web page
     """
 
-    def __init__(self, url):
+    def __init__(self, url, timeout=config.WEB_TIMEOUT):
         self.url = url
+        self.timeout = timeout
 
     def get(self, ignore404=False):
         """Get web file
@@ -139,7 +140,7 @@ class Web(object):
         log.debug("GET {url} with ignore404={i}".format(
             url=self.url, i=str(ignore404)))
         try:
-            req = requests.get(self.url, timeout=config.WEB_TIMEOUT)
+            req = requests.get(self.url, timeout=self.timeout)
         except ConnectionError:
             log.error("Connection error when retriving {}".format(self.url))
             return None
@@ -180,7 +181,7 @@ class JobFile(object):
         if not os.path.exists(self.job_dir):
             os.makedirs(self.job_dir)
         # /logs/undercloud.tar.gz//var/log/nova/nova-compute.log
-        self.file_link = file_link or "console.html"
+        self.file_link = file_link or ACTIVE_PLUGIN_CONFIG.console_name
         self.file_url = job.log_url + self.file_link.split("//")[0]
         self.file_path = None
         self.build = build

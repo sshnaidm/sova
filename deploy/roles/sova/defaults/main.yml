@@ -6,7 +6,7 @@ docker_container_name: cistatus
 start_script: run_production.sh
 git_repo_path: '{{ work_dir }}/sova'
 git_repo: https://github.com/sshnaidm/sova.git
-git_branch: master
+git_branch: rdoci
 mount_point: '{{ work_dir }}//cidata'
 docker_compose_file: "{{ work_dir }}/docker-compose.yaml"
 redeploy_script: '{{ work_dir }}/renew-container.sh'

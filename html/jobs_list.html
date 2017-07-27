@@ -1,10 +1,10 @@
 {% set alljobs=data.keys()|list %}
 {% set master_jobs=alljobs %}
 {% for j in alljobs %}
-{% set ifmaster=True %}
-
-{% for branch in branches if branch != 'master' %}
-    {% if branch in j %}{% do master_jobs.remove(j) %} {% endif %}
+{% for branch in branches %}
+{% if branch != '' and branch != 'master' %}
+    {% if branch in j and j in master_jobs %}{% do master_jobs.remove(j) %} {% endif %}
+{% endif %}
 {% endfor %}
 {% endfor %}
 <div class="container-fluid">
@@ -19,37 +19,7 @@
             {% endfor %}
         </div>
 
-        <div class="col-xs-12 col-md-3">
-            <h3>Scenario-{{ key|replace('ci', 'gate') }}</h3>
-            {% for key in master_jobs|sort %}
-                {% set keyloop = loop %}
-                {% if 'scenario' in key and 'upgrade' not in key %}
-                <li{% if loop.first %} class="active"{% endif %}><a data-toggle="tab" href="#{{ key }}">{{ key }}</a></li><div class="clearfix"></div>
-                {% endif %}
-            {% endfor %}
-        </div>
-
-        <div class="col-xs-12 col-md-3">
-            <h3>Upgrades-{{ key|replace('ci', 'gate') }}</h3>
-            {% for key in master_jobs|sort %}
-                {% set keyloop = loop %}
-                {% if 'upgrade' in key %}
-                <li{% if loop.first %} class="active"{% endif %}><a data-toggle="tab" href="#{{ key }}">{{ key }}</a></li><div class="clearfix"></div>
-                {% endif %}
-            {% endfor %}
-        </div>
-
-        <div class="col-xs-12 col-md-3">
-            <h3>Containers-{{ key|replace('ci', 'gate') }}</h3>
-            {% for key in master_jobs|sort %}
-                {% set keyloop = loop %}
-                {% if 'container' in key and 'upgrade' not in key and 'scenario' not in key %}
-                <li{% if loop.first %} class="active"{% endif %}><a data-toggle="tab" href="#{{ key }}">{{ key }}</a></li><div class="clearfix"></div>
-                {% endif %}
-            {% endfor %}
-        </div>
-
-        {% for branch in branches|reverse if branch != 'master' %}
+        {% for branch in branches|reverse if branch != 'master' and branch != '' %}
             {% set brloop = loop %}
             <div class="col-xs-12 col-md-3">
                 <h3>{{ branch|capitalize }}-{{ key|replace('ci', 'gate') }}</h3>

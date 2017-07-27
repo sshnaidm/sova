@@ -64,7 +64,7 @@ class Filter(object):
             return list(self.data)
 
     def f_only_tracked(self, job):
-        return job.name in config.TRACKED_JOBS
+        return job.name in config.PLUGIN_JOBS
 
     def _day_format(self, x):
         return datetime.date.strftime(x, "%m-%d")

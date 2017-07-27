@@ -5,6 +5,8 @@ import pickle
 from tripleoci import config
 from tripleoci.watchcat import meow
 from tripleoci.utils import top, statistics
+from tripleoci.config import PLUGIN, TRIPLEOCI, RDOCI
+
 
 DEBUG = False
 
@@ -28,25 +30,35 @@ def create_html():
 
     work_dir = config.TEMPLATE_DIR
     if not DEBUG:
-        periodic_data = meow(limit=None,
-                             days=config.PERIODIC_DAYS,
-                             job_type=None,
-                             exclude=None,
-                             down_path=config.DOWNLOAD_PATH,
-                             periodic=True,
-                             fail=False)
-        ci_data = meow(limit=None,
-                       days=config.GATE_DAYS,
-                       job_type=None,
-                       fail=False,
-                       down_path=config.DOWNLOAD_PATH)
+        if PLUGIN == TRIPLEOCI:
+            periodic_data = meow(limit=None,
+                                 days=config.PERIODIC_DAYS,
+                                 job_type=None,
+                                 exclude=None,
+                                 down_path=config.DOWNLOAD_PATH,
+                                 periodic=True,
+                                 fail=False)
+            ci_data = meow(limit=None,
+                           days=config.GATE_DAYS,
+                           job_type=None,
+                           fail=False,
+                           down_path=config.DOWNLOAD_PATH)
 
-        with open(
-                os.path.join(config.DOWNLOAD_PATH, "ci_data_dump"), "wb") as g:
-            pickle.dump(ci_data, g)
-        with open(os.path.join(config.DOWNLOAD_PATH, "periodic_data_dump"),
-                  "wb") as g:
-            pickle.dump(periodic_data, g)
+            with open(
+                    os.path.join(config.DOWNLOAD_PATH, "ci_data_dump"), "wb") as g:
+                pickle.dump(ci_data, g)
+            with open(os.path.join(config.DOWNLOAD_PATH, "periodic_data_dump"),
+                      "wb") as g:
+                pickle.dump(periodic_data, g)
+        elif PLUGIN == RDOCI:
+            ci_data = meow(limit=None,
+                           days=config.GATE_DAYS,
+                           job_type=None,
+                           exclude=None,
+                           down_path=config.DOWNLOAD_PATH,
+                           fail=False)
+
+            periodic_data = []
     # For debug mode
     else:
         with open(
@@ -59,6 +71,7 @@ def create_html():
     errors_top = top(ci_data)
     stats, per_stats = statistics(ci_data), statistics(
         periodic_data)
+    #print(ci_data)
 
     JINJA_ENVIRONMENT = jinja2.Environment(
         loader=jinja2.FileSystemLoader(work_dir),
