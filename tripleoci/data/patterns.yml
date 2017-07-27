@@ -47,6 +47,8 @@ regexes:
     multiline: true
   - regex: '^.*"cmd": ".* (tempest_output\.log).*"rc": 1.*\n(?!.*ignoring).*'
     name: "oooq_tempest_fail"
+  - regex: 'Error: Execution of .*yum.* returned 1: Error downloading packages'
+    name: "yum_install_fail_re"
 patterns:
   "/console.html":
     - id: 1
@@ -435,4 +437,9 @@ patterns:
       logstash: " is not pingable."
       msg: "Ping timeout when deploying OC."
       pattern: " is not pingable."
+      tag: "infra"
+    - id: 501
+      logstash: ""
+      msg: "Yum download network failure."
+      pattern: "yum_install_fail_re"
       tag: "infra"
