@@ -7,6 +7,10 @@
     - docker
     - git
     - curl
+    - autoconf
+    - make
+    - gcc
+    - python-devel
   become: yes
 
 - name: Clone sova repo
@@ -35,6 +39,7 @@
       - docker-compose
       - docker
       - requests
+      - ansible
   become: yes
 
 - name: Find out docker group name
