@@ -18,6 +18,7 @@
     repo: '{{ git_repo }}'
     dest: '{{ git_repo_path }}'
     force: yes
+    version: '{{ git_branch }}'
 
 - name: Download pip
   get_url:
