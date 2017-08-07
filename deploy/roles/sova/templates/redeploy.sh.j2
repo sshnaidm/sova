@@ -1,3 +1,5 @@
 #!/bin/bash
-docker-compose -f {{ docker_compose_file }} pull
-docker-compose -f {{ docker_compose_file }} up -d
+git --git-dir {{ git_repo_path }}/.git reset --hard origin/master
+git --git-dir {{ git_repo_path }}/.git pull
+/bin/bash {{ git_repo_path }}/deploy/local_ansible_run.sh 2>&1 | tee /tmp/ansible_local.log
+# Remove this comment next build
