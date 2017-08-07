@@ -2,6 +2,7 @@
 Description=Docker hook service
 
 [Service]
+User={{ docker_hook_user }}
 ExecStart=/bin/bash -c '/usr/bin/python {{ docker_hook }} -t {{ auth_token }} -c {{ redeploy_script }} --port {{ hook_port }} &> {{ docker_hook_log }}'
 
 [Install]
