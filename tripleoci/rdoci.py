@@ -19,11 +19,12 @@ job_re = re.compile(r'(.*)-(\d+)$')
 timest_re = re.compile('\d+ \w+ 20\d\d  \d\d:\d\d:\d\d')
 time_re = re.compile('^(\d+:\d+:\d+)')
 ansible_ts = re.compile('n(\w+ \d\d \w+ 20\d\d  \d\d:\d\d:\d\d)')
-stat_re = re.compile(r'ok=\d+\s*changed=\d+\s*unreachable=(\d+)\s*failed=(\d+)')
+stat_re = re.compile(
+    r'ok=\d+\s*changed=\d+\s*unreachable=(\d+)\s*failed=(\d+)')
 
 RDOCI_URL = 'https://ci.centos.org/artifacts/rdo/'
-
 MAIN_INDEX = 'index_rdoci.html'
+
 
 class RDO_CI(object):
     """Periodic job object
@@ -45,7 +46,7 @@ class RDO_CI(object):
     def _get_index(self):
         path = os.path.join(self.down_path, MAIN_INDEX)
         if os.path.exists(path) and int(
-                        time.time() - os.stat(path).st_ctime
+                time.time() - os.stat(path).st_ctime
         ) < config.PLUGIN_RDOCI_CONFIG.main_index_timeout:
             with open(path) as f:
                 index = f.read()
@@ -86,7 +87,6 @@ class RDO_CI(object):
         web = Web(console_url)
         req = web.get(ignore404=True)
         if req is not None and int(req.status_code) == 404:
-            #url = job["log_url"] + "/console.txt"
             web = Web(url=console_url)
             log.debug("Trying to download raw console")
             req = web.get()
@@ -100,7 +100,6 @@ class RDO_CI(object):
                 f.write(req.content)
         return path
 
-
     def _get_logs_console(self, job, path):
         web = Web(job['log_url'] + "/console.txt.gz")
         req = web.get(ignore404=True)
@@ -112,7 +111,6 @@ class RDO_CI(object):
             with gzip.open(path, "wb") as f:
                 f.write(req.content)
         return path
-
 
     def parse_index(self, text):
         jobs = []
@@ -202,7 +200,6 @@ class RDO_CI(object):
                 except Exception as e:
                     pass
             j['length'] = delta(end, start) if start and end else 0
-            #j['ts'] = self._parse_ts(end) if end else j['ts']
             finput.close()
             if not j.get('branch'):
                 j['branch'] = 'master'

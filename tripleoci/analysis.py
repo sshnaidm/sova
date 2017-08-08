@@ -85,7 +85,7 @@ def analyze(job, down_path, num):
         return message
     file_pointers = PATTERNS.keys()
     files = [PLUGIN[f] for f in file_pointers]
-    REV_PLUGIN = {v:k  for k, v in PLUGIN.items()}
+    REV_PLUGIN = {v: k for k, v in PLUGIN.items()}
     for file in filter_by_job_name(job.name, files):
         jfile = JobFile(job, path=down_path, file_link=file, offline=DEBUG
                         ).get_file()

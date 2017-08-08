@@ -2,7 +2,8 @@ import logging
 import os
 
 logging.basicConfig(
-    format='%(asctime)s - %(name)s - %(levelname)s - %(module)s.%(funcName)s:%(lineno)d - %(message)s')
+    format=('%(asctime)s - %(name)s - %(levelname)s - '
+            '%(module)s.%(funcName)s:%(lineno)d - %(message)s'))
 log = logging.getLogger('watchcat')
 log.setLevel(logging.DEBUG)
 
@@ -180,7 +181,8 @@ RDOCI_JOBS = (
     'tqe-containers-gate-master-tripleo-ci-delorean-full-containers_minimal',
     'tripleo-dlrn-promote',
     'tripleo-dlrn-promote-ocata',
-    'tripleo-quickstart-extras-gate-master-tripleo-ci-delorean-full-minimal_pacemaker',
+    ('tripleo-quickstart-extras-gate-master-tripleo-'
+     'ci-delorean-full-minimal_pacemaker'),
     'tripleo-quickstart-extras-gate-newton-delorean-full-minimal',
     'tripleo-quickstart-gate-master-delorean-full-minimal',
     'tripleo-quickstart-gate-master-delorean-quick-basic',
@@ -191,22 +193,28 @@ RDOCI_JOBS = (
     'tripleo-quickstart-gate-ocata-delorean-full-minimal',
     'tripleo-quickstart-gate-ocata-delorean-quick-basic',
     'tripleo-quickstart-gate-ocata-full-images',
-    'tripleo-quickstart-periodic-full-tempest-master-delorean-full-deploy-minimal_pacemaker',
+    ('tripleo-quickstart-periodic-full-tempest-master-delorean-full-deploy-'
+     'minimal_pacemaker'),
     'tripleo-quickstart-periodic-master-delorean-devmode_tempest-minimal',
-    'tripleo-quickstart-periodic-master-delorean-feature-scale-deploy-scale_compute',
+    ('tripleo-quickstart-periodic-master-delorean-feature-scale-deploy-'
+     'scale_compute'),
     'tripleo-quickstart-periodic-master-delorean-full-deploy-minimal',
-    'tripleo-quickstart-periodic-master-delorean-full-deploy-minimal_pacemaker',
+    ('tripleo-quickstart-periodic-master-delorean-full-deploy-'
+     'minimal_pacemaker'),
     'tripleo-quickstart-periodic-master-delorean-images-minimal',
     'tripleo-quickstart-periodic-master-delorean-images-minimal_pacemaker',
-    'tripleo-quickstart-periodic-newton-delorean-feature-scale-deploy-scale_compute',
+    ('tripleo-quickstart-periodic-newton-delorean-feature-scale-deploy-'
+     'scale_compute'),
     'tripleo-quickstart-periodic-newton-delorean-full-deploy-minimal',
-    'tripleo-quickstart-periodic-newton-delorean-full-deploy-minimal_pacemaker',
+    ('tripleo-quickstart-periodic-newton-delorean-full-deploy-'
+     'minimal_pacemaker'),
     'tripleo-quickstart-periodic-newton-delorean-images-minimal',
     'tripleo-quickstart-periodic-newton-delorean-images-minimal_pacemaker',
     'tripleo-quickstart-periodic-newton-delorean-ooo-snap-minimal',
     'tripleo-quickstart-promote-master-build-images',
     'tripleo-quickstart-promote-master-current-tripleo-delorean-minimal',
-    'tripleo-quickstart-promote-master-current-tripleo-delorean-minimal_pacemaker',
+    ('tripleo-quickstart-promote-master-current-tripleo-delorean-'
+     'minimal_pacemaker'),
     'tripleo-quickstart-promote-master-delorean-minimal',
     'tripleo-quickstart-promote-master-delorean-minimal_pacemaker',
     'tripleo-quickstart-promote-newton-cloudsig-stable-build-images',
@@ -267,9 +275,8 @@ class PLUGIN_RDOCI_CONFIG:
     console_name = 'console.txt'
     main_index_timeout = 3500
 
+
 class PLUGIN_TRIPLEOCI_CONFIG:
     console_name = 'console.html'
-
-
 
 ACTIVE_PLUGIN_CONFIG = PLUGIN_RDOCI_CONFIG
