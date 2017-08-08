@@ -7,7 +7,6 @@ from tripleoci.watchcat import meow
 from tripleoci.utils import top, statistics
 from tripleoci.config import PLUGIN, TRIPLEOCI, RDOCI
 
-
 DEBUG = False
 
 
@@ -45,7 +44,8 @@ def create_html():
                            down_path=config.DOWNLOAD_PATH)
 
             with open(
-                    os.path.join(config.DOWNLOAD_PATH, "ci_data_dump"), "wb") as g:
+                    os.path.join(config.DOWNLOAD_PATH, "ci_data_dump"),
+                    "wb") as g:
                 pickle.dump(ci_data, g)
             with open(os.path.join(config.DOWNLOAD_PATH, "periodic_data_dump"),
                       "wb") as g:
@@ -71,7 +71,7 @@ def create_html():
     errors_top = top(ci_data)
     stats, per_stats = statistics(ci_data), statistics(
         periodic_data)
-    #print(ci_data)
+    # print(ci_data)
 
     JINJA_ENVIRONMENT = jinja2.Environment(
         loader=jinja2.FileSystemLoader(work_dir),
@@ -83,7 +83,10 @@ def create_html():
     branches = sorted(
         set([i['job'].branch.replace("stable/", "") for i in ci_data] +
             [i.replace("stable/", "") for i in config.GERRIT_BRANCHES]))
-
+    jobs_by_branch = {
+        b: list(set(
+            [i['job'].name for i in ci_data if b in i['job'].name]
+        )) for b in branches}
     html = template.render({
         "ci": by_job_type(list(ci_data)),
         "periodic": by_job_type(list(periodic_data)),
@@ -91,6 +94,7 @@ def create_html():
         'periodic_stats': per_stats,
         "errors_top": errors_top,
         "branches": branches,
+        "jobs_by_branch": jobs_by_branch,
     })
     with open(config.INDEX_HTML, "w") as f:
         # f.write(html.encode('utf-8'))

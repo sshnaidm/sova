@@ -265,10 +265,11 @@ PLUGIN_JOBS = RDOCI_JOBS
 
 class PLUGIN_RDOCI_CONFIG:
     console_name = 'console.txt'
-
+    main_index_timeout = 3500
 
 class PLUGIN_TRIPLEOCI_CONFIG:
     console_name = 'console.html'
+
 
 
 ACTIVE_PLUGIN_CONFIG = PLUGIN_RDOCI_CONFIG

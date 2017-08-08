@@ -46,14 +46,14 @@
 
 
     <ul class="nav nav-tabs">
-        {% for data in (ci, periodic) %}
+        {% for data in (ci, ) %}
             {% set dataloop = loop %}
 
                 {% if data==periodic %}
                     <li><a href="#periodictab"><h2>Periodic jobs</h2></a></li>
                 {% set main=periodic_stats %}{% set key='periodic' %}
                 {% else %}
-                    <li class="active"><a href="#citab"><h2>Gate jobs</h2></a></li>
+                    <li class="active"><a href="#citab"><h2>RDO CI jobs</h2></a></li>
                 {% set main=ci_stats %}{% set key='ci' %}
                 {% endif %}
 
@@ -62,7 +62,7 @@
 
 
     <div class="tab-content">
-    {% for data in (ci, periodic) %}
+    {% for data in (ci, ) %}
         {% if data==periodic %}{% set main=periodic_stats %}{% set key='periodic' %}
         {% else %}{% set main=ci_stats %}{% set key='ci' %}
         {% endif %}

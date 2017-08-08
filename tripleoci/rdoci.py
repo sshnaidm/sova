@@ -45,22 +45,27 @@ class RDO_CI(object):
     def _get_index(self):
         path = os.path.join(self.down_path, MAIN_INDEX)
         if os.path.exists(path) and int(
-                        time.time() - os.stat(path).st_ctime) < 86400:
+                        time.time() - os.stat(path).st_ctime
+        ) < config.PLUGIN_RDOCI_CONFIG.main_index_timeout:
             with open(path) as f:
                 index = f.read()
         else:
-            web = Web(self.per_url, timeout=20)
-            req = web.get()
-            if req is None or int(req.status_code) != 200:
-                log.warning(
-                    "Trying again to download rdo ci logs page ".format(
-                        self.per_url))
+            req = None
+            for t in range(10):
+                web = Web(self.per_url, timeout=60)
                 req = web.get()
                 if req is None or int(req.status_code) != 200:
-                    log.error(
-                        "Can not retrieve rdo ci logs page {}".format(
+                    log.warning(
+                        "Trying again to download rdo ci logs page ".format(
                             self.per_url))
-                    return None
+                    time.sleep(30)
+                else:
+                    break
+            if req is None or int(req.status_code) != 200:
+                log.error(
+                    "Can not retrieve rdo ci logs page {}".format(
+                        self.per_url))
+                return None
             with open(path, "wb") as f:
                 f.write(req.content)
             index = req.content
@@ -129,7 +134,6 @@ class RDO_CI(object):
                     job["name"] = job_name
                     job['build_number'] = build
                     jobs.append(job)
-        print(sorted(jobs, key=lambda x: x['ts'], reverse=True))
         return sorted(jobs, key=lambda x: x['ts'], reverse=True)
 
     def _parse_ts(self, ts):
@@ -167,7 +171,7 @@ class RDO_CI(object):
         })
         console = self._get_console(j)
         if not console:
-            log.error("Failed to get console for periodic {}".format(repr(j)))
+            log.error("Failed to get console for job {}".format(repr(j)))
             return None
         else:
             finput = fileinput.FileInput(console,
