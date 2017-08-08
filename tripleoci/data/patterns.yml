@@ -371,6 +371,11 @@ patterns:
       pattern: "oooq_tempest_fail"
       tag: "code"
       logstash: "oooq_tempest_fail"
+    - id: 66
+      msg: 'Image Build Error'
+      pattern: '*** Image Build Error ***'
+      tag: infra
+      logstash: ""
   "/logs/postci.txt":
     - id: 200
       logstash: "puppet_re"
