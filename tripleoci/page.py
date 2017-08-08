@@ -4,7 +4,7 @@ import pickle
 
 from tripleoci import config
 from tripleoci.watchcat import meow
-from tripleoci.utils import top, statistics
+from tripleoci.utils import top, statistics, get_circles
 from tripleoci.config import PLUGIN, TRIPLEOCI, RDOCI
 
 DEBUG = False
@@ -71,7 +71,7 @@ def create_html():
     errors_top = top(ci_data)
     stats, per_stats = statistics(ci_data), statistics(
         periodic_data)
-    # print(ci_data)
+    circles = get_circles(ci_data)
 
     JINJA_ENVIRONMENT = jinja2.Environment(
         loader=jinja2.FileSystemLoader(work_dir),
@@ -95,6 +95,7 @@ def create_html():
         "errors_top": errors_top,
         "branches": branches,
         "jobs_by_branch": jobs_by_branch,
+        "circles": circles
     })
     with open(config.INDEX_HTML, "w") as f:
         # f.write(html.encode('utf-8'))

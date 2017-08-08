@@ -6,7 +6,7 @@
             <h3>Master-{{ key|replace('ci', 'gate') }}</h3>
             {% for key in jobs_by_branch.master|sort %}
                 {% set keyloop = loop %}
-                <li{% if loop.first %} class="active"{% endif %}><a data-toggle="tab" href="#{{ key }}">{{ key }}</a></li><div class="clearfix"></div>
+                <li{% if loop.first %} class="active"{% endif %}><a data-toggle="tab" href="#{{ key }}"><span style="color:{{ circles[key] }}">&#9632;</span> {{ key }}</a></li><div class="clearfix"></div>
             {% endfor %}
         </div>
 
@@ -17,7 +17,7 @@
 
                 {% for key in jobs_by_branch[branch]|sort %}
                     {% set keyloop = loop %}
-                    <li{%  if brloop.first and loop.first %} class="active"{% endif %}><a data-toggle="tab" href="#{{ key }}">{{ key }}</a></li><div class="clearfix"></div>
+                    <li{%  if brloop.first and loop.first %} class="active"{% endif %}><a data-toggle="tab" href="#{{ key }}"><span style="color:{{ circles[key] }}">&#9632;</span> {{ key }}</a></li><div class="clearfix"></div>
                 {% endfor %}
             </div>
         {% endfor %}

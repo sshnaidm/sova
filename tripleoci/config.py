@@ -13,71 +13,71 @@ PATTERN_FILE = os.path.join(DIR, 'data', 'patterns.yml')
 # https://github.com/openstack-infra/project-config/blob/master/
 # gerritbot/channels.yaml
 PROJECTS = (
-    # 'openstack/tripleo-quickstart',
-    # 'openstack/tripleo-quickstart-extras',
-    # 'openstack/tripleo-heat-templates',
-    # 'openstack/dib-utils',
-    # 'openstack/diskimage-builder',
-    # 'openstack/instack',
-    # 'openstack/instack-undercloud',
-    # 'openstack/os-apply-config',
-    # 'openstack/os-cloud-config',
-    # 'openstack/os-collect-config',
-    # 'openstack/os-net-config',
-    # 'openstack/os-refresh-config',
-    # 'openstack/python-tripleoclient',
+    'openstack/tripleo-quickstart',
+    'openstack/tripleo-quickstart-extras',
+    'openstack/tripleo-heat-templates',
+    'openstack/dib-utils',
+    'openstack/diskimage-builder',
+    'openstack/instack',
+    'openstack/instack-undercloud',
+    'openstack/os-apply-config',
+    'openstack/os-cloud-config',
+    'openstack/os-collect-config',
+    'openstack/os-net-config',
+    'openstack/os-refresh-config',
+    'openstack/python-tripleoclient',
     'openstack-infra/tripleo-ci',
-    # 'openstack/tripleo-common',
-    # 'openstack/tripleo-image-elements',
-    # 'openstack/tripleo-incubator',
-    # 'openstack/tripleo-puppet-elements',
-    # 'openstack/tripleo-docs',
-    # 'openstack/tripleo-quickstart',
-    # 'openstack/tripleo-specs',
-    # 'openstack/tripleo-ui',
-    # '^openstack/puppet-.*',
-    # # Non-TripleO repositories
-    # 'openstack/neutron',
-    # 'openstack/nova',
-    # 'openstack/aodh',
-    # 'openstack/barbican',
-    # 'openstack/ceilometer',
-    # 'openstack/congress',
-    # 'openstack/ec2api',
-    # 'openstack/gnocchi',
-    # 'openstack/heat',
-    # 'openstack/ironic',
-    # 'openstack/keystone',
-    # 'openstack/mistral',
-    # 'openstack/osc-lib',
-    # 'openstack/panko',
-    # 'openstack/python-openstackclient',
-    # 'openstack/python-neutronclient',
-    # 'openstack/tacker',
-    # 'openstack/zaqar',
+    'openstack/tripleo-common',
+    'openstack/tripleo-image-elements',
+    'openstack/tripleo-incubator',
+    'openstack/tripleo-puppet-elements',
+    'openstack/tripleo-docs',
+    'openstack/tripleo-quickstart',
+    'openstack/tripleo-specs',
+    'openstack/tripleo-ui',
+    '^openstack/puppet-.*',
+    # Non-TripleO repositories
+    'openstack/neutron',
+    'openstack/nova',
+    'openstack/aodh',
+    'openstack/barbican',
+    'openstack/ceilometer',
+    'openstack/congress',
+    'openstack/ec2api',
+    'openstack/gnocchi',
+    'openstack/heat',
+    'openstack/ironic',
+    'openstack/keystone',
+    'openstack/mistral',
+    'openstack/osc-lib',
+    'openstack/panko',
+    'openstack/python-openstackclient',
+    'openstack/python-neutronclient',
+    'openstack/tacker',
+    'openstack/zaqar',
 )
 
 PERIODIC_LOGS_URL = 'http://logs.openstack.org/periodic'
 PERIODIC_URLS = [
     PERIODIC_LOGS_URL + ('/periodic-tripleo-ci-centos-7-'
                          'ovb-1ctlr_1comp_1ceph-featureset024'),
-    # PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-fakeha-caserver',
-    # PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-oooq',
-    # PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-ocata-oooq',
-    # PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-newton-oooq',
-    # PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-nonha-containers',
-    # PERIODIC_LOGS_URL +
-    # '/periodic-tripleo-ci-centos-7-ovb-nonha-tempest-oooq-ocata',
-    # PERIODIC_LOGS_URL +
-    # '/periodic-tripleo-ci-centos-7-ovb-nonha-tempest-oooq-master',
-    # PERIODIC_LOGS_URL +
-    # '/periodic-tripleo-ci-centos-7-scenario001-multinode-oooq',
-    # PERIODIC_LOGS_URL +
-    # '/periodic-tripleo-ci-centos-7-scenario002-multinode-oooq',
-    # PERIODIC_LOGS_URL +
-    # '/periodic-tripleo-ci-centos-7-scenario003-multinode-oooq',
-    # PERIODIC_LOGS_URL +
-    # '/periodic-tripleo-ci-centos-7-scenario004-multinode-oooq',
+    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-fakeha-caserver',
+    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-oooq',
+    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-ocata-oooq',
+    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-newton-oooq',
+    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-nonha-containers',
+    PERIODIC_LOGS_URL +
+    '/periodic-tripleo-ci-centos-7-ovb-nonha-tempest-oooq-ocata',
+    PERIODIC_LOGS_URL +
+    '/periodic-tripleo-ci-centos-7-ovb-nonha-tempest-oooq-master',
+    PERIODIC_LOGS_URL +
+    '/periodic-tripleo-ci-centos-7-scenario001-multinode-oooq',
+    PERIODIC_LOGS_URL +
+    '/periodic-tripleo-ci-centos-7-scenario002-multinode-oooq',
+    PERIODIC_LOGS_URL +
+    '/periodic-tripleo-ci-centos-7-scenario003-multinode-oooq',
+    PERIODIC_LOGS_URL +
+    '/periodic-tripleo-ci-centos-7-scenario004-multinode-oooq',
 ]
 
 DOWNLOAD_PATH = os.environ.get('OPENSHIFT_DATA_DIR',
@@ -107,8 +107,9 @@ GERRIT_HOST = "review.openstack.org"
 GERRIT_PORT = 29418
 GERRIT_USER = "robo"
 GERRIT_BRANCHES = ("master", "stable/newton", "stable/ocata", "stable/pike")
-PERIODIC_DAYS = 3
-GATE_DAYS = 3
+PERIODIC_DAYS = 14
+GATE_DAYS = 14
+CIRCLE = 3
 TRACKED_JOBS = (
     "gate-tripleo-ci-centos-7-ovb-ha",
     "gate-tripleo-ci-centos-7-ovb-nonha",
@@ -273,7 +274,7 @@ PLUGIN_JOBS = RDOCI_JOBS
 
 class PLUGIN_RDOCI_CONFIG:
     console_name = 'console.txt'
-    main_index_timeout = 3500
+    main_index_timeout = 1700
 
 
 class PLUGIN_TRIPLEOCI_CONFIG:
