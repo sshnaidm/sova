@@ -14,7 +14,7 @@
             {% for key in master_jobs|sort %}
                 {% set keyloop = loop %}
                 {% if 'container' not in key and 'upgrade' not in key and 'scenario' not in key %}
-                <li{% if loop.first %} class="active"{% endif %}><a data-toggle="tab" href="#{{ key }}">{{ key }}</a></li><div class="clearfix"></div>
+            <li{% if loop.first %} class="active"{% endif %}><a data-toggle="tab" href="#{{ key }}"><span style="color:{{ circles[key] }}">&#9632;</span> {{ key }}</a></li><div class="clearfix"></div>
                 {% endif %}
             {% endfor %}
         </div>
@@ -24,7 +24,7 @@
             {% for key in master_jobs|sort %}
                 {% set keyloop = loop %}
                 {% if 'scenario' in key and 'upgrade' not in key %}
-                <li{% if loop.first %} class="active"{% endif %}><a data-toggle="tab" href="#{{ key }}">{{ key }}</a></li><div class="clearfix"></div>
+                <li{% if loop.first %} class="active"{% endif %}><a data-toggle="tab" href="#{{ key }}"><span style="color:{{ circles[key] }}">&#9632;</span> {{ key }}</a></li><div class="clearfix"></div>
                 {% endif %}
             {% endfor %}
         </div>
@@ -34,7 +34,7 @@
             {% for key in master_jobs|sort %}
                 {% set keyloop = loop %}
                 {% if 'upgrade' in key %}
-                <li{% if loop.first %} class="active"{% endif %}><a data-toggle="tab" href="#{{ key }}">{{ key }}</a></li><div class="clearfix"></div>
+                <li{% if loop.first %} class="active"{% endif %}><a data-toggle="tab" href="#{{ key }}"><span style="color:{{ circles[key] }}">&#9632;</span> {{ key }}</a></li><div class="clearfix"></div>
                 {% endif %}
             {% endfor %}
         </div>
@@ -44,7 +44,7 @@
             {% for key in master_jobs|sort %}
                 {% set keyloop = loop %}
                 {% if 'container' in key and 'upgrade' not in key and 'scenario' not in key %}
-                <li{% if loop.first %} class="active"{% endif %}><a data-toggle="tab" href="#{{ key }}">{{ key }}</a></li><div class="clearfix"></div>
+                <li{% if loop.first %} class="active"{% endif %}><a data-toggle="tab" href="#{{ key }}"><span style="color:{{ circles[key] }}">&#9632;</span> {{ key }}</a></li><div class="clearfix"></div>
                 {% endif %}
             {% endfor %}
         </div>
@@ -57,7 +57,7 @@
                 {% for key in data|sort %}
                     {% set keyloop = loop %}
                     {% if branch in key %}
-                    <li{%  if brloop.first and loop.first %} class="active"{% endif %}><a data-toggle="tab" href="#{{ key }}">{{ key }}</a></li><div class="clearfix"></div>
+                    <li{%  if brloop.first and loop.first %} class="active"{% endif %}><a data-toggle="tab" href="#{{ key }}"><span style="color:{{ circles[key] }}">&#9632;</span> {{ key }}</a></li><div class="clearfix"></div>
                     {% endif %}
                 {% endfor %}
             </div>

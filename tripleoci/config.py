@@ -108,6 +108,7 @@ GERRIT_USER = "robo"
 GERRIT_BRANCHES = ("master", "stable/newton", "stable/ocata")
 PERIODIC_DAYS = 14
 GATE_DAYS = 8
+CIRCLE = 3
 TRACKED_JOBS = (
     "gate-tripleo-ci-centos-7-ovb-ha",
     "gate-tripleo-ci-centos-7-ovb-nonha",

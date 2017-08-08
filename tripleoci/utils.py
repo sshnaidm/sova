@@ -452,3 +452,16 @@ def urlize_logstash(msgs):
                 '#/dashboard/file/logstash.json?query=')
     url = base_url + quote(query.replace('"', '\\"'))
     return url
+
+def get_circles(data):
+    job_names = set([i['job'].name for i in data])
+    circles = {k: 'orange' for k in job_names}
+    for job in job_names:
+        data_jobs = sorted([i for i in data if i['job'].name == job],
+                           key=lambda y: y['job'].ts, reverse=True)
+        jobs_set = set([i['job'].status for i in data_jobs[:config.CIRCLE]])
+        if jobs_set == set(['SUCCESS']):
+            circles[job] = 'green'
+        elif jobs_set == set(['FAILURE']):
+            circles[job] = 'red'
+    return circles
