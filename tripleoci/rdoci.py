@@ -99,7 +99,7 @@ class RDO_CI(object):
     def _get_logs_console(self, job, path):
         web = Web(job['log_url'] + "/console.txt.gz")
         req = web.get(ignore404=True)
-        if not req.ok:
+        if req is None or not req.ok:
             return None
         else:
             if not os.path.exists(os.path.dirname(path)):
@@ -206,12 +206,13 @@ class RDO_CI(object):
                 with gzip.open(console) as f:
                     text = str(f.read())
                 ans_ts = ansible_ts.findall(text)
-                start = datetime.datetime.strptime(ans_ts[0],
-                                                   '%A %d %B %Y %H:%M:%S')
-                j['length'] = delta_ts(j['ts'], start) + 300
-                if list(set(stat_re.findall(text))) == [('0', '0')]:
-                    j['status'] = 'SUCCESS'
-                    j['fail'] = False
+                if ans_ts:
+                    start = datetime.datetime.strptime(ans_ts[0],
+                                                       '%A %d %B %Y %H:%M:%S')
+                    j['length'] = delta_ts(j['ts'], start) + 300
+                    if list(set(stat_re.findall(text))) == [('0', '0')]:
+                        j['status'] = 'SUCCESS'
+                        j['fail'] = False
         return j
 
     def get_jobs(self):
