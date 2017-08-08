@@ -49,6 +49,10 @@ regexes:
     name: "oooq_tempest_fail"
   - regex: 'Error: Execution of .*yum.* returned 1: Error downloading packages'
     name: "yum_install_fail_re"
+  - regex: 'ERROR! the playbook: .* could not be found'
+    name: "playbook_err_re"
+  - regex: 'fatal: .* FAILED! => \{"failed": true, "msg": ".* is undefined"'
+    name: "ansible_und_err"
 patterns:
   "/console.html":
     - id: 1
@@ -374,7 +378,17 @@ patterns:
     - id: 66
       msg: 'Image Build Error'
       pattern: '*** Image Build Error ***'
-      tag: infra
+      tag: "infra"
+      logstash: ""
+    - id: 67
+      msg: "Failed to find playbook"
+      pattern: "playbook_err_re"
+      tag: "infra"
+      logstash: ""
+    - id: 68
+      msg: "Ansible undefined variable"
+      pattern: "ansible_und_err"
+      tag: "infra"
       logstash: ""
   "/logs/postci.txt":
     - id: 200
