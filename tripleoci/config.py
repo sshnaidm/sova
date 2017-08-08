@@ -274,7 +274,7 @@ PLUGIN_JOBS = RDOCI_JOBS
 
 class PLUGIN_RDOCI_CONFIG:
     console_name = 'console.txt'
-    main_index_timeout = 1700
+    main_index_timeout = 1100
 
 
 class PLUGIN_TRIPLEOCI_CONFIG:
