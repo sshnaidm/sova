@@ -214,6 +214,9 @@ class RDO_CI(object):
                     if list(set(stat_re.findall(text))) == [('0', '0')]:
                         j['status'] = 'SUCCESS'
                         j['fail'] = False
+                if "Build step 'Execute shell' marked build as failur" in text:
+                    j['status'] = 'FAILURE'
+                    j['fail'] = True
         return j
 
     def get_jobs(self):
