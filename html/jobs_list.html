@@ -21,6 +21,14 @@
                 {% endfor %}
             </div>
         {% endfor %}
+        <div class="col-xs-12 col-md-3">
+                <h3>Others</h3>
+
+                {% for key in jobs_by_branch['others']|sort %}
+                    {% set keyloop = loop %}
+                    <li{% if loop.first %} class="active"{% endif %}><a data-toggle="tab" href="#{{ key }}"><span style="color:{{ circles[key] }}">&#9632;</span> {{ key }}</a></li><div class="clearfix"></div>
+                {% endfor %}
+            </div>
     </div>
 </div>
 

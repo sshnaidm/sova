@@ -87,6 +87,9 @@ def create_html():
         b: list(set(
             [i['job'].name for i in ci_data if b in i['job'].name]
         )) for b in branches}
+    jobs_by_branch['others'] = list(set([
+        z['job'].name for z in ci_data if z['job'].name not in [
+            i for j in jobs_by_branch.values() for i in j]]))
     html = template.render({
         "ci": by_job_type(list(ci_data)),
         "periodic": by_job_type(list(periodic_data)),
