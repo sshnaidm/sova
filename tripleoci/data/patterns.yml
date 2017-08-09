@@ -463,7 +463,7 @@ patterns:
       pattern: "yum_install_fail_re"
       tag: "infra"
     - id: 502
-      pattern: 'UnixHTTPConnectionPool(host='localhost', port=None): Read timed out'
+      pattern: "UnixHTTPConnectionPool(host='localhost', port=None): Read timed out"
       msg: "Container upload timed out."
       tag: "infra"
       logstash: "UnixHTTPConnectionPool(host='localhost', port=None): Read timed out"
@@ -472,3 +472,8 @@ patterns:
       msg: 'Container image not found.'
       tag: "infra"
       logstash: '404 Client Error: Not Found ("no such id:'
+    - id: 504
+      logstash: ""
+      msg: "Failed to connect to endpoints of overcloud."
+      pattern: "Failed to contact the endpoint at http"
+      tag: "code"
