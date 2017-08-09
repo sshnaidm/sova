@@ -15,7 +15,7 @@ monkey.patch_all()  # noqa
 import tripleoci.config as config
 from tripleoci.config import log
 from tripleoci.patches import Job
-from tripleoci.utils import Web
+from tripleoci.utils import Web, in_days
 
 # Jobs regexps
 branch_re = re.compile(r"--release ([^ ]+)")
@@ -255,6 +255,7 @@ class RDO_CI(object):
             jobs = self.parse_index(index)[:self.limit]
         else:
             jobs = []
+        jobs = [i for i in jobs if in_days(i, config.GATE_DAYS)]
         p = Pool(20)
         results = []
         for k, j in enumerate(jobs):
