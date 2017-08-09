@@ -24,7 +24,7 @@ timest_re = re.compile('\d+ \w+ 20\d\d  \d\d:\d\d:\d\d')
 time_re = re.compile('^(\d+:\d+:\d+)')
 ansible_ts = re.compile('n(\w+ \d\d \w+ 20\d\d  \d\d:\d\d:\d\d)')
 stat_re = re.compile(
-    r'\n\S+\s+: ok=\d+\s*changed=\d+\s*unreachable=(\d+)\s*failed=(\d+)')
+    r'\\n\S+\s+: ok=\d+\s*changed=\d+\s*unreachable=(\d+)\s*failed=(\d+)')
 
 RDOCI_URL = 'https://thirdparty.logs.rdoproject.org/'
 MAIN_INDEX = 'index_downci.html'
@@ -106,6 +106,9 @@ class RDO_CI(object):
     def _get_console(self, job):
         path = os.path.join(
                  self.down_path, job["log_hash"], "console.html.gz")
+        if os.path.exists(path):
+            log.debug("Console is already here: {}".format(path))
+            return path
         return self._get_logs_console(job, path)
 
     def _get_logs_console(self, job, path):
