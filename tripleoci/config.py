@@ -180,6 +180,4 @@ TRACKED_JOBS = (
     'gate-tripleo-ci-centos-7-scenario007-multinode-oooq-puppet',
     'gate-tripleo-ci-centos-7-scenario007-multinode-oooq-puppet-nv',
     'gate-tripleo-ci-centos-7-scenario008-multinode-oooq-nv',
-
-
 )

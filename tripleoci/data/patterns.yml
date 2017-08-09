@@ -51,7 +51,7 @@ regexes:
     name: "yum_install_fail_re"
   - regex: 'ERROR! the playbook: .* could not be found'
     name: "playbook_err_re"
-  - regex: 'fatal: .* FAILED! => \{"failed": true, "msg": ".* is undefined"'
+  - regex: 'fatal: .* FAILED! =>.*"msg": .* ([^\s]+) is undefined"'
     name: "ansible_und_err"
 patterns:
   "/console.html":
@@ -386,10 +386,10 @@ patterns:
       tag: "infra"
       logstash: ""
     - id: 68
-      msg: "Ansible undefined variable"
+      msg: "Ansible undefined variable {}"
       pattern: "ansible_und_err"
       tag: "infra"
-      logstash: ""
+      logstash: "{} is undefined"
   "/logs/postci.txt":
     - id: 200
       logstash: "puppet_re"
@@ -477,3 +477,4 @@ patterns:
       msg: "Failed to connect to endpoints of overcloud."
       pattern: "Failed to contact the endpoint at http"
       tag: "code"
+
