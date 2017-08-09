@@ -1,6 +1,7 @@
 import datetime
 import fileinput
 import gzip
+import json
 import os
 import re
 import time
@@ -28,6 +29,7 @@ stat_re = re.compile(
 
 RDOCI_URL = 'https://thirdparty.logs.rdoproject.org/'
 MAIN_INDEX = 'index_downci.html'
+JENKINS_URL = 'https://rhos-jenkins.rhev-ci-vms.eng.rdu2.redhat.com'
 
 
 class RDO_CI(object):
@@ -76,36 +78,9 @@ class RDO_CI(object):
             index = req.content
         return index
 
-    # def _get_console(self, job):
-    #     path = os.path.join(
-    #         self.down_path, job["log_hash"], "console.html.gz")
-    #     if os.path.exists(path):
-    #         log.debug("Console is already here: {}".format(path))
-    #         return path
-    #     console_url = os.path.join(
-    #         'https://ci.centos.org/job',
-    #         job['name'],
-    #         job['build_number'],
-    #         'timestamps/?time=HH:mm:ss&appendLog&locale=en_GB')
-    #
-    #     web = Web(console_url)
-    #     req = web.get(ignore404=True)
-    #     if req is not None and int(req.status_code) == 404:
-    #         web = Web(url=console_url)
-    #         log.debug("Trying to download raw console")
-    #         req = web.get()
-    #     if req is None or int(req.status_code) != 200:
-    #         log.error("Failed to retrieve console: {}".format(job["log_url"]))
-    #         return self._get_logs_console(job, path)
-    #     else:
-    #         if not os.path.exists(os.path.dirname(path)):
-    #             os.makedirs(os.path.dirname(path))
-    #         with gzip.open(path, "wb") as f:
-    #             f.write(req.content)
-    #     return path
     def _get_console(self, job):
         path = os.path.join(
-                 self.down_path, job["log_hash"], "console.html.gz")
+            self.down_path, job["log_hash"], "console.html.gz")
         if os.path.exists(path):
             log.debug("Console is already here: {}".format(path))
             return path
@@ -122,6 +97,40 @@ class RDO_CI(object):
             with gzip.open(path, "wb") as f:
                 f.write(req.content)
         return path
+
+    def _get_jenkins_json(self, job):
+        path = os.path.join(
+            self.down_path, job["log_hash"], "json.gz")
+        if os.path.exists(path):
+            log.debug("JSON is already here: {}".format(path))
+            with gzip.open(path, "rt") as f:
+                result = json.loads(f.read())
+            return result
+        elif os.path.exists(path + "_404"):
+            return None
+        json_url = os.path.join(
+            JENKINS_URL,
+            'job',
+            job['name'],
+            job['build_number'],
+            'api', 'json')
+        js_www = Web(url=json_url)
+        js_web = js_www.get(ignore404=False)
+        if js_web and js_web.ok:
+            try:
+                json_data = js_web.json()
+            except Exception as e:
+                log.warn("Can't parse JSON from {} - {}".format(
+                    json_url, str(e)))
+                return None
+            if not os.path.exists(os.path.dirname(path)):
+                os.makedirs(os.path.dirname(path))
+            with gzip.open(path, "wt") as f:
+                f.write(json.dumps(json_data))
+            return json_data
+        elif js_web and js_web.status_code == 404:
+            open(path + "_404", "a").close()
+        return None
 
     def parse_index(self, text):
         jobs = []
@@ -208,12 +217,22 @@ class RDO_CI(object):
                         start = time_re.search(line).group(1)
                     if timest_re.search(line):
                         end = time_re.search(line).group(1)
-                except Exception as e:
+                except Exception:
                     pass
             j['length'] = delta(end, start) if start and end else 0
             finput.close()
             if not j.get('branch'):
                 j['branch'] = 'master'
+            if j['length'] == 0:
+                json_data = self._get_jenkins_json(j)
+                if json_data:
+                    j['length'] = int(json_data["duration"]) / 1000
+                    if json_data["result"] != "SUCCESS":
+                        j['status'] = 'FAILURE'
+                        j['fail'] = True
+                    else:
+                        j['status'] = 'SUCCESS'
+                        j['fail'] = False
             if j['length'] == 0:
                 with gzip.open(console) as f:
                     text = str(f.read())

@@ -140,7 +140,7 @@ class Web(object):
         log.debug("GET {url} with ignore404={i}".format(
             url=self.url, i=str(ignore404)))
         try:
-            req = requests.get(self.url, timeout=self.timeout)
+            req = requests.get(self.url, timeout=self.timeout, verify=False)
         except ConnectionError:
             log.error("Connection error when retriving {}".format(self.url))
             return None
