@@ -226,7 +226,7 @@ class RDO_CI(object):
             if j['length'] == 0:
                 json_data = self._get_jenkins_json(j)
                 if json_data:
-                    j['length'] = int(json_data["duration"]) / 1000
+                    j['length'] = int(int(json_data["duration"]) / 1000)
                     if json_data["result"] != "SUCCESS":
                         j['status'] = 'FAILURE'
                         j['fail'] = True
