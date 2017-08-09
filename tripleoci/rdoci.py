@@ -7,6 +7,10 @@ import time
 
 from lxml import etree
 
+from gevent import monkey
+from gevent.pool import Pool
+monkey.patch_all()  # noqa
+
 import tripleoci.config as config
 from tripleoci.config import log
 from tripleoci.patches import Job
@@ -20,10 +24,10 @@ timest_re = re.compile('\d+ \w+ 20\d\d  \d\d:\d\d:\d\d')
 time_re = re.compile('^(\d+:\d+:\d+)')
 ansible_ts = re.compile('n(\w+ \d\d \w+ 20\d\d  \d\d:\d\d:\d\d)')
 stat_re = re.compile(
-    r'ok=\d+\s*changed=\d+\s*unreachable=(\d+)\s*failed=(\d+)')
+    r'\n\S+\s+: ok=\d+\s*changed=\d+\s*unreachable=(\d+)\s*failed=(\d+)')
 
-RDOCI_URL = 'https://ci.centos.org/artifacts/rdo/'
-MAIN_INDEX = 'index_rdoci.html'
+RDOCI_URL = 'https://thirdparty.logs.rdoproject.org/'
+MAIN_INDEX = 'index_downci.html'
 
 
 class RDO_CI(object):
@@ -72,37 +76,41 @@ class RDO_CI(object):
             index = req.content
         return index
 
+    # def _get_console(self, job):
+    #     path = os.path.join(
+    #         self.down_path, job["log_hash"], "console.html.gz")
+    #     if os.path.exists(path):
+    #         log.debug("Console is already here: {}".format(path))
+    #         return path
+    #     console_url = os.path.join(
+    #         'https://ci.centos.org/job',
+    #         job['name'],
+    #         job['build_number'],
+    #         'timestamps/?time=HH:mm:ss&appendLog&locale=en_GB')
+    #
+    #     web = Web(console_url)
+    #     req = web.get(ignore404=True)
+    #     if req is not None and int(req.status_code) == 404:
+    #         web = Web(url=console_url)
+    #         log.debug("Trying to download raw console")
+    #         req = web.get()
+    #     if req is None or int(req.status_code) != 200:
+    #         log.error("Failed to retrieve console: {}".format(job["log_url"]))
+    #         return self._get_logs_console(job, path)
+    #     else:
+    #         if not os.path.exists(os.path.dirname(path)):
+    #             os.makedirs(os.path.dirname(path))
+    #         with gzip.open(path, "wb") as f:
+    #             f.write(req.content)
+    #     return path
     def _get_console(self, job):
         path = os.path.join(
-            self.down_path, job["log_hash"], "console.html.gz")
-        if os.path.exists(path):
-            log.debug("Console is already here: {}".format(path))
-            return path
-        console_url = os.path.join(
-            'https://ci.centos.org/job',
-            job['name'],
-            job['build_number'],
-            'timestamps/?time=HH:mm:ss&appendLog&locale=en_GB')
-
-        web = Web(console_url)
-        req = web.get(ignore404=True)
-        if req is not None and int(req.status_code) == 404:
-            web = Web(url=console_url)
-            log.debug("Trying to download raw console")
-            req = web.get()
-        if req is None or int(req.status_code) != 200:
-            log.error("Failed to retrieve console: {}".format(job["log_url"]))
-            return self._get_logs_console(job, path)
-        else:
-            if not os.path.exists(os.path.dirname(path)):
-                os.makedirs(os.path.dirname(path))
-            with gzip.open(path, "wb") as f:
-                f.write(req.content)
-        return path
+                 self.down_path, job["log_hash"], "console.html.gz")
+        return self._get_logs_console(job, path)
 
     def _get_logs_console(self, job, path):
         web = Web(job['log_url'] + "/console.txt.gz")
-        req = web.get(ignore404=True)
+        req = web.get(ignore404=False)
         if req is None or not req.ok:
             return None
         else:
@@ -225,8 +233,12 @@ class RDO_CI(object):
             jobs = self.parse_index(index)[:self.limit]
         else:
             jobs = []
-        for j in jobs:
-            raw = self._get_more_data(j)
+        p = Pool(20)
+        results = []
+        for k, j in enumerate(jobs):
+            results.append(p.spawn(self._get_more_data, j))
+        p.join()
+        for raw in [i.get() for i in results]:
             if raw is None:
                 log.error("Failed to process job {}".format(repr(j)))
             else:
