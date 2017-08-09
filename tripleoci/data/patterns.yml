@@ -463,7 +463,7 @@ patterns:
       pattern: "yum_install_fail_re"
       tag: "infra"
     - id: 502
-      pattern: 'UnixHTTPConnectionPool(host='localhost', port=None): Read timed out'
+      pattern: "UnixHTTPConnectionPool(host='localhost', port=None): Read timed out"
       msg: "Container upload timed out."
       tag: "infra"
       logstash: "UnixHTTPConnectionPool(host='localhost', port=None): Read timed out"
