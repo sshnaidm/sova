@@ -7,7 +7,7 @@
         {% if jobs_list != [] %}
             {% set brloop = loop %}
             <div class="col-xs-12 col-md-3">
-                <h3>{{ column|capitalize }}</h3>
+                <h3>{{ column }}</h3>
 
                 {% for key in jobs_list|sort %}
                     {% set keyloop = loop %}

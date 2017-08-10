@@ -99,7 +99,7 @@ def create_html():
         ))} for j in config.COLUMNS for c, p in j.items() ]
     columned = [k for j in jobs_by_column for i in j.values() for k in i]
     jobs_by_column.append({
-        'others': list(set([
+        'Others': list(set([
         z['job'].name for z in ci_data if z['job'].name not in columned]
         ))})
     html = template.render({
