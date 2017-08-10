@@ -162,7 +162,7 @@ patterns:
       tag: "infra"
     - id: 24
       logstash: "cd: /opt/stack/new/delorean/data/repos: No such file or directory"
-      msg: "Delorean repo build FAIL."
+      msg: "Delorean failed to build the change under review."
       pattern: "cd: /opt/stack/new/delorean/data/repos: No such file or directory"
       tag: "code"
     - id: 25
