@@ -14,7 +14,8 @@ from requests import ConnectionError
 from requests.exceptions import Timeout
 from six.moves.urllib.parse import quote
 import tripleoci.config as config
-from tripleoci.config import log, ACTIVE_PLUGIN_CONFIG
+from tripleoci.config import ACTIVE_PLUGIN_CONFIG
+from tripleoci.config import log
 
 requests.packages.urllib3.disable_warnings()
 
@@ -454,6 +455,7 @@ def urlize_logstash(msgs):
     url = base_url + quote(query.replace('"', '\\"'))
     return url
 
+
 def get_circles(data):
     job_names = set([i['job'].name for i in data])
     circles = {k: 'orange' for k in job_names}
@@ -466,6 +468,7 @@ def get_circles(data):
         elif jobs_set == set(['FAILURE']):
             circles[job] = 'red'
     return circles
+
 
 def in_days(job, days):
     def _day_format(x):

@@ -277,3 +277,12 @@ class PLUGIN_TRIPLEOCI_CONFIG:
     console_name = 'console.html'
 
 ACTIVE_PLUGIN_CONFIG = PLUGIN_RDOCI_CONFIG
+COLUMNS = [{"Browbeat": "browbeat"}]
+COLUMNS += [{
+    i.replace('stable/', '').capitalize() + "-gate": i.replace('stable/', '')}
+    for i in GERRIT_BRANCHES]
+COLUMNS += [
+{"OSP-10": "rhos-10"},
+{"OSP-11": "rhos-11"},
+{"OSP-12": "rhos-12"},
+]
