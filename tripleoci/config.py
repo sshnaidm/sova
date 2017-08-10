@@ -265,6 +265,9 @@ class PLUGIN_TRIPLEOCI_CONFIG:
     console_name = 'console.html'
 
 ACTIVE_PLUGIN_CONFIG = PLUGIN_RDOCI_CONFIG
-COLUMNS = [{
+COLUMNS = [
+    {'Master-gate': 'master'}
+]
+COLUMNS += [{
     i.replace('stable/', '').capitalize() + "-gate": i.replace('stable/', '')}
     for i in GERRIT_BRANCHES if "stable" in i]
