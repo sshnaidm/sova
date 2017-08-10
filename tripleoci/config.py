@@ -194,23 +194,7 @@ RDOCI_JOBS = (
     'tripleo-quickstart-gate-ocata-delorean-full-minimal',
     'tripleo-quickstart-gate-ocata-delorean-quick-basic',
     'tripleo-quickstart-gate-ocata-full-images',
-    ('tripleo-quickstart-periodic-full-tempest-master-delorean-full-deploy-'
-     'minimal_pacemaker'),
-    'tripleo-quickstart-periodic-master-delorean-devmode_tempest-minimal',
-    ('tripleo-quickstart-periodic-master-delorean-feature-scale-deploy-'
-     'scale_compute'),
-    'tripleo-quickstart-periodic-master-delorean-full-deploy-minimal',
-    ('tripleo-quickstart-periodic-master-delorean-full-deploy-'
-     'minimal_pacemaker'),
-    'tripleo-quickstart-periodic-master-delorean-images-minimal',
     'tripleo-quickstart-periodic-master-delorean-images-minimal_pacemaker',
-    ('tripleo-quickstart-periodic-newton-delorean-feature-scale-deploy-'
-     'scale_compute'),
-    'tripleo-quickstart-periodic-newton-delorean-full-deploy-minimal',
-    ('tripleo-quickstart-periodic-newton-delorean-full-deploy-'
-     'minimal_pacemaker'),
-    'tripleo-quickstart-periodic-newton-delorean-images-minimal',
-    'tripleo-quickstart-periodic-newton-delorean-images-minimal_pacemaker',
     'tripleo-quickstart-periodic-newton-delorean-ooo-snap-minimal',
     'tripleo-quickstart-promote-master-build-images',
     'tripleo-quickstart-promote-master-current-tripleo-delorean-minimal',
