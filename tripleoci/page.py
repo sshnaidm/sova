@@ -57,16 +57,26 @@ def create_html():
                            exclude=None,
                            down_path=config.DOWNLOAD_PATH,
                            fail=False)
-
+            with open(
+                    os.path.join(config.DOWNLOAD_PATH, "ci_data_dump_rdoci"),
+                    "wb") as g:
+                pickle.dump(ci_data, g)
             periodic_data = []
     # For debug mode
     else:
-        with open(
-                os.path.join(config.DOWNLOAD_PATH, "ci_data_dump"), "rb") as g:
-            ci_data = pickle.load(g)
-        with open(os.path.join(config.DOWNLOAD_PATH, "periodic_data_dump"),
-                  "rb") as g:
-            periodic_data = pickle.load(g)
+        if PLUGIN == RDOCI:
+            with open(
+                os.path.join(config.DOWNLOAD_PATH, "ci_data_dump_rdoci"),
+                    "rb") as g:
+                ci_data = pickle.load(g)
+                periodic_data = []
+        else:
+            with open(
+                    os.path.join(config.DOWNLOAD_PATH, "ci_data_dump"), "rb") as g:
+                ci_data = pickle.load(g)
+            with open(os.path.join(config.DOWNLOAD_PATH, "periodic_data_dump"),
+                      "rb") as g:
+                periodic_data = pickle.load(g)
 
     errors_top = top(ci_data)
     stats, per_stats = statistics(ci_data), statistics(
@@ -83,13 +93,15 @@ def create_html():
     branches = sorted(
         set([i['job'].branch.replace("stable/", "") for i in ci_data] +
             [i.replace("stable/", "") for i in config.GERRIT_BRANCHES]))
-    jobs_by_branch = {
-        b: list(set(
-            [i['job'].name for i in ci_data if b in i['job'].name]
-        )) for b in branches}
-    jobs_by_branch['others'] = list(set([
-        z['job'].name for z in ci_data if z['job'].name not in [
-            i for j in jobs_by_branch.values() for i in j]]))
+    jobs_by_column = [{
+        c: list(set(
+            [i['job'].name for i in ci_data if p in i['job'].name]
+        ))} for j in config.COLUMNS for c, p in j.items() ]
+    columned = [k for j in jobs_by_column for i in j.values() for k in i]
+    jobs_by_column.append({
+        'others': list(set([
+        z['job'].name for z in ci_data if z['job'].name not in columned]
+        ))})
     html = template.render({
         "ci": by_job_type(list(ci_data)),
         "periodic": by_job_type(list(periodic_data)),
@@ -97,7 +109,7 @@ def create_html():
         'periodic_stats': per_stats,
         "errors_top": errors_top,
         "branches": branches,
-        "jobs_by_branch": jobs_by_branch,
+        "jobs_by_column": jobs_by_column,
         "circles": circles
     })
     with open(config.INDEX_HTML, "w") as f:

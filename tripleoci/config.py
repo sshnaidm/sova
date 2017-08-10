@@ -106,7 +106,7 @@ GERRIT_PATCH_LIMIT = 200
 GERRIT_HOST = "review.openstack.org"
 GERRIT_PORT = 29418
 GERRIT_USER = "robo"
-GERRIT_BRANCHES = ("master", "stable/newton", "stable/ocata")
+GERRIT_BRANCHES = ("master", "stable/newton", "stable/ocata", "stable/pike")
 PERIODIC_DAYS = 14
 GATE_DAYS = 14
 CIRCLE = 3
@@ -281,3 +281,5 @@ class PLUGIN_TRIPLEOCI_CONFIG:
     console_name = 'console.html'
 
 ACTIVE_PLUGIN_CONFIG = PLUGIN_RDOCI_CONFIG
+COLUMNS = [{i.replace('stable/', ''): i.replace('stable/', '')}
+            for i in GERRIT_BRANCHES]

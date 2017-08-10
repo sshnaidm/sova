@@ -1,34 +1,22 @@
-{% set alljobs=data.keys()|list %}
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-xs-12 col-md-3">
-            <h3>Master-{{ key|replace('ci', 'gate') }}</h3>
-            {% for key in jobs_by_branch.master|sort %}
-                {% set keyloop = loop %}
-                <li{% if loop.first %} class="active"{% endif %}><a data-toggle="tab" href="#{{ key }}"><span style="color:{{ circles[key] }}">&#9632;</span> {{ key }}</a></li><div class="clearfix"></div>
-            {% endfor %}
-        </div>
-
-        {% for branch in branches|reverse if branch != 'master' and branch != '' %}
+        {% for i in jobs_by_column %}
+        {% set column=i.keys()|first %}
+        {% set jobs_list=i.values()|first %}
+        {% if jobs_list != [] %}
             {% set brloop = loop %}
             <div class="col-xs-12 col-md-3">
-                <h3>{{ branch|capitalize }}-{{ key|replace('ci', 'gate') }}</h3>
+                <h3>{{ column|capitalize }}</h3>
 
-                {% for key in jobs_by_branch[branch]|sort %}
+                {% for key in jobs_list|sort %}
                     {% set keyloop = loop %}
                     <li{%  if brloop.first and loop.first %} class="active"{% endif %}><a data-toggle="tab" href="#{{ key }}"><span style="color:{{ circles[key] }}">&#9632;</span> {{ key }}</a></li><div class="clearfix"></div>
                 {% endfor %}
             </div>
+        {% endif %}
         {% endfor %}
-        <div class="col-xs-12 col-md-3">
-                <h3>Others</h3>
 
-                {% for key in jobs_by_branch['others']|sort %}
-                    {% set keyloop = loop %}
-                    <li{% if loop.first %} class="active"{% endif %}><a data-toggle="tab" href="#{{ key }}"><span style="color:{{ circles[key] }}">&#9632;</span> {{ key }}</a></li><div class="clearfix"></div>
-                {% endfor %}
-            </div>
     </div>
 </div>
 
