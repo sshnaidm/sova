@@ -62,11 +62,14 @@ PERIODIC_URLS = [
                          'ovb-1ctlr_1comp_1ceph-featureset024'),
     PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-fakeha-caserver',
     PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-oooq',
+    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-pike-oooq',
     PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-ocata-oooq',
     PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-newton-oooq',
     PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-nonha-containers',
     PERIODIC_LOGS_URL +
     '/periodic-tripleo-ci-centos-7-ovb-nonha-tempest-oooq-ocata',
+    PERIODIC_LOGS_URL +
+    '/periodic-tripleo-ci-centos-7-ovb-nonha-tempest-oooq-pike',
     PERIODIC_LOGS_URL +
     '/periodic-tripleo-ci-centos-7-ovb-nonha-tempest-oooq-master',
     PERIODIC_LOGS_URL +
