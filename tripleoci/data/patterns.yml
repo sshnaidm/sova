@@ -390,6 +390,21 @@ patterns:
       pattern: "ansible_und_err"
       tag: "infra"
       logstash: "{} is undefined"
+    - id: 69
+      msg: "Multinode SSH connection failed."
+      pattern: "Failed to connect to the host via ssh: ssh: connect to host"
+      tag: "infra"
+      logstash: "Failed to connect to the host via ssh: ssh: connect to host"
+    - id: 70
+      msg: "Overcloud update FAIL."
+      pattern: "Overcloud update - FAILED"
+      tag: "code"
+      logstash: "Overcloud update - FAILED"
+    - id: 71
+      msg: "Heat property error."
+      pattern: "ERROR: Property error:"
+      tag: "code"
+      logstash: "ERROR: Property error:"
   "/logs/postci.txt":
     - id: 200
       logstash: "puppet_re"
