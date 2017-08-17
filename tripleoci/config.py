@@ -106,7 +106,7 @@ GERRIT_PATCH_LIMIT = 200
 GERRIT_HOST = "review.openstack.org"
 GERRIT_PORT = 29418
 GERRIT_USER = "robo"
-GERRIT_BRANCHES = ("master", "stable/newton", "stable/ocata")
+GERRIT_BRANCHES = ("master", "stable/newton", "stable/ocata", "stable/pike")
 PERIODIC_DAYS = 14
 GATE_DAYS = 14
 CIRCLE = 3
@@ -183,7 +183,9 @@ RDOCI_JOBS = (
     'browbeat-quickstart-newton-baremetal-yoda',
     'browbeat-quickstart-ocata-baremetal-mixed',
     'browbeat-quickstart-ocata-baremetal-no_vlan',
-    'browbeat-quickstart-ocata-baremetal-yoda',
+    'browbeat-quickstart-ocata-baremetal-mixed',
+    'browbeat-quickstart-pike-baremetal-no_vlan',
+    'browbeat-quickstart-pike-baremetal-yoda',
     'browbeat-quickstart-rhos-10-baremetal-mixed',
     'browbeat-quickstart-rhos-10-baremetal-no_vlan',
     'browbeat-quickstart-rhos-10-baremetal-yoda',
@@ -193,9 +195,10 @@ RDOCI_JOBS = (
     'browbeat-quickstart-rhos-12-baremetal-mixed',
     'browbeat-quickstart-rhos-12-baremetal-no_vlan',
     'browbeat-quickstart-rhos-12-baremetal-yoda',
-    'oooq-master-delorean-bmu-haa16-lab-float_nic_with_vlans',
-    'oooq-newton-delorean-bmu-haa01-lab-float_nic_with_vlans',
+    'oooq-master-rdo_trunk-bmu-haa16-lab-float_nic_with_vlans',
+    'oooq-newton-rdo_trunk-bmu-haa01-lab-float_nic_with_vlans',
     'oooq-ocata-rdo_trunk-bmu-haa01-lab-float_nic_with_vlans',
+    'oooq-pike-rdo_trunk-bmu-haa16-lab-float_nic_with_vlans',
     'oooq-rhos-10-puddle-bmu-hac01-lab-float_nic_with_vlans',
     'oooq-rhos-11-puddle-bmu-hac01-lab-float_nic_with_vlans',
     'oooq-rhos-12-puddle-bmu-hab01-lab-float_nic_with_vlans',
@@ -209,23 +212,23 @@ RDOCI_JOBS = (
     'osp-rhos-12-promote-puddle-build-images',
     'osp-rhos-12-promote-puddle-virtbasic-1ctlr_1comp_64gb',
     'osp-rhos-12-promote-puddle-virtha-3ctlr_1comp_192gb',
-    'periodic-master-delorean-featureset010-1ctlr_1comp_64gb',
-    'periodic-master-delorean-featureset016-1ctlr_1comp_64gb',
-    'periodic-master-delorean-virtbasic-1ctlr_1comp_64gb',
-    'periodic-master-delorean-virtbasic-1ctlr_1comp_64gb-arxcruz',
-    'periodic-newton-delorean-virtbasic-1ctlr_1comp_64gb',
+    'periodic-master-rdo_trunk-featureset010-1ctlr_1comp_64gb',
+    'periodic-master-rdo_trunk-featureset016-1ctlr_1comp_64gb',
+    'periodic-master-rdo_trunk-virtbasic-1ctlr_1comp_64gb',
+    'periodic-newton-rdo_trunk-virtbasic-1ctlr_1comp_64gb',
     'periodic-ocata-rdo_trunk-virtbasic-1ctlr_1comp_64gb',
-    ('poc-myoung_periodic-master-delorean-containers_minimal-'
-     '1ctlr_1comp_64gb'),
-    'promote-rhel-master-delorean-virtbasic-1ctlr_1comp_64gb',
-    'promote-rhel-master-delorean-virtha-3ctlr_1comp_192gb',
-    'promote-rhel-newton-delorean-virtbasic-1ctlr_1comp_64gb',
-    'promote-rhel-newton-delorean-virtha-3ctlr_1comp_192gb',
+    'promote-rhel-master-rdo_trunk-virtbasic-1ctlr_1comp_64gb',
+    'promote-rhel-master-rdo_trunk-virtha-3ctlr_1comp_192gb',
+    'promote-rhel-newton-rdo_trunk-virtbasic-1ctlr_1comp_64gb',
+    'promote-rhel-newton-rdo_trunk-virtha-3ctlr_1comp_192gb',
     'promote-rhel-ocata-rdo_trunk-virtbasic-1ctlr_1comp_64gb',
     'promote-rhel-ocata-rdo_trunk-virtha-3ctlr_1comp_192gb',
-    'rdo-master-promote-delorean-build-images',
-    'rdo-newton-promote-delorean-build-images',
+    'promote-rhel-pike-rdo_trunk-virtbasic-1ctlr_1comp_64gb',
+    'promote-rhel-pike-rdo_trunk-virtha-3ctlr_1comp_192gb',
+    'rdo-master-promote-rdo_trunk-build-images',
+    'rdo-newton-promote-rdo_trunk-build-images',
     'rdo-ocata-promote-rdo_trunk-build-images',
+    'rdo-pike-promote-rdo_trunk-build-images',
     ('rlandy-poc-tripleo-quickstart-master-baremetal-hp_dl360_envE-'
      'single_nic_vlans'),
     ('tqe-gate-rhos-11-current-passed-ci-qeos7-ovb-minimal-pacemaker-'
@@ -233,18 +236,23 @@ RDOCI_JOBS = (
     'tq-gate-devmode-master-ovb-rdocloud-public-bond',
     ('tq-gate-rhos-11-current-passed-ci-qeos7-ovb-minimal-pacemaker-'
      'public-bond'),
-    ('tripleo-quickstart-master-delorean-baremetal-dell_pe_r630-'
+    ('tripleo-quickstart-master-rdo_trunk-baremetal-dell_pe_r630-'
      'bond_with_vlans'),
-    ('tripleo-quickstart-master-delorean-baremetal-hp_dl360_envD-'
+    ('tripleo-quickstart-master-rdo_trunk-baremetal-hp_dl360_envD-'
      'single_nic_vlans'),
-    ('tripleo-quickstart-newton-delorean-baremetal-dell_pe_r630-'
+    ('tripleo-quickstart-newton-rdo_trunk-baremetal-dell_pe_r630-'
      'bond_with_vlans'),
-    ('tripleo-quickstart-newton-delorean-baremetal-hp_dl360_envD-'
+    ('tripleo-quickstart-newton-rdo_trunk-baremetal-hp_dl360_envD-'
      'single_nic_vlans'),
     ('tripleo-quickstart-ocata-rdo_trunk-baremetal-dell_pe_r630-'
      'bond_with_vlans'),
     ('tripleo-quickstart-ocata-rdo_trunk-baremetal-hp_dl360_envD-'
      'single_nic_vlans'),
+    ('tripleo-quickstart-pike-rdo_trunk-baremetal-dell_pe_r630-'
+     'bond_with_vlans'),
+    ('tripleo-quickstart-pike-rdo_trunk-baremetal-hp_dl360_envD-'
+     'single_nic_vlans'),
+
 )
 
 TRIPLEOCI = {
