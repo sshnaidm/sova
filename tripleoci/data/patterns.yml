@@ -247,7 +247,7 @@ patterns:
       tag: "infra"
     - id: 41
       logstash: "ERROR - Couldn't retrieve env"
-      msg: "Environment setup FAILED."
+      msg: "OVB Environment setup FAILED."
       pattern: "ERROR - Couldn't retrieve env"
       tag: "infra"
     - id: 42
@@ -405,6 +405,11 @@ patterns:
       pattern: "ERROR: Property error:"
       tag: "code"
       logstash: "ERROR: Property error:"
+    - id: 72
+      msg: "OVB Environment setup FAILED."
+      pattern: "testenv-client - INFO - Received job : Failed creating OVB stack"
+      tag: "infra"
+      logstash: "testenv-client - INFO - Received job : Failed creating OVB stack"
   "/logs/postci.txt":
     - id: 200
       logstash: "puppet_re"
