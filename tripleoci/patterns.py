@@ -21,7 +21,7 @@ class Pattern(object):
                         regex.get('regex')))
                 else:
                     self.regexes[regex.get('name')] = r'{}'.format(
-                            regex.get('regex'))
+                        regex.get('regex'))
 
     def setup_patterns(self):
         self._patterns = self.config.get('patterns', {})

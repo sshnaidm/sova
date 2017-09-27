@@ -1,11 +1,13 @@
 from __future__ import print_function
 import json
 import tripleoci.config as config
+from tripleoci.config import PLUGIN, TRIPLEOCI, RDOCI
 
 from tripleoci.analysis import analyze_all
 from tripleoci.filters import Filter
 from tripleoci.patches import Patch
 from tripleoci.periodic import Periodic
+from tripleoci.promo import RDO_CI
 from tripleoci.utils import Gerrit
 
 
@@ -40,25 +42,35 @@ def meow(days=None,
     :param periodic: if take periodic (periodic=True) or patches (False)
     :return: parsed jobs data, ready for printing to HTML or console
     """
-    if not periodic:
-        if not DEBUG:
-            g = Gerrit(period=days)
-            gerrit = g.get_project_patches(config.PROJECTS)
-            # Dump gerrit data for investigation
-            with open(config.TMP_DIR + "/gerrit", "w") as f:
-                f.write(json.dumps(gerrit))
-        # If debug mode
+
+    if PLUGIN == TRIPLEOCI:
+        if not periodic:
+            if not DEBUG:
+                g = Gerrit(period=days)
+                gerrit = g.get_project_patches(config.PROJECTS)
+                # Dump gerrit data for investigation
+                with open(config.TMP_DIR + "/gerrit", "w") as f:
+                    f.write(json.dumps(gerrit))
+            # If debug mode
+            else:
+                with open(config.TMP_DIR + "/gerrit", "r") as f:
+                    gerrit = json.loads(f.read())
+            jobs = (job for patch in gerrit for job in Patch(patch).jobs)
         else:
-            with open(config.TMP_DIR + "/gerrit", "r") as f:
-                gerrit = json.loads(f.read())
-        jobs = (job for patch in gerrit for job in Patch(patch).jobs)
-    else:
+            jobs = (job
+                    for url in config.PERIODIC_URLS
+                    for job in Periodic(
+                        url, down_path=down_path, limit=limit).jobs)
+    elif PLUGIN == RDOCI:
+        # jobs = (job
+        #         for job in RDO_CI(down_path=down_path, limit=limit).jobs)
         jobs = (job
-                for url in config.PERIODIC_URLS
-                for job in Periodic(
-                    url, down_path=down_path, limit=limit).jobs)
+                for url in config.RDOCI_JOBS
+                for job in RDO_CI(url, down_path=down_path, limit=limit).jobs)
+    jobs1 = list(jobs)
+    print(len(jobs1))
     f = Filter(
-        jobs,
+        jobs1,
         days=days,
         dates=dates,
         limit=limit,

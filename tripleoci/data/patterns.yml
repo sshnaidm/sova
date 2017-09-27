@@ -54,7 +54,7 @@ regexes:
   - regex: 'fatal: .* FAILED! =>.*"msg": .* ([^\s]+) is undefined"'
     name: "ansible_und_err"
 patterns:
-  "/console.html":
+  "console":
     - id: 1
       logstash: ""
       msg: "Overcloud stack installation: SUCCESS."
@@ -410,7 +410,7 @@ patterns:
       pattern: "testenv-client - INFO - Received job : Failed creating OVB stack"
       tag: "infra"
       logstash: "testenv-client - INFO - Received job : Failed creating OVB stack"
-  "/logs/postci.txt":
+  "postci":
     - id: 200
       logstash: "puppet_re"
       msg: "Puppet {} FAIL."
@@ -451,7 +451,7 @@ patterns:
       msg: "{} FAIL."
       pattern: "fail_refresh_re"
       tag: "code"
-  "/logs/undercloud/var/log/ironic/ironic-conductor.txt":
+  "ironic-conductor":
     - id: 300
       logstash: "Timeout reached while waiting for callback for node"
       msg: "Ironic deployment timeout."
@@ -462,7 +462,7 @@ patterns:
       msg: "No space on disk for Ironic."
       pattern: "iron_space_re"
       tag: "infra"
-  "/logs/undercloud/var/log/messages":
+  "syslog":
     - exclude:
       - "glean@"
       - "docker-storage-setup"
@@ -471,7 +471,7 @@ patterns:
       msg: "{} service FAIL."
       pattern: "service_fail_re"
       tag: "command_exe"
-  "/logs/undercloud/var/log/extra/logstash.txt":
+  "logstash":
     - id: 500
       logstash: " is not pingable."
       msg: "Ping timeout when deploying OC."
@@ -497,4 +497,3 @@ patterns:
       msg: "Failed to connect to endpoints of overcloud."
       pattern: "Failed to contact the endpoint at http"
       tag: "code"
-

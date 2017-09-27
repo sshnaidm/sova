@@ -5,7 +5,7 @@ from gevent import monkey
 from gevent.pool import Pool
 monkey.patch_all()  # noqa
 
-from tripleoci.config import log, PATTERN_FILE
+from tripleoci.config import log, PATTERN_FILE, PLUGIN
 from tripleoci.patterns import Pattern
 from tripleoci.utils import JobFile, urlize_logstash
 
@@ -70,19 +70,22 @@ def analyze(job, down_path, num):
              "log: {log_url}")
 
     msg = dict()
-    console = JobFile(job, path=down_path, offline=DEBUG).get_file()
-    if not console:
-        message['text'] = 'Failed to fetch logs'
-        message['msg'] = {'Failed to fetch logs': 'infra'}
-        message['tags'] = ['infra']
-        return message
     if message['success']:
         message['text'] = 'SUCCESS'
         message['msg'] = {'SUCCESS': ''}
         message['reason'] = False
         message['tags'] = ['']
         return message
-    files = PATTERNS.keys()
+    console = JobFile(job, path=down_path, offline=DEBUG).get_file()
+
+    if not console:
+        message['text'] = 'Failed to fetch logs'
+        message['msg'] = {'Failed to fetch logs': 'infra'}
+        message['tags'] = ['infra']
+        return message
+    file_pointers = PATTERNS.keys()
+    files = [PLUGIN[f] for f in file_pointers]
+    REV_PLUGIN = {v: k for k, v in PLUGIN.items()}
     for file in filter_by_job_name(job.name, files):
         jfile = JobFile(job, path=down_path, file_link=file, offline=DEBUG
                         ).get_file()
@@ -97,7 +100,7 @@ def analyze(job, down_path, num):
                     jfile, openhook=fileinput.hook_compressed)
                 for line in finput:
                     line = line.decode()
-                    for p in PATTERNS[file]:
+                    for p in PATTERNS[REV_PLUGIN[file]]:
                         line_matched = (line_match(
                             p["pattern"], line, exclude=p.get("exclude")
                         ) and p["msg"].lower() not in [i.lower() for i in msg])

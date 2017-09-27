@@ -1,2 +1,2 @@
 [sova_host]
-cistatus.tripleo.org ansible_user=centos
+38.145.34.234 ansible_user=centos
