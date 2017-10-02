@@ -196,7 +196,6 @@ TRACKED_JOBS = (
     'legacy-tripleo-ci-centos-7-ovb-ha-oooq-pike',
 
     "legacy-tripleo-ci-centos-7-nonha-multinode-oooq",
-    "legacy-tripleo-ci-centos-7-nonha-multinode-oooq-nv",
     "legacy-tripleo-ci-centos-7-scenario001-multinode-oooq",
     "legacy-tripleo-ci-centos-7-scenario002-multinode-oooq",
     "legacy-tripleo-ci-centos-7-scenario003-multinode-oooq",
@@ -207,8 +206,6 @@ TRACKED_JOBS = (
     "legacy-tripleo-ci-centos-7-scenario002-multinode-oooq-puppet",
     "legacy-tripleo-ci-centos-7-scenario003-multinode-oooq-puppet",
     "legacy-tripleo-ci-centos-7-scenario004-multinode-oooq-puppet",
-    "legacy-tripleo-ci-centos-7-scenario001-multinode-oooq-puppet-nv",
-    "legacy-tripleo-ci-centos-7-scenario002-multinode-oooq-puppet-nv",
 
     "legacy-tripleo-ci-centos-7-scenario001-multinode-upgrades",
     "legacy-tripleo-ci-centos-7-scenario002-multinode-upgrades",
@@ -219,25 +216,11 @@ TRACKED_JOBS = (
     "legacy-tripleo-ci-centos-7-scenario003-multinode-oooq-container",
     "legacy-tripleo-ci-centos-7-scenario004-multinode-oooq-container",
 
-    ("legacy-tripleo-ci-centos-7-scenario001-"
-     "multinode-oooq-container-upgrades-nv"),
-    ("legacy-tripleo-ci-centos-7-scenario002-"
-     "multinode-oooq-container-upgrades-nv"),
-    ("legacy-tripleo-ci-centos-7-scenario003-"
-     "multinode-oooq-container-upgrades-nv"),
-    ("legacy-tripleo-ci-centos-7-scenario004-"
-     "multinode-oooq-container-upgrades-nv"),
-
     "legacy-tripleo-ci-centos-7-containers-multinode",
-    "legacy-tripleo-ci-centos-7-nonha-multinode-updates-nv",
-    "legacy-tripleo-ci-centos-7-3nodes-multinode-nv",
-    "legacy-tripleo-ci-centos-7-multinode-upgrades-nv",
     "legacy-tripleo-ci-centos-7-multinode-upgrades",
-    "legacy-tripleo-ci-centos-7-containers-multinode-upgrades-nv",
     "legacy-tripleo-ci-centos-7-containers-multinode-upgrades",
 
     "legacy-tripleo-ci-centos-7-undercloud-oooq",
-    "legacy-tripleo-ci-centos-7-undercloud-upgrades-nv",
     "legacy-tripleo-ci-centos-7-undercloud-containers",
 
     "legacy-tripleo-ci-centos-7-ovb-fakeha-caserver",
@@ -249,10 +232,6 @@ TRACKED_JOBS = (
      "-newton"),
      ("legacy-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-puppet"
       "-ocata"),
-    'legacy-tripleo-ci-centos-7-scenario005-multinode-oooq-nv',
-    'legacy-tripleo-ci-centos-7-scenario006-multinode-oooq-nv',
     'legacy-tripleo-ci-centos-7-scenario007-multinode-oooq',
     'legacy-tripleo-ci-centos-7-scenario007-multinode-oooq-puppet',
-    'legacy-tripleo-ci-centos-7-scenario007-multinode-oooq-puppet-nv',
-    'legacy-tripleo-ci-centos-7-scenario008-multinode-oooq-nv',
 )
