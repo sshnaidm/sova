@@ -150,13 +150,13 @@ class RDO_CI(object):
                     if branch:
                         j['branch'] = branch
                 try:
-                    if start is None and time_re.search(line):
-                        start = time_re.search(line).group(1)
-                    if timest_re.search(line):
-                        end = time_re.search(line).group(1)
+                    if start is None and ts_re.search(line):
+                        start = ts_re.search(line).group(1)
+                    if ts_re.search(line):
+                        end = ts_re.search(line).group(1)
                 except Exception as e:
                     pass
-            j['length'] = delta(end, start) if start and end else 0
+            j['length'] = delta_orig(end, start) if start and end else 0
             finput.close()
             if not j.get('branch'):
                 j['branch'] = 'master'
