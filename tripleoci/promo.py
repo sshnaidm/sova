@@ -134,11 +134,13 @@ class RDO_CI(object):
             for line in finput:
                 line = line.decode()
                 if ("Finished: SUCCESS" in line or
-                        '[Zuul] Job complete, result: SUCCESS' in line):
+                        '[Zuul] Job complete, result: SUCCESS' in line or
+                    '|  SUCCESSFULLY FINISHED' in line):
                     j['fail'] = False
                     j['status'] = 'SUCCESS'
                 elif ("Finished: FAILURE" in line or
-                        '[Zuul] Job complete, result: FAILURE' in line):
+                        '[Zuul] Job complete, result: FAILURE' in line or
+                      '|  *** FAILED' in line):
                     j['fail'] = True
                     j['status'] = 'FAILURE'
                 elif ("Finished: ABORTED" in line or
@@ -171,7 +173,7 @@ class RDO_CI(object):
                     if list(set(stat_re.findall(text))) == [('0', '0')]:
                         j['status'] = 'SUCCESS'
                         j['fail'] = False
-                if "Build step 'Execute shell' marked build as failur" in text:
+                if ("Build step 'Execute shell' marked build as fail" in text):
                     j['status'] = 'FAILURE'
                     j['fail'] = True
         return j
