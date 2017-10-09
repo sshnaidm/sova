@@ -45,8 +45,6 @@ regexes:
   - regex: '^.*"cmd": "(?:set -o pipefail && )*([^\s]*).*"rc": 1.*\n(?!.*ignoring).*'
     name: "oooq_command_fail"
     multiline: true
-  - regex: '^.*"cmd": ".* (tempest_output\.log).*"rc": 1.*\n(?!.*ignoring).*'
-    name: "oooq_tempest_fail"
   - regex: 'Error: Execution of .*yum.* returned 1: Error downloading packages'
     name: "yum_install_fail_re"
   - regex: 'ERROR! the playbook: .* could not be found'
@@ -370,11 +368,6 @@ patterns:
       msg: "Forced to stop."
       pattern: "setup script run by this job failed - exit code: 143"
       tag: "infra"
-    - id: 65
-      msg: "Tempest test failure."
-      pattern: "oooq_tempest_fail"
-      tag: "code"
-      logstash: "oooq_tempest_fail"
     - id: 66
       msg: 'Image Build Error'
       pattern: '*** Image Build Error ***'
