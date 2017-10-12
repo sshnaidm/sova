@@ -7,7 +7,7 @@ from tripleoci.watchcat import meow
 from tripleoci.utils import top, statistics, get_circles
 
 
-DEBUG = True
+DEBUG = False
 
 
 def create_html():

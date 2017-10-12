@@ -468,4 +468,7 @@ def get_circles(data):
             circles[job] = 'green'
         elif jobs_set == set(['FAILURE']):
             circles[job] = 'red'
+    circles['orange'] = '9632'
+    circles['green'] = '9670'
+    circles['red'] = '9660'
     return circles

@@ -43,28 +43,21 @@
     <h3>
         <a href="http://38.145.33.245/">RDO CI phase1 promotion jobs</a>
     </h3>
+    <br>
+    <h2><u>
+        TripleO CI gate jobs
+    </u></h2>
 </div>
 
 <div class="tabbable boxed parentTabs">
 
 
-    <ul class="nav nav-tabs">
-        {% for data in (ci, ) %}
-            {% set dataloop = loop %}
 
-                {% if data==periodic %}
-                    <li><a href="#periodictab"><h2>Periodic jobs</h2></a></li>
-                {% set main=periodic_stats %}{% set key='periodic' %}
-                {% else %}
-                    <li class="active"><a href="#citab"><h2>Gate jobs</h2></a></li>
-                {% set main=ci_stats %}{% set key='ci' %}
-                {% endif %}
-
-        {% endfor %}
-    </ul>
+        {% set main=ci_stats %}{% set key='ci' %}
 
 
-    <div class="tab-content">
+
+    <div class="content">
     {% for data in (ci, ) %}
         {% if data==periodic %}{% set main=periodic_stats %}{% set key='periodic' %}
         {% else %}{% set main=ci_stats %}{% set key='ci' %}
@@ -113,7 +106,6 @@
                     {% endfor %}
                 <hr>
                 </div>
-
         </div>
         </div>
                 {% endfor %}
