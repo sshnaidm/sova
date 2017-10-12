@@ -253,3 +253,12 @@ class PLUGIN_TRIPLEOCI_CONFIG(object):
     console_name = 'console.html'
 
 ACTIVE_PLUGIN_CONFIG = PLUGIN_TRIPLEOCI_CONFIG
+COLUMNS = [{"OVB": "-ovb-"}]
+COLUMNS += [{
+    i.replace('stable/', '').capitalize() + "-gate": i.replace('stable/', '')}
+    for i in GERRIT_BRANCHES]
+COLUMNS += [
+{"Upgrades": "-upgrades"},
+{"Containers": "-container"},
+{"Scenarios": "-scenario"},
+]
