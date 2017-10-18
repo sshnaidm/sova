@@ -58,30 +58,7 @@ PROJECTS = (
 )
 
 PERIODIC_LOGS_URL = 'http://logs.openstack.org/periodic'
-PERIODIC_URLS = [
-    # PERIODIC_LOGS_URL + ('/periodic-tripleo-ci-centos-7-'
-    #                      'ovb-1ctlr_1comp_1ceph-featureset024'),
-    # PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-fakeha-caserver',
-    # PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-oooq',
-    # PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-pike-oooq',
-    # PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-ocata-oooq',
-    # PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-newton-oooq',
-    # PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-nonha-containers',
-    # PERIODIC_LOGS_URL +
-    # '/periodic-tripleo-ci-centos-7-ovb-nonha-tempest-oooq-ocata',
-    # PERIODIC_LOGS_URL +
-    # '/periodic-tripleo-ci-centos-7-ovb-nonha-tempest-oooq-pike',
-    # PERIODIC_LOGS_URL +
-    # '/periodic-tripleo-ci-centos-7-ovb-nonha-tempest-oooq-master',
-    # PERIODIC_LOGS_URL +
-    # '/periodic-tripleo-ci-centos-7-scenario001-multinode-oooq',
-    # PERIODIC_LOGS_URL +
-    # '/periodic-tripleo-ci-centos-7-scenario002-multinode-oooq',
-    # PERIODIC_LOGS_URL +
-    # '/periodic-tripleo-ci-centos-7-scenario003-multinode-oooq',
-    # PERIODIC_LOGS_URL +
-    # '/periodic-tripleo-ci-centos-7-scenario004-multinode-oooq',
-]
+PERIODIC_URLS = []
 
 DOWNLOAD_PATH = os.environ.get('OPENSHIFT_DATA_DIR',
                                os.path.join(os.environ["HOME"], "ci_status"))
@@ -115,134 +92,61 @@ GATE_DAYS = 8
 CIRCLE = 3
 COLUMNED_TRACKED_JOBS = {
     "OVB": [
-        "gate-tripleo-ci-centos-7-ovb-ha",
-        "gate-tripleo-ci-centos-7-ovb-nonha",
-        "gate-tripleo-ci-centos-7-ovb-ha-oooq",
-        "gate-tripleo-ci-centos-7-ovb-ha-oooq-ocata",
-        "gate-tripleo-ci-centos-7-ovb-ha-oooq-newton",
-        "gate-tripleo-ci-centos-7-ovb-containers-oooq",
-        'gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-puppet-pike',
-        'gate-tripleo-ci-centos-7-ovb-ha-oooq-pike',
-        "gate-tripleo-ci-centos-7-ovb-fakeha-caserver",
-        "gate-tripleo-ci-centos-7-ovb-ha-tempest-oooq",
-        "gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024",
-        "gate-tripleo-ci-centos-7-ovb-convergence-oooq",
-        ("gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-puppet"
+        "legacy-tripleo-ci-centos-7-ovb-ha",
+        "legacy-tripleo-ci-centos-7-ovb-nonha",
+        "legacy-tripleo-ci-centos-7-ovb-ha-oooq",
+        "legacy-tripleo-ci-centos-7-ovb-ha-oooq-ocata",
+        "legacy-tripleo-ci-centos-7-ovb-ha-oooq-newton",
+        "legacy-tripleo-ci-centos-7-ovb-containers-oooq",
+        'legacy-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-puppet-pike',
+        'legacy-tripleo-ci-centos-7-ovb-ha-oooq-pike',
+        "legacy-tripleo-ci-centos-7-ovb-fakeha-caserver",
+        "legacy-tripleo-ci-centos-7-ovb-ha-tempest-oooq",
+        "legacy-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024",
+        "legacy-tripleo-ci-centos-7-ovb-convergence-oooq",
+        ("legacy-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-puppet"
          "-newton"),
-        ("gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-puppet"
+        ("legacy-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-puppet"
          "-ocata"),
     ],
     "Scenarios": [
-        "gate-tripleo-ci-centos-7-scenario001-multinode-oooq",
-        "gate-tripleo-ci-centos-7-scenario001-multinode-oooq-puppet",
-        "gate-tripleo-ci-centos-7-scenario001-multinode-oooq-puppet-nv",
-        "gate-tripleo-ci-centos-7-scenario002-multinode-oooq",
-        "gate-tripleo-ci-centos-7-scenario002-multinode-oooq-puppet",
-        "gate-tripleo-ci-centos-7-scenario002-multinode-oooq-puppet-nv",
-        "gate-tripleo-ci-centos-7-scenario003-multinode-oooq",
-        "gate-tripleo-ci-centos-7-scenario003-multinode-oooq-puppet",
-        "gate-tripleo-ci-centos-7-scenario004-multinode-oooq",
-        "gate-tripleo-ci-centos-7-scenario004-multinode-oooq-puppet",
-        "gate-tripleo-ci-centos-7-scenario005-multinode-oooq",
-        'gate-tripleo-ci-centos-7-scenario005-multinode-oooq-nv',
-        'gate-tripleo-ci-centos-7-scenario006-multinode-oooq-nv',
-        'gate-tripleo-ci-centos-7-scenario007-multinode-oooq',
-        'gate-tripleo-ci-centos-7-scenario007-multinode-oooq-puppet',
-        'gate-tripleo-ci-centos-7-scenario007-multinode-oooq-puppet-nv',
-        'gate-tripleo-ci-centos-7-scenario008-multinode-oooq-nv',
+        "legacy-tripleo-ci-centos-7-scenario001-multinode-oooq",
+        "legacy-tripleo-ci-centos-7-scenario001-multinode-oooq-puppet",
+        "legacy-tripleo-ci-centos-7-scenario002-multinode-oooq",
+        "legacy-tripleo-ci-centos-7-scenario002-multinode-oooq-puppet",
+        "legacy-tripleo-ci-centos-7-scenario003-multinode-oooq",
+        "legacy-tripleo-ci-centos-7-scenario003-multinode-oooq-puppet",
+        "legacy-tripleo-ci-centos-7-scenario004-multinode-oooq",
+        "legacy-tripleo-ci-centos-7-scenario004-multinode-oooq-puppet",
+        "legacy-tripleo-ci-centos-7-scenario005-multinode-oooq",
+        'legacy-tripleo-ci-centos-7-scenario007-multinode-oooq',
+        'legacy-tripleo-ci-centos-7-scenario007-multinode-oooq-puppet',
     ],
     "Containers": [
-        "gate-tripleo-ci-centos-7-containers-multinode",
-        "gate-tripleo-ci-centos-7-scenario001-multinode-oooq-container",
-        "gate-tripleo-ci-centos-7-scenario002-multinode-oooq-container",
-        "gate-tripleo-ci-centos-7-scenario003-multinode-oooq-container",
-        "gate-tripleo-ci-centos-7-scenario004-multinode-oooq-container",
+        "legacy-tripleo-ci-centos-7-containers-multinode",
+        "legacy-tripleo-ci-centos-7-scenario001-multinode-oooq-container",
+        "legacy-tripleo-ci-centos-7-scenario002-multinode-oooq-container",
+        "legacy-tripleo-ci-centos-7-scenario003-multinode-oooq-container",
+        "legacy-tripleo-ci-centos-7-scenario004-multinode-oooq-container",
     ],
     "Upgrades": [
-        "gate-tripleo-ci-centos-7-scenario001-multinode-upgrades",
-        "gate-tripleo-ci-centos-7-scenario002-multinode-upgrades",
-        "gate-tripleo-ci-centos-7-scenario003-multinode-upgrades",
-        "gate-tripleo-ci-centos-7-multinode-upgrades-nv",
-        "gate-tripleo-ci-centos-7-multinode-upgrades",
-        "gate-tripleo-ci-centos-7-containers-multinode-upgrades-nv",
-        "gate-tripleo-ci-centos-7-containers-multinode-upgrades",
-        ("gate-tripleo-ci-centos-7-scenario001-"
-         "multinode-oooq-container-upgrades-nv"),
-        ("gate-tripleo-ci-centos-7-scenario002-"
-         "multinode-oooq-container-upgrades-nv"),
-        ("gate-tripleo-ci-centos-7-scenario003-"
-         "multinode-oooq-container-upgrades-nv"),
-        ("gate-tripleo-ci-centos-7-scenario004-"
-         "multinode-oooq-container-upgrades-nv"),
+        "legacy-tripleo-ci-centos-7-scenario001-multinode-upgrades",
+        "legacy-tripleo-ci-centos-7-scenario002-multinode-upgrades",
+        "legacy-tripleo-ci-centos-7-scenario003-multinode-upgrades",
+        "legacy-tripleo-ci-centos-7-multinode-upgrades",
+        "legacy-tripleo-ci-centos-7-containers-multinode-upgrades",
     ],
     "Multinode": [
-        "gate-tripleo-ci-centos-7-nonha-multinode-oooq",
-        "gate-tripleo-ci-centos-7-nonha-multinode-oooq-nv",
-        "gate-tripleo-ci-centos-7-nonha-multinode-updates-nv",
-        "gate-tripleo-ci-centos-7-3nodes-multinode-nv",
+        "legacy-tripleo-ci-centos-7-nonha-multinode-oooq",
     ],
     "Undercloud": [
-        "gate-tripleo-ci-centos-7-undercloud-oooq",
-        "gate-tripleo-ci-centos-7-undercloud-upgrades-nv",
-        "gate-tripleo-ci-centos-7-undercloud-containers-nv",
+        "legacy-tripleo-ci-centos-7-undercloud-oooq",
+        "legacy-tripleo-ci-centos-7-undercloud-containers",
     ],
-
-    # "OVB": [
-    #     "legacy-tripleo-ci-centos-7-ovb-ha",
-    #     "legacy-tripleo-ci-centos-7-ovb-nonha",
-    #     "legacy-tripleo-ci-centos-7-ovb-ha-oooq",
-    #     "legacy-tripleo-ci-centos-7-ovb-ha-oooq-ocata",
-    #     "legacy-tripleo-ci-centos-7-ovb-ha-oooq-newton",
-    #     "legacy-tripleo-ci-centos-7-ovb-containers-oooq",
-    #     'legacy-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-puppet-pike',
-    #     'legacy-tripleo-ci-centos-7-ovb-ha-oooq-pike',
-    #     "legacy-tripleo-ci-centos-7-ovb-fakeha-caserver",
-    #     "legacy-tripleo-ci-centos-7-ovb-ha-tempest-oooq",
-    #     "legacy-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024",
-    #     "legacy-tripleo-ci-centos-7-ovb-convergence-oooq",
-    #     ("legacy-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-puppet"
-    #      "-newton"),
-    #     ("legacy-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-puppet"
-    #      "-ocata"),
-    # ],
-    # "Scenarios": [
-    #     "legacy-tripleo-ci-centos-7-scenario001-multinode-oooq",
-    #     "legacy-tripleo-ci-centos-7-scenario001-multinode-oooq-puppet",
-    #     "legacy-tripleo-ci-centos-7-scenario002-multinode-oooq",
-    #     "legacy-tripleo-ci-centos-7-scenario002-multinode-oooq-puppet",
-    #     "legacy-tripleo-ci-centos-7-scenario003-multinode-oooq",
-    #     "legacy-tripleo-ci-centos-7-scenario003-multinode-oooq-puppet",
-    #     "legacy-tripleo-ci-centos-7-scenario004-multinode-oooq",
-    #     "legacy-tripleo-ci-centos-7-scenario004-multinode-oooq-puppet",
-    #     "legacy-tripleo-ci-centos-7-scenario005-multinode-oooq",
-    #     'legacy-tripleo-ci-centos-7-scenario007-multinode-oooq',
-    #     'legacy-tripleo-ci-centos-7-scenario007-multinode-oooq-puppet',
-    # ],
-    # "Containers": [
-    #     "legacy-tripleo-ci-centos-7-containers-multinode",
-    #     "legacy-tripleo-ci-centos-7-scenario001-multinode-oooq-container",
-    #     "legacy-tripleo-ci-centos-7-scenario002-multinode-oooq-container",
-    #     "legacy-tripleo-ci-centos-7-scenario003-multinode-oooq-container",
-    #     "legacy-tripleo-ci-centos-7-scenario004-multinode-oooq-container",
-    # ],
-    # "Upgrades": [
-    #     "legacy-tripleo-ci-centos-7-scenario001-multinode-upgrades",
-    #     "legacy-tripleo-ci-centos-7-scenario002-multinode-upgrades",
-    #     "legacy-tripleo-ci-centos-7-scenario003-multinode-upgrades",
-    #     "legacy-tripleo-ci-centos-7-multinode-upgrades",
-    #     "legacy-tripleo-ci-centos-7-containers-multinode-upgrades",
-    # ],
-    # "Multinode": [
-    #     "legacy-tripleo-ci-centos-7-nonha-multinode-oooq",
-    # ],
-    # "Undercloud": [
-    #     "legacy-tripleo-ci-centos-7-undercloud-oooq",
-    #     "legacy-tripleo-ci-centos-7-undercloud-containers",
-    # ],
 
 }
 TRIPLEOCI = {
-    'console': '/console.html',
+    'console': '/job-output.txt',
     'postci': '/logs/postci.txt',
     'ironic-conductor': '/logs/undercloud/var/log/ironic/ironic-conductor.txt',
     'syslog': '/logs/undercloud/var/log/messages',
@@ -255,6 +159,6 @@ PLUGIN_JOBS = TRACKED_JOBS
 
 
 class PLUGIN_TRIPLEOCI_CONFIG(object):
-    console_name = 'console.html'
+    console_name = 'job-output.txt'
 
 ACTIVE_PLUGIN_CONFIG = PLUGIN_TRIPLEOCI_CONFIG
