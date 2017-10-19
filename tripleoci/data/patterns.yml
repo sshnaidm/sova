@@ -51,6 +51,10 @@ regexes:
     name: "playbook_err_re"
   - regex: 'fatal: .* FAILED! =>.*"msg": .* ([^\s]+) is undefined"'
     name: "ansible_und_err"
+  - regex: "can't read ([^ ]+): No such file or directory"
+    name: "missing_file"
+  - regex: ' Could not install requirement ([^\s]+) from'
+    name: "pip_install_fail"
 patterns:
   "console":
     - id: 1
@@ -403,6 +407,21 @@ patterns:
       pattern: "testenv-client - INFO - Received job : Failed creating OVB stack"
       tag: "infra"
       logstash: "testenv-client - INFO - Received job : Failed creating OVB stack"
+    - id: 73
+      msg: "{} file missing."
+      pattern: "missing_file"
+      tag: "infra"
+      logstash: "can't read {}: No such file or directory"
+    - id: 74
+      msg: "Pip install FAIL."
+      pattern: "pip_install_fail"
+      tag: "infra"
+      logstash: "| Could not install requirement"
+    - id: 75
+      msg: "Hardlink copy FAIL."
+      pattern: "Invalid cross-device link"
+      tag: "infra"
+      logstash: "Invalid cross-device link"
   "postci":
     - id: 200
       logstash: "puppet_re"

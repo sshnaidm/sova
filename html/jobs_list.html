@@ -1,9 +1,9 @@
 
 <div class="container-fluid">
     <div class="row">
-        {% for i in jobs_by_column %}
-        {% set column=i.keys()|first %}
-        {% set jobs_list=i.values()|first %}
+        {% for m in jobs_by_column %}
+        {% set jobs_list=m.1 %}
+        {% set column=m.0 %}
         {% if jobs_list != [] %}
             {% set brloop = loop %}
             <div class="col-xs-12 col-md-3">
@@ -11,7 +11,7 @@
 
                 {% for key in jobs_list|sort %}
                     {% set keyloop = loop %}
-                    <li{%  if brloop.first and loop.first %} class="active"{% endif %}><a data-toggle="tab" href="#{{ key }}"><span style="color:{{ circles[key] }}">&#9632;</span> {{ key }}</a></li><div class="clearfix"></div>
+                    <li{%  if brloop.first and loop.first %} class="active"{% endif %}><a data-toggle="tab" href="#{{ key }}"><span style="color:{{ circles[key] }}">&#{{ circles[circles[key]] }};</span> {{ key }}</a></li><div class="clearfix"></div>
                 {% endfor %}
             </div>
         {% endif %}

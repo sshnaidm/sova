@@ -1,5 +1,5 @@
 <table id="job_data" class="table table-hover display" cellspacing="0" width="100%">
-    <thead><td>Date</td><td>Length</td><td>Reason</td><td>Logs</td>{% if data == ci %}<td>Branch</td>{% endif %}</thead>
+    <thead><td>Date</td><td>Length</td><td>Reason</td>{% if not data['ci'][data['ci'].keys[0]].periodic %}<td>Patch</td>{% endif %}<td>Logs</td>{% if not data['ci'][data['ci'].keys[0]].periodic %}<td>Project</td><td>Branch</td>{% endif %}<td>Logstash</td></thead>
     {%  for i in data[key] %}
     <tr style="color:{% if i.reason and 'infra' in i.tags %}red{% elif i.success %}green{% elif i.reason %}blue{% else %}black{% endif %}"{% if i.success and not i.periodic %} class="collapse" id="success"{% endif %}>
         {# Date #}
@@ -14,11 +14,27 @@
         <td style="color:{% if i.reason and 'infra' in i.tags %}red{% elif i.success %}green{% elif i.reason %}blue{% else %}black{% endif %}">
         | {{ i.msg.keys() | join(' ')}} |
         </td>
+        {# Patchset #}
+        {% if not i.periodic %}
+        <td>
+            | {%  if i.job.patchset.patchset_url %}
+                <a data-toggle="tooltip" data-placement="top" title="{{ i.job.patch.subject }}"
+                   href="{{ i.job.patchset.patchset_url }}">{{ i.job.patch.patch_number }},{{ i.job.patchset.number }}</a>
+            <a tabindex="0" class="btn" role="button" data-toggle="popover" data-trigger="focus" data-html="true"
+               title="Subject: {{ i.job.patch.subject }}" data-content="Author: {{ i.job.patch.owner.name }}<br>Commit:<br> {{ i.job.patch.commitmsg.split("Change-Id")[0] }}"><strong>?</strong></a>
+            {%  else %}No patch URL{%  endif %} |
+        </td>
+        {% endif %}
         {# Logs #}
         <td>
         | <a href="{{ i.job.log_url }}">Logs</a> |
         </td>
-
+        {# Project #}
+        {% if not i.periodic %}
+        <td>
+        | <a href="https://review.openstack.org/#/q/status:open+project:{{ i.job.patch.project }}">{{ i.job.patch.project.split("/")[1]|default(i.job.patch.project) }}</a> |
+        </td>
+        {% endif %}
         {# Branch #}
         {% if i.job.branch %}
         <td>

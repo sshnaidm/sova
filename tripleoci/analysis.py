@@ -5,9 +5,12 @@ from gevent import monkey
 from gevent.pool import Pool
 monkey.patch_all()  # noqa
 
-from tripleoci.config import log, PATTERN_FILE, PLUGIN
+from tripleoci.config import log
+from tripleoci.config import PATTERN_FILE
+from tripleoci.config import PLUGIN
 from tripleoci.patterns import Pattern
-from tripleoci.utils import JobFile, urlize_logstash
+from tripleoci.utils import JobFile
+from tripleoci.utils import urlize_logstash
 
 DEBUG = False
 
