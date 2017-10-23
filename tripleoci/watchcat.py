@@ -6,7 +6,6 @@ from tripleoci.analysis import analyze_all
 from tripleoci.filters import Filter
 from tripleoci.patches import Patch
 from tripleoci.periodic import Periodic
-from tripleoci.promo import RDO_CI
 from tripleoci.utils import Gerrit
 
 
@@ -55,7 +54,7 @@ def meow(days=None,
         jobs = (job for patch in gerrit for job in Patch(patch).jobs)
     else:
         jobs = (job
-                for url in config.PERIODIC_URLS
+                for url in config.TRACKED_JOBS if "http" in url
                 for job in Periodic(
                     url, down_path=down_path, limit=limit).jobs)
     f = Filter(

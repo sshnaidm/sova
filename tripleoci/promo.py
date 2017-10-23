@@ -3,7 +3,6 @@ import fileinput
 import gzip
 import os
 import re
-import time
 
 from lxml import etree
 
@@ -21,7 +20,6 @@ time_re = re.compile('^(\d+:\d+:\d+)')
 ansible_ts = re.compile('n(\w+ \d\d \w+ 20\d\d  \d\d:\d\d:\d\d)')
 stat_re = re.compile(
     r'ok=\d+\s*changed=\d+\s*unreachable=(\d+)\s*failed=(\d+)')
-
 
 
 class RDO_CI(object):
@@ -53,8 +51,11 @@ class RDO_CI(object):
         return req.content
 
     def _get_console(self, job):
+        console_name = config.ACTIVE_PLUGIN_CONFIG.console_name
+        if isinstance(console_name, list):
+            console_name = console_name[0]
         path = os.path.join(
-            self.down_path, job["log_hash"], "console.html.gz")
+            self.down_path, job["log_hash"], console_name)
         if os.path.exists(path):
             log.debug("Console is already here: {}".format(path))
             return path
@@ -152,7 +153,7 @@ class RDO_CI(object):
                         start = ts_re.search(line).group(1)
                     if ts_re.search(line):
                         end = ts_re.search(line).group(1)
-                except Exception as e:
+                except Exception:
                     pass
             j['length'] = delta_orig(end, start) if start and end else 0
             finput.close()

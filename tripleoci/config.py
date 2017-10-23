@@ -58,30 +58,7 @@ PROJECTS = (
 )
 
 PERIODIC_LOGS_URL = 'http://logs.openstack.org/periodic'
-PERIODIC_URLS = [
-    PERIODIC_LOGS_URL + ('/periodic-tripleo-ci-centos-7-'
-                         'ovb-1ctlr_1comp_1ceph-featureset024'),
-    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-fakeha-caserver',
-    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-oooq',
-    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-pike-oooq',
-    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-ocata-oooq',
-    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-newton-oooq',
-    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-nonha-containers',
-    PERIODIC_LOGS_URL +
-    '/periodic-tripleo-ci-centos-7-ovb-nonha-tempest-oooq-ocata',
-    PERIODIC_LOGS_URL +
-    '/periodic-tripleo-ci-centos-7-ovb-nonha-tempest-oooq-pike',
-    PERIODIC_LOGS_URL +
-    '/periodic-tripleo-ci-centos-7-ovb-nonha-tempest-oooq-master',
-    PERIODIC_LOGS_URL +
-    '/periodic-tripleo-ci-centos-7-scenario001-multinode-oooq',
-    PERIODIC_LOGS_URL +
-    '/periodic-tripleo-ci-centos-7-scenario002-multinode-oooq',
-    PERIODIC_LOGS_URL +
-    '/periodic-tripleo-ci-centos-7-scenario003-multinode-oooq',
-    PERIODIC_LOGS_URL +
-    '/periodic-tripleo-ci-centos-7-scenario004-multinode-oooq',
-]
+PERIODIC_URLS = []
 
 DOWNLOAD_PATH = os.environ.get('OPENSHIFT_DATA_DIR',
                                os.path.join(os.environ["HOME"], "ci_status"))
@@ -111,33 +88,27 @@ GERRIT_PORT = 29418
 GERRIT_USER = "robo"
 GERRIT_BRANCHES = ("master", "stable/newton", "stable/ocata", "stable/pike")
 PERIODIC_DAYS = 14
-GATE_DAYS = 14
+GATE_DAYS = 7
 CIRCLE = 3
 
 PERIODIC_4H = 'https://logs.rdoproject.org/openstack-periodic-4hr/'
 PERIODIC_24H = 'https://logs.rdoproject.org/openstack-periodic-24hr/'
 
 
-    #PERIODIC_4H + 'periodic-tripleo-centos-7-master-containers-build',
-    #PERIODIC_4H + 'periodic-tripleo-centos-7-master-images-build',
-    #PERIODIC_4H + 'periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing',
-    #PERIODIC_24H + 'periodic-tripleo-centos-7-newton-promote-consistent-to-tripleo-ci-testing',
-    #PERIODIC_24H + 'periodic-tripleo-centos-7-ocata-promote-consistent-to-tripleo-ci-testing',
-    #PERIODIC_4H + 'periodic-tripleo-centos-7-pike-containers-build',
-    #PERIODIC_4H + 'periodic-tripleo-centos-7-pike-images-build',
-    #PERIODIC_4H + 'periodic-tripleo-centos-7-pike-promote-consistent-to-tripleo-ci-testing',
+#PERIODIC_4H + 'periodic-tripleo-centos-7-master-containers-build',
+#PERIODIC_4H + 'periodic-tripleo-centos-7-master-images-build',
+#PERIODIC_4H + 'periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing',
+#PERIODIC_24H + 'periodic-tripleo-centos-7-newton-promote-consistent-to-tripleo-ci-testing',
+#PERIODIC_24H + 'periodic-tripleo-centos-7-ocata-promote-consistent-to-tripleo-ci-testing',
+#PERIODIC_4H + 'periodic-tripleo-centos-7-pike-containers-build',
+#PERIODIC_4H + 'periodic-tripleo-centos-7-pike-images-build',
+#PERIODIC_4H + 'periodic-tripleo-centos-7-pike-promote-consistent-to-tripleo-ci-testing',
 
 COLUMNED_TRACKED_JOBS = {
     "Master-promotion": [
-        # PERIODIC_4H + 'periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset005',
         PERIODIC_4H + 'periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset005-master',
-        # PERIODIC_4H + 'periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset006',
-
         PERIODIC_4H + 'periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset006-master',
-
-        # PERIODIC_4H + 'periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset007',
         PERIODIC_4H + 'periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset007-master',
-        # PERIODIC_4H + 'periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset008',
         PERIODIC_4H + 'periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset008-master',
         PERIODIC_4H + 'periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset016-master',
         PERIODIC_4H + 'periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset017-master',
@@ -175,15 +146,34 @@ COLUMNED_TRACKED_JOBS = {
         PERIODIC_24H + 'periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset002-newton',
         PERIODIC_24H + 'periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset002-newton-upload',
 
+    ],
+    "RDO cloud OVB": [
+        "gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master-nv",
+        "gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-master-nv",
+        "gate-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset022-master-nv"
+    ],
+    "RDO cloud upgrades": [
+        "gate-tripleo-ci-centos-7-containers-multinode-upgrades-master",
+        "gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike",
+        "gate-tripleo-ci-centos-7-multinode-upgrades-master",
+        "gate-tripleo-ci-centos-7-multinode-upgrades-pike",
+        "gate-tripleo-ci-centos-7-multinode-upgrades-ocata",
+        "gate-tripleo-ci-centos-7-undercloud-upgrades-master",
+        "gate-tripleo-ci-centos-7-undercloud-upgrades-pike",
+        "gate-tripleo-ci-centos-7-undercloud-upgrades-ocata",
+        "gate-tripleo-ci-centos-7-multinode-1ctlr-featureset012-upgrades-master",
+        "gate-tripleo-ci-centos-7-multinode-1ctlr-featureset012-upgrades-pike",
+        "gate-tripleo-ci-centos-7-multinode-1ctlr-featureset014-upgrades-master",
+        "gate-tripleo-ci-centos-7-multinode-1ctlr-featureset014-upgrades-pike",
     ]
 }
 
 RDOCI = {
-    'console': '/console.html',
-    "postci": '/undercloud/var/log/extra/logstash.txt',
-    'ironic-conductor': '/undercloud/var/log/ironic/ironic-conductor.txt',
-    'syslog': '/undercloud/var/log/messages',
-    'logstash': '/undercloud/var/log/extra/logstash.txt'
+    'console': '/console.txt',
+    "postci": '/undercloud/var/log/extra/logstash.txt.gz',
+    'ironic-conductor': '/undercloud/var/log/ironic/ironic-conductor.txt.gz',
+    'syslog': '/undercloud/var/log/message.gz',
+    'logstash': '/undercloud/var/log/extra/logstash.txt.gz'
 
 }
 
@@ -193,7 +183,7 @@ PLUGIN_JOBS = TRACKED_JOBS
 
 
 class PLUGIN_RDOCI_CONFIG:
-    console_name = 'console.html'
+    console_name = 'console.txt.gz'
     main_index_timeout = 1100
 
 ACTIVE_PLUGIN_CONFIG = PLUGIN_RDOCI_CONFIG
