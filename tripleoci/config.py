@@ -106,6 +106,8 @@ PERIODIC_24H = 'https://logs.rdoproject.org/openstack-periodic-24hr/'
 
 COLUMNED_TRACKED_JOBS = {
     "Master-promotion": [
+        # PERIODIC_4H + 'periodic-tripleo-centos-7-master-containers-build',
+        # PERIODIC_4H + 'periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing',
         PERIODIC_4H + 'periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset005-master',
         PERIODIC_4H + 'periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset006-master',
         PERIODIC_4H + 'periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset007-master',
@@ -116,11 +118,11 @@ COLUMNED_TRACKED_JOBS = {
         PERIODIC_4H + 'periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset019-master',
         PERIODIC_4H + 'periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-master',
         PERIODIC_4H + 'periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-master',
-        PERIODIC_4H + 'periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master',
-        PERIODIC_4H + 'periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset002-master',
         PERIODIC_4H + 'periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset002-master-upload',
 ],
-    'Pike-promotion':[
+    'Pike-promotion': [
+        # PERIODIC_4H + 'periodic-tripleo-centos-7-pike-containers-build',
+        # PERIODIC_4H + 'periodic-tripleo-centos-7-pike-promote-consistent-to-tripleo-ci-testing',
         PERIODIC_4H + 'periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset005-pike',
         PERIODIC_4H + 'periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset006-pike',
         PERIODIC_4H + 'periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset007-pike',
@@ -131,19 +133,15 @@ COLUMNED_TRACKED_JOBS = {
         PERIODIC_4H + 'periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset019-pike',
         PERIODIC_4H + 'periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-pike',
         PERIODIC_4H + 'periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-pike',
-        PERIODIC_4H + 'periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike',
-        PERIODIC_4H + 'periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset002-pike',
         PERIODIC_4H + 'periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset002-pike-upload',
 
     ],
     'Ocata-promotion':[
         PERIODIC_24H + 'periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-ocata',
-        PERIODIC_24H + 'periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset002-ocata',
         PERIODIC_24H + 'periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset002-ocata-upload',
 
     ],
     "Newton-promotion": [
-        PERIODIC_24H + 'periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset002-newton',
         PERIODIC_24H + 'periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset002-newton-upload',
 
     ],
