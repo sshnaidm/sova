@@ -42,7 +42,7 @@ regexes:
     name: "oooq_image_build_fail"
   - regex: 'undercloud-install.sh 2>&1 .*"rc": 1'
     name: "oooq_undercloud_fail"
-  - regex: '^.*"cmd": "(?:set -o pipefail && )*([^\s]*).*"rc": 1.*\n(?!.*ignoring).*'
+  - regex: '^.*"cmd": "(?:set -o pipefail && )*([^\s]*).*"rc": [^0]+.*\n(?!.*ignoring).*'
     name: "oooq_command_fail"
     multiline: true
   - regex: 'Error: Execution of .*yum.* returned 1: Error downloading packages'
