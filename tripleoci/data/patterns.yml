@@ -422,6 +422,11 @@ patterns:
       pattern: "Invalid cross-device link"
       tag: "infra"
       logstash: "Invalid cross-device link"
+    - id: 76
+      msg: "Forced to stop."
+      pattern: ": exit_value=143"
+      tag: "infra"
+      logstash: ": exit_value=143"
   "postci":
     - id: 200
       logstash: "puppet_re"
