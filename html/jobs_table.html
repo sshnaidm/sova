@@ -1,5 +1,14 @@
 <table id="job_data" class="table table-hover display" cellspacing="0" width="100%">
-    <thead><td>Date</td><td>Length</td><td>Reason</td>{% if data == ci %}<td>Patch</td>{% endif %}<td>Logs</td>{% if data == ci %}<td>Project</td><td>Branch</td>{% endif %}<td>Logstash</td></thead>
+    <thead>
+    <td>Date</td>
+    <td>Length</td>
+    <td>Reason</td>
+    {% if data[key][0]['job'].patchset %}<td>Patch</td>{% endif %}
+    <td>Logs</td>
+    {% if data[key][0]['job'].project %}<td>Project</td>{% endif %}
+    {% if data[key][0]['job'].branch %}<td>Branch</td>{% endif %}
+    <td>Logstash</td>
+    </thead>
     {%  for i in data[key] %}
     <tr style="color:{% if i.reason and 'infra' in i.tags %}red{% elif i.success %}green{% elif i.reason %}blue{% else %}black{% endif %}"{% if i.success and not i.periodic %} class="collapse" id="success"{% endif %}>
         {# Date #}
@@ -15,7 +24,7 @@
         | {{ i.msg.keys() | join(' ')}} |
         </td>
         {# Patchset #}
-        {% if not i.periodic %}
+        {% if i.job.patchset %}
         <td>
             | {%  if i.job.patchset.patchset_url %}
                 <a data-toggle="tooltip" data-placement="top" title="{{ i.job.patch.subject }}"
@@ -30,15 +39,15 @@
         | <a href="{{ i.job.log_url }}">Logs</a> |
         </td>
         {# Project #}
-        {% if not i.periodic %}
+        {% if i.job.project %}
         <td>
         | <a href="https://review.openstack.org/#/q/status:open+project:{{ i.job.patch.project }}">{{ i.job.patch.project.split("/")[1]|default(i.job.patch.project) }}</a> |
         </td>
         {% endif %}
         {# Branch #}
-        {% if not i.periodic %}
+        {% if i.job.branch %}
         <td>
-        | <a  data-toggle="tooltip" data-placement="top" title="{{ i.job.patch.topic|default('') }}" href="https://review.openstack.org/#/q/status:open+branch:{{ i.job.branch }}+project:{{ i.job.patch.project|default('') }}">{{ i.job.branch }}</a> |
+        | <a data-toggle="tooltip" data-placement="top" title="{{ i.job.patch.topic|default('') }}" href="https://review.openstack.org/#/q/status:open+branch:{{ i.job.branch }}{% if i.job.patch %}+project:{{ i.job.patch.project|default('') }}{% endif %}">{{ i.job.branch }}</a> |
         </td>
         {% endif %}
         {# Logstash #}

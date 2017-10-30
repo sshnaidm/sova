@@ -45,26 +45,34 @@ class Periodic(object):
         return req.content
 
     def _get_console(self, job):
+        console_name = config.ACTIVE_PLUGIN_CONFIG.console_name
+        if isinstance(console_name, list):
+            console_name = console_name[0]
         path = os.path.join(
-            self.down_path, job["log_hash"], "console.html.gz")
+            self.down_path, job["log_hash"], console_name)
         if os.path.exists(path):
             log.debug("Console is already here: {}".format(path))
             return path
-        web = Web(job["log_url"] + "/console.html.gz")
-        req = web.get(ignore404=True)
-        if req is not None and int(req.status_code) == 404:
-            url = job["log_url"] + "/console.html"
-            web = Web(url=url)
-            log.debug("Trying to download raw console")
-            req = web.get()
-        if req is None or int(req.status_code) != 200:
-            log.error("Failed to retrieve console: {}".format(job["log_url"]))
-            return None
+
+        console_names = config.ACTIVE_PLUGIN_CONFIG.console_name
+        if not isinstance(console_names, list):
+            console_names = [console_names]
+        for console_name in console_names:
+            web = Web(job["log_url"] + "/" + console_name, timeout=7)
+            log.debug("Trying to download console: {}".format(
+                      job["log_url"] + "/" + console_name))
+            req = web.get(ignore404=True)
+            if req is None or int(req.status_code) != 200:
+                log.error("Failed to retrieve console: {}".format(
+                    job["log_url"] + "/" + console_name))
+            else:
+                if not os.path.exists(os.path.dirname(path)):
+                    os.makedirs(os.path.dirname(path))
+                with gzip.open(path, "wb") as f:
+                    f.write(req.content)
+                break
         else:
-            if not os.path.exists(os.path.dirname(path)):
-                os.makedirs(os.path.dirname(path))
-            with gzip.open(path, "wb") as f:
-                f.write(req.content)
+            return None
         return path
 
     def parse_index(self, text):
@@ -99,19 +107,17 @@ class Periodic(object):
         })
         console = self._get_console(j)
         if not console:
-            log.error("Failed to get console for periodic {}".format(repr(j)))
+            log.error("Failed to get console for job {}".format(repr(j)))
             return None
         else:
             finput = fileinput.FileInput(console,
                                          openhook=fileinput.hook_compressed)
             for line in finput:
                 line = line.decode()
-                if ("Finished: SUCCESS" in line or
-                        '[Zuul] Job complete, result: SUCCESS' in line):
+                if ('|  SUCCESSFULLY FINISHED' in line):
                     j['fail'] = False
                     j['status'] = 'SUCCESS'
-                elif ("Finished: FAILURE" in line or
-                        '[Zuul] Job complete, result: FAILURE' in line):
+                elif ('|  *** FAILED' in line):
                     j['fail'] = True
                     j['status'] = 'FAILURE'
                 elif ("Finished: ABORTED" in line or
@@ -122,9 +128,12 @@ class Periodic(object):
                     j['branch'] = branch_re.search(line).group(1)
                 try:
                     if ('Started by user' in line or
-                            '[Zuul] Launched by' in line):
+                            '[Zuul] Launched by' in line or
+                        '| PRE-RUN START' in line):
                         start = ts_re.search(line).group(1)
-                    if "Finished: " in line or '[Zuul] Job complete' in line:
+                    if ("|  Run completed" in line or
+                       '[Zuul] Job complete' in line or
+                        '| POST-RUN START' in line):
                         end = ts_re.search(line).group(1)
                 except Exception as e:
                     log.error(e)

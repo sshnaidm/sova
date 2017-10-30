@@ -35,6 +35,15 @@ def create_html():
                        fail=False,
                        down_path=config.DOWNLOAD_PATH)
 
+        periodic_data = meow(limit=None,
+                             days=config.PERIODIC_DAYS,
+                             job_type=None,
+                             exclude=None,
+                             down_path=config.DOWNLOAD_PATH,
+                             periodic=True,
+                             fail=False)
+        ci_data += periodic_data
+
         with open(
                 os.path.join(config.DOWNLOAD_PATH, "ci_data_dump"), "wb") as g:
             pickle.dump(ci_data, g)
@@ -59,11 +68,13 @@ def create_html():
         set([i['job'].branch.replace("stable/", "") for i in ci_data] +
             [i.replace("stable/", "") for i in config.GERRIT_BRANCHES]))
     all_job_names = set([i['job'].name for i in ci_data])
-    jobs_by_column = sorted([(i, [k for k in j if k in all_job_names])
-                           for i, j in config.COLUMNED_TRACKED_JOBS.items()],
+    jobs_by_column = sorted([(i, [os.path.basename(k) for k in j if
+                                  os.path.basename(k) in all_job_names])
+                             for i, j in config.COLUMNED_TRACKED_JOBS.items()],
                             key=lambda x: len(x[1]), reverse=True)
-    empty_jobs = [i for k in config.COLUMNED_TRACKED_JOBS.values()
-                  for i in k if i not in all_job_names]
+    empty_jobs = [os.path.basename(i)
+                  for k in config.COLUMNED_TRACKED_JOBS.values()
+                  for i in k if os.path.basename(i) not in all_job_names]
     if empty_jobs:
         print("Empty jobs:", ", ".join(empty_jobs))
     html = template.render({

@@ -159,6 +159,6 @@ PLUGIN_JOBS = TRACKED_JOBS
 
 
 class PLUGIN_TRIPLEOCI_CONFIG(object):
-    console_name = 'job-output.txt'
+    console_name = 'job-output.txt.gz'
 
 ACTIVE_PLUGIN_CONFIG = PLUGIN_TRIPLEOCI_CONFIG
