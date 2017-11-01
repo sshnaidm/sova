@@ -91,7 +91,7 @@ PERIODIC_DAYS = 14
 GATE_DAYS = 7
 CIRCLE = 3
 
-PERIODIC_4H = 'https://logs.rdoproject.org/openstack-periodic-4hr/'
+PERIODIC_4H = 'https://logs.rdoproject.org/openstack-periodic/'
 PERIODIC_24H = 'https://logs.rdoproject.org/openstack-periodic-24hr/'
 
 
