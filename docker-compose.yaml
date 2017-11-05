@@ -2,11 +2,11 @@ version: '2'
 services:
 
   www:
-    container_name: cistatus
+    container_name: cistatus-gates
     restart: always
-    image: sshnaidm/sova
+    image: sshnaidm/sova:gates
     ports:
-      - "80:8090"
+      - "8000:8090"
     volumes:
       - ~/cidata:/cidata:z
     command: "-p"
