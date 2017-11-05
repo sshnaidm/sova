@@ -14,6 +14,7 @@ from tripleoci.utils import Web
 # Jobs regexps
 branch_re = re.compile(r"\+ export ZUUL_BRANCH=(\S+)")
 ts_re = re.compile(r"(201\d-[01]\d-[0123]\d [012]\d:\d\d):\d\d\.\d\d\d")
+pipe_re = re.compile(r'  Pipeline: (.+)')
 
 
 class Periodic(object):
@@ -124,6 +125,9 @@ class Periodic(object):
                         '[Zuul] Job complete, result: ABORTED' in line):
                     j['fail'] = True
                     j['status'] = 'ABORTED'
+                if '  Pipeline:' in line:
+                    j['pipeline'] = (pipe_re.search(line).group(1)
+                                     if pipe_re.search(line) else '')
                 if branch_re.search(line):
                     j['branch'] = branch_re.search(line).group(1)
                 try:
@@ -169,6 +173,7 @@ class PeriodicJob(Job):
             status=kwargs["status"],
             length=kwargs["length"],
             timestamp=kwargs["ts"],
+            pipeline=kwargs.get('pipeline') or '',
             patch=None,
             patchset=None
         )

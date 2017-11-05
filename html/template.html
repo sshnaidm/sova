@@ -91,7 +91,7 @@
 
                         <div id="{{ key }}" class="tab-pane fade{% if rowloop.first and loop.first%} in active{%  endif %}">
                         <div class="panel panel-default">
-                            <div class="panel-heading "><h4>{{ key }}</h4></div>
+                            <div class="panel-heading "><h4>{{ key|replace('pgate-', '') }}</h4></div>
                             <div class="panel-body">
                             <i>{{ key }}</i><br>
 

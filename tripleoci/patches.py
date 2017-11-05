@@ -15,6 +15,7 @@ PATCH_RE = re.compile(r"Patch Set (\d+):")
 TIME_RE = re.compile(r"((?P<hour>\d+)h)? *((?P<min>\d+)m)? *((?P<sec>\d+)s)?")
 RDO_RE = re.compile(r'Logs have been uploaded and are available at:'
                     r'.*(https://logs.rdoproject.org/[^<>\s]+)', re.DOTALL)
+PIPE_RE = re.compile(r"([^ \(\)]+) pipeline")
 
 
 def utc_delta():
@@ -71,10 +72,14 @@ class Patch(object):
             if os.path.exists(file_path):
                 with gzip.open(file_path, "rt") as f:
                     return f.read()
+            elif os.path.exists(file_path+ "_404"):
+                return None
             full_url = x + "/" + "consoleFull"
             www = Web(full_url, timeout=5)
             page = www.get()
-            if page:
+            if page.status_code == 404:
+                open(file_path + "_404", 'a').close()
+            elif page:
                 with gzip.open(file_path, "wt") as f:
                     f.write(page.text)
                 return page.content.decode('utf-8')
@@ -86,6 +91,8 @@ class Patch(object):
         jobs = []
         text = comment['message']
         timestamp = datetime.datetime.fromtimestamp(comment['timestamp'])
+        pipeline = (PIPE_RE.search(text).group(1)
+                    if PIPE_RE.search(text) else '')
         data = JOB_RE.findall(text)
         if data:
             patch_num = PATCH_RE.search(text).group(1)
@@ -98,30 +105,33 @@ class Patch(object):
                     length=parse_time(j[3]),
                     patch=self,
                     patchset=patchset,
-                    timestamp=timestamp
+                    timestamp=timestamp,
+                    pipeline=pipeline
                 )
                 jobs.append(job)
-        data2 = JOB_RE2.findall(text)
-        if data2:
-            patch_num = PATCH_RE.search(text).group(1)
-            patchset = [s for s in self.sets if s.number == int(patch_num)][0]
-            for j in data2:
-                log_console = _get_jenkins_console(j[1])
-                if not log_console:
-                    continue
-                log_url = _extract_log_url(log_console)
-                if not log_url:
-                    continue
-                job = Job(
-                    name=j[0],
-                    log_url=log_url,
-                    status=j[2],
-                    length=parse_time(j[3]),
-                    patch=self,
-                    patchset=patchset,
-                    timestamp=timestamp
-                )
-                jobs.append(job)
+        if config.PLUGIN != config.TRIPLEOCI:
+            data2 = JOB_RE2.findall(text)
+            if data2:
+                patch_num = PATCH_RE.search(text).group(1)
+                patchset = [s for s in self.sets if s.number == int(patch_num)][0]
+                for j in data2:
+                    log_console = _get_jenkins_console(j[1])
+                    if not log_console:
+                        continue
+                    log_url = _extract_log_url(log_console)
+                    if not log_url:
+                        continue
+                    job = Job(
+                        name=j[0],
+                        log_url=log_url,
+                        status=j[2],
+                        length=parse_time(j[3]),
+                        patch=self,
+                        patchset=patchset,
+                        timestamp=timestamp,
+                        pipeline=pipeline
+                    )
+                    jobs.append(job)
         return jobs
 
     def get_jobs(self):
@@ -153,8 +163,9 @@ class Job(object):
         It's extracted from all comments to patch that are done by Jenkins.
         It contains various info the could be useful for reports.
     """
-    def __init__(self,
-                 name, log_url, status, length, patch, patchset, timestamp):
+
+    def __init__(self, name, log_url, status, length, patch, patchset,
+                 timestamp, pipeline=''):
         self.name = name
         self.log_url = log_url
         self.fail = status == 'FAILURE'
@@ -167,6 +178,7 @@ class Job(object):
         self.datetime = self._to_utc(self.ts).strftime("%m-%d %H:%M")
         self.log_hash = self.hashed(self.log_url)
         self.periodic = False
+        self.pipeline = pipeline
 
     def hashed(self, url):
         return url.strip("/").split("/")[-1]

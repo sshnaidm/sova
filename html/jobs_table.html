@@ -8,6 +8,7 @@
     {% if data[key][0]['job'].project %}<td>Project</td>{% endif %}
     {% if data[key][0]['job'].branch %}<td>Branch</td>{% endif %}
     <td>Logstash</td>
+    <td>Pipeline</td>
     </thead>
     {%  for i in data[key] %}
     <tr style="color:{% if i.reason and 'infra' in i.tags %}red{% elif i.success %}green{% elif i.reason %}blue{% else %}black{% endif %}"{% if i.success and not i.periodic %} class="collapse" id="success"{% endif %}>
@@ -53,6 +54,10 @@
         {# Logstash #}
         <td>
         | {% if i.logstash_url %}<a href="{{ i.logstash_url }}">Logstash</a>{% else %} - {% endif %} |
+        </td>
+        {# Pipeline #}
+        <td>
+        | {{ i.job.pipeline|default('') }} |
         </td>
         {# Tempest statistics #}
         {% if 'tempest' in i.job.name %}
