@@ -33,7 +33,8 @@ def create_html():
                        days=config.GATE_DAYS,
                        job_type=None,
                        fail=False,
-                       down_path=config.DOWNLOAD_PATH)
+                       down_path=config.DOWNLOAD_PATH,
+                       pipeline='gate')
 
         periodic_data = meow(limit=None,
                              days=config.PERIODIC_DAYS,
@@ -53,10 +54,6 @@ def create_html():
                 os.path.join(config.DOWNLOAD_PATH, "ci_data_dump"), "rb") as g:
             ci_data = pickle.load(g)
 
-    gate_jobs = [i for i in ci_data if i['job'].pipeline == 'gate']
-    for i in gate_jobs:
-        i['job'].name = "pgate-" + i['job'].name
-    ci_data += gate_jobs
     errors_top = top(ci_data)
     stats = statistics(ci_data)
     circles = get_circles(ci_data)
@@ -79,9 +76,6 @@ def create_html():
     empty_jobs = [os.path.basename(i)
                   for k in config.COLUMNED_TRACKED_JOBS.values()
                   for i in k if os.path.basename(i) not in all_job_names]
-
-    gate_names = sorted(set([i['job'].name for i in gate_jobs]))
-    jobs_by_column = [('Gate jobs', gate_names)] + jobs_by_column
     if empty_jobs:
         print("Empty jobs:", ", ".join(empty_jobs))
     html = template.render({
