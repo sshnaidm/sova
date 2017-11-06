@@ -8,6 +8,7 @@
     {% if data[key][0]['job'].project %}<td>Project</td>{% endif %}
     {% if data[key][0]['job'].branch %}<td>Branch</td>{% endif %}
     {# <td>Logstash</td> #}
+    <td>Pipeline</td>
     </thead>
     {%  for i in data[key] %}
     <tr style="color:{% if i.reason and 'infra' in i.tags %}red{% elif i.success %}green{% elif i.reason %}blue{% else %}black{% endif %}"{% if i.success and not i.periodic %} class="collapse" id="success"{% endif %}>
@@ -50,7 +51,10 @@
         | <a  data-toggle="tooltip" data-placement="top" title="{{ i.job.branch|default('') }}" href="https://review.openstack.org/#/q/status:open+branch:{{ i.job.branch }}">{{ i.job.branch }}</a> |
         </td>
         {% endif %}
-
+        {# Pipeline #}
+        <td>
+        | {{ i.job.pipeline|default('') }} |
+        </td>
         {# Tempest statistics #}
         {% if 'tempest' in i.job.name %}
             <!-- tempest_stats:{{ i.job.name }},{{ i.job.ts.strftime('%s') }},{% if i.success %}SUCCESS{% else %}FAILURE{% endif %}: -->

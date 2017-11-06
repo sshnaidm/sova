@@ -75,6 +75,7 @@ def create_html():
     empty_jobs = [os.path.basename(i)
                   for k in config.COLUMNED_TRACKED_JOBS.values()
                   for i in k if os.path.basename(i) not in all_job_names]
+
     if empty_jobs:
         print("Empty jobs:", ", ".join(empty_jobs))
     html = template.render({

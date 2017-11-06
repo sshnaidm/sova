@@ -14,7 +14,8 @@ class Filter(object):
                  fail=True,
                  exclude=None,
                  job_type=None,
-                 periodic=False):
+                 periodic=False,
+                 pipeline=None):
         """Filter class
 
             Receives a lot of filtering arguments:
@@ -43,6 +44,7 @@ class Filter(object):
             (self.f_exclude, exclude),
             (self.f_dates, dates),
             (self.f_jobtype, job_type),
+            (self.f_pipeline, pipeline),
         ]
 
     def run(self):
@@ -107,6 +109,10 @@ class Filter(object):
 
     def f_fail(self, job, fail):
         return True if not fail else job.fail
+
+    def f_pipeline(self, job, pipeline):
+        if pipeline is None: return True
+        return True if pipeline and job.pipeline == pipeline else False
 
     def f_exclude(self, job, exclude):
         return True if not exclude else job.name != exclude

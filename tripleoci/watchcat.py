@@ -21,6 +21,7 @@ def meow(days=None,
          job_type=None,
          down_path=config.DOWNLOAD_PATH,
          periodic=False,
+         pipeline=None,
          ):
     """Main function
 
@@ -66,7 +67,8 @@ def meow(days=None,
         fail=fail,
         exclude=exclude,
         job_type=job_type,
-        periodic=periodic
+        periodic=periodic,
+        pipeline=pipeline,
     )
     filtered = f.run()
     ready = analyze_all(filtered, down_path=down_path)
