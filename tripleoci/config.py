@@ -143,6 +143,12 @@ COLUMNED_TRACKED_JOBS = {
         "legacy-tripleo-ci-centos-7-undercloud-oooq",
         "legacy-tripleo-ci-centos-7-undercloud-containers",
     ],
+    "Puppet": [
+        "legacy-puppet-tripleo-puppet-unit-4.8-centos-7",
+        "puppet-openstack-unit-4.8-centos-7",
+        "puppet-openstack-lint",
+        "puppet-openstack-syntax-4"
+    ]
 
 }
 TRIPLEOCI = {
