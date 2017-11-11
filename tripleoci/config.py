@@ -138,6 +138,7 @@ COLUMNED_TRACKED_JOBS = {
     ],
     "Multinode": [
         "legacy-tripleo-ci-centos-7-nonha-multinode-oooq",
+        "legacy-tripleo-ci-centos-7-3nodes-multinode"
     ],
     "Undercloud": [
         "legacy-tripleo-ci-centos-7-undercloud-oooq",
