@@ -108,6 +108,22 @@ COLUMNED_TRACKED_JOBS = {
          "-newton"),
         ("legacy-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-puppet"
          "-ocata"),
+        "tripleo-ci-centos-7-ovb-ha",
+        "tripleo-ci-centos-7-ovb-nonha",
+        "tripleo-ci-centos-7-ovb-ha-oooq",
+        "tripleo-ci-centos-7-ovb-ha-oooq-ocata",
+        "tripleo-ci-centos-7-ovb-ha-oooq-newton",
+        "tripleo-ci-centos-7-ovb-containers-oooq",
+        'tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-puppet-pike',
+        'tripleo-ci-centos-7-ovb-ha-oooq-pike',
+        "tripleo-ci-centos-7-ovb-fakeha-caserver",
+        "tripleo-ci-centos-7-ovb-ha-tempest-oooq",
+        "tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024",
+        "tripleo-ci-centos-7-ovb-convergence-oooq",
+        ("tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-puppet"
+         "-newton"),
+        ("tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-puppet"
+         "-ocata"),
     ],
     "Scenarios": [
         "legacy-tripleo-ci-centos-7-scenario001-multinode-oooq",
@@ -123,6 +139,20 @@ COLUMNED_TRACKED_JOBS = {
         "legacy-tripleo-ci-centos-7-scenario006-multinode-oooq-puppet",
         'legacy-tripleo-ci-centos-7-scenario007-multinode-oooq',
         'legacy-tripleo-ci-centos-7-scenario007-multinode-oooq-puppet',
+        "tripleo-ci-centos-7-scenario001-multinode-oooq",
+        "tripleo-ci-centos-7-scenario001-multinode-oooq-puppet",
+        "tripleo-ci-centos-7-scenario002-multinode-oooq",
+        "tripleo-ci-centos-7-scenario002-multinode-oooq-puppet",
+        "tripleo-ci-centos-7-scenario003-multinode-oooq",
+        "tripleo-ci-centos-7-scenario003-multinode-oooq-puppet",
+        "tripleo-ci-centos-7-scenario004-multinode-oooq",
+        "tripleo-ci-centos-7-scenario004-multinode-oooq-puppet",
+        "tripleo-ci-centos-7-scenario005-multinode-oooq",
+        "tripleo-ci-centos-7-scenario005-multinode-oooq-puppet",
+        "tripleo-ci-centos-7-scenario006-multinode-oooq",
+        "tripleo-ci-centos-7-scenario006-multinode-oooq-puppet",
+        'tripleo-ci-centos-7-scenario007-multinode-oooq',
+        'tripleo-ci-centos-7-scenario007-multinode-oooq-puppet',
     ],
     "Containers": [
         "legacy-tripleo-ci-centos-7-containers-multinode",
@@ -130,6 +160,11 @@ COLUMNED_TRACKED_JOBS = {
         "legacy-tripleo-ci-centos-7-scenario002-multinode-oooq-container",
         "legacy-tripleo-ci-centos-7-scenario003-multinode-oooq-container",
         "legacy-tripleo-ci-centos-7-scenario004-multinode-oooq-container",
+        "tripleo-ci-centos-7-containers-multinode",
+        "tripleo-ci-centos-7-scenario001-multinode-oooq-container",
+        "tripleo-ci-centos-7-scenario002-multinode-oooq-container",
+        "tripleo-ci-centos-7-scenario003-multinode-oooq-container",
+        "tripleo-ci-centos-7-scenario004-multinode-oooq-container",
     ],
     "Upgrades": [
         "legacy-tripleo-ci-centos-7-scenario001-multinode-upgrades",
@@ -137,14 +172,23 @@ COLUMNED_TRACKED_JOBS = {
         "legacy-tripleo-ci-centos-7-scenario003-multinode-upgrades",
         "legacy-tripleo-ci-centos-7-multinode-upgrades",
         "legacy-tripleo-ci-centos-7-containers-multinode-upgrades",
+        "tripleo-ci-centos-7-scenario001-multinode-upgrades",
+        "tripleo-ci-centos-7-scenario002-multinode-upgrades",
+        "tripleo-ci-centos-7-scenario003-multinode-upgrades",
+        "tripleo-ci-centos-7-multinode-upgrades",
+        "tripleo-ci-centos-7-containers-multinode-upgrades",
     ],
     "Multinode": [
         "legacy-tripleo-ci-centos-7-nonha-multinode-oooq",
-        "legacy-tripleo-ci-centos-7-3nodes-multinode"
+        "legacy-tripleo-ci-centos-7-3nodes-multinode",
+        "tripleo-ci-centos-7-nonha-multinode-oooq",
+        "tripleo-ci-centos-7-3nodes-multinode"
     ],
     "Undercloud": [
         "legacy-tripleo-ci-centos-7-undercloud-oooq",
         "legacy-tripleo-ci-centos-7-undercloud-containers",
+        "tripleo-ci-centos-7-undercloud-oooq",
+        "tripleo-ci-centos-7-undercloud-containers",
     ],
 
 }
