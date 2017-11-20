@@ -241,6 +241,7 @@ class JobFile(object):
         if os.path.exists(self.file_path):
             log.debug("File {} is already downloaded".format(self.file_path))
         elif os.path.exists(self.file_path + "_404"):
+            log.debug("File {} was saved as 404".format(self.file_path))
             return None
         else:
             if "." not in self.file_url.split("/")[-1]:

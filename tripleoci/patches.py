@@ -4,6 +4,7 @@ import os
 import re
 import time
 import tripleoci.config as config
+from tripleoci.config import log
 from tripleoci.utils import Web
 
 
@@ -70,19 +71,26 @@ class Patch(object):
                 consoles_dir,
                 "_".join((x.rstrip("/").split("/")[-2:])) + ".gz")
             if os.path.exists(file_path):
+                log.debug("Using cached Jenkins console: %s", file_path)
                 with gzip.open(file_path, "rt") as f:
                     return f.read()
             elif os.path.exists(file_path+ "_404"):
+                log.debug("Jenkins console cache is 404: %s", file_path)
                 return None
-            full_url = x + "/" + "consoleFull"
+            full_url = x + "/" + "consoleText"
             www = Web(full_url, timeout=5)
             page = www.get()
-            if page.status_code == 404:
+            if page and page.status_code == 404:
+                log.error("Jenkins console has 404 error: %s", full_url)
                 open(file_path + "_404", 'a').close()
             elif page:
                 with gzip.open(file_path, "wt") as f:
                     f.write(page.text)
+                log.debug("Saved jenkins console cache to: %s", file_path)
                 return page.content.decode('utf-8')
+            else:
+                log.error("Failed to get Jenkins console: %s", full_url)
+                return None
 
         def _extract_log_url(text):
             if RDO_RE.search(text):
