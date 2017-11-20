@@ -251,7 +251,6 @@ class JobFile(object):
             web = Web(url=file_try1)
             req = web.get(ignore404=True)
             if req is None or int(req.status_code) == 404:
-                # Treat connection error as 404
                 if req is None:
                     log.warn(
                         "Failed to retrieve URL, request is None: {}".format(
@@ -263,7 +262,8 @@ class JobFile(object):
                 else:
                     log.warn("Failed to retrieve URL, tried once: {}".format(
                         file_try1))
-                    open(self.file_path + "_404", "a").close()
+                    if req is not None:
+                        open(self.file_path + "_404", "a").close()
                     return None
                 web = Web(url=file_try2)
                 log.debug("Trying to download raw file {}".format(file_try2))
