@@ -160,7 +160,6 @@ COLUMNED_TRACKED_JOBS = {
         "legacy-tripleo-ci-centos-7-scenario002-multinode-oooq-container",
         "legacy-tripleo-ci-centos-7-scenario003-multinode-oooq-container",
         "legacy-tripleo-ci-centos-7-scenario004-multinode-oooq-container",
-        "legacy-tripleo-ci-centos-7-scenario007-multinode-oooq-container",
         "tripleo-ci-centos-7-containers-multinode",
         "tripleo-ci-centos-7-scenario001-multinode-oooq-container",
         "tripleo-ci-centos-7-scenario002-multinode-oooq-container",
