@@ -133,11 +133,11 @@ class Periodic(object):
                 try:
                     if ('Started by user' in line or
                             '[Zuul] Launched by' in line or
-                        '| PRE-RUN START' in line):
+                            '| PRE-RUN START' in line):
                         start = ts_re.search(line).group(1)
                     if ("|  Run completed" in line or
-                       '[Zuul] Job complete' in line or
-                        '| POST-RUN START' in line):
+                            '[Zuul] Job complete' in line or
+                            '| POST-RUN START' in line):
                         end = ts_re.search(line).group(1)
                 except Exception as e:
                     log.error(e)

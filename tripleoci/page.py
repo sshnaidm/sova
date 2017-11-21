@@ -3,8 +3,10 @@ import os
 import pickle
 
 from tripleoci import config
+from tripleoci.utils import get_circles
+from tripleoci.utils import statistics
+from tripleoci.utils import top
 from tripleoci.watchcat import meow
-from tripleoci.utils import top, statistics, get_circles
 
 
 DEBUG = False
@@ -46,12 +48,12 @@ def create_html():
 
         with open(
                 os.path.join(config.DOWNLOAD_PATH, "ci_data_dump"), "wb") as g:
-            pickle.dump(ci_data, g)
+                pickle.dump(ci_data, g)
     # For debug mode
     else:
         with open(
                 os.path.join(config.DOWNLOAD_PATH, "ci_data_dump"), "rb") as g:
-            ci_data = pickle.load(g)
+                ci_data = pickle.load(g)
 
     errors_top = top(ci_data)
     stats = statistics(ci_data)

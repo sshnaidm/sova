@@ -111,7 +111,8 @@ class Filter(object):
         return True if not fail else job.fail
 
     def f_pipeline(self, job, pipeline):
-        if pipeline is None: return True
+        if pipeline is None:
+            return True
         return True if pipeline and job.pipeline == pipeline else False
 
     def f_exclude(self, job, exclude):
