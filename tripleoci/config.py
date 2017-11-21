@@ -78,7 +78,7 @@ elif os.path.exists(os.path.join(DOWNLOAD_PATH, "robi_id_rsa")):
     SSH_PRIV_KEY = os.path.join(DOWNLOAD_PATH, "robi_id_rsa")
 else:
     SSH_PRIV_KEY = None
-INDEX_HTML = os.path.join(DOWNLOAD_PATH, "index.html")
+INDEX_HTML = os.path.join(DOWNLOAD_PATH, "index-gates.html")
 SSH_TIMEOUT = 120
 WEB_TIMEOUT = (3.05, 1)
 GERRIT_REQ_TIMEOUT = 2

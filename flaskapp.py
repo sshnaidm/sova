@@ -10,7 +10,7 @@ work_dir = os.path.dirname(__file__)
 @app.route('/')
 def hello_world():
     return send_from_directory(
-        os.path.dirname(config.INDEX_HTML), 'index.html')
+        os.path.dirname(config.INDEX_HTML), 'index-gates.html')
 
 if __name__ == '__main__':
     app.run("0.0.0.0", 8090, debug=True)
