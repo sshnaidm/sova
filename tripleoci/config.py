@@ -106,7 +106,7 @@ PERIODIC_24H = 'https://logs.rdoproject.org/openstack-periodic-24hr/'
 
 COLUMNED_TRACKED_JOBS = {
     "Master-promotion": [
-        # PERIODIC_4H + 'periodic-tripleo-centos-7-master-containers-build',
+        PERIODIC_4H + 'periodic-tripleo-centos-7-master-containers-build',
         # PERIODIC_4H + 'periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing',
         # PERIODIC_4H + 'periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset005-master',
         # PERIODIC_4H + 'periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset006-master',
@@ -121,7 +121,7 @@ COLUMNED_TRACKED_JOBS = {
         PERIODIC_4H + 'periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset002-master-upload',
 ],
     'Pike-promotion': [
-        # PERIODIC_4H + 'periodic-tripleo-centos-7-pike-containers-build',
+        PERIODIC_4H + 'periodic-tripleo-centos-7-pike-containers-build',
         # PERIODIC_4H + 'periodic-tripleo-centos-7-pike-promote-consistent-to-tripleo-ci-testing',
         PERIODIC_4H + 'periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset005-pike',
         PERIODIC_4H + 'periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset006-pike',
