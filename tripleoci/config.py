@@ -141,10 +141,6 @@ COLUMNED_TRACKED_JOBS = {
         PERIODIC_24H + 'periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset002-ocata-upload',
 
     ],
-    "Newton-promotion": [
-        PERIODIC_24H + 'periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset002-newton-upload',
-
-    ],
     "RDO cloud OVB": [
         "gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master",
         "gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike",
