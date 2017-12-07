@@ -92,26 +92,8 @@ GATE_DAYS = 8
 CIRCLE = 3
 COLUMNED_TRACKED_JOBS = {
     "OVB": [
-        "legacy-tripleo-ci-centos-7-ovb-ha",
-        "legacy-tripleo-ci-centos-7-ovb-nonha",
-        "legacy-tripleo-ci-centos-7-ovb-ha-oooq",
-        "legacy-tripleo-ci-centos-7-ovb-ha-oooq-ocata",
-        "legacy-tripleo-ci-centos-7-ovb-ha-oooq-newton",
-        "legacy-tripleo-ci-centos-7-ovb-containers-oooq",
-        ('legacy-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-'
-         'puppet-pike'),
-        'legacy-tripleo-ci-centos-7-ovb-ha-oooq-pike',
-        "legacy-tripleo-ci-centos-7-ovb-fakeha-caserver",
-        "legacy-tripleo-ci-centos-7-ovb-ha-tempest-oooq",
-        "legacy-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024",
-        "legacy-tripleo-ci-centos-7-ovb-convergence-oooq",
-        ("legacy-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-"
-         "puppet-newton"),
-        ("legacy-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-"
-         "puppet-ocata"),
-        "tripleo-ci-centos-7-ovb-ha",
-        "tripleo-ci-centos-7-ovb-nonha",
         "tripleo-ci-centos-7-ovb-ha-oooq",
+        "tripleo-ci-centos-7-ovb-ha-oooq-ipv6",
         'tripleo-ci-centos-7-ovb-ha-oooq-pike',
         "tripleo-ci-centos-7-ovb-ha-oooq-ocata",
         "tripleo-ci-centos-7-ovb-ha-oooq-newton",
@@ -127,19 +109,6 @@ COLUMNED_TRACKED_JOBS = {
 
     ],
     "Scenarios": [
-        "legacy-tripleo-ci-centos-7-scenario001-multinode-oooq",
-        "legacy-tripleo-ci-centos-7-scenario001-multinode-oooq-puppet",
-        "legacy-tripleo-ci-centos-7-scenario002-multinode-oooq",
-        "legacy-tripleo-ci-centos-7-scenario002-multinode-oooq-puppet",
-        "legacy-tripleo-ci-centos-7-scenario003-multinode-oooq",
-        "legacy-tripleo-ci-centos-7-scenario003-multinode-oooq-puppet",
-        "legacy-tripleo-ci-centos-7-scenario004-multinode-oooq",
-        "legacy-tripleo-ci-centos-7-scenario004-multinode-oooq-puppet",
-        "legacy-tripleo-ci-centos-7-scenario005-multinode-oooq",
-        "legacy-tripleo-ci-centos-7-scenario006-multinode-oooq",
-        "legacy-tripleo-ci-centos-7-scenario006-multinode-oooq-puppet",
-        'legacy-tripleo-ci-centos-7-scenario007-multinode-oooq',
-        'legacy-tripleo-ci-centos-7-scenario007-multinode-oooq-puppet',
         "tripleo-ci-centos-7-scenario001-multinode-oooq",
         "tripleo-ci-centos-7-scenario002-multinode-oooq",
         "tripleo-ci-centos-7-scenario003-multinode-oooq",
@@ -151,11 +120,6 @@ COLUMNED_TRACKED_JOBS = {
         'tripleo-ci-centos-7-scenario009-multinode-oooq',
     ],
     "Containers": [
-        "legacy-tripleo-ci-centos-7-containers-multinode",
-        "legacy-tripleo-ci-centos-7-scenario001-multinode-oooq-container",
-        "legacy-tripleo-ci-centos-7-scenario002-multinode-oooq-container",
-        "legacy-tripleo-ci-centos-7-scenario003-multinode-oooq-container",
-        "legacy-tripleo-ci-centos-7-scenario004-multinode-oooq-container",
         "tripleo-ci-centos-7-containers-multinode",
         "tripleo-ci-centos-7-scenario001-multinode-oooq-container",
         "tripleo-ci-centos-7-scenario002-multinode-oooq-container",
@@ -164,11 +128,6 @@ COLUMNED_TRACKED_JOBS = {
         "tripleo-ci-centos-7-scenario007-multinode-oooq-container",
     ],
     "Upgrades": [
-        "legacy-tripleo-ci-centos-7-scenario001-multinode-upgrades",
-        "legacy-tripleo-ci-centos-7-scenario002-multinode-upgrades",
-        "legacy-tripleo-ci-centos-7-scenario003-multinode-upgrades",
-        "legacy-tripleo-ci-centos-7-multinode-upgrades",
-        "legacy-tripleo-ci-centos-7-containers-multinode-upgrades",
         "tripleo-ci-centos-7-scenario001-multinode-upgrades",
         "tripleo-ci-centos-7-scenario002-multinode-upgrades",
         "tripleo-ci-centos-7-scenario003-multinode-upgrades",
@@ -176,19 +135,14 @@ COLUMNED_TRACKED_JOBS = {
         "tripleo-ci-centos-7-containers-multinode-upgrades",
     ],
     "Multinode": [
-        "legacy-tripleo-ci-centos-7-nonha-multinode-oooq",
-        "legacy-tripleo-ci-centos-7-3nodes-multinode",
         "tripleo-ci-centos-7-nonha-multinode-oooq",
         "tripleo-ci-centos-7-3nodes-multinode"
     ],
     "Undercloud": [
-        "legacy-tripleo-ci-centos-7-undercloud-oooq",
-        "legacy-tripleo-ci-centos-7-undercloud-containers",
         "tripleo-ci-centos-7-undercloud-oooq",
         "tripleo-ci-centos-7-undercloud-containers",
     ],
     "Puppet": [
-        "legacy-puppet-tripleo-puppet-unit-4.8-centos-7",
         "puppet-openstack-unit-4.8-centos-7",
         "puppet-openstack-lint",
         "puppet-openstack-syntax-4",
