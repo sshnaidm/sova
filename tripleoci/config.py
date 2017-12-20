@@ -58,27 +58,7 @@ PROJECTS = (
 )
 
 PERIODIC_LOGS_URL = 'http://logs.openstack.org/periodic'
-PERIODIC_URLS = [
-    PERIODIC_LOGS_URL + ('/periodic-tripleo-ci-centos-7-'
-                         'ovb-1ctlr_1comp_1ceph-featureset024'),
-    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-fakeha-caserver',
-    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-oooq',
-    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-ocata-oooq',
-    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-newton-oooq',
-    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-nonha-containers',
-    PERIODIC_LOGS_URL +
-    '/periodic-tripleo-ci-centos-7-ovb-nonha-tempest-oooq-ocata',
-    PERIODIC_LOGS_URL +
-    '/periodic-tripleo-ci-centos-7-ovb-nonha-tempest-oooq-master',
-    PERIODIC_LOGS_URL +
-    '/periodic-tripleo-ci-centos-7-scenario001-multinode-oooq',
-    PERIODIC_LOGS_URL +
-    '/periodic-tripleo-ci-centos-7-scenario002-multinode-oooq',
-    PERIODIC_LOGS_URL +
-    '/periodic-tripleo-ci-centos-7-scenario003-multinode-oooq',
-    PERIODIC_LOGS_URL +
-    '/periodic-tripleo-ci-centos-7-scenario004-multinode-oooq',
-]
+PERIODIC_URLS = []
 
 DOWNLOAD_PATH = os.environ.get('OPENSHIFT_DATA_DIR',
                                os.path.join(os.environ["HOME"], "ci_status"))
@@ -110,161 +90,130 @@ GERRIT_BRANCHES = ("master", "stable/newton", "stable/ocata", "stable/pike")
 PERIODIC_DAYS = 14
 GATE_DAYS = 14
 CIRCLE = 3
-TRACKED_JOBS = (
-    "gate-tripleo-ci-centos-7-ovb-ha",
-    "gate-tripleo-ci-centos-7-ovb-nonha",
-    "gate-tripleo-ci-centos-7-ovb-updates",
-
-    "gate-tripleo-ci-centos-7-ovb-ha-oooq",
-    "gate-tripleo-ci-centos-7-ovb-ha-oooq-ocata",
-    "gate-tripleo-ci-centos-7-ovb-ha-oooq-newton",
-    "gate-tripleo-ci-centos-7-ovb-containers-oooq-nv",
-    "gate-tripleo-ci-centos-7-ovb-containers-oooq",
-
-    "gate-tripleo-ci-centos-7-nonha-multinode-oooq",
-    "gate-tripleo-ci-centos-7-nonha-multinode-oooq-nv",
-    "gate-tripleo-ci-centos-7-scenario001-multinode-oooq",
-    "gate-tripleo-ci-centos-7-scenario002-multinode-oooq",
-    "gate-tripleo-ci-centos-7-scenario003-multinode-oooq",
-    "gate-tripleo-ci-centos-7-scenario004-multinode-oooq",
-    "gate-tripleo-ci-centos-7-scenario005-multinode-oooq",
-
-    "gate-tripleo-ci-centos-7-scenario001-multinode-oooq-puppet",
-    "gate-tripleo-ci-centos-7-scenario002-multinode-oooq-puppet",
-    "gate-tripleo-ci-centos-7-scenario003-multinode-oooq-puppet",
-    "gate-tripleo-ci-centos-7-scenario004-multinode-oooq-puppet",
-    "gate-tripleo-ci-centos-7-scenario005-multinode-oooq-puppet",
-    "gate-tripleo-ci-centos-7-scenario001-multinode-oooq-puppet-nv",
-    "gate-tripleo-ci-centos-7-scenario002-multinode-oooq-puppet-nv",
-
-    "gate-tripleo-ci-centos-7-scenario001-multinode-upgrades-nv",
-    "gate-tripleo-ci-centos-7-scenario002-multinode-upgrades-nv",
-    "gate-tripleo-ci-centos-7-scenario003-multinode-upgrades-nv",
-    "gate-tripleo-ci-centos-7-scenario004-multinode-upgrades-nv",
-
-    "gate-tripleo-ci-centos-7-scenario001-multinode-oooq-container",
-    "gate-tripleo-ci-centos-7-scenario002-multinode-oooq-container",
-    "gate-tripleo-ci-centos-7-scenario003-multinode-oooq-container",
-    "gate-tripleo-ci-centos-7-scenario004-multinode-oooq-container",
-
-    "gate-tripleo-ci-centos-7-scenario001-multinode-oooq-container-upgrades",
-    "gate-tripleo-ci-centos-7-scenario002-multinode-oooq-container-upgrades",
-    "gate-tripleo-ci-centos-7-scenario003-multinode-oooq-container-upgrades",
-    "gate-tripleo-ci-centos-7-scenario004-multinode-oooq-container-upgrades",
-
-    "gate-tripleo-ci-centos-7-containers-multinode-nv",
-    "gate-tripleo-ci-centos-7-containers-multinode",
-    "gate-tripleo-ci-centos-7-nonha-multinode-updates-nv",
-    "gate-tripleo-ci-centos-7-3nodes-multinode-nv",
-    "gate-tripleo-ci-centos-7-multinode-upgrades-nv",
-    "gate-tripleo-ci-centos-7-multinode-upgrades",
-    "gate-tripleo-ci-centos-7-containers-multinode-upgrades-nv",
-    "gate-tripleo-ci-centos-7-containers-multinode-upgrades",
-
-    "gate-tripleo-ci-centos-7-undercloud-oooq",
-    "gate-tripleo-ci-centos-7-undercloud-upgrades-nv",
-    "gate-tripleo-ci-centos-7-undercloud-containers",
-    "gate-tripleo-ci-centos-7-undercloud-containers-nv",
-
-    "gate-tripleo-ci-centos-7-ovb-fakeha-caserver",
-    "gate-tripleo-ci-centos-7-ovb-ha-tempest-oooq",
-
-    "gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024"
-)
-RDOCI_JOBS = (
-    'browbeat-quickstart-gerrit-newton-baremetal-CI',
-    'browbeat-quickstart-gerrit-ocata-baremetal-CI',
-    'browbeat-quickstart-gerrit-rhos-10-baremetal-CI',
-    'browbeat-quickstart-master-baremetal-mixed',
-    'browbeat-quickstart-master-baremetal-no_vlan',
-    'browbeat-quickstart-master-baremetal-yoda',
-    'browbeat-quickstart-newton-baremetal-mixed',
-    'browbeat-quickstart-newton-baremetal-no_vlan',
-    'browbeat-quickstart-newton-baremetal-yoda',
-    'browbeat-quickstart-ocata-baremetal-mixed',
-    'browbeat-quickstart-ocata-baremetal-no_vlan',
-    'browbeat-quickstart-ocata-baremetal-mixed',
-    'browbeat-quickstart-pike-baremetal-no_vlan',
-    'browbeat-quickstart-pike-baremetal-yoda',
-    'browbeat-quickstart-rhos-10-baremetal-mixed',
-    'browbeat-quickstart-rhos-10-baremetal-no_vlan',
-    'browbeat-quickstart-rhos-10-baremetal-yoda',
-    'browbeat-quickstart-rhos-11-baremetal-mixed',
-    'browbeat-quickstart-rhos-11-baremetal-no_vlan',
-    'browbeat-quickstart-rhos-11-baremetal-yoda',
-    'browbeat-quickstart-rhos-12-baremetal-mixed',
-    'browbeat-quickstart-rhos-12-baremetal-no_vlan',
-    'browbeat-quickstart-rhos-12-baremetal-yoda',
-    'oooq-master-rdo_trunk-bmu-haa16-lab-float_nic_with_vlans',
-    'oooq-newton-rdo_trunk-bmu-haa01-lab-float_nic_with_vlans',
-    'oooq-ocata-rdo_trunk-bmu-haa01-lab-float_nic_with_vlans',
-    'oooq-pike-rdo_trunk-bmu-haa16-lab-float_nic_with_vlans',
-    'oooq-rhos-10-puddle-bmu-hac01-lab-float_nic_with_vlans',
-    'oooq-rhos-11-puddle-bmu-hac01-lab-float_nic_with_vlans',
-    'oooq-rhos-12-puddle-bmu-hab01-lab-float_nic_with_vlans',
-    'oooq-rhos-12-puddle-bmu-had00-lab-float_nic_with_vlans',
-    'osp-rhos-10-promote-puddle-build-images',
-    'osp-rhos-10-promote-puddle-virtbasic-1ctlr_1comp_64gb',
-    'osp-rhos-10-promote-puddle-virtha-3ctlr_1comp_192gb',
-    'osp-rhos-11-promote-puddle-build-images',
-    'osp-rhos-11-promote-puddle-virtbasic-1ctlr_1comp_64gb',
-    'osp-rhos-11-promote-puddle-virtha-3ctlr_1comp_192gb',
-    'osp-rhos-12-promote-puddle-build-images',
-    'osp-rhos-12-promote-puddle-virtbasic-1ctlr_1comp_64gb',
-    'osp-rhos-12-promote-puddle-virtha-3ctlr_1comp_192gb',
-    'periodic-master-rdo_trunk-featureset010-1ctlr_1comp_64gb',
-    'periodic-master-rdo_trunk-featureset016-1ctlr_1comp_64gb',
-    'periodic-master-rdo_trunk-virtbasic-1ctlr_1comp_64gb',
-    'periodic-newton-rdo_trunk-virtbasic-1ctlr_1comp_64gb',
-    'periodic-ocata-rdo_trunk-virtbasic-1ctlr_1comp_64gb',
-    'promote-rhel-master-rdo_trunk-virtbasic-1ctlr_1comp_64gb',
-    'promote-rhel-master-rdo_trunk-virtha-3ctlr_1comp_192gb',
-    'promote-rhel-newton-rdo_trunk-virtbasic-1ctlr_1comp_64gb',
-    'promote-rhel-newton-rdo_trunk-virtha-3ctlr_1comp_192gb',
-    'promote-rhel-ocata-rdo_trunk-virtbasic-1ctlr_1comp_64gb',
-    'promote-rhel-ocata-rdo_trunk-virtha-3ctlr_1comp_192gb',
-    'promote-rhel-pike-rdo_trunk-virtbasic-1ctlr_1comp_64gb',
-    'promote-rhel-pike-rdo_trunk-virtha-3ctlr_1comp_192gb',
-    'rdo-master-promote-rdo_trunk-build-images',
-    'rdo-newton-promote-rdo_trunk-build-images',
-    'rdo-ocata-promote-rdo_trunk-build-images',
-    'rdo-pike-promote-rdo_trunk-build-images',
-    ('rlandy-poc-tripleo-quickstart-master-baremetal-hp_dl360_envE-'
-     'single_nic_vlans'),
-    ('tqe-gate-rhos-11-current-passed-ci-qeos7-ovb-minimal-pacemaker-'
-     'public-bond'),
-    'tq-gate-devmode-master-ovb-rdocloud-public-bond',
-    ('tq-gate-rhos-11-current-passed-ci-qeos7-ovb-minimal-pacemaker-'
-     'public-bond'),
-    ('tripleo-quickstart-master-rdo_trunk-baremetal-dell_pe_r630-'
-     'bond_with_vlans'),
-    ('tripleo-quickstart-master-rdo_trunk-baremetal-hp_dl360_envD-'
-     'single_nic_vlans'),
-    ('tripleo-quickstart-newton-rdo_trunk-baremetal-dell_pe_r630-'
-     'bond_with_vlans'),
-    ('tripleo-quickstart-newton-rdo_trunk-baremetal-hp_dl360_envD-'
-     'single_nic_vlans'),
-    ('tripleo-quickstart-ocata-rdo_trunk-baremetal-dell_pe_r630-'
-     'bond_with_vlans'),
-    ('tripleo-quickstart-ocata-rdo_trunk-baremetal-hp_dl360_envD-'
-     'single_nic_vlans'),
-    ('tripleo-quickstart-pike-rdo_trunk-baremetal-dell_pe_r630-'
-     'bond_with_vlans'),
-    ('tripleo-quickstart-pike-rdo_trunk-baremetal-hp_dl360_envD-'
-     'single_nic_vlans'),
-
-)
-
-TRIPLEOCI = {
-    'console': '/console.html',
-    'postci': '/logs/postci.txt',
-    'ironic-conductor': '/logs/undercloud/var/log/ironic/ironic-conductor.txt',
-    'syslog': '/logs/undercloud/var/log/messages',
-    'logstash': '/logs/undercloud/var/log/extra/logstash.txt'
+COLUMNED_TRACKED_JOBS = {
+    "Master": [
+        'browbeat-quickstart-master-baremetal-mixed',
+        'browbeat-quickstart-master-baremetal-yoda',
+        'oooq-master-rdo_trunk-bmu-haa01-lab-float_nic_with_vlans',
+        'oooq-master-rdo_trunk-bmu-haa16-lab-float_nic_with_vlans',
+        'periodic-master-rdo_trunk-containers_minimal-1ctlr_1comp_64gb',
+        'periodic-master-rdo_trunk-virtbasic-1ctlr_1comp_64gb',
+        'periodic-master-rdo_trunk-virtha-3ctlr_1comp_192gb',
+        'promote-rhel-master-rdo_trunk-virtbasic-1ctlr_1comp_64gb',
+        'promote-rhel-master-rdo_trunk-virtha-3ctlr_1comp_192gb',
+        'rdo-master-promote-rdo_trunk-build-images',
+        'sbtest-tripleo-quickstart-extras-master-rdo_trunk',
+        'sbtest-tripleo-quickstart-master-rdo_trunk',
+        'tripleo-quickstart-master-ci-rhos-ovb-ha-multiple-nics',
+        'tripleo-quickstart-master-rdo_trunk-baremetal-dell_fc430_envB-single_nic_vlans',
+        'tripleo-quickstart-master-rdo_trunk-baremetal-dell_pe_r630-bond_with_vlans',
+        'tripleo-quickstart-master-rdo_trunk-baremetal-hp_dl360_envD-single_nic_vlans',
+        'tripleo-quickstart-master-rdo_trunk-baremetal-hp_dl360_envE-single_nic_vlans',
+    ],
+    "Pike": [
+        'browbeat-quickstart-pike-baremetal-mixed',
+        'browbeat-quickstart-pike-baremetal-yoda',
+        'periodic-pike-rdo_trunk-virtbasic-1ctlr_1comp_64gb',
+        'periodic-pike-rdo_trunk-virtha-3ctlr_1comp_192gb',
+        'oooq-pike-rdo_trunk-bmu-haa01-lab-float_nic_with_vlans',
+        'oooq-pike-rdo_trunk-bmu-haa16-lab-float_nic_with_vlans',
+        'promote-rhel-pike-rdo_trunk-virtbasic-1ctlr_1comp_64gb',
+        'promote-rhel-pike-rdo_trunk-virtha-3ctlr_1comp_192gb',
+        'rdo-pike-promote-rdo_trunk-build-images',
+        'sbtest-tripleo-quickstart-extras-pike-rdo_trunk',
+        'sbtest-tripleo-quickstart-pike-rdo_trunk',
+        'tripleo-quickstart-pike-ci-rhos-ovb-ha-multiple-nics',
+        'tripleo-quickstart-pike-rdo_trunk-baremetal-dell_fc430_envB-single_nic_vlans',
+        'tripleo-quickstart-pike-rdo_trunk-baremetal-dell_pe_r630-bond_with_vlans',
+        'tripleo-quickstart-pike-rdo_trunk-baremetal-hp_dl360_envD-single_nic_vlans',
+        'tripleo-quickstart-pike-rdo_trunk-baremetal-hp_dl360_envE-single_nic_vlans'
+    ],
+    "Ocata": [
+        'browbeat-quickstart-gerrit-ocata-baremetal-CI',
+        'browbeat-quickstart-ocata-baremetal-mixed',
+        'browbeat-quickstart-ocata-baremetal-yoda',
+        'oooq-ocata-rdo_trunk-bmu-haa01-lab-float_nic_with_vlans',
+        'oooq-ocata-rdo_trunk-bmu-haa16-lab-float_nic_with_vlans',
+        'periodic-ocata-rdo_trunk-virtbasic-1ctlr_1comp_64gb',
+        'periodic-ocata-rdo_trunk-virtha-3ctlr_1comp_192gb',
+        'promote-rhel-ocata-rdo_trunk-virtbasic-1ctlr_1comp_64gb',
+        'promote-rhel-ocata-rdo_trunk-virtha-3ctlr_1comp_192gb',
+        'rdo-ocata-promote-rdo_trunk-build-images',
+        'sbtest-tripleo-quickstart-extras-ocata-rdo_trunk',
+        'sbtest-tripleo-quickstart-ocata-rdo_trunk',
+        'tqe-upgrades-gate-ocata-undercloud-newton-overcloud-ci-rhos-composable_upgrade_ovb',
+        'tripleo-quickstart-ocata-rdo_trunk-baremetal-dell_fc430_envB-single_nic_vlans',
+        'tripleo-quickstart-ocata-rdo_trunk-baremetal-dell_pe_r630-bond_with_vlans',
+        'tripleo-quickstart-ocata-rdo_trunk-baremetal-hp_dl360_envD-single_nic_vlans',
+        'tripleo-quickstart-ocata-rdo_trunk-baremetal-hp_dl360_envE-single_nic_vlans',
+    ],
+    "Newton": [
+        'browbeat-quickstart-newton-baremetal-mixed',
+        'browbeat-quickstart-newton-baremetal-yoda',
+        'oooq-newton-rdo_trunk-bmu-haa01-lab-float_nic_with_vlans',
+        'oooq-newton-rdo_trunk-bmu-haa16-lab-float_nic_with_vlans',
+        'periodic-newton-rdo_trunk-virtbasic-1ctlr_1comp_64gb',
+        'periodic-newton-rdo_trunk-virtha-3ctlr_1comp_192gb',
+        'promote-rhel-newton-rdo_trunk-virtbasic-1ctlr_1comp_64gb',
+        'promote-rhel-newton-rdo_trunk-virtha-3ctlr_1comp_192gb',
+        'rdo-newton-promote-rdo_trunk-build-images',
+        'sbtest-tripleo-quickstart-extras-newton-rdo_trunk',
+        'sbtest-tripleo-quickstart-newton-rdo_trunk',
+        'tripleo-quickstart-newton-rdo_trunk-baremetal-dell_fc430_envB-single_nic_vlans',
+        'tripleo-quickstart-newton-rdo_trunk-baremetal-dell_pe_r630-bond_with_vlans',
+        'tripleo-quickstart-newton-rdo_trunk-baremetal-hp_dl360_envD-single_nic_vlans',
+        'tripleo-quickstart-newton-rdo_trunk-baremetal-hp_dl360_envE-single_nic_vlans',
+    ],
+    "RHOS 8": [
+        'oooq-rhos-8-poodle-bmu-hab01-lab-float_nic_with_vlans',
+        'oooq-rhos-8-poodle-bmu-hac01-lab-float_nic_with_vlans',
+        'osp-rhos-8-promote-poodle-virtbasic-1ctlr_1comp_64gb',
+        'osp-rhos-8-promote-poodle-virtha-3ctlr_1comp_64gb',
+    ],
+    "RHOS 9": [
+        'oooq-rhos-9-poodle-bmu-hab01-lab-float_nic_with_vlans',
+        'oooq-rhos-9-poodle-bmu-hac01-lab-float_nic_with_vlans',
+        'osp-rhos-9-promote-poodle-virtbasic-1ctlr_1comp_64gb',
+        'osp-rhos-9-promote-poodle-virtha-3ctlr_1comp_64gb',
+    ],
+    "RHOS 10": [
+        'browbeat-quickstart-gerrit-rhos-10-baremetal-CI',
+        'browbeat-quickstart-rhos-10-baremetal-mixed',
+        'browbeat-quickstart-rhos-10-baremetal-yoda',
+        'oooq-rhos-10-puddle-bmu-hab01-lab-float_nic_with_vlans',
+        'oooq-rhos-10-puddle-bmu-hac01-lab-float_nic_with_vlans',
+        'osp-rhos-10-promote-puddle-virtbasic-1ctlr_1comp_64gb',
+        'osp-rhos-10-promote-puddle-virtha-3ctlr_1comp_192gb',
+        'sbtest-tripleo-quickstart-extras-rhos-10-puddle',
+        'sbtest-tripleo-quickstart-rhos-10-puddle',
+    ],
+    "RHOS 11": [
+        'browbeat-quickstart-rhos-11-baremetal-mixed',
+        'browbeat-quickstart-rhos-11-baremetal-yoda',
+        'oooq-rhos-11-puddle-bmu-hab01-lab-float_nic_with_vlans',
+        'oooq-rhos-11-puddle-bmu-hac01-lab-float_nic_with_vlans',
+        'osp-rhos-11-promote-puddle-virtbasic-1ctlr_1comp_64gb',
+        'osp-rhos-11-promote-puddle-virtha-3ctlr_1comp_192gb',
+        'sbtest-tripleo-quickstart-extras-rhos-11-puddle',
+        'sbtest-tripleo-quickstart-rhos-11-puddle',
+        'tq-gate-rhos-11-ci-rhos-ovb-minimal-pacemaker-public-bond',
+        'tqe-gate-rhos-11-ci-rhos-ovb-minimal-pacemaker-public-bond',
+    ],
+    "RHOS 12": [
+        'browbeat-quickstart-rhos-12-baremetal-mixed',
+        'browbeat-quickstart-rhos-12-baremetal-yoda',
+        'oooq-rhos-12-puddle-bmu-hab01-lab-float_nic_with_vlans',
+        'oooq-rhos-12-puddle-bmu-hac01-lab-float_nic_with_vlans',
+        'oooq-rhos-12-puddle-bmu-had00-lab-float_nic_with_vlans',
+        'osp-rhos-12-promote-puddle-virtbasic-1ctlr_1comp_64gb',
+        'osp-rhos-12-promote-puddle-virtha-3ctlr_1comp_192gb',
+        'sbtest-tripleo-quickstart-extras-rhos-12-puddle',
+        'sbtest-tripleo-quickstart-rhos-12-puddle',
+    ]
 }
 
 RDOCI = {
-    'console': '/console.txt',
+    'console': '/console.txt.gz',
     "postci": '/undercloud/var/log/extra/logstash.txt',
     'ironic-conductor': '/undercloud/var/log/ironic/ironic-conductor.txt',
     'syslog': '/undercloud/var/log/messages',
@@ -273,24 +222,11 @@ RDOCI = {
 }
 
 PLUGIN = RDOCI
-PLUGIN_JOBS = RDOCI_JOBS
-
+TRACKED_JOBS = [k for i in COLUMNED_TRACKED_JOBS.values() for k in i]
+PLUGIN_JOBS = TRACKED_JOBS
 
 class PLUGIN_RDOCI_CONFIG:
-    console_name = 'console.txt'
+    console_name = 'console.txt.gz'
     main_index_timeout = 1100
 
-
-class PLUGIN_TRIPLEOCI_CONFIG:
-    console_name = 'console.html'
-
 ACTIVE_PLUGIN_CONFIG = PLUGIN_RDOCI_CONFIG
-COLUMNS = [{"Browbeat": "browbeat"}]
-COLUMNS += [{
-    i.replace('stable/', '').capitalize() + "-gate": i.replace('stable/', '')}
-    for i in GERRIT_BRANCHES]
-COLUMNS += [
-{"OSP-10": "rhos-10"},
-{"OSP-11": "rhos-11"},
-{"OSP-12": "rhos-12"},
-]

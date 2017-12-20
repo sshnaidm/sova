@@ -1,11 +1,21 @@
 import datetime
+import gzip
+import os
 import re
 import time
+import tripleoci.config as config
+from tripleoci.utils import Web
+
 
 JOB_RE = re.compile(r"(\S+) (http://logs.openstack.org/\S+) "
                     r": (FAILURE|SUCCESS) in ([hms \d]+)")
+JOB_RE2 = re.compile(r"(\S+) (https://review.rdoproject.org/\S+) "
+                     r": (FAILURE|SUCCESS) in ([hms \d]+)")
 PATCH_RE = re.compile(r"Patch Set (\d+):")
 TIME_RE = re.compile(r"((?P<hour>\d+)h)? *((?P<min>\d+)m)? *((?P<sec>\d+)s)?")
+RDO_RE = re.compile(r'Logs have been uploaded and are available at:'
+                    r'.*(https://logs.rdoproject.org/[^<>\s]+)', re.DOTALL)
+PIPE_RE = re.compile(r"([^ \(\)]+) pipeline")
 
 
 def utc_delta():
@@ -55,6 +65,8 @@ class Patch(object):
         jobs = []
         text = comment['message']
         timestamp = datetime.datetime.fromtimestamp(comment['timestamp'])
+        pipeline = (PIPE_RE.search(text).group(1)
+                    if PIPE_RE.search(text) else '')
         data = JOB_RE.findall(text)
         if data:
             patch_num = PATCH_RE.search(text).group(1)
@@ -67,7 +79,8 @@ class Patch(object):
                     length=parse_time(j[3]),
                     patch=self,
                     patchset=patchset,
-                    timestamp=timestamp
+                    timestamp=timestamp,
+                    pipeline=pipeline
                 )
                 jobs.append(job)
         return jobs
@@ -101,8 +114,9 @@ class Job(object):
         It's extracted from all comments to patch that are done by Jenkins.
         It contains various info the could be useful for reports.
     """
-    def __init__(self,
-                 name, log_url, status, length, patch, patchset, timestamp):
+
+    def __init__(self, name, log_url, status, length, patch, patchset,
+                 timestamp, pipeline=''):
         self.name = name
         self.log_url = log_url
         self.fail = status == 'FAILURE'
@@ -115,6 +129,7 @@ class Job(object):
         self.datetime = self._to_utc(self.ts).strftime("%m-%d %H:%M")
         self.log_hash = self.hashed(self.log_url)
         self.periodic = False
+        self.pipeline = pipeline
 
     def hashed(self, url):
         return url.strip("/").split("/")[-1]

@@ -3,6 +3,7 @@ import fileinput
 import gzip
 import os
 import re
+import time
 
 from lxml import etree
 
@@ -12,8 +13,20 @@ from tripleoci.patches import Job
 from tripleoci.utils import Web
 
 # Jobs regexps
-branch_re = re.compile(r"\+ export ZUUL_BRANCH=(\S+)")
+branch_re = re.compile(r"--release ([^ ]+)")
 ts_re = re.compile(r"(201\d-[01]\d-[0123]\d [012]\d:\d\d):\d\d\.\d\d\d")
+pipe_re = re.compile(r'  Pipeline: (.+)')
+job_re = re.compile(r'(.*)-(\d+)$')
+timest_re = re.compile('\d+ \w+ 20\d\d  \d\d:\d\d:\d\d')
+time_re = re.compile('^(\d+:\d+:\d+)')
+ansible_ts = re.compile('n(\w+ \d\d \w+ 20\d\d  \d\d:\d\d:\d\d)')
+stat_re = re.compile(
+    r'ok=\d+\s*changed=\d+\s*unreachable=(\d+)\s*failed=(\d+)')
+pipe_re = re.compile(r'  Pipeline: (.+)')
+
+RDOCI_URL = 'https://thirdparty.logs.rdoproject.org/'
+MAIN_INDEX = 'index_downci.html'
+JENKINS_URL = 'https://rhos-jenkins.rhev-ci-vms.eng.rdu2.redhat.com'
 
 
 class Periodic(object):
@@ -25,46 +38,73 @@ class Periodic(object):
         job status. So it needs to download console.html for every job and
         to parse it also.
     """
-    def __init__(self, url, down_path=config.DOWNLOAD_PATH, limit=None):
+    def __init__(self, url=RDOCI_URL,
+                 down_path=config.DOWNLOAD_PATH, limit=None):
         self.per_url = url
         self.down_path = down_path
         self.limit = limit
         self.jobs = self.get_jobs()
 
     def _get_index(self):
-        web = Web(self.per_url)
-        req = web.get()
-        if req is None or int(req.status_code) != 200:
-            log.warning(
-                "Trying again to download periodic page ".format(self.per_url))
-            req = web.get()
+        path = os.path.join(self.down_path, MAIN_INDEX)
+        if os.path.exists(path) and int(
+                time.time() - os.stat(path).st_ctime
+        ) < config.PLUGIN_RDOCI_CONFIG.main_index_timeout:
+            with open(path) as f:
+                index = f.read()
+        else:
+            req = None
+            for t in range(10):
+                web = Web(self.per_url, timeout=60)
+                req = web.get()
+                if req is None or int(req.status_code) != 200:
+                    log.warning(
+                        "Trying again to download rdo ci logs page ".format(
+                            self.per_url))
+                    time.sleep(30)
+                else:
+                    break
             if req is None or int(req.status_code) != 200:
                 log.error(
-                    "Can not retrieve periodic page {}".format(self.per_url))
+                    "Can not retrieve rdo ci logs page {}".format(
+                        self.per_url))
                 return None
-        return req.content
-
-    def _get_console(self, job):
-        path = os.path.join(
-            self.down_path, job["log_hash"], "console.html.gz")
-        if os.path.exists(path):
-            log.debug("Console is already here: {}".format(path))
-            return path
-        web = Web(job["log_url"] + "/console.html.gz")
-        req = web.get(ignore404=True)
-        if req is not None and int(req.status_code) == 404:
-            url = job["log_url"] + "/console.html"
-            web = Web(url=url)
-            log.debug("Trying to download raw console")
-            req = web.get()
-        if req is None or int(req.status_code) != 200:
-            log.error("Failed to retrieve console: {}".format(job["log_url"]))
-            return None
-        else:
-            if not os.path.exists(os.path.dirname(path)):
-                os.makedirs(os.path.dirname(path))
-            with gzip.open(path, "wb") as f:
+            with open(path, "wb") as f:
                 f.write(req.content)
+            index = req.content
+        return index
+
+    def _get_logs_console(self, job, jenkins_console=False):
+        console_names = config.ACTIVE_PLUGIN_CONFIG.console_name
+        if not isinstance(console_names, list):
+            console_names = [console_names]
+        for console_name in console_names:
+            path = os.path.join(
+                self.down_path, job["log_hash"], console_name)
+            if os.path.exists(path):
+                log.debug("Console is already here: {}".format(path))
+                return path
+            if jenkins_console:
+                console_url = os.path.join(
+                    'https://ci.centos.org/job',
+                    job['name'],
+                    job['build_number'],
+                    'timestamps/?time=yyyy-MM-dd%20HH:mm:ss&appendLog&locale=en_GB')
+            else:
+                console_url = job["log_url"] + "/" + console_name
+            web = Web(console_url, timeout=7)
+            log.debug("Trying to download console: {}".format(console_url))
+            req = web.get(ignore404=True)
+            if req is None or int(req.status_code) != 200:
+                log.error("Failed to retrieve console: {}".format(console_url))
+            else:
+                if not os.path.exists(os.path.dirname(path)):
+                    os.makedirs(os.path.dirname(path))
+                with gzip.open(path, "wb") as f:
+                    f.write(req.content)
+                break
+        else:
+            return None
         return path
 
     def parse_index(self, text):
@@ -72,15 +112,21 @@ class Periodic(object):
         et = etree.HTML(text)
         trs = [i for i in et.xpath("//tr") if not i.xpath("th")][1:]
         for tr in trs:
-            job = {}
-            td1, td2 = tr.xpath("td")[1:3]
-            lhash = td1.xpath("a")[0].attrib['href'].rstrip("/")
-            job["log_hash"] = lhash
-            job["log_url"] = self.per_url.rstrip("/") + "/" + lhash
-            job["ts"] = datetime.datetime.strptime(td2.text.strip(),
-                                                   "%Y-%m-%d %H:%M")
-            job["name"] = self.per_url.rstrip("/").split("/")[-1]
-            jobs.append(job)
+            td2 = tr.xpath("td")[1]
+            link = td2.xpath("a")[0].attrib['href'].rstrip("/")
+            if job_re.match(link):
+                log_name, build = job_re.search(link).groups()
+                job_name = log_name.replace('jenkins-', '')
+                if job_name in config.TRACKED_JOBS:
+                    job = {}
+                    job["log_hash"] = job_name + "-" + build
+                    job["log_url"] = RDOCI_URL + "/" + link + "/"
+                    job["ts"] = datetime.datetime.strptime(
+                        tr.xpath("td")[2].text.strip(),
+                        "%Y-%m-%d %H:%M")
+                    job["name"] = job_name
+                    job['build_number'] = build
+                    jobs.append(job)
         return sorted(jobs, key=lambda x: x['ts'], reverse=True)
 
     def _parse_ts(self, ts):
@@ -92,16 +138,17 @@ class Periodic(object):
 
         start = end = last = None
         j.update({
-            'status': 'FAILURE',
+            'status': 'UNKNOWN',
             'fail': True,
             'branch': '',
             'length': 0,
         })
-        console = self._get_console(j)
+        console = self._get_logs_console(job=j)
         if not console:
-            log.error("Failed to get console for periodic {}".format(repr(j)))
+            log.error("Failed to get console for job {}".format(repr(j)))
             return None
         else:
+            ansible_results = []
             finput = fileinput.FileInput(console,
                                          openhook=fileinput.hook_compressed)
             for line in finput:
@@ -118,23 +165,38 @@ class Periodic(object):
                         '[Zuul] Job complete, result: ABORTED' in line):
                     j['fail'] = True
                     j['status'] = 'ABORTED'
+                if '  Pipeline:' in line:
+                    j['pipeline'] = (pipe_re.search(line).group(1)
+                                     if pipe_re.search(line) else '')
                 if branch_re.search(line):
                     j['branch'] = branch_re.search(line).group(1)
-                try:
-                    if ('Started by user' in line or
-                            '[Zuul] Launched by' in line):
-                        start = ts_re.search(line).group(1)
-                    if "Finished: " in line or '[Zuul] Job complete' in line:
-                        end = ts_re.search(line).group(1)
-                except Exception as e:
-                    log.error(e)
-                    return None
+                if ('Started by user' in line or
+                        '[Zuul] Launched by' in line or
+                        'Triggered by Gerrit' in line or
+                        'Started by upstream' in line) and ts_re.search(line):
+                    start = ts_re.search(line).group(1)
+                if (("Finished: " in line or
+                        '[Zuul] Job complete' in line or
+                        'Performing Post build task' in line)
+                        and ts_re.search(line)):
+                    end = ts_re.search(line).group(1)
                 if ts_re.search(line):
                     last = ts_re.search(line).group(1)
+                if stat_re.search(line):
+                    ansible_results += list(stat_re.search(line).groups())
             end = end or last
             j['length'] = delta(end, start) if start and end else 0
             j['ts'] = self._parse_ts(end) if end else j['ts']
             finput.close()
+            if not j.get('branch'):
+                j['branch'] = 'master'
+            if j['status'] == "UNKNOWN" and set(ansible_results) == set(['0']):
+                j['status'] = 'SUCCESS'
+                j['fail'] = False
+            elif (j['status'] == "UNKNOWN" and
+                  set(ansible_results) != set(['0'])):
+                j['status'] = 'FAILURE'
+                j['fail'] = True
         return j
 
     def get_jobs(self):
@@ -160,7 +222,9 @@ class PeriodicJob(Job):
             status=kwargs["status"],
             length=kwargs["length"],
             timestamp=kwargs["ts"],
+            pipeline=kwargs.get('pipeline') or '',
             patch=None,
             patchset=None
         )
         self.periodic = True
+        self.branch = kwargs['branch']
