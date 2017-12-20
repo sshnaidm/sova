@@ -471,3 +471,15 @@ def get_circles(data):
     circles['green'] = '9670'
     circles['red'] = '9660'
     return circles
+
+def in_days(job, days):
+    def _day_format(x):
+        return datetime.date.strftime(x, "%m-%d")
+    if not days:
+        return True
+    today = datetime.date.today()
+    dates = []
+    for i in range(days):
+        dates.append(_day_format(today - datetime.timedelta(days=i)))
+    job_date = _day_format(job['ts'])
+    return job_date in dates

@@ -6,11 +6,14 @@ import re
 import time
 
 from lxml import etree
+from gevent import monkey
+from gevent.pool import Pool
+monkey.patch_all()  # noqa
 
 import tripleoci.config as config
 from tripleoci.config import log
 from tripleoci.patches import Job
-from tripleoci.utils import Web
+from tripleoci.utils import Web, in_days
 
 # Jobs regexps
 branch_re = re.compile(r"--release ([^ ]+)")
@@ -22,8 +25,6 @@ time_re = re.compile('^(\d+:\d+:\d+)')
 ansible_ts = re.compile('n(\w+ \d\d \w+ 20\d\d  \d\d:\d\d:\d\d)')
 stat_re = re.compile(
     r'ok=\d+\s*changed=\d+\s*unreachable=(\d+)\s*failed=(\d+)')
-pipe_re = re.compile(r'  Pipeline: (.+)')
-
 RDOCI_URL = 'https://thirdparty.logs.rdoproject.org/'
 MAIN_INDEX = 'index_downci.html'
 JENKINS_URL = 'https://rhos-jenkins.rhev-ci-vms.eng.rdu2.redhat.com'
@@ -205,8 +206,13 @@ class Periodic(object):
             jobs = self.parse_index(index)[:self.limit]
         else:
             jobs = []
-        for j in jobs:
-            raw = self._get_more_data(j)
+        jobs = [i for i in jobs if in_days(i, config.GATE_DAYS)]
+        p = Pool(20)
+        results = []
+        for k, j in enumerate(jobs):
+            results.append(p.spawn(self._get_more_data, j))
+        p.join()
+        for raw in [i.get() for i in results]:
             if raw is None:
                 log.error("Failed to process job {}".format(repr(j)))
             else:
