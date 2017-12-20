@@ -13,7 +13,7 @@ from tripleoci.patches import Job
 from tripleoci.utils import Web
 
 # Jobs regexps
-branch_re = re.compile(r"--release ([^ ]+)")
+branch_re = re.compile(r"RELEASE=([^ ]+)")
 ts_re = re.compile(r"(201\d-[01]\d-[0123]\d [012]\d:\d\d):\d\d\.\d\d\d")
 job_re = re.compile(r'(.*)-(\d+)$')
 timest_re = re.compile('\d+ \w+ 20\d\d  \d\d:\d\d:\d\d')
@@ -21,6 +21,7 @@ time_re = re.compile('^(\d+:\d+:\d+)')
 ansible_ts = re.compile('n(\w+ \d\d \w+ 20\d\d  \d\d:\d\d:\d\d)')
 stat_re = re.compile(
     r'ok=\d+\s*changed=\d+\s*unreachable=(\d+)\s*failed=(\d+)')
+pipe_re = re.compile(r'  Pipeline: (.+)')
 
 RDOCI_URL = 'https://ci.centos.org/artifacts/rdo/'
 MAIN_INDEX = 'index_rdoci.html'
@@ -38,7 +39,6 @@ class RDO_CI(object):
     def __init__(self, url=RDOCI_URL,
                  down_path=config.DOWNLOAD_PATH, limit=None):
         self.per_url = url
-
         self.down_path = down_path
         self.limit = limit
         self.jobs = self.get_jobs()
@@ -73,8 +73,11 @@ class RDO_CI(object):
         return index
 
     def _get_console(self, job):
+        console_name = config.ACTIVE_PLUGIN_CONFIG.console_name
+        if isinstance(console_name, list):
+            console_name = console_name[0]
         path = os.path.join(
-            self.down_path, job["log_hash"], "console.html.gz")
+            self.down_path, job["log_hash"], console_name)
         if os.path.exists(path):
             log.debug("Console is already here: {}".format(path))
             return path
@@ -135,32 +138,13 @@ class RDO_CI(object):
         return sorted(jobs, key=lambda x: x['ts'], reverse=True)
 
     def _parse_ts(self, ts):
-        return datetime.datetime.strptime(ts, '%H:%M:%S')
-
-    def _parse_ts_orig(self, ts):
         return datetime.datetime.strptime(ts, "%Y-%m-%d %H:%M")
 
     def _get_more_data(self, j):
         def delta(e, s):
-            return int((self._parse_ts(e) - self._parse_ts(s)).seconds / 60)
+            return (self._parse_ts(e) - self._parse_ts(s)).seconds / 60
 
-        def delta_orig(e, s):
-            return int((self._parse_ts_orig(e) -
-                        self._parse_ts_orig(s)).seconds / 60)
-
-        def delta_ts(e, s):
-            return int((e - s).seconds / 60)
-
-        def _detect_branch(s):
-            for br in config.GERRIT_BRANCHES:
-                if "/" in br:
-                    br_str = br.split("/")[1]
-                else:
-                    br_str = br
-                if br_str in s:
-                    return br
-
-        start = end = None
+        start = end = last = None
         j.update({
             'status': 'FAILURE',
             'fail': True,
@@ -188,35 +172,30 @@ class RDO_CI(object):
                         '[Zuul] Job complete, result: ABORTED' in line):
                     j['fail'] = True
                     j['status'] = 'ABORTED'
+                if '  Pipeline:' in line:
+                    j['pipeline'] = (pipe_re.search(line).group(1)
+                                     if pipe_re.search(line) else '')
                 if branch_re.search(line):
-                    branch = _detect_branch(branch_re.search(line).group(1))
-                    if branch:
-                        j['branch'] = branch
+                    j['branch'] = branch_re.search(line).group(1)
                 try:
-                    if start is None and time_re.search(line):
-                        start = time_re.search(line).group(1)
-                    if timest_re.search(line):
-                        end = time_re.search(line).group(1)
+                    if (
+                            'Started by user' in line or
+                            '[Zuul] Launched by' in line or
+                    'Started by upstream' in line):
+                        start = ts_re.search(line).group(1)
+                    if "Finished: " in line or '[Zuul] Job complete' in line:
+                        end = ts_re.search(line).group(1)
                 except Exception as e:
-                    pass
+                    log.error(e)
+                    return None
+                if ts_re.search(line):
+                    last = ts_re.search(line).group(1)
+            end = end or last
             j['length'] = delta(end, start) if start and end else 0
+            j['ts'] = self._parse_ts(end) if end else j['ts']
             finput.close()
             if not j.get('branch'):
                 j['branch'] = 'master'
-            if j['length'] == 0:
-                with gzip.open(console) as f:
-                    text = str(f.read())
-                ans_ts = ansible_ts.findall(text)
-                if ans_ts:
-                    start = datetime.datetime.strptime(ans_ts[0],
-                                                       '%A %d %B %Y %H:%M:%S')
-                    j['length'] = delta_ts(j['ts'], start) + 300
-                    if list(set(stat_re.findall(text))) == [('0', '0')]:
-                        j['status'] = 'SUCCESS'
-                        j['fail'] = False
-                if "Build step 'Execute shell' marked build as failur" in text:
-                    j['status'] = 'FAILURE'
-                    j['fail'] = True
         return j
 
     def get_jobs(self):
@@ -242,6 +221,7 @@ class RDOCIJob(Job):
             status=kwargs["status"],
             length=kwargs["length"],
             timestamp=kwargs["ts"],
+            pipeline=kwargs.get('pipeline') or '',
             patch=None,
             patchset=None
         )

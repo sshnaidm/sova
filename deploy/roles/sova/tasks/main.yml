@@ -37,10 +37,15 @@
 - name: Install python packages with pip
   pip:
     name:
-      - docker-compose
       - docker
       - requests
       - ansible
+  become: yes
+
+- name: Install python packages with pip
+  pip:
+    name: docker-compose
+    version: 1.15.0
   become: yes
 
 - name: Find out docker group name

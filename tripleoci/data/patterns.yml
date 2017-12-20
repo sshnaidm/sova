@@ -42,7 +42,7 @@ regexes:
     name: "oooq_image_build_fail"
   - regex: 'undercloud-install.sh 2>&1 .*"rc": 1'
     name: "oooq_undercloud_fail"
-  - regex: '^.*"cmd": "(?:set -o pipefail && )*([^\s]*).*"rc": 1.*\n(?!.*ignoring).*'
+  - regex: '^.*"cmd": "(?:set -o pipefail && )*([^\s]*).*"rc": [^0]+.*\n(?!.*ignoring).*'
     name: "oooq_command_fail"
     multiline: true
   - regex: '^.*"cmd": ".* (tempest_output\.log).*"rc": 1.*\n(?!.*ignoring).*'
@@ -53,6 +53,10 @@ regexes:
     name: "playbook_err_re"
   - regex: 'fatal: .* FAILED! =>.*"msg": .* ([^\s]+) is undefined"'
     name: "ansible_und_err"
+  - regex: "can't read ([^ ]+): No such file or directory"
+    name: "missing_file"
+  - regex: ' Could not install requirement ([^\s]+) from'
+    name: "pip_install_fail"
 patterns:
   "console":
     - id: 1
@@ -346,7 +350,7 @@ patterns:
       pattern: "oooq_validate_fail"
       tag: "code"
     - id: 60
-      logstash: "oooq_command_fail"
+      logstash: ""
       msg: "{} fail."
       pattern: "oooq_command_fail"
       tag: "code"
@@ -410,6 +414,26 @@ patterns:
       pattern: "testenv-client - INFO - Received job : Failed creating OVB stack"
       tag: "infra"
       logstash: "testenv-client - INFO - Received job : Failed creating OVB stack"
+    - id: 73
+      msg: "{} file missing."
+      pattern: "missing_file"
+      tag: "infra"
+      logstash: "can't read {}: No such file or directory"
+    - id: 74
+      msg: "Pip install FAIL."
+      pattern: "pip_install_fail"
+      tag: "infra"
+      logstash: "| Could not install requirement"
+    - id: 75
+      msg: "Hardlink copy FAIL."
+      pattern: "Invalid cross-device link"
+      tag: "infra"
+      logstash: "Invalid cross-device link"
+    - id: 76
+      msg: "Forced to stop."
+      pattern: ": exit_value=143"
+      tag: "infra"
+      logstash: ": exit_value=143"
   "postci":
     - id: 200
       logstash: "puppet_re"

@@ -14,7 +14,6 @@ from requests import ConnectionError
 from requests.exceptions import Timeout
 from six.moves.urllib.parse import quote
 import tripleoci.config as config
-from tripleoci.config import ACTIVE_PLUGIN_CONFIG
 from tripleoci.config import log
 
 
@@ -183,8 +182,8 @@ class JobFile(object):
         if not os.path.exists(self.job_dir):
             os.makedirs(self.job_dir)
         # /logs/undercloud.tar.gz//var/log/nova/nova-compute.log
-        self.file_link = file_link or ACTIVE_PLUGIN_CONFIG.console_name
-        self.file_url = job.log_url + self.file_link.split("//")[0]
+        self.file_link = file_link
+        self.file_url = job.log_url + "/" + self.file_link.split("//")[0]
         self.file_path = None
         self.build = build
         self.file_name = None
@@ -237,7 +236,7 @@ class JobFile(object):
     def get_regular_file(self):
         log.debug("Get regular file {}".format(self.file_link))
         self.file_name = os.path.basename(
-            self.file_link).split(".gz")[0] + ".gz"
+            self.file_link).rstrip(".gz") + ".gz"
         self.file_path = os.path.join(self.job_dir, self.file_name)
         if os.path.exists(self.file_path):
             log.debug("File {} is already downloaded".format(self.file_path))
@@ -245,9 +244,9 @@ class JobFile(object):
             return None
         else:
             if "." not in self.file_url.split("/")[-1]:
-                file_try1 = self.file_url
-            else:
                 file_try1 = self.file_url + ".gz"
+            else:
+                file_try1 = self.file_url
             web = Web(url=file_try1)
             req = web.get(ignore404=True)
             if req is None or int(req.status_code) == 404:
@@ -468,4 +467,7 @@ def get_circles(data):
             circles[job] = 'green'
         elif jobs_set == set(['FAILURE']):
             circles[job] = 'red'
+    circles['orange'] = '9632'
+    circles['green'] = '9670'
+    circles['red'] = '9660'
     return circles

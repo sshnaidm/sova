@@ -32,53 +32,14 @@ PROJECTS = (
     'openstack/tripleo-incubator',
     'openstack/tripleo-puppet-elements',
     'openstack/tripleo-docs',
-    'openstack/tripleo-quickstart',
     'openstack/tripleo-specs',
     'openstack/tripleo-ui',
     '^openstack/puppet-.*',
-    # Non-TripleO repositories
-    'openstack/neutron',
-    'openstack/nova',
-    'openstack/aodh',
-    'openstack/barbican',
-    'openstack/ceilometer',
-    'openstack/congress',
-    'openstack/ec2api',
-    'openstack/gnocchi',
-    'openstack/heat',
-    'openstack/ironic',
-    'openstack/keystone',
-    'openstack/mistral',
-    'openstack/osc-lib',
-    'openstack/panko',
-    'openstack/python-openstackclient',
-    'openstack/python-neutronclient',
-    'openstack/tacker',
-    'openstack/zaqar',
+
 )
 
 PERIODIC_LOGS_URL = 'http://logs.openstack.org/periodic'
-PERIODIC_URLS = [
-    PERIODIC_LOGS_URL + ('/periodic-tripleo-ci-centos-7-'
-                         'ovb-1ctlr_1comp_1ceph-featureset024'),
-    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-fakeha-caserver',
-    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-oooq',
-    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-ocata-oooq',
-    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-ha-newton-oooq',
-    PERIODIC_LOGS_URL + '/periodic-tripleo-ci-centos-7-ovb-nonha-containers',
-    PERIODIC_LOGS_URL +
-    '/periodic-tripleo-ci-centos-7-ovb-nonha-tempest-oooq-ocata',
-    PERIODIC_LOGS_URL +
-    '/periodic-tripleo-ci-centos-7-ovb-nonha-tempest-oooq-master',
-    PERIODIC_LOGS_URL +
-    '/periodic-tripleo-ci-centos-7-scenario001-multinode-oooq',
-    PERIODIC_LOGS_URL +
-    '/periodic-tripleo-ci-centos-7-scenario002-multinode-oooq',
-    PERIODIC_LOGS_URL +
-    '/periodic-tripleo-ci-centos-7-scenario003-multinode-oooq',
-    PERIODIC_LOGS_URL +
-    '/periodic-tripleo-ci-centos-7-scenario004-multinode-oooq',
-]
+PERIODIC_URLS = []
 
 DOWNLOAD_PATH = os.environ.get('OPENSHIFT_DATA_DIR',
                                os.path.join(os.environ["HOME"], "ci_status"))
@@ -110,141 +71,92 @@ GERRIT_BRANCHES = ("master", "stable/newton", "stable/ocata", "stable/pike")
 PERIODIC_DAYS = 14
 GATE_DAYS = 14
 CIRCLE = 3
-TRACKED_JOBS = (
-    "gate-tripleo-ci-centos-7-ovb-ha",
-    "gate-tripleo-ci-centos-7-ovb-nonha",
-    "gate-tripleo-ci-centos-7-ovb-updates",
-
-    "gate-tripleo-ci-centos-7-ovb-ha-oooq",
-    "gate-tripleo-ci-centos-7-ovb-ha-oooq-ocata",
-    "gate-tripleo-ci-centos-7-ovb-ha-oooq-newton",
-    "gate-tripleo-ci-centos-7-ovb-containers-oooq-nv",
-    "gate-tripleo-ci-centos-7-ovb-containers-oooq",
-
-    "gate-tripleo-ci-centos-7-nonha-multinode-oooq",
-    "gate-tripleo-ci-centos-7-nonha-multinode-oooq-nv",
-    "gate-tripleo-ci-centos-7-scenario001-multinode-oooq",
-    "gate-tripleo-ci-centos-7-scenario002-multinode-oooq",
-    "gate-tripleo-ci-centos-7-scenario003-multinode-oooq",
-    "gate-tripleo-ci-centos-7-scenario004-multinode-oooq",
-    "gate-tripleo-ci-centos-7-scenario005-multinode-oooq",
-
-    "gate-tripleo-ci-centos-7-scenario001-multinode-oooq-puppet",
-    "gate-tripleo-ci-centos-7-scenario002-multinode-oooq-puppet",
-    "gate-tripleo-ci-centos-7-scenario003-multinode-oooq-puppet",
-    "gate-tripleo-ci-centos-7-scenario004-multinode-oooq-puppet",
-    "gate-tripleo-ci-centos-7-scenario005-multinode-oooq-puppet",
-    "gate-tripleo-ci-centos-7-scenario001-multinode-oooq-puppet-nv",
-    "gate-tripleo-ci-centos-7-scenario002-multinode-oooq-puppet-nv",
-
-    "gate-tripleo-ci-centos-7-scenario001-multinode-upgrades-nv",
-    "gate-tripleo-ci-centos-7-scenario002-multinode-upgrades-nv",
-    "gate-tripleo-ci-centos-7-scenario003-multinode-upgrades-nv",
-    "gate-tripleo-ci-centos-7-scenario004-multinode-upgrades-nv",
-
-    "gate-tripleo-ci-centos-7-scenario001-multinode-oooq-container",
-    "gate-tripleo-ci-centos-7-scenario002-multinode-oooq-container",
-    "gate-tripleo-ci-centos-7-scenario003-multinode-oooq-container",
-    "gate-tripleo-ci-centos-7-scenario004-multinode-oooq-container",
-
-    "gate-tripleo-ci-centos-7-scenario001-multinode-oooq-container-upgrades",
-    "gate-tripleo-ci-centos-7-scenario002-multinode-oooq-container-upgrades",
-    "gate-tripleo-ci-centos-7-scenario003-multinode-oooq-container-upgrades",
-    "gate-tripleo-ci-centos-7-scenario004-multinode-oooq-container-upgrades",
-
-    "gate-tripleo-ci-centos-7-containers-multinode-nv",
-    "gate-tripleo-ci-centos-7-containers-multinode",
-    "gate-tripleo-ci-centos-7-nonha-multinode-updates-nv",
-    "gate-tripleo-ci-centos-7-3nodes-multinode-nv",
-    "gate-tripleo-ci-centos-7-multinode-upgrades-nv",
-    "gate-tripleo-ci-centos-7-multinode-upgrades",
-    "gate-tripleo-ci-centos-7-containers-multinode-upgrades-nv",
-    "gate-tripleo-ci-centos-7-containers-multinode-upgrades",
-
-    "gate-tripleo-ci-centos-7-undercloud-oooq",
-    "gate-tripleo-ci-centos-7-undercloud-upgrades-nv",
-    "gate-tripleo-ci-centos-7-undercloud-containers",
-    "gate-tripleo-ci-centos-7-undercloud-containers-nv",
-
-    "gate-tripleo-ci-centos-7-ovb-fakeha-caserver",
-    "gate-tripleo-ci-centos-7-ovb-ha-tempest-oooq",
-
-    "gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024"
-)
-RDOCI_JOBS = (
-    'rdo-delorean-promote-newton',
-    'rdo-promote-build-images-master',
-    'rdo-promote-get-hash-master',
-    'rdo-promote-get-hash-master-current-tripleo',
-    'rdo-promote-get-hash-ocata-current-triple',
-    'rdo_trunk-promote-master-current-tripleo',
-    'rdo_trunk-promote-ocata-current-tripleo',
-    'tqe-containers-gate-master-tripleo-ci-delorean-full-containers_minimal',
-    'tripleo-dlrn-promote',
-    'tripleo-dlrn-promote-ocata',
-    ('tripleo-quickstart-extras-gate-master-tripleo-'
-     'ci-delorean-full-minimal_pacemaker'),
-    'tripleo-quickstart-extras-gate-newton-delorean-full-minimal',
-    'tripleo-quickstart-gate-master-delorean-full-minimal',
-    'tripleo-quickstart-gate-master-delorean-quick-basic',
-    'tripleo-quickstart-gate-master-full-images',
-    'tripleo-quickstart-gate-master-tripleo-ci-delorean-full-minimal',
-    'tripleo-quickstart-gate-newton-delorean-full-minimal_pacemaker',
-    'tripleo-quickstart-gate-newton-delorean-quick-basic',
-    'tripleo-quickstart-gate-ocata-delorean-full-minimal',
-    'tripleo-quickstart-gate-ocata-delorean-quick-basic',
-    'tripleo-quickstart-gate-ocata-full-images',
-    'tripleo-quickstart-periodic-master-delorean-images-minimal_pacemaker',
-    'tripleo-quickstart-periodic-newton-delorean-ooo-snap-minimal',
-    'tripleo-quickstart-promote-master-build-images',
-    'tripleo-quickstart-promote-master-current-tripleo-delorean-minimal',
-    ('tripleo-quickstart-promote-master-current-tripleo-delorean-'
-     'minimal_pacemaker'),
-    'tripleo-quickstart-promote-master-delorean-minimal',
-    'tripleo-quickstart-promote-master-delorean-minimal_pacemaker',
-    'tripleo-quickstart-promote-newton-cloudsig-stable-build-images',
-    'tripleo-quickstart-promote-newton-cloudsig-stable-minimal',
-    'tripleo-quickstart-promote-newton-cloudsig-stable-minimal_pacemaker',
-    'tripleo-quickstart-promote-newton-cloudsig-testing-build-images',
-    'tripleo-quickstart-promote-newton-cloudsig-testing-minimal',
-    'tripleo-quickstart-promote-newton-cloudsig-testing-minimal_pacemaker',
-    'tripleo-quickstart-promote-newton-delorean-build-images',
-    'tripleo-quickstart-promote-newton-delorean-minimal',
-    'tripleo-quickstart-promote-newton-delorean-minimal_pacemaker',
-    'tripleo-quickstart-promote-ocata-build-images',
-    'tripleo-quickstart-promote-ocata-cloudsig-stable-build-images',
-    'tripleo-quickstart-promote-ocata-cloudsig-stable-minimal_pacemaker',
-    'tripleo-quickstart-promote-ocata-cloudsig-testing-build-images',
-    'tripleo-quickstart-promote-ocata-cloudsig-testing-minimal',
-    'tripleo-quickstart-promote-ocata-cloudsig-testing-minimal_pacemaker',
-    'tripleo-quickstart-promote-ocata-rdo_trunk-minimal',
-    'tripleo-quickstart-promote-ocata-rdo_trunk-minimal_pacemaker',
-    'tripleo-quickstart-upgrade-major-mitaka-to-master',
-    'weirdo-master-promote-packstack-scenario001',
-    'weirdo-master-promote-packstack-scenario002',
-    'weirdo-master-promote-packstack-scenario003',
-    'weirdo-master-promote-puppet-openstack-scenario001',
-    'weirdo-master-promote-puppet-openstack-scenario002',
-    'weirdo-master-promote-puppet-openstack-scenario003',
-    'weirdo-master-promote-puppet-openstack-scenario004',
-    'weirdo-ocata-promote-packstack-scenario001',
-    'weirdo-ocata-promote-packstack-scenario002',
-    'weirdo-ocata-promote-packstack-scenario003',
-    'weirdo-ocata-promote-puppet-openstack-scenario001',
-    'weirdo-ocata-promote-puppet-openstack-scenario002',
-    'weirdo-ocata-promote-puppet-openstack-scenario003',
-    'weirdo-ocata-promote-puppet-openstack-scenario004'
-)
-TRIPLEOCI = {
-    'console': '/console.html',
-    'postci': '/logs/postci.txt',
-    'ironic-conductor': '/logs/undercloud/var/log/ironic/ironic-conductor.txt',
-    'syslog': '/logs/undercloud/var/log/messages',
-    'logstash': '/logs/undercloud/var/log/extra/logstash.txt'
+COLUMNED_TRACKED_JOBS = {
+    "Newton": [
+        'rdo-delorean-promote-newton',
+        'tripleo-quickstart-gate-newton-delorean-full-minimal_pacemaker',
+        'tripleo-quickstart-gate-newton-delorean-quick-basic',
+        'tripleo-quickstart-periodic-newton-delorean-ooo-snap-minimal',
+        'tripleo-quickstart-promote-newton-cloudsig-stable-build-images',
+        'tripleo-quickstart-promote-newton-cloudsig-stable-minimal',
+        'tripleo-quickstart-promote-newton-cloudsig-stable-minimal_pacemaker',
+        'tripleo-quickstart-promote-newton-cloudsig-testing-build-images',
+        'tripleo-quickstart-promote-newton-cloudsig-testing-minimal',
+        'tripleo-quickstart-promote-newton-cloudsig-testing-minimal_pacemaker',
+        'tripleo-quickstart-promote-newton-delorean-build-images',
+        'tripleo-quickstart-promote-newton-delorean-minimal',
+        'tripleo-quickstart-promote-newton-delorean-minimal_pacemaker',
+    ],
+    "Ocata": [
+        'rdo-promote-get-hash-ocata-current-triple',
+        'rdo_trunk-promote-ocata-current-tripleo',
+        'tripleo-dlrn-promote-ocata',
+        'tripleo-quickstart-gate-ocata-delorean-full-minimal',
+        'tripleo-quickstart-gate-ocata-delorean-quick-basic',
+        'tripleo-quickstart-gate-ocata-full-images',
+        'tripleo-quickstart-promote-ocata-build-images',
+        'tripleo-quickstart-promote-ocata-cloudsig-stable-build-images',
+        'tripleo-quickstart-promote-ocata-cloudsig-stable-minimal_pacemaker',
+        'tripleo-quickstart-promote-ocata-cloudsig-testing-build-images',
+        'tripleo-quickstart-promote-ocata-cloudsig-testing-minimal',
+        'tripleo-quickstart-promote-ocata-cloudsig-testing-minimal_pacemaker',
+        'tripleo-quickstart-promote-ocata-rdo_trunk-minimal',
+        'tripleo-quickstart-promote-ocata-rdo_trunk-minimal_pacemaker',
+        'weirdo-ocata-promote-packstack-scenario001',
+        'weirdo-ocata-promote-packstack-scenario002',
+        'weirdo-ocata-promote-packstack-scenario003',
+        'weirdo-ocata-promote-puppet-openstack-scenario001',
+        'weirdo-ocata-promote-puppet-openstack-scenario002',
+        'weirdo-ocata-promote-puppet-openstack-scenario003',
+        'weirdo-ocata-promote-puppet-openstack-scenario004'
+    ],
+    "Pike": [
+        "tripleo-quickstart-promote-pike-rdo_trunk-minimal",
+        "tripleo-quickstart-promote-pike-rdo_trunk-minimal_pacemaker",
+        "weirdo-pike-promote-packstack-scenario001",
+        "weirdo-pike-promote-packstack-scenario002",
+        "weirdo-pike-promote-packstack-scenario003",
+        "weirdo-pike-promote-puppet-openstack-scenario001",
+        "weirdo-pike-promote-puppet-openstack-scenario002",
+        "weirdo-pike-promote-puppet-openstack-scenario003",
+        "weirdo-pike-promote-puppet-openstack-scenario004",
+    ],
+    "Master": [
+        'rdo-promote-build-images-master',
+        'rdo-promote-get-hash-master',
+        'rdo-promote-get-hash-master-current-tripleo',
+        'rdo_trunk-promote-master-current-tripleo',
+        'tripleo-quickstart-gate-master-delorean-full-minimal',
+        'tripleo-quickstart-gate-master-delorean-quick-basic',
+        'tripleo-quickstart-gate-master-full-images',
+        'tripleo-quickstart-gate-master-tripleo-ci-delorean-full-minimal',
+        'tripleo-quickstart-periodic-master-delorean-images-minimal_pacemaker',
+        'tripleo-quickstart-promote-master-build-images',
+        'tripleo-quickstart-promote-master-current-tripleo-delorean-minimal',
+        ('tripleo-quickstart-promote-master-current-tripleo-delorean-'
+        'minimal_pacemaker'),
+        'tripleo-quickstart-promote-master-delorean-minimal',
+        'tripleo-quickstart-promote-master-delorean-minimal_pacemaker',
+        'tripleo-quickstart-upgrade-major-mitaka-to-master',
+        'weirdo-master-promote-packstack-scenario001',
+        'weirdo-master-promote-packstack-scenario002',
+        'weirdo-master-promote-packstack-scenario003',
+        'weirdo-master-promote-puppet-openstack-scenario001',
+        'weirdo-master-promote-puppet-openstack-scenario002',
+        'weirdo-master-promote-puppet-openstack-scenario003',
+        'weirdo-master-promote-puppet-openstack-scenario004',
+    ],
+    "Patches": [
+        ('tqe-containers-gate-master-tripleo-ci-delorean-'
+         'full-containers_minimal'),
+        'tripleo-quickstart-extras-gate-newton-delorean-full-minimal',
+        ('tripleo-quickstart-extras-gate-master-tripleo-'
+         'ci-delorean-full-minimal_pacemaker'),
+    ]
 }
 
 RDOCI = {
-    'console': '/console.txt',
+    'console': '/console.txt.gz',
     "postci": '/undercloud/var/log/extra/logstash.txt',
     'ironic-conductor': '/undercloud/var/log/ironic/ironic-conductor.txt',
     'syslog': '/undercloud/var/log/messages',
@@ -253,21 +165,11 @@ RDOCI = {
 }
 
 PLUGIN = RDOCI
-PLUGIN_JOBS = RDOCI_JOBS
-
+TRACKED_JOBS = [k for i in COLUMNED_TRACKED_JOBS.values() for k in i]
+PLUGIN_JOBS = TRACKED_JOBS
 
 class PLUGIN_RDOCI_CONFIG:
-    console_name = 'console.txt'
+    console_name = 'console.txt.gz'
     main_index_timeout = 1100
 
-
-class PLUGIN_TRIPLEOCI_CONFIG:
-    console_name = 'console.html'
-
 ACTIVE_PLUGIN_CONFIG = PLUGIN_RDOCI_CONFIG
-COLUMNS = [
-    {'Master-gate': 'master'}
-]
-COLUMNS += [{
-    i.replace('stable/', '').capitalize() + "-gate": i.replace('stable/', '')}
-    for i in GERRIT_BRANCHES if "stable" in i]

@@ -5,9 +5,13 @@ from gevent import monkey
 from gevent.pool import Pool
 monkey.patch_all()  # noqa
 
-from tripleoci.config import log, PATTERN_FILE, PLUGIN
+from tripleoci.config import ACTIVE_PLUGIN_CONFIG
+from tripleoci.config import log
+from tripleoci.config import PATTERN_FILE
+from tripleoci.config import PLUGIN
 from tripleoci.patterns import Pattern
-from tripleoci.utils import JobFile, urlize_logstash
+from tripleoci.utils import JobFile
+from tripleoci.utils import urlize_logstash
 
 DEBUG = False
 
@@ -76,7 +80,14 @@ def analyze(job, down_path, num):
         message['reason'] = False
         message['tags'] = ['']
         return message
-    console = JobFile(job, path=down_path, offline=DEBUG).get_file()
+    console_names = ACTIVE_PLUGIN_CONFIG.console_name
+    if not isinstance(console_names, list):
+        console_names = [console_names]
+    for console_name in console_names:
+        console = JobFile(job, path=down_path, file_link=console_name,
+                          offline=DEBUG).get_file()
+        if console:
+            break
 
     if not console:
         message['text'] = 'Failed to fetch logs'

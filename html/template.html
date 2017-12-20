@@ -21,7 +21,7 @@
     <!-- JQuery Datatables.net CSS -->
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
 
-    <title>RDO jobs</title>
+    <title>RDO CI jobs</title>
 
 <script type="text/javascript">
       google.charts.load("current", {packages:["corechart"]});
@@ -38,30 +38,32 @@
 
 <div class="page-header" align="center">
     <h3>
-        <a href="https://etherpad.openstack.org/p/tripleo-ci-status">RDO CI current status</a>
+        <a href="http://cistatus.tripleo.org">TripleO CI check jobs</a>
     </h3>
+    <h3>
+        <a href="http://cistatus.tripleo.org:8000">TripleO CI gate jobs</a>
+    </h3>
+    <h3>
+        <a href="http://38.145.34.234/">TripleO CI promotion jobs</a>
+    </h3>
+    <h3>
+        <a href="http://38.145.34.234/">TripleO CI upgrades jobs</a>
+    </h3>
+    <br>
+    <h2><u>
+        RDO CI phase1 jobs
+    </u></h2>
 </div>
 
 <div class="tabbable boxed parentTabs">
 
 
-    <ul class="nav nav-tabs">
-        {% for data in (ci, ) %}
-            {% set dataloop = loop %}
 
-                {% if data==periodic %}
-                    <li><a href="#periodictab"><h2>Periodic jobs</h2></a></li>
-                {% set main=periodic_stats %}{% set key='periodic' %}
-                {% else %}
-                    <li class="active"><a href="#citab"><h2>RDO CI jobs</h2></a></li>
-                {% set main=ci_stats %}{% set key='ci' %}
-                {% endif %}
-
-        {% endfor %}
-    </ul>
+        {% set main=ci_stats %}{% set key='ci' %}
 
 
-    <div class="tab-content">
+
+    <div class="content">
     {% for data in (ci, ) %}
         {% if data==periodic %}{% set main=periodic_stats %}{% set key='periodic' %}
         {% else %}{% set main=ci_stats %}{% set key='ci' %}
@@ -95,7 +97,7 @@
 
                         <div id="{{ key }}" class="tab-pane fade{% if rowloop.first and loop.first%} in active{%  endif %}">
                         <div class="panel panel-default">
-                            <div class="panel-heading "><h4>{{ key }}</h4></div>
+                            <div class="panel-heading "><h4>{{ key|replace('pgate-', '') }}</h4></div>
                             <div class="panel-body">
                             <i>{{ key }}</i><br>
 
@@ -110,7 +112,6 @@
                     {% endfor %}
                 <hr>
                 </div>
-
         </div>
         </div>
                 {% endfor %}
