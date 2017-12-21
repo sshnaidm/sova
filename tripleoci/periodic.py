@@ -1,6 +1,7 @@
 import datetime
 import fileinput
 import gzip
+import json
 import os
 import re
 import time
@@ -74,6 +75,40 @@ class Periodic(object):
                 f.write(req.content)
             index = req.content
         return index
+
+    def _get_jenkins_json(self, job):
+        path = os.path.join(
+            self.down_path, job["log_hash"], "json.gz")
+        if os.path.exists(path):
+            log.debug("JSON is already here: {}".format(path))
+            with gzip.open(path, "rt") as f:
+                result = json.loads(f.read())
+            return result
+        elif os.path.exists(path + "_404"):
+            return None
+        json_url = os.path.join(
+            JENKINS_URL,
+            'job',
+            job['name'],
+            job['build_number'],
+            'api', 'json')
+        js_www = Web(url=json_url)
+        js_web = js_www.get(ignore404=False)
+        if js_web and js_web.ok:
+            try:
+                json_data = js_web.json()
+            except Exception as e:
+                log.warn("Can't parse JSON from {} - {}".format(
+                    json_url, str(e)))
+                return None
+            if not os.path.exists(os.path.dirname(path)):
+                os.makedirs(os.path.dirname(path))
+            with gzip.open(path, "wt") as f:
+                f.write(json.dumps(json_data))
+            return json_data
+        elif js_web and js_web.status_code == 404:
+            open(path + "_404", "a").close()
+        return None
 
     def _get_logs_console(self, job, jenkins_console=False):
         console_names = config.ACTIVE_PLUGIN_CONFIG.console_name
@@ -149,7 +184,6 @@ class Periodic(object):
             log.error("Failed to get console for job {}".format(repr(j)))
             return None
         else:
-            ansible_results = []
             finput = fileinput.FileInput(console,
                                          openhook=fileinput.hook_compressed)
             for line in finput:
@@ -183,21 +217,26 @@ class Periodic(object):
                     end = ts_re.search(line).group(1)
                 if ts_re.search(line):
                     last = ts_re.search(line).group(1)
-                if stat_re.search(line):
-                    ansible_results += list(stat_re.search(line).groups())
             end = end or last
             j['length'] = delta(end, start) if start and end else 0
             j['ts'] = self._parse_ts(end) if end else j['ts']
             finput.close()
             if not j.get('branch'):
                 j['branch'] = 'master'
-            if j['status'] == "UNKNOWN" and set(ansible_results) == set(['0']):
-                j['status'] = 'SUCCESS'
-                j['fail'] = False
-            elif (j['status'] == "UNKNOWN" and
-                  set(ansible_results) != set(['0'])):
-                j['status'] = 'FAILURE'
-                j['fail'] = True
+            if j['status'] == "UNKNOWN":
+                json_data = self._get_jenkins_json(j)
+                if json_data:
+                    j['length'] = int(int(json_data["duration"]) / 1000)
+                    if json_data["result"] != "SUCCESS":
+                        j['status'] = 'FAILURE'
+                        j['fail'] = True
+                    else:
+                        j['status'] = 'SUCCESS'
+                        j['fail'] = False
+                else:
+                    j['status'] = 'FAILURE'
+                    j['fail'] = True
+
         return j
 
     def get_jobs(self):
