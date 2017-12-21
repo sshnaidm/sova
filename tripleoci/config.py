@@ -151,10 +151,13 @@ COLUMNED_TRACKED_JOBS = {
         "gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-pike",
         "gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-ocata",
         "gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-newton",
+        "gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike-branch",
+        "gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata-branch",
+        "gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-newton-branch",
         "gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-ocata",
         "gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-pike",
         "gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-master",
-        "gate-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-master"
+        "gate-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-master",
     ],
     "RDO cloud upgrades": [
         "gate-tripleo-ci-centos-7-containers-multinode-upgrades-master",
