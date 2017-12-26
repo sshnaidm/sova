@@ -55,6 +55,8 @@ regexes:
     name: "missing_file"
   - regex: ' Could not install requirement ([^\s]+) from'
     name: "pip_install_fail"
+  - regex: 'fatal:.*FAILED! .*undercloud.qcow2.*convert_image.sh'
+    name: "convert_fail_re"
 patterns:
   "console":
     - id: 1
@@ -427,6 +429,11 @@ patterns:
       pattern: ": exit_value=143"
       tag: "infra"
       logstash: ": exit_value=143"
+    - id: 77
+      msg: "Image convert to undercloud FAILED."
+      pattern: "convert_fail_re"
+      tag: "code"
+      logstash: ""
   "postci":
     - id: 200
       logstash: "puppet_re"
