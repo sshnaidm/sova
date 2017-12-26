@@ -193,7 +193,9 @@ class Periodic(object):
                     j['fail'] = False
                     j['status'] = 'SUCCESS'
                 elif ("Finished: FAILURE" in line or
-                        '[Zuul] Job complete, result: FAILURE' in line):
+                      "[Zuul] Job complete, result: FAILURE" in line or
+                      "Build step 'Execute shell' marked build as failure"
+                      in line):
                     j['fail'] = True
                     j['status'] = 'FAILURE'
                 elif ("Finished: ABORTED" in line or

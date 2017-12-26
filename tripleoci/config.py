@@ -80,7 +80,7 @@ else:
     SSH_PRIV_KEY = None
 INDEX_HTML = os.path.join(DOWNLOAD_PATH, "index.html")
 SSH_TIMEOUT = 120
-WEB_TIMEOUT = (3.05, 1)
+WEB_TIMEOUT = (6.05, 15)
 GERRIT_REQ_TIMEOUT = 2
 GERRIT_PATCH_LIMIT = 200
 GERRIT_HOST = "review.openstack.org"
