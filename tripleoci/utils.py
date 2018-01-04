@@ -341,15 +341,15 @@ def top(data):
 def statistics(data):
 
     def calc_today_str():
-        return datetime.date.today().strftime("%m-%d")
+        return datetime.date.today().strftime("%Y-%m-%d")
 
     def calc_yesterday_str():
         return (datetime.datetime.today() - datetime.timedelta(days=1)
-                ).date().strftime("%m-%d")
+                ).date().strftime("%Y-%m-%d")
 
     def calc_week():
         return [(datetime.datetime.today() -
-                 datetime.timedelta(days=i)).date().strftime("%m-%d")
+                 datetime.timedelta(days=i)).date().strftime("%Y-%m-%d")
                 for i in range(7)]
 
     chart_data = []
