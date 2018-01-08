@@ -127,13 +127,6 @@ COLUMNED_TRACKED_JOBS = {
         "tripleo-ci-centos-7-scenario004-multinode-oooq-container",
         "tripleo-ci-centos-7-scenario007-multinode-oooq-container",
     ],
-    "Upgrades": [
-        "tripleo-ci-centos-7-scenario001-multinode-upgrades",
-        "tripleo-ci-centos-7-scenario002-multinode-upgrades",
-        "tripleo-ci-centos-7-scenario003-multinode-upgrades",
-        "tripleo-ci-centos-7-multinode-upgrades",
-        "tripleo-ci-centos-7-containers-multinode-upgrades",
-    ],
     "Multinode": [
         "tripleo-ci-centos-7-nonha-multinode-oooq",
         "tripleo-ci-centos-7-3nodes-multinode"
