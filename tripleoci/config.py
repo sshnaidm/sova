@@ -38,6 +38,7 @@ PROJECTS = (
     '^openstack/puppet-.*',
     # Non-TripleO repositories
     'openstack/neutron',
+    'openstack/paunch',
     'openstack/nova',
     'openstack/aodh',
     'openstack/barbican',
