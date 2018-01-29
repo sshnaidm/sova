@@ -434,6 +434,11 @@ patterns:
       pattern: ": exit_value=143"
       tag: "infra"
       logstash: ": exit_value=143"
+    - id: 77
+      msg: "Containers build FAILED."
+      pattern: 'fatal: [localhost]: FAILED! => {"changed": true, "cmd": ["kolla-build"'
+      tag: "infra"
+      logstash: ""
   "postci":
     - id: 200
       logstash: "puppet_re"
