@@ -128,6 +128,10 @@ class Periodic(object):
                 if '  Pipeline:' in line:
                     j['pipeline'] = (pipe_re.search(line).group(1)
                                      if pipe_re.search(line) else '')
+                if ("Build step 'Execute shell' marked "
+                    "build as failure") in line:
+                    j['status'] = 'FAILURE'
+                    j['fail'] = True
                 if ("dlrnapi --url" in line and
                         dlrnapi_success_re.search(line)):
                     job_state = dlrnapi_success_re.search(line).group(1)
