@@ -409,11 +409,11 @@ patterns:
       pattern: "testenv-client - INFO - Received job : Failed creating OVB stack"
       tag: "infra"
       logstash: "testenv-client - INFO - Received job : Failed creating OVB stack"
-    - id: 73
-      msg: "{} file missing."
-      pattern: "missing_file"
-      tag: "infra"
-      logstash: "can't read {}: No such file or directory"
+#    - id: 73
+#      msg: "{} file missing."
+#      pattern: "missing_file"
+#      tag: "infra"
+#      logstash: "can't read {}: No such file or directory"
     - id: 74
       msg: "Pip install FAIL."
       pattern: "pip_install_fail"
@@ -433,6 +433,11 @@ patterns:
       msg: "Image convert to undercloud FAILED."
       pattern: "convert_fail_re"
       tag: "code"
+      logstash: ""
+    - id: 78
+      msg: "Containers build FAILED."
+      pattern: 'fatal: [localhost]: FAILED! => {"changed": true, "cmd": ["kolla-build"'
+      tag: "infra"
       logstash: ""
   "postci":
     - id: 200
