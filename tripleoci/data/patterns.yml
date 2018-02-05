@@ -57,6 +57,8 @@ regexes:
     name: "pip_install_fail"
   - regex: 'fatal:.*FAILED! .*undercloud.qcow2.*convert_image.sh'
     name: "convert_fail_re"
+  - regex: 'ERROR:kolla.common.utils:([^\s]+) Failed with status: error'
+    name: kolla_fail_re
 patterns:
   "console":
     - id: 1
@@ -439,6 +441,11 @@ patterns:
       pattern: 'fatal: [localhost]: FAILED! => {"changed": true, "cmd": ["kolla-build"'
       tag: "infra"
       logstash: ""
+    - id: 79
+      msg: "Container {} FAILED to build."
+      pattern: 'kolla_fail_re'
+      tag: "infra"
+      logstash: "ERROR:kolla.common.utils:{} Failed with status: error"
   "postci":
     - id: 200
       logstash: "puppet_re"
