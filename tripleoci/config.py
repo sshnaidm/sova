@@ -138,6 +138,7 @@ COLUMNED_TRACKED_JOBS = {
         PERIODIC_4H + 'periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-pike',
         PERIODIC_4H + 'periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike',
         PERIODIC_4H + 'periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset002-pike-upload',
+        PERIODIC_4H + 'periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset022-pike',
 
     ],
     'Ocata-promotion':[
