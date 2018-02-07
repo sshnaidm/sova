@@ -74,7 +74,7 @@ class Patch(object):
                 log.debug("Using cached Jenkins console: %s", file_path)
                 with gzip.open(file_path, "rt") as f:
                     return f.read()
-            elif os.path.exists(file_path+ "_404"):
+            elif os.path.exists(file_path + "_404"):
                 log.debug("Jenkins console cache is 404: %s", file_path)
                 return None
             full_url = x + "/" + "consoleText"
@@ -136,7 +136,7 @@ class Patch(object):
                     patch=self,
                     patchset=patchset,
                     timestamp=timestamp,
-                        pipeline=pipeline
+                    pipeline=pipeline
                 )
                 jobs.append(job)
         return jobs

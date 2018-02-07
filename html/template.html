@@ -38,10 +38,13 @@
 
 <div class="page-header" align="center">
     <h3>
+        <a href="http://cistatus.tripleo.org:8000">TripleO CI gate jobs</a>
+    </h3>
+    <h3>
         <a href="http://cistatus.tripleo.org/">TripleO CI gate jobs</a>
     </h3>
     <h3>
-        <a href="http://38.145.33.245/">RDO CI phase1 promotion jobs</a>
+        <a href="http://38.145.35.79/">RDO CI phase1 promotion jobs</a>
     </h3>
     <br>
     <h2><u>
@@ -91,7 +94,7 @@
 
                         <div id="{{ key }}" class="tab-pane fade{% if rowloop.first and loop.first%} in active{%  endif %}">
                         <div class="panel panel-default">
-                            <div class="panel-heading "><h4>{{ key }}</h4></div>
+                            <div class="panel-heading "><h4>{{ key|replace('pgate-', '') }}</h4></div>
                             <div class="panel-body">
                             <i>{{ key }}</i><br>
 

@@ -45,6 +45,8 @@ regexes:
   - regex: '^.*"cmd": "(?:set -o pipefail && )*([^\s]*).*"rc": [^0]+.*\n(?!.*ignoring).*'
     name: "oooq_command_fail"
     multiline: true
+  - regex: '^.*"cmd": ".* (tempest_output\.log).*"rc": 1.*\n(?!.*ignoring).*'
+    name: "oooq_tempest_fail"
   - regex: 'Error: Execution of .*yum.* returned 1: Error downloading packages'
     name: "yum_install_fail_re"
   - regex: 'ERROR! the playbook: .* could not be found'

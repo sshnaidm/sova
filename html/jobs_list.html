@@ -11,7 +11,7 @@
 
                 {% for key in jobs_list|sort %}
                     {% set keyloop = loop %}
-                    <li{%  if brloop.first and loop.first %} class="active"{% endif %}><a data-toggle="tab" href="#{{ key }}"><span style="color:{{ circles[key] }}">&#{{ circles[circles[key]] }};</span> {{ key }}</a></li><div class="clearfix"></div>
+                    <li{%  if brloop.first and loop.first %} class="active"{% endif %}><a data-toggle="tab" href="#{{ key }}"><span style="color:{{ circles[key] }}">&#{{ circles[circles[key]] }};</span> {{ key|replace('pgate-', '') }}</a></li><div class="clearfix"></div>
                 {% endfor %}
             </div>
         {% endif %}

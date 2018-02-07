@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3.5
 LABEL maintainer "sshnaidm <einarum@gmail.com>"
 LABEL name "sova"
 

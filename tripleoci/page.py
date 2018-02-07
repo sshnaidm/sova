@@ -3,8 +3,10 @@ import os
 import pickle
 
 from tripleoci import config
+from tripleoci.utils import get_circles
+from tripleoci.utils import statistics
+from tripleoci.utils import top
 from tripleoci.watchcat import meow
-from tripleoci.utils import top, statistics, get_circles
 
 
 DEBUG = False
