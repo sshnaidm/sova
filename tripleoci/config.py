@@ -37,9 +37,9 @@ PROJECTS = (
     'openstack/tripleo-ui',
     '^openstack/puppet-.*',
     # Non-TripleO repositories
-    'openstack/neutron',
+    # 'openstack/neutron',
     'openstack/paunch',
-    'openstack/nova',
+    # 'openstack/nova',
     'openstack/aodh',
     'openstack/barbican',
     'openstack/ceilometer',

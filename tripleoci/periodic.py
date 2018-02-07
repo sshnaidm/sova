@@ -15,6 +15,7 @@ from tripleoci.utils import Web
 branch_re = re.compile(r"\+ export ZUUL_BRANCH=(\S+)")
 ts_re = re.compile(r"(201\d-[01]\d-[0123]\d [012]\d:\d\d):\d\d\.\d\d\d")
 pipe_re = re.compile(r'  Pipeline: (.+)')
+dlrnapi_success_re = re.compile('--success (true|false)')
 
 
 class Periodic(object):
@@ -128,15 +129,28 @@ class Periodic(object):
                 if '  Pipeline:' in line:
                     j['pipeline'] = (pipe_re.search(line).group(1)
                                      if pipe_re.search(line) else '')
+                if ("Build step 'Execute shell' marked "
+                        "build as failure") in line:
+                    j['status'] = 'FAILURE'
+                    j['fail'] = True
+                if ("dlrnapi --url" in line and
+                        dlrnapi_success_re.search(line)):
+                    job_state = dlrnapi_success_re.search(line).group(1)
+                    if job_state == "false":
+                        j['status'] = 'FAILURE'
+                        j['fail'] = True
+                    elif job_state == "true":
+                        j['fail'] = False
+                        j['status'] = 'SUCCESS'
                 if branch_re.search(line):
                     j['branch'] = branch_re.search(line).group(1)
                 try:
                     if ('Started by user' in line or
-                            '[Zuul] Launched by' in line or
+                        '[Zuul] Launched by' in line or
                             '| PRE-RUN START' in line):
                         start = ts_re.search(line).group(1)
                     if ("|  Run completed" in line or
-                            '[Zuul] Job complete' in line or
+                       '[Zuul] Job complete' in line or
                             '| POST-RUN START' in line):
                         end = ts_re.search(line).group(1)
                 except Exception as e:
