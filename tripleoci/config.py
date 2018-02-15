@@ -173,6 +173,7 @@ COLUMNED_TRACKED_JOBS = {
         "gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-pike",
         "gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-ocata",
         "gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-newton",
+        "gate-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-queens",
         "gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike-branch",
         "gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata-branch",
         "gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-newton-branch",
@@ -182,27 +183,23 @@ COLUMNED_TRACKED_JOBS = {
         "gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-queens",
         "gate-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-master",
         "gate-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-queens",
+        "gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-master",
+        "gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-queens",
+        "gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-master-tht",
+        "gate-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-queens-tht"
+
     ],
     "RDO cloud upgrades": [
-        "gate-tripleo-ci-centos-7-containers-multinode-upgrades-master",
+        "gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike-nv",
+        "gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike-branch-nv",
+        "gate-tripleo-ci-centos-7-multinode-1ctlr-featureset045-updates-master-nv",
+        "gate-tripleo-ci-centos-7-container-to-container-upgrades-master-nv",
         "gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike",
-        "gate-tripleo-ci-centos-7-multinode-upgrades-master",
-        "gate-tripleo-ci-centos-7-multinode-upgrades-pike",
-        "gate-tripleo-ci-centos-7-multinode-upgrades-ocata",
-        "gate-tripleo-ci-centos-7-undercloud-upgrades-master",
-        "gate-tripleo-ci-centos-7-undercloud-upgrades-pike",
-        "gate-tripleo-ci-centos-7-undercloud-upgrades-ocata",
         "gate-tripleo-ci-centos-7-multinode-1ctlr-featureset012-upgrades-master",
-        "gate-tripleo-ci-centos-7-multinode-1ctlr-featureset012-upgrades-pike",
         "gate-tripleo-ci-centos-7-multinode-1ctlr-featureset014-upgrades-master",
-        "gate-tripleo-ci-centos-7-multinode-1ctlr-featureset014-upgrades-pike",
+        "gate-tripleo-ci-centos-7-multinode-upgrades-master",
+        "gate-tripleo-ci-centos-7-undercloud-upgrades-master"
     ],
-    "RDO cloud containers": [
-        "gate-tripleo-ci-centos-7-multinode-1ctlr-featureset016-master",
-        "gate-tripleo-ci-centos-7-multinode-1ctlr-featureset017-master",
-        "gate-tripleo-ci-centos-7-multinode-1ctlr-featureset018-master",
-        "gate-tripleo-ci-centos-7-multinode-1ctlr-featureset019-master",
-    ]
 }
 
 RDOCI = {
