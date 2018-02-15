@@ -122,6 +122,7 @@ COLUMNED_TRACKED_JOBS = {
         PERIODIC_4H + 'periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset019-master',
         PERIODIC_4H + 'periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-master',
         PERIODIC_4H + 'periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset002-master-upload',
+        PERIODIC_4H + 'periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset030-master',
     ],
     "Queens-promotion": [
         PERIODIC_4H + 'periodic-tripleo-centos-7-queens-containers-build',
@@ -135,6 +136,7 @@ COLUMNED_TRACKED_JOBS = {
         PERIODIC_4H + 'periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset019-queens',
         PERIODIC_4H + 'periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-queens',
         PERIODIC_4H + 'periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset002-queens-upload',
+        PERIODIC_4H + 'periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset030-queens'
     ],
     'Pike-promotion': [
         PERIODIC_24H + 'periodic-tripleo-centos-7-pike-containers-build',
