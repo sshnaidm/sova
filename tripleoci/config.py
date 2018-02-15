@@ -192,7 +192,8 @@ COLUMNED_TRACKED_JOBS = {
     "RDO cloud upgrades": [
         "gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike-nv",
         "gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike-branch-nv",
-        "gate-tripleo-ci-centos-7-multinode-1ctlr-featureset045-updates-master-nv",
+        "gate-tripleo-ci-centos-7-multinode-1ctlr-featureset037-updates-master-nv",
+        "gate-tripleo-ci-centos-7-multinode-1ctlr-featureset037-updates-master",
         "gate-tripleo-ci-centos-7-container-to-container-upgrades-master-nv",
         "gate-tripleo-ci-centos-7-containers-multinode-upgrades-pike",
         "gate-tripleo-ci-centos-7-multinode-1ctlr-featureset012-upgrades-master",
