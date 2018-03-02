@@ -1,5 +1,6 @@
 import logging
 import os
+from flask import Markup
 
 logging.basicConfig(
     format=('%(asctime)s - %(name)s - %(levelname)s - '
@@ -105,8 +106,18 @@ PERIODIC_24H = 'https://logs.rdoproject.org/openstack-periodic-24hr/'
 # PERIODIC_4H + 'periodic-tripleo-centos-7-pike-images-build',
 # PERIODIC_4H + 'periodic-tripleo-centos-7-pike-promote-consistent-to-tripleo-ci-testing',
 
+# A brief note about the column titles below...
+#
+# The bootstrap nav tab class swallows click events, so adding an onclick handler within the <a> tag
+# allows for primary click to have expected behavior, while leaving the href= in place allows for
+# right click (open in new tab/window) to also work.
+#
+# The Markup() class is part of flask that is the preferred way to annotate HTML to not be escaped
+# http://flask.pocoo.org/docs/0.12/templating/#controlling-autoescaping
+# http://flask.pocoo.org/docs/0.12/api/#flask.Markup
+
 COLUMNED_TRACKED_JOBS = {
-    "Master-promotion": [
+    Markup('''<a href="http://dashboards.rdoproject.org/master" onclick="window.location.href='http://dashboards.rdoproject.org/master'">Master-promotion</a>'''): [
         PERIODIC_4H + 'periodic-tripleo-centos-7-master-containers-build',
         # PERIODIC_4H + 'periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing',
         # PERIODIC_4H + 'periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset005-master',
@@ -124,7 +135,7 @@ COLUMNED_TRACKED_JOBS = {
         PERIODIC_4H + 'periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset002-master-upload',
         PERIODIC_4H + 'periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset030-master',
     ],
-    "Queens-promotion": [
+    Markup('''<a href="http://dashboards.rdoproject.org/queens" onclick="window.location.href='http://dashboards.rdoproject.org/queens'">Queens-promotion</a>'''): [
         PERIODIC_4H + 'periodic-tripleo-centos-7-queens-containers-build',
         # PERIODIC_4H + 'periodic-tripleo-centos-7-queens-promote-consistent-to-tripleo-ci-testing',
         PERIODIC_4H + 'periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset010-queens',
@@ -138,7 +149,7 @@ COLUMNED_TRACKED_JOBS = {
         PERIODIC_4H + 'periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset002-queens-upload',
         PERIODIC_4H + 'periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset030-queens'
     ],
-    'Pike-promotion': [
+    Markup('''<a href="http://dashboards.rdoproject.org/pike" onclick="window.location.href='http://dashboards.rdoproject.org/pike'">Pike-promotion</a>'''): [
         PERIODIC_24H + 'periodic-tripleo-centos-7-pike-containers-build',
         # PERIODIC_24H + 'periodic-tripleo-centos-7-pike-promote-consistent-to-tripleo-ci-testing',
         PERIODIC_24H + 'periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset005-pike',
@@ -157,7 +168,7 @@ COLUMNED_TRACKED_JOBS = {
         PERIODIC_24H + 'periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset022-pike',
 
     ],
-    'Ocata-promotion': [
+    Markup('''<a href="http://dashboards.rdoproject.org/ocata" onclick="window.location.href='http://dashboards.rdoproject.org/ocata'">Ocata-promotion</a>'''): [
         PERIODIC_24H + 'periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-ocata',
         PERIODIC_24H + 'periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset002-ocata-upload',
         PERIODIC_24H + 'periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata',
