@@ -87,28 +87,12 @@ GERRIT_PATCH_LIMIT = 200
 GERRIT_HOST = "review.openstack.org"
 GERRIT_PORT = 29418
 GERRIT_USER = "robo"
-GERRIT_BRANCHES = ("master", "stable/newton", "stable/ocata", "stable/pike")
+GERRIT_BRANCHES = ("master", "stable/newton", "stable/ocata", "stable/pike",
+                   "stable/queens")
 PERIODIC_DAYS = 14
 GATE_DAYS = 8
 CIRCLE = 3
 COLUMNED_TRACKED_JOBS = {
-    "OVB": [
-        "tripleo-ci-centos-7-ovb-ha-oooq",
-        "tripleo-ci-centos-7-ovb-ha-oooq-ipv6",
-        'tripleo-ci-centos-7-ovb-ha-oooq-pike',
-        "tripleo-ci-centos-7-ovb-ha-oooq-ocata",
-        "tripleo-ci-centos-7-ovb-ha-oooq-newton",
-        "tripleo-ci-centos-7-ovb-containers-oooq",
-        "tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024",
-        'tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-puppet-pike',
-        'tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-puppet-ocata',
-        ("tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-puppet"
-         "-newton"),
-        "tripleo-ci-centos-7-ovb-fakeha-caserver",
-        "tripleo-ci-centos-7-ovb-ha-tempest-oooq",
-        "tripleo-ci-centos-7-ovb-convergence-oooq",
-
-    ],
     "Scenarios": [
         "tripleo-ci-centos-7-scenario001-multinode-oooq",
         "tripleo-ci-centos-7-scenario002-multinode-oooq",
