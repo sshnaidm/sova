@@ -36,7 +36,7 @@ COPY uwsgi.ini /uwsgi.ini
 
 WORKDIR /app
 VOLUME ["/cidata"]
-VOLUME ["/logs"]
+VOLUME ["/logdir"]
 EXPOSE 8090
 
 ENTRYPOINT ["/entrypoint.sh"]
