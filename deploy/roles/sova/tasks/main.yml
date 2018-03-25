@@ -118,7 +118,7 @@
 - name: Create logs dir in mount point of docker volume
   file:
     state: directory
-    path: '{{ mount_point }}/logs'
+    path: '{{ logs_dir }}'
 
 - name: Download docker-hook
   get_url:
