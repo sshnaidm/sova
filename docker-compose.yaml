@@ -9,4 +9,5 @@ services:
       - "80:8090"
     volumes:
       - ~/cidata:/cidata:z
+      - ~/logdir:/logdir:z
     command: "-p"
