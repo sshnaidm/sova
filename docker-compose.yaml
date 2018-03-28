@@ -6,7 +6,8 @@ services:
     restart: always
     image: sshnaidm/sova:gates
     ports:
-      - "8000:8090"
+      - "80:8090"
     volumes:
       - ~/cidata:/cidata:z
+      - ~/logdir:/logdir:z
     command: "-p"

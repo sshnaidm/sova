@@ -38,6 +38,7 @@ PROJECTS = (
     '^openstack/puppet-.*',
     # Non-TripleO repositories
     'openstack/neutron',
+    'openstack/paunch',
     'openstack/nova',
     'openstack/aodh',
     'openstack/barbican',
@@ -78,7 +79,7 @@ elif os.path.exists(os.path.join(DOWNLOAD_PATH, "robi_id_rsa")):
     SSH_PRIV_KEY = os.path.join(DOWNLOAD_PATH, "robi_id_rsa")
 else:
     SSH_PRIV_KEY = None
-INDEX_HTML = os.path.join(DOWNLOAD_PATH, "index-gates.html")
+INDEX_HTML = os.path.join(DOWNLOAD_PATH, "index.html")
 SSH_TIMEOUT = 120
 WEB_TIMEOUT = (3.05, 1)
 GERRIT_REQ_TIMEOUT = 2
@@ -86,28 +87,12 @@ GERRIT_PATCH_LIMIT = 200
 GERRIT_HOST = "review.openstack.org"
 GERRIT_PORT = 29418
 GERRIT_USER = "robo"
-GERRIT_BRANCHES = ("master", "stable/newton", "stable/ocata", "stable/pike")
+GERRIT_BRANCHES = ("master", "stable/newton", "stable/ocata", "stable/pike",
+                   "stable/queens")
 PERIODIC_DAYS = 14
 GATE_DAYS = 8
 CIRCLE = 3
 COLUMNED_TRACKED_JOBS = {
-    "OVB": [
-        "tripleo-ci-centos-7-ovb-ha-oooq",
-        "tripleo-ci-centos-7-ovb-ha-oooq-ipv6",
-        'tripleo-ci-centos-7-ovb-ha-oooq-pike',
-        "tripleo-ci-centos-7-ovb-ha-oooq-ocata",
-        "tripleo-ci-centos-7-ovb-ha-oooq-newton",
-        "tripleo-ci-centos-7-ovb-containers-oooq",
-        "tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024",
-        'tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-puppet-pike',
-        'tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-puppet-ocata',
-        ("tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-puppet"
-         "-newton"),
-        "tripleo-ci-centos-7-ovb-fakeha-caserver",
-        "tripleo-ci-centos-7-ovb-ha-tempest-oooq",
-        "tripleo-ci-centos-7-ovb-convergence-oooq",
-
-    ],
     "Scenarios": [
         "tripleo-ci-centos-7-scenario001-multinode-oooq",
         "tripleo-ci-centos-7-scenario002-multinode-oooq",
@@ -126,13 +111,6 @@ COLUMNED_TRACKED_JOBS = {
         "tripleo-ci-centos-7-scenario003-multinode-oooq-container",
         "tripleo-ci-centos-7-scenario004-multinode-oooq-container",
         "tripleo-ci-centos-7-scenario007-multinode-oooq-container",
-    ],
-    "Upgrades": [
-        "tripleo-ci-centos-7-scenario001-multinode-upgrades",
-        "tripleo-ci-centos-7-scenario002-multinode-upgrades",
-        "tripleo-ci-centos-7-scenario003-multinode-upgrades",
-        "tripleo-ci-centos-7-multinode-upgrades",
-        "tripleo-ci-centos-7-containers-multinode-upgrades",
     ],
     "Multinode": [
         "tripleo-ci-centos-7-nonha-multinode-oooq",
