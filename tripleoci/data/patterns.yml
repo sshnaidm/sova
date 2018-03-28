@@ -57,6 +57,10 @@ regexes:
     name: "missing_file"
   - regex: ' Could not install requirement ([^\s]+) from'
     name: "pip_install_fail"
+  - regex: 'fatal:.*FAILED! .*undercloud.qcow2.*convert_image.sh'
+    name: "convert_fail_re"
+  - regex: 'ERROR:kolla.common.utils:([^\s]+) Failed with status: error'
+    name: kolla_fail_re
 patterns:
   "console":
     - id: 1
@@ -434,6 +438,21 @@ patterns:
       pattern: ": exit_value=143"
       tag: "infra"
       logstash: ": exit_value=143"
+    - id: 77
+      msg: "Image convert to undercloud FAILED."
+      pattern: "convert_fail_re"
+      tag: "code"
+      logstash: ""
+    - id: 78
+      msg: "Containers build FAILED."
+      pattern: 'fatal: [localhost]: FAILED! => {"changed": true, "cmd": ["kolla-build"'
+      tag: "infra"
+      logstash: ""
+    - id: 79
+      msg: "Container {} FAILED to build."
+      pattern: 'kolla_fail_re'
+      tag: "infra"
+      logstash: "ERROR:kolla.common.utils:{} Failed with status: error"
   "postci":
     - id: 200
       logstash: "puppet_re"
