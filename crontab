@@ -1,2 +1,2 @@
-0     *       *       *       *       /usr/bin/python /app/manual.py &> /logdir/manual.log
+0     *       *       *       *       /usr/bin/python /app/manual.py &> /cidata/logs/manual.log
 0     0       *       *       *       find /cidata/ -type d  -not -name "logs" -mtime +21 -exec rm -rf "{}" \; 2>&1 | tee /logdir/clean.log
