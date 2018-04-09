@@ -515,11 +515,11 @@ patterns:
       pattern: "service_fail_re"
       tag: "command_exe"
   "logstash":
-    - id: 500
-      logstash: " is not pingable."
-      msg: "Ping timeout when deploying OC."
-      pattern: " is not pingable."
-      tag: "infra"
+#    - id: 500
+#      logstash: " is not pingable."
+#      msg: "Ping timeout when deploying OC."
+#      pattern: " is not pingable."
+#      tag: "infra"
     - id: 501
       logstash: ""
       msg: "Yum download network failure."
