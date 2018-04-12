@@ -119,6 +119,8 @@ COLUMNED_TRACKED_JOBS = {
     "Undercloud": [
         "tripleo-ci-centos-7-undercloud-oooq",
         "tripleo-ci-centos-7-undercloud-containers",
+    "Update/Upgrades": [
+        "tripleo-ci-centos-7-scenario000-multinode-oooq-container-updates",
     ],
     "Images": [
         "tripleo-buildimage-overcloud-full-centos-7",
