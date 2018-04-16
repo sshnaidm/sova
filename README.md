@@ -4,11 +4,20 @@ CI jobs parsing tool
 Build status
 ---------
 
-master: [![Build Status](https://travis-ci.org/sshnaidm/sova.svg?branch=master)](https://travis-ci.org/sshnaidm/sova)
-promtest: [![Build Status](https://travis-ci.org/sshnaidm/sova.svg?branch=promtest)](https://travis-ci.org/sshnaidm/sova)
-gates: [![Build Status](https://travis-ci.org/sshnaidm/sova.svg?branch=gates)](https://travis-ci.org/sshnaidm/sova)
-rdoci: [![Build Status](https://travis-ci.org/sshnaidm/sova.svg?branch=rdoci)](https://travis-ci.org/sshnaidm/sova)
-alldownci: [![Build Status](https://travis-ci.org/sshnaidm/sova.svg?branch=alldownci)](https://travis-ci.org/sshnaidm/sova)
+master: [![Build Status](https://travis-ci.org/sshnaidm/sova.svg?branch=master)](https://travis-ci.org/sshnaidm/sova) : 
+[![Build Status CircleCI](https://circleci.com/gh/sshnaidm/sova/tree/master.png?style=shield&circle-token=79f1d228722ec0b1d5e6b28437114070d5ae169e)](https://circleci.com/gh/sshnaidm/sova)
+
+promtest: [![Build Status](https://travis-ci.org/sshnaidm/sova.svg?branch=promtest)](https://travis-ci.org/sshnaidm/sova) : 
+[![Build Status CircleCI](https://circleci.com/gh/sshnaidm/sova/tree/promtest.png?style=shield&circle-token=79f1d228722ec0b1d5e6b28437114070d5ae169e)](https://circleci.com/gh/sshnaidm/sova)
+
+gates: [![Build Status](https://travis-ci.org/sshnaidm/sova.svg?branch=gates)](https://travis-ci.org/sshnaidm/sova) : 
+[![Build Status CircleCI](https://circleci.com/gh/sshnaidm/sova/tree/gates.png?style=shield&circle-token=79f1d228722ec0b1d5e6b28437114070d5ae169e)](https://circleci.com/gh/sshnaidm/sova)
+
+rdoci: [![Build Status](https://travis-ci.org/sshnaidm/sova.svg?branch=rdoci)](https://travis-ci.org/sshnaidm/sova) : 
+[![Build Status CircleCI](https://circleci.com/gh/sshnaidm/sova/tree/rdoci.png?style=shield&circle-token=79f1d228722ec0b1d5e6b28437114070d5ae169e)](https://circleci.com/gh/sshnaidm/sova)
+
+alldownci: [![Build Status](https://travis-ci.org/sshnaidm/sova.svg?branch=alldownci)](https://travis-ci.org/sshnaidm/sova) : 
+[![Build Status CircleCI](https://circleci.com/gh/sshnaidm/sova/tree/alldownci.png?style=shield&circle-token=79f1d228722ec0b1d5e6b28437114070d5ae169e)](https://circleci.com/gh/sshnaidm/sova)
 
 Overview
 ---------
