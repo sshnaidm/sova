@@ -1,6 +1,14 @@
-====
 CI jobs parsing tool
 ====
+
+Build status
+---------
+
+master: [![Build Status](https://travis-ci.org/sshnaidm/sova.svg?branch=master)](https://travis-ci.org/sshnaidm/sova)
+promtest: [![Build Status](https://travis-ci.org/sshnaidm/sova.svg?branch=promtest)](https://travis-ci.org/sshnaidm/sova)
+gates: [![Build Status](https://travis-ci.org/sshnaidm/sova.svg?branch=gates)](https://travis-ci.org/sshnaidm/sova)
+rdoci: [![Build Status](https://travis-ci.org/sshnaidm/sova.svg?branch=rdoci)](https://travis-ci.org/sshnaidm/sova)
+alldownci: [![Build Status](https://travis-ci.org/sshnaidm/sova.svg?branch=alldownci)](https://travis-ci.org/sshnaidm/sova)
 
 Overview
 ---------
