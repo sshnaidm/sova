@@ -12,5 +12,6 @@ def hello_world():
     return send_from_directory(
         os.path.dirname(config.INDEX_HTML), 'index.html')
 
+
 if __name__ == '__main__':
     app.run("0.0.0.0", 8090, debug=True)

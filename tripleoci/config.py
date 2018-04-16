@@ -235,4 +235,5 @@ class PLUGIN_RDOCI_CONFIG:
     console_name = 'console.txt.gz'
     main_index_timeout = 1100
 
+
 ACTIVE_PLUGIN_CONFIG = PLUGIN_RDOCI_CONFIG

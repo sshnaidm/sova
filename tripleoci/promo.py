@@ -12,12 +12,12 @@ from tripleoci.patches import Job
 from tripleoci.utils import Web
 
 # Jobs regexps
-branch_re = re.compile(r"--release ([^ ]+)")
-ts_re = re.compile(r"(201\d-[01]\d-[0123]\d [012]\d:\d\d):\d\d\.\d\d\d")
+branch_re = re.compile(r'--release ([^ ]+)')
+ts_re = re.compile(r'(201\d-[01]\d-[0123]\d [012]\d:\d\d):\d\d\.\d\d\d')
 job_re = re.compile(r'(.*)-(\d+)$')
-timest_re = re.compile('\d+ \w+ 20\d\d  \d\d:\d\d:\d\d')
-time_re = re.compile('^(\d+:\d+:\d+)')
-ansible_ts = re.compile('n(\w+ \d\d \w+ 20\d\d  \d\d:\d\d:\d\d)')
+timest_re = re.compile(r'\d+ \w+ 20\d\d  \d\d:\d\d:\d\d')
+time_re = re.compile(r'^(\d+:\d+:\d+)')
+ansible_ts = re.compile(r'n(\w+ \d\d \w+ 20\d\d  \d\d:\d\d:\d\d)')
 stat_re = re.compile(
     r'ok=\d+\s*changed=\d+\s*unreachable=(\d+)\s*failed=(\d+)')
 

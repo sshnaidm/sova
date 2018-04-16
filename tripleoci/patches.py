@@ -25,6 +25,7 @@ def utc_delta():
                   datetime.datetime.utcfromtimestamp(ts)).total_seconds()
     return datetime.timedelta(seconds=utc_offset)
 
+
 UTC_OFFSET = utc_delta()
 
 
