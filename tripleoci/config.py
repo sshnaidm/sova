@@ -122,6 +122,16 @@ COLUMNED_TRACKED_JOBS = {
         "weirdo-pike-promote-puppet-openstack-scenario003",
         "weirdo-pike-promote-puppet-openstack-scenario004",
     ],
+    "Queens": [
+        "tripleo-quickstart-promote-queens-rdo_trunk-minimal",
+        "weirdo-queens-promote-packstack-scenario001",
+        "weirdo-queens-promote-packstack-scenario002",
+        "weirdo-queens-promote-packstack-scenario003",
+        "weirdo-queens-promote-puppet-openstack-scenario001",
+        "weirdo-queens-promote-puppet-openstack-scenario002",
+        "weirdo-queens-promote-puppet-openstack-scenario003",
+        "weirdo-queens-promote-puppet-openstack-scenario004",
+    ],
     "Master": [
         'rdo-promote-build-images-master',
         'rdo-promote-get-hash-master',
