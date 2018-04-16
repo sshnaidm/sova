@@ -107,10 +107,14 @@ COLUMNED_TRACKED_JOBS = {
         'sbtest-tripleo-quickstart-extras-master-rdo_trunk',
         'sbtest-tripleo-quickstart-master-rdo_trunk',
         'tripleo-quickstart-master-ci-rhos-ovb-ha-multiple-nics',
-        'tripleo-quickstart-master-rdo_trunk-baremetal-dell_fc430_envB-single_nic_vlans',
-        'tripleo-quickstart-master-rdo_trunk-baremetal-dell_pe_r630-bond_with_vlans',
-        'tripleo-quickstart-master-rdo_trunk-baremetal-hp_dl360_envD-single_nic_vlans',
-        'tripleo-quickstart-master-rdo_trunk-baremetal-hp_dl360_envE-single_nic_vlans',
+        ('tripleo-quickstart-master-rdo_trunk-baremetal-dell_fc430_envB-'
+         'single_nic_vlans'),
+        ('tripleo-quickstart-master-rdo_trunk-baremetal-dell_pe_r630-'
+         'bond_with_vlans'),
+        ('tripleo-quickstart-master-rdo_trunk-baremetal-hp_dl360_envD-'
+         'single_nic_vlans'),
+        ('tripleo-quickstart-master-rdo_trunk-baremetal-hp_dl360_envE-'
+         'single_nic_vlans'),
     ],
     "Pike": [
         'browbeat-quickstart-pike-baremetal-mixed',
@@ -125,10 +129,14 @@ COLUMNED_TRACKED_JOBS = {
         'sbtest-tripleo-quickstart-extras-pike-rdo_trunk',
         'sbtest-tripleo-quickstart-pike-rdo_trunk',
         'tripleo-quickstart-pike-ci-rhos-ovb-ha-multiple-nics',
-        'tripleo-quickstart-pike-rdo_trunk-baremetal-dell_fc430_envB-single_nic_vlans',
-        'tripleo-quickstart-pike-rdo_trunk-baremetal-dell_pe_r630-bond_with_vlans',
-        'tripleo-quickstart-pike-rdo_trunk-baremetal-hp_dl360_envD-single_nic_vlans',
-        'tripleo-quickstart-pike-rdo_trunk-baremetal-hp_dl360_envE-single_nic_vlans'
+        ('tripleo-quickstart-pike-rdo_trunk-baremetal-dell_fc430_envB-'
+         'single_nic_vlans'),
+        ('tripleo-quickstart-pike-rdo_trunk-baremetal-dell_pe_r630-'
+         'bond_with_vlans'),
+        ('tripleo-quickstart-pike-rdo_trunk-baremetal-hp_dl360_envD-'
+         'single_nic_vlans'),
+        ('tripleo-quickstart-pike-rdo_trunk-baremetal-hp_dl360_envE-'
+         'single_nic_vlans')
     ],
     "Ocata": [
         'browbeat-quickstart-gerrit-ocata-baremetal-CI',
@@ -143,11 +151,16 @@ COLUMNED_TRACKED_JOBS = {
         'rdo-ocata-promote-rdo_trunk-build-images',
         'sbtest-tripleo-quickstart-extras-ocata-rdo_trunk',
         'sbtest-tripleo-quickstart-ocata-rdo_trunk',
-        'tqe-upgrades-gate-ocata-undercloud-newton-overcloud-ci-rhos-composable_upgrade_ovb',
-        'tripleo-quickstart-ocata-rdo_trunk-baremetal-dell_fc430_envB-single_nic_vlans',
-        'tripleo-quickstart-ocata-rdo_trunk-baremetal-dell_pe_r630-bond_with_vlans',
-        'tripleo-quickstart-ocata-rdo_trunk-baremetal-hp_dl360_envD-single_nic_vlans',
-        'tripleo-quickstart-ocata-rdo_trunk-baremetal-hp_dl360_envE-single_nic_vlans',
+        ('tqe-upgrades-gate-ocata-undercloud-newton-overcloud-ci-rhos-'
+         'composable_upgrade_ovb'),
+        ('tripleo-quickstart-ocata-rdo_trunk-baremetal-dell_fc430_envB-'
+         'single_nic_vlans'),
+        ('tripleo-quickstart-ocata-rdo_trunk-baremetal-dell_pe_r630-'
+         'bond_with_vlans'),
+        ('tripleo-quickstart-ocata-rdo_trunk-baremetal-hp_dl360_envD-'
+         'single_nic_vlans'),
+        ('tripleo-quickstart-ocata-rdo_trunk-baremetal-hp_dl360_envE-'
+         'single_nic_vlans'),
     ],
     "Newton": [
         'browbeat-quickstart-newton-baremetal-mixed',
@@ -161,10 +174,14 @@ COLUMNED_TRACKED_JOBS = {
         'rdo-newton-promote-rdo_trunk-build-images',
         'sbtest-tripleo-quickstart-extras-newton-rdo_trunk',
         'sbtest-tripleo-quickstart-newton-rdo_trunk',
-        'tripleo-quickstart-newton-rdo_trunk-baremetal-dell_fc430_envB-single_nic_vlans',
-        'tripleo-quickstart-newton-rdo_trunk-baremetal-dell_pe_r630-bond_with_vlans',
-        'tripleo-quickstart-newton-rdo_trunk-baremetal-hp_dl360_envD-single_nic_vlans',
-        'tripleo-quickstart-newton-rdo_trunk-baremetal-hp_dl360_envE-single_nic_vlans',
+        ('tripleo-quickstart-newton-rdo_trunk-baremetal-dell_fc430_envB-'
+         'single_nic_vlans'),
+        ('tripleo-quickstart-newton-rdo_trunk-baremetal-dell_pe_r630-'
+         'bond_with_vlans'),
+        ('tripleo-quickstart-newton-rdo_trunk-baremetal-hp_dl360_envD-'
+         'single_nic_vlans'),
+        ('tripleo-quickstart-newton-rdo_trunk-baremetal-hp_dl360_envE-'
+         'single_nic_vlans'),
     ],
     "RHOS 8": [
         'oooq-rhos-8-poodle-bmu-hab01-lab-float_nic_with_vlans',
@@ -227,8 +244,10 @@ PLUGIN = RDOCI
 TRACKED_JOBS = [k for i in COLUMNED_TRACKED_JOBS.values() for k in i]
 PLUGIN_JOBS = TRACKED_JOBS
 
+
 class PLUGIN_RDOCI_CONFIG:
     console_name = 'console.txt.gz'
     main_index_timeout = 1100
+
 
 ACTIVE_PLUGIN_CONFIG = PLUGIN_RDOCI_CONFIG

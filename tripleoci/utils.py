@@ -472,6 +472,7 @@ def get_circles(data):
     circles['red'] = '9660'
     return circles
 
+
 def in_days(job, days):
     def _day_format(x):
         return datetime.date.strftime(x, "%m-%d")

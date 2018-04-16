@@ -49,12 +49,12 @@ def create_html():
 
         with open(
                 os.path.join(config.DOWNLOAD_PATH, "ci_data_dump"), "wb") as g:
-                pickle.dump(ci_data, g)
+            pickle.dump(ci_data, g)
     # For debug mode
     else:
         with open(
                 os.path.join(config.DOWNLOAD_PATH, "ci_data_dump"), "rb") as g:
-                ci_data = pickle.load(g)
+            ci_data = pickle.load(g)
 
     errors_top = top(ci_data)
     stats = statistics(ci_data)

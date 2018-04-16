@@ -4,7 +4,6 @@ import tripleoci.config as config
 
 from tripleoci.analysis import analyze_all
 from tripleoci.filters import Filter
-from tripleoci.patches import Patch
 from tripleoci.periodic import Periodic
 from tripleoci.utils import Gerrit
 
@@ -52,11 +51,11 @@ def meow(days=None,
         else:
             with open(config.TMP_DIR + "/gerrit-downci", "r") as f:
                 gerrit = json.loads(f.read())
-        #jobs = (job for patch in gerrit for job in Patch(patch).jobs)
+        # jobs = (job for patch in gerrit for job in Patch(patch).jobs)
         jobs = []
     else:
         jobs = (job
-            for job in Periodic(down_path=down_path, limit=limit).jobs)
+                for job in Periodic(down_path=down_path, limit=limit).jobs)
     f = Filter(
         jobs,
         days=days,
