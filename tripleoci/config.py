@@ -135,6 +135,7 @@ COLUMNED_TRACKED_JOBS = {
         PERIODIC_4H + 'periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-master',
         PERIODIC_4H + 'periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset002-master-upload',
         PERIODIC_4H + 'periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset030-master',
+        PERIODIC_4H + 'periodic-tripleo-ci-centos-7-singlenode-featureset027-master',
     ],
     Markup('''<a href="http://dashboards.rdoproject.org/queens" onclick="window.location.href='http://dashboards.rdoproject.org/queens'">Queens-promotion</a>'''): [
         PERIODIC_4H + 'periodic-tripleo-centos-7-queens-containers-build',
