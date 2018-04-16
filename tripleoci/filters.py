@@ -5,6 +5,7 @@ import tripleoci.config as config
 
 class Filter(object):
     """Class for filtering jobs to remain only requested."""
+
     def __init__(self,
                  data,
                  days=None,
@@ -111,7 +112,8 @@ class Filter(object):
         return True if not fail else job.fail
 
     def f_pipeline(self, job, pipeline):
-        if pipeline is None: return True
+        if pipeline is None:
+            return True
         return True if pipeline and job.pipeline == pipeline else False
 
     def f_exclude(self, job, exclude):

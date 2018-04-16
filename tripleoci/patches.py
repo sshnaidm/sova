@@ -24,6 +24,7 @@ def utc_delta():
                   datetime.datetime.utcfromtimestamp(ts)).total_seconds()
     return datetime.timedelta(seconds=utc_offset)
 
+
 UTC_OFFSET = utc_delta()
 
 
@@ -33,6 +34,7 @@ class Patch(object):
         Class that creates Patch object from patch data from gerrit.
         It contains various info the could be useful for reports.
     """
+
     def __init__(self, data):
         self.data = data
         self.branch = data['branch']
@@ -72,7 +74,7 @@ class Patch(object):
             if os.path.exists(file_path):
                 with gzip.open(file_path, "rt") as f:
                     return f.read()
-            elif os.path.exists(file_path+ "_404"):
+            elif os.path.exists(file_path + "_404"):
                 return None
             full_url = x + "/" + "consoleFull"
             www = Web(full_url, timeout=5)
@@ -113,7 +115,8 @@ class Patch(object):
             data2 = JOB_RE2.findall(text)
             if data2:
                 patch_num = PATCH_RE.search(text).group(1)
-                patchset = [s for s in self.sets if s.number == int(patch_num)][0]
+                patchset = [
+                    s for s in self.sets if s.number == int(patch_num)][0]
                 for j in data2:
                     log_console = _get_jenkins_console(j[1])
                     if not log_console:
@@ -147,6 +150,7 @@ class Patchset(object):
         Class that creates Patchset object from patchset data from gerrit.
         It contains various info the could be useful for reports.
     """
+
     def __init__(self, data, patch):
         self.number = int(data['number'])
         self.patchset_ctime = datetime.datetime.fromtimestamp(

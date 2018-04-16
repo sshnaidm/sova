@@ -26,6 +26,7 @@ class Periodic(object):
         job status. So it needs to download console.html for every job and
         to parse it also.
     """
+
     def __init__(self, url, down_path=config.DOWNLOAD_PATH, limit=None):
         self.per_url = url
         self.down_path = down_path
@@ -133,11 +134,11 @@ class Periodic(object):
                 try:
                     if ('Started by user' in line or
                             '[Zuul] Launched by' in line or
-                        '| PRE-RUN START' in line):
+                            '| PRE-RUN START' in line):
                         start = ts_re.search(line).group(1)
                     if ("|  Run completed" in line or
-                       '[Zuul] Job complete' in line or
-                        '| POST-RUN START' in line):
+                        '[Zuul] Job complete' in line or
+                            '| POST-RUN START' in line):
                         end = ts_re.search(line).group(1)
                 except Exception as e:
                     log.error(e)
@@ -166,6 +167,7 @@ class Periodic(object):
 
 class PeriodicJob(Job):
     """Class that contains all necessary info for periodic job."""
+
     def __init__(self, **kwargs):
         super(PeriodicJob, self).__init__(
             name=kwargs["name"],
