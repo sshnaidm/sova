@@ -24,6 +24,7 @@ def utc_delta():
                   datetime.datetime.utcfromtimestamp(ts)).total_seconds()
     return datetime.timedelta(seconds=utc_offset)
 
+
 UTC_OFFSET = utc_delta()
 
 
@@ -33,6 +34,7 @@ class Patch(object):
         Class that creates Patch object from patch data from gerrit.
         It contains various info the could be useful for reports.
     """
+
     def __init__(self, data):
         self.data = data
         self.branch = data['branch']
@@ -148,6 +150,7 @@ class Patchset(object):
         Class that creates Patchset object from patchset data from gerrit.
         It contains various info the could be useful for reports.
     """
+
     def __init__(self, data, patch):
         self.number = int(data['number'])
         self.patchset_ctime = datetime.datetime.fromtimestamp(

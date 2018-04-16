@@ -52,11 +52,11 @@ def meow(days=None,
         else:
             with open(config.TMP_DIR + "/gerrit-rdoci", "r") as f:
                 gerrit = json.loads(f.read())
-        #jobs = (job for patch in gerrit for job in Patch(patch).jobs)
+        # jobs = (job for patch in gerrit for job in Patch(patch).jobs)
         jobs = []
     else:
         jobs = (job
-            for job in Periodic(down_path=down_path, limit=limit).jobs)
+                for job in Periodic(down_path=down_path, limit=limit).jobs)
     f = Filter(
         jobs,
         days=days,

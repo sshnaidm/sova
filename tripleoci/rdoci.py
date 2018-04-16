@@ -13,12 +13,12 @@ from tripleoci.patches import Job
 from tripleoci.utils import Web
 
 # Jobs regexps
-branch_re = re.compile(r"RELEASE=([^ ]+)")
-ts_re = re.compile(r"(201\d-[01]\d-[0123]\d [012]\d:\d\d):\d\d\.\d\d\d")
+branch_re = re.compile(r'RELEASE=([^ ]+)')
+ts_re = re.compile(r'(201\d-[01]\d-[0123]\d [012]\d:\d\d):\d\d\.\d\d\d')
 job_re = re.compile(r'(.*)-(\d+)$')
-timest_re = re.compile('\d+ \w+ 20\d\d  \d\d:\d\d:\d\d')
-time_re = re.compile('^(\d+:\d+:\d+)')
-ansible_ts = re.compile('n(\w+ \d\d \w+ 20\d\d  \d\d:\d\d:\d\d)')
+timest_re = re.compile(r'\d+ \w+ 20\d\d  \d\d:\d\d:\d\d')
+time_re = re.compile(r'^(\d+:\d+:\d+)')
+ansible_ts = re.compile(r'n(\w+ \d\d \w+ 20\d\d  \d\d:\d\d:\d\d)')
 stat_re = re.compile(
     r'ok=\d+\s*changed=\d+\s*unreachable=(\d+)\s*failed=(\d+)')
 pipe_re = re.compile(r'  Pipeline: (.+)')
@@ -36,6 +36,7 @@ class RDO_CI(object):
         job status. So it needs to download console.html for every job and
         to parse it also.
     """
+
     def __init__(self, url=RDOCI_URL,
                  down_path=config.DOWNLOAD_PATH, limit=None):
         self.per_url = url
@@ -179,9 +180,9 @@ class RDO_CI(object):
                     j['branch'] = branch_re.search(line).group(1)
                 try:
                     if (
-                            'Started by user' in line or
-                            '[Zuul] Launched by' in line or
-                    'Started by upstream' in line):
+                        'Started by user' in line or
+                        '[Zuul] Launched by' in line or
+                            'Started by upstream' in line):
                         start = ts_re.search(line).group(1)
                     if "Finished: " in line or '[Zuul] Job complete' in line:
                         end = ts_re.search(line).group(1)
@@ -214,6 +215,7 @@ class RDO_CI(object):
 
 class RDOCIJob(Job):
     """Class that contains all necessary info for periodic job."""
+
     def __init__(self, **kwargs):
         super(RDOCIJob, self).__init__(
             name=kwargs["name"],

@@ -46,13 +46,15 @@ def create_html():
         ci_data += periodic_data
 
         with open(
-                os.path.join(config.DOWNLOAD_PATH, "ci_data_dump_rdoci"), "wb") as g:
-                pickle.dump(ci_data, g)
+                os.path.join(config.DOWNLOAD_PATH, "ci_data_dump_rdoci"),
+                "wb") as g:
+            pickle.dump(ci_data, g)
     # For debug mode
     else:
         with open(
-                os.path.join(config.DOWNLOAD_PATH, "ci_data_dump_rdoci"), "rb") as g:
-                ci_data = pickle.load(g)
+                os.path.join(config.DOWNLOAD_PATH, "ci_data_dump_rdoci"),
+                "rb") as g:
+            ci_data = pickle.load(g)
 
     errors_top = top(ci_data)
     stats = statistics(ci_data)

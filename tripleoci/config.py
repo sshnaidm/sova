@@ -145,7 +145,7 @@ COLUMNED_TRACKED_JOBS = {
         'tripleo-quickstart-promote-master-build-images',
         'tripleo-quickstart-promote-master-current-tripleo-delorean-minimal',
         ('tripleo-quickstart-promote-master-current-tripleo-delorean-'
-        'minimal_pacemaker'),
+         'minimal_pacemaker'),
         'tripleo-quickstart-promote-master-delorean-minimal',
         'tripleo-quickstart-promote-master-delorean-minimal_pacemaker',
         'tripleo-quickstart-upgrade-major-mitaka-to-master',
@@ -179,8 +179,10 @@ PLUGIN = RDOCI
 TRACKED_JOBS = [k for i in COLUMNED_TRACKED_JOBS.values() for k in i]
 PLUGIN_JOBS = TRACKED_JOBS
 
+
 class PLUGIN_RDOCI_CONFIG:
     console_name = 'console.txt.gz'
     main_index_timeout = 1100
+
 
 ACTIVE_PLUGIN_CONFIG = PLUGIN_RDOCI_CONFIG

@@ -13,15 +13,15 @@ from tripleoci.patches import Job
 from tripleoci.utils import Web
 
 # Jobs regexps
-branch_re = re.compile(r"RELEASE=([^ -]+)")
-ts_re = re.compile(r"(201\d-[01]\d-[0123]\d [012]\d:\d\d):\d\d\.\d\d\d")
+branch_re = re.compile("RELEASE=([^ -]+)")
+ts_re = re.compile(r'(201\d-[01]\d-[0123]\d [012]\d:\d\d):\d\d\.\d\d\d')
 job_re = re.compile(r'(.*)-(\d+)$')
-timest_re = re.compile('\d+ \w+ 20\d\d  \d\d:\d\d:\d\d')
-time_re = re.compile('^(\d+:\d+:\d+)')
-ansible_ts = re.compile('n(\w+ \d\d \w+ 20\d\d  \d\d:\d\d:\d\d)')
+timest_re = re.compile(r'\d+ \w+ 20\d\d  \d\d:\d\d:\d\d')
+time_re = re.compile(r'^(\d+:\d+:\d+)')
+ansible_ts = re.compile(r'n(\w+ \d\d \w+ 20\d\d  \d\d:\d\d:\d\d)')
 stat_re = re.compile(
     r'ok=\d+\s*changed=\d+\s*unreachable=(\d+)\s*failed=(\d+)')
-pipe_re = re.compile(r'  Pipeline: (.+)')
+pipe_re = re.compile('  Pipeline: (.+)')
 
 RDOCI_URL = 'https://ci.centos.org/artifacts/rdo/'
 MAIN_INDEX = 'index_rdoci.html'
@@ -36,6 +36,7 @@ class Periodic(object):
         job status. So it needs to download console.html for every job and
         to parse it also.
     """
+
     def __init__(self, url=RDOCI_URL,
                  down_path=config.DOWNLOAD_PATH, limit=None):
         self.per_url = url
@@ -87,7 +88,8 @@ class Periodic(object):
                     'https://ci.centos.org/job',
                     job['name'],
                     job['build_number'],
-                    'timestamps/?time=yyyy-MM-dd%20HH:mm:ss&appendLog&locale=en_GB')
+                    ('timestamps/?time=yyyy-MM-dd%20HH:mm:ss&appendLog&'
+                     'locale=en_GB'))
             else:
                 console_url = job["log_url"] + "/" + console_name
             web = Web(console_url, timeout=7)
@@ -175,8 +177,8 @@ class Periodic(object):
                     start = ts_re.search(line).group(1)
                 if (("Finished: " in line or
                         '[Zuul] Job complete' in line or
-                        'Performing Post build task' in line)
-                        and ts_re.search(line)):
+                        'Performing Post build task' in line) and
+                        ts_re.search(line)):
                     end = ts_re.search(line).group(1)
                 if ts_re.search(line):
                     last = ts_re.search(line).group(1)
@@ -213,6 +215,7 @@ class Periodic(object):
 
 class PeriodicJob(Job):
     """Class that contains all necessary info for periodic job."""
+
     def __init__(self, **kwargs):
         super(PeriodicJob, self).__init__(
             name=kwargs["name"],

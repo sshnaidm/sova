@@ -5,6 +5,7 @@ import tripleoci.config as config
 
 class Filter(object):
     """Class for filtering jobs to remain only requested."""
+
     def __init__(self,
                  data,
                  days=None,
