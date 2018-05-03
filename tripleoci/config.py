@@ -111,10 +111,11 @@ COLUMNED_TRACKED_JOBS = {
         "tripleo-ci-centos-7-scenario003-multinode-oooq-container",
         "tripleo-ci-centos-7-scenario004-multinode-oooq-container",
         "tripleo-ci-centos-7-scenario007-multinode-oooq-container",
+        "tripleo-ci-centos-7-scenario010-multinode-oooq-container",
     ],
     "Multinode": [
         "tripleo-ci-centos-7-nonha-multinode-oooq",
-        "tripleo-ci-centos-7-3nodes-multinode"
+        "tripleo-ci-centos-7-3nodes-multinode",
     ],
     "Undercloud": [
         "tripleo-ci-centos-7-undercloud-oooq",
@@ -122,6 +123,8 @@ COLUMNED_TRACKED_JOBS = {
     ],
     "Update/Upgrades": [
         "tripleo-ci-centos-7-scenario000-multinode-oooq-container-updates",
+        "tripleo-ci-centos-7-containerized-undercloud-upgrades",
+        "tripleo-ci-centos-7-undercloud-upgrades"
     ],
     "Images": [
         "tripleo-buildimage-overcloud-full-centos-7",
