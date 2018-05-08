@@ -29,7 +29,6 @@ PROJECTS = (
     'openstack-infra/tripleo-ci',
     'openstack/tripleo-common',
     'openstack/tripleo-image-elements',
-    'openstack/tripleo-incubator',
     'openstack/tripleo-puppet-elements',
     'openstack/tripleo-docs',
     'openstack/tripleo-quickstart',
