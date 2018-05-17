@@ -126,6 +126,9 @@ COLUMNED_TRACKED_JOBS = {
         "puppet-openstack-syntax-4",
         "puppet-tripleo-puppet-unit-4.8-centos-7",
     ],
+    "Update/Upgrades": [
+        "tripleo-ci-centos-7-scenario000-multinode-oooq-container-updates",
+    ],
     "Images": [
         "tripleo-buildimage-overcloud-full-centos-7",
         "tripleo-buildimage-ironic-python-agent-centos-7",
