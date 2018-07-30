@@ -448,6 +448,11 @@ patterns:
       pattern: 'kolla_fail_re'
       tag: "infra"
       logstash: "ERROR:kolla.common.utils:{} Failed with status: error"
+    - id: 80
+      msg: "Websocket timeout"
+      pattern: "The Workflow finished successfully but no messages were received before the WebSocket timed out"
+      tag: "code"
+      logstash: "The Workflow finished successfully but no messages were received before the WebSocket timed out"
   "postci":
     - id: 200
       logstash: "puppet_re"

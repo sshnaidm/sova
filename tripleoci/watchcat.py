@@ -42,22 +42,23 @@ def meow(days=None,
     :return: parsed jobs data, ready for printing to HTML or console
     """
     if not periodic:
-        if not DEBUG:
-            g = Gerrit(period=days)
-            gerrit = g.get_project_patches(config.PROJECTS)
-            # Dump gerrit data for investigation
-            with open(config.TMP_DIR + "/gerrit", "w") as f:
-                f.write(json.dumps(gerrit))
-        # If debug mode
-        else:
-            with open(config.TMP_DIR + "/gerrit", "r") as f:
-                gerrit = json.loads(f.read())
-        jobs = (job for patch in gerrit for job in Patch(patch).jobs)
+        # if not DEBUG:
+        #     g = Gerrit(period=days)
+        #     gerrit = g.get_project_patches(config.PROJECTS)
+        #     # Dump gerrit data for investigation
+        #     with open(config.TMP_DIR + "/gerrit", "w") as f:
+        #         f.write(json.dumps(gerrit))
+        # # If debug mode
+        # else:
+        #     with open(config.TMP_DIR + "/gerrit", "r") as f:
+        #         gerrit = json.loads(f.read())
+        # jobs = (job for patch in gerrit for job in Patch(patch).jobs)
+        jobs = []
     else:
-        jobs = (job
-                for url in config.TRACKED_JOBS if "http" in url
-                for job in Periodic(
-                    url, down_path=down_path, limit=limit).jobs)
+        jobs = (job for job in Periodic(
+             down_path=down_path, limit=limit, pages=config.PERIODIC_PAGES
+        ).jobs)
+
     f = Filter(
         jobs,
         days=days,

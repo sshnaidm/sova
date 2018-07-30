@@ -1,17 +1,10 @@
 import datetime
-import gzip
-import os
 import re
 import time
-import tripleoci.config as config
-from tripleoci.config import log
-from tripleoci.utils import Web
 
 
-JOB_RE = re.compile(r"(\S+) (http://logs.openstack.org/\S+) "
+JOB_RE = re.compile(r"(\S+) (http://logs.rdoproject.org/\S+) "
                     r": (FAILURE|SUCCESS) in ([hms \d]+)")
-JOB_RE2 = re.compile(r"(\S+) (https://review.rdoproject.org/\S+) "
-                     r": (FAILURE|SUCCESS) in ([hms \d]+)")
 PATCH_RE = re.compile(r"Patch Set (\d+):")
 TIME_RE = re.compile(r"((?P<hour>\d+)h)? *((?P<min>\d+)m)? *((?P<sec>\d+)s)?")
 RDO_RE = re.compile(r'Logs have been uploaded and are available at:'
@@ -64,39 +57,6 @@ class Patch(object):
             # Resolution in minutes
             return 60 * hour + minute
 
-        def _get_jenkins_console(x):
-            consoles_dir = os.path.join(config.DOWNLOAD_PATH, "jenkins_cons")
-            if not os.path.exists(consoles_dir):
-                os.makedirs(consoles_dir)
-            file_path = os.path.join(
-                consoles_dir,
-                "_".join((x.rstrip("/").split("/")[-2:])) + ".gz")
-            if os.path.exists(file_path):
-                log.debug("Using cached Jenkins console: %s", file_path)
-                with gzip.open(file_path, "rt") as f:
-                    return f.read()
-            elif os.path.exists(file_path + "_404"):
-                log.debug("Jenkins console cache is 404: %s", file_path)
-                return None
-            full_url = x + "/" + "consoleText"
-            www = Web(full_url, timeout=5)
-            page = www.get()
-            if page and page.status_code == 404:
-                log.error("Jenkins console has 404 error: %s", full_url)
-                open(file_path + "_404", 'a').close()
-            elif page:
-                with gzip.open(file_path, "wt") as f:
-                    f.write(page.text)
-                log.debug("Saved jenkins console cache to: %s", file_path)
-                return page.content.decode('utf-8')
-            else:
-                log.error("Failed to get Jenkins console: %s", full_url)
-                return None
-
-        def _extract_log_url(text):
-            if RDO_RE.search(text):
-                return RDO_RE.search(text).group(1)
-
         jobs = []
         text = comment['message']
         timestamp = datetime.datetime.fromtimestamp(comment['timestamp'])
@@ -118,28 +78,7 @@ class Patch(object):
                     pipeline=pipeline
                 )
                 jobs.append(job)
-        data2 = JOB_RE2.findall(text)
-        if data2:
-            patch_num = PATCH_RE.search(text).group(1)
-            patchset = [s for s in self.sets if s.number == int(patch_num)][0]
-            for j in data2:
-                log_console = _get_jenkins_console(j[1])
-                if not log_console:
-                    continue
-                log_url = _extract_log_url(log_console)
-                if not log_url:
-                    continue
-                job = Job(
-                    name=j[0],
-                    log_url=log_url,
-                    status=j[2],
-                    length=parse_time(j[3]),
-                    patch=self,
-                    patchset=patchset,
-                    timestamp=timestamp,
-                    pipeline=pipeline
-                )
-                jobs.append(job)
+
         return jobs
 
     def get_jobs(self):
