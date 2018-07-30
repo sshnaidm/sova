@@ -54,10 +54,10 @@ def meow(days=None,
                 gerrit = json.loads(f.read())
         jobs = (job for patch in gerrit for job in Patch(patch).jobs)
     else:
-        jobs = (job
-                for url in config.TRACKED_JOBS if "http" in url
-                for job in Periodic(
-                    url, down_path=down_path, limit=limit).jobs)
+        jobs = (job for job in Periodic(
+             down_path=down_path, limit=limit, pages=config.PERIODIC_PAGES
+        ).jobs)
+
     f = Filter(
         jobs,
         days=days,

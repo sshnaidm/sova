@@ -59,7 +59,13 @@ PROJECTS = (
     'openstack/zaqar',
 )
 
-PERIODIC_LOGS_URL = 'http://logs.openstack.org/periodic'
+
+PERIODIC_LOGS_URL = [
+    ('https://review.rdoproject.org/zuul/api/'
+     'builds?pipeline=openstack-periodic'),
+    ('https://review.rdoproject.org/zuul/api/'
+     'builds?pipeline=openstack-periodic-24hr'),
+]
 PERIODIC_URLS = []
 
 DOWNLOAD_PATH = os.environ.get('OPENSHIFT_DATA_DIR',
@@ -91,6 +97,7 @@ GERRIT_USER = "robo"
 GERRIT_BRANCHES = ("master", "stable/newton", "stable/ocata", "stable/pike",
                    "stable/queens")
 PERIODIC_DAYS = 14
+PERIODIC_PAGES = 2
 GATE_DAYS = 8
 CIRCLE = 3
 COLUMNED_TRACKED_JOBS = {
@@ -137,15 +144,56 @@ COLUMNED_TRACKED_JOBS = {
         "tripleo-buildimage-overcloud-full-centos-7",
         "tripleo-buildimage-ironic-python-agent-centos-7",
         "tripleo-buildimage-overcloud-hardened-full-centos-7"
+    ],
+    "OVB": [
+        'legacy-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-ocata',
+        'legacy-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-pike',
+        'legacy-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-master',
+        'legacy-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset022-pike',
+        'legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039-master',
+        'legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master',
+        'legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata',
+        'legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata-branch',
+        'legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike',
+        'legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike-branch',
+        'legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens',
+        'legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens-branch',
+        'legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-master',
+        'legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-ocata',
+        'legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-pike',
+        'legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-queens',
+        'legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset035-master',
+        'legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset035-queens',
+        'legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-master',
+        'legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-master-tht',
+        'legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-queens',
+        'legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-queens-tht',
+        'legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset053-master',
+    ],
+    "RDO cloud multinode": [
+        'legacy-tripleo-ci-centos-7-multinode-1ctlr-featureset016-master',
+        'legacy-tripleo-ci-centos-7-multinode-1ctlr-featureset017-master',
+        'legacy-tripleo-ci-centos-7-multinode-1ctlr-featureset018-master',
+        'legacy-tripleo-ci-centos-7-multinode-1ctlr-featureset019-master',
+        'legacy-tripleo-ci-centos-7-multinode-1ctlr-featureset036-oc-ffu-queens',
+        'legacy-tripleo-ci-centos-7-multinode-1ctlr-featureset037-updates-master',
+    ],
+    "RDO cloud upgrades": [
+        'legacy-tripleo-ci-centos-7-containers-multinode-upgrades-pike',
+        'legacy-tripleo-ci-centos-7-containers-multinode-upgrades-pike-branch',
+        'legacy-tripleo-ci-centos-7-container-to-container-featureset051-upgrades-master',
+        'legacy-tripleo-ci-centos-7-container-to-container-upgrades-master',
+        'legacy-tripleo-ci-centos-7-container-to-container-upgrades-queens',
     ]
-
 }
 TRIPLEOCI = {
     'console': '/job-output.txt',
-    'postci': '/logs/postci.txt',
-    'ironic-conductor': '/logs/undercloud/var/log/ironic/ironic-conductor.txt',
-    'syslog': '/logs/undercloud/var/log/messages',
-    'logstash': '/logs/undercloud/var/log/extra/logstash.txt'
+    "postci": '/logs/undercloud/var/log/extra/logstash.txt.gz',
+    'ironic-conductor': '/logs/undercloud/var/log/ironic/ironic-conductor.txt.gz',
+    'syslog': '/logs/undercloud/var/log/journal.txt.gz',
+    'logstash': '/logs/undercloud/var/log/extra/logstash.txt.gz',
+    'errors': '/logs/undercloud/var/log/extra/errors.txt.gz',
+
 }
 
 PLUGIN = TRIPLEOCI
