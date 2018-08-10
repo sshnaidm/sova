@@ -122,6 +122,7 @@ COLUMNED_TRACKED_JOBS = {
         'legacy-periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset019-master',
         'legacy-periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset030-master',
         'legacy-periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset037-updates-master',
+        'legacy-periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset050-upgrades-master',
         'legacy-periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset002-master-upload',
         'legacy-periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-master',
         'legacy-periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset021-master',
