@@ -95,7 +95,7 @@ GERRIT_HOST = "review.openstack.org"
 GERRIT_PORT = 29418
 GERRIT_USER = "robo"
 GERRIT_BRANCHES = ("master", "stable/newton", "stable/ocata", "stable/pike",
-                   "stable/queens")
+                   "stable/queens", "stable/rocky")
 PERIODIC_DAYS = 14
 PERIODIC_PAGES = 2
 GATE_DAYS = 7
