@@ -87,8 +87,8 @@ GERRIT_PATCH_LIMIT = 200
 GERRIT_HOST = "review.openstack.org"
 GERRIT_PORT = 29418
 GERRIT_USER = "robo"
-GERRIT_BRANCHES = ("master", "stable/newton", "stable/ocata", "stable/pike",
-                   "stable/queens")
+GERRIT_BRANCHES = ("master", "stable/ocata", "stable/pike",
+                   "stable/queens", "stable/rocky")
 PERIODIC_DAYS = 14
 GATE_DAYS = 14
 CIRCLE = 3
