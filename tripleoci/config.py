@@ -94,8 +94,8 @@ GERRIT_PATCH_LIMIT = 200
 GERRIT_HOST = "review.openstack.org"
 GERRIT_PORT = 29418
 GERRIT_USER = "robo"
-GERRIT_BRANCHES = ("master", "stable/newton", "stable/ocata", "stable/pike",
-                   "stable/queens")
+GERRIT_BRANCHES = ("master", "stable/ocata", "stable/pike",
+                   "stable/queens", "stable/rocky")
 PERIODIC_DAYS = 14
 PERIODIC_PAGES = 2
 GATE_DAYS = 8
@@ -117,6 +117,7 @@ COLUMNED_TRACKED_JOBS = {
         "tripleo-ci-centos-7-containers-multinode",
         "tripleo-ci-centos-7-scenario001-multinode-oooq-container",
         "tripleo-ci-centos-7-scenario002-multinode-oooq-container",
+        "tripleo-ci-centos-7-scenario002-multinode-oooq-container-refstack",
         "tripleo-ci-centos-7-scenario003-multinode-oooq-container",
         "tripleo-ci-centos-7-scenario004-multinode-oooq-container",
         "tripleo-ci-centos-7-scenario005-multinode-oooq-container",
@@ -125,6 +126,7 @@ COLUMNED_TRACKED_JOBS = {
         "tripleo-ci-centos-7-scenario008-multinode-oooq-container",
         "tripleo-ci-centos-7-scenario009-multinode-oooq-container",
         "tripleo-ci-centos-7-scenario010-multinode-oooq-container",
+        "tripleo-ci-centos-7-scenario011-multinode-oooq-container"
     ],
     "Multinode": [
         "tripleo-ci-centos-7-nonha-multinode-oooq",
@@ -144,6 +146,12 @@ COLUMNED_TRACKED_JOBS = {
         "tripleo-buildimage-overcloud-full-centos-7",
         "tripleo-buildimage-ironic-python-agent-centos-7",
         "tripleo-buildimage-overcloud-hardened-full-centos-7"
+    ],
+    "Branches": [
+        "tripleo-ci-centos-7-containers-multinode-rocky",
+        "tripleo-ci-centos-7-containers-multinode-queens",
+        "tripleo-ci-centos-7-containers-multinode-pike",
+
     ],
     "OVB": [
         'legacy-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-ocata',
