@@ -67,8 +67,8 @@ GERRIT_PATCH_LIMIT = 200
 GERRIT_HOST = "review.openstack.org"
 GERRIT_PORT = 29418
 GERRIT_USER = "robo"
-GERRIT_BRANCHES = ("master", "stable/newton", "stable/ocata", "stable/pike",
-                   "stable/queens")
+GERRIT_BRANCHES = ("master", "stable/ocata", "stable/pike",
+                   "stable/queens", "stable/rocky")
 PERIODIC_DAYS = 14
 GATE_DAYS = 14
 CIRCLE = 3
@@ -131,6 +131,17 @@ COLUMNED_TRACKED_JOBS = {
         "weirdo-queens-promote-puppet-openstack-scenario002",
         "weirdo-queens-promote-puppet-openstack-scenario003",
         "weirdo-queens-promote-puppet-openstack-scenario004",
+    ],
+    "Rocky": [
+        "rdo-promote-get-hash-rocky-current-tripleo",
+        "tripleo-quickstart-promote-rocky-rdo_trunk-minimal",
+        "weirdo-rocky-promote-packstack-scenario001",
+        "weirdo-rocky-promote-packstack-scenario002",
+        "weirdo-rocky-promote-packstack-scenario003",
+        "weirdo-rocky-promote-puppet-openstack-scenario001",
+        "weirdo-rocky-promote-puppet-openstack-scenario002",
+        "weirdo-rocky-promote-puppet-openstack-scenario003",
+        "weirdo-rocky-promote-puppet-openstack-scenario004",
     ],
     "Master": [
         'rdo-promote-build-images-master',
