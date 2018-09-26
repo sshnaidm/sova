@@ -67,7 +67,8 @@ class Patch(object):
             data = regex.findall(text)
             if data:
                 patch_num = PATCH_RE.search(text).group(1)
-                patchset = [s for s in self.sets if s.number == int(patch_num)][0]
+                patchset = [s for s in self.sets
+                            if s.number == int(patch_num)][0]
                 for j in data:
                     job = Job(
                         name=j[0],

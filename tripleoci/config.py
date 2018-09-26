@@ -158,16 +158,20 @@ COLUMNED_TRACKED_JOBS = {
         'legacy-tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-pike',
         'legacy-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-master',
         'legacy-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset022-pike',
-        'legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039-master',
+        ('legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039-'
+         'master'),
         'legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master',
         'legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata',
-        'legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata-branch',
+        ('legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata-'
+         'branch'),
         'legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike',
         'legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike-branch',
         'legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens',
-        'legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens-branch',
+        ('legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens-'
+         'branch'),
         'legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-rocky',
-        'legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-rocky-branch',
+        ('legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-rocky-'
+         'branch'),
         'legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-master',
         'legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-ocata',
         'legacy-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-pike',
@@ -186,13 +190,16 @@ COLUMNED_TRACKED_JOBS = {
         'legacy-tripleo-ci-centos-7-multinode-1ctlr-featureset017-master',
         'legacy-tripleo-ci-centos-7-multinode-1ctlr-featureset018-master',
         'legacy-tripleo-ci-centos-7-multinode-1ctlr-featureset019-master',
-        'legacy-tripleo-ci-centos-7-multinode-1ctlr-featureset036-oc-ffu-queens',
-        'legacy-tripleo-ci-centos-7-multinode-1ctlr-featureset037-updates-master',
+        ('legacy-tripleo-ci-centos-7-multinode-1ctlr-featureset036-oc-ffu-'
+         'queens'),
+        ('legacy-tripleo-ci-centos-7-multinode-1ctlr-featureset037-updates-'
+         'master'),
     ],
     "RDO cloud upgrades": [
         'legacy-tripleo-ci-centos-7-containers-multinode-upgrades-pike',
         'legacy-tripleo-ci-centos-7-containers-multinode-upgrades-pike-branch',
-        'legacy-tripleo-ci-centos-7-container-to-container-featureset051-upgrades-master',
+        ('legacy-tripleo-ci-centos-7-container-to-container-featureset051-'
+         'upgrades-master'),
         'legacy-tripleo-ci-centos-7-container-to-container-upgrades-master',
         'legacy-tripleo-ci-centos-7-container-to-container-upgrades-queens',
     ]
@@ -200,7 +207,8 @@ COLUMNED_TRACKED_JOBS = {
 TRIPLEOCI = {
     'console': '/job-output.txt',
     "postci": '/logs/undercloud/var/log/extra/logstash.txt.gz',
-    'ironic-conductor': '/logs/undercloud/var/log/ironic/ironic-conductor.txt.gz',
+    'ironic-conductor': ('/logs/undercloud/var/log/ironic/ironic-conductor.'
+                         'txt.gz'),
     'syslog': '/logs/undercloud/var/log/journal.txt.gz',
     'logstash': '/logs/undercloud/var/log/extra/logstash.txt.gz',
     'errors': '/logs/undercloud/var/log/extra/errors.txt.gz',
