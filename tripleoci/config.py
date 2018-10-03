@@ -97,22 +97,25 @@ GERRIT_USER = "robo"
 GERRIT_BRANCHES = ("master", "stable/ocata", "stable/pike",
                    "stable/queens", "stable/rocky")
 PERIODIC_DAYS = 14
-PERIODIC_PAGES = 2
+PERIODIC_PAGES = 10
 GATE_DAYS = 7
 CIRCLE = 3
 
 # A brief note about the column titles below...
 #
-# The bootstrap nav tab class swallows click events, so adding an onclick handler within the <a> tag
-# allows for primary click to have expected behavior, while leaving the href= in place allows for
+# The bootstrap nav tab class swallows click events, so adding an onclick
+# handler within the <a> tag
+# allows for primary click to have expected behavior, while leaving the href=
+# in place allows for
 # right click (open in new tab/window) to also work.
 #
-# The Markup() class is part of flask that is the preferred way to annotate HTML to not be escaped
+# The Markup() class is part of flask that is the preferred way to annotate
+# HTML to not be escaped
 # http://flask.pocoo.org/docs/0.12/templating/#controlling-autoescaping
 # http://flask.pocoo.org/docs/0.12/api/#flask.Markup
 
 COLUMNED_TRACKED_JOBS = {
-    Markup('''<a href="http://dashboards.rdoproject.org/master" onclick="window.location.href='http://dashboards.rdoproject.org/master'">Master-promotion</a>'''): [
+    Markup('''<a href="http://dashboards.rdoproject.org/master" onclick="window.location.href='http://dashboards.rdoproject.org/master'">Master-promotion</a>'''): [  # noqa
         'legacy-periodic-tripleo-centos-7-master-containers-build',
         'legacy-periodic-tripleo-centos-7-master-promote-consistent-to-tripleo-ci-testing',
         'legacy-periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset010-master',
@@ -130,7 +133,7 @@ COLUMNED_TRACKED_JOBS = {
         'legacy-periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset035-master',
         'legacy-periodic-tripleo-ci-centos-7-singlenode-featureset027-master',
     ],
-    Markup('''<a href="http://dashboards.rdoproject.org/rocky" onclick="window.location.href='http://dashboards.rdoproject.org/rocky'">Rocky-promotion</a>'''): [
+    Markup('''<a href="http://dashboards.rdoproject.org/rocky" onclick="window.location.href='http://dashboards.rdoproject.org/rocky'">Rocky-promotion</a>'''): [  # noqa
         'legacy-periodic-tripleo-centos-7-rocky-containers-build',
         'legacy-periodic-tripleo-centos-7-rocky-promote-consistent-to-tripleo-ci-testing',
         'legacy-periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset010-rocky',
@@ -147,7 +150,7 @@ COLUMNED_TRACKED_JOBS = {
         'legacy-periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset035-rocky',
         'legacy-periodic-tripleo-ci-centos-7-singlenode-featureset027-rocky',
     ],
-    Markup('''<a href="http://dashboards.rdoproject.org/queens" onclick="window.location.href='http://dashboards.rdoproject.org/queens'">Queens-promotion</a>'''): [
+    Markup('''<a href="http://dashboards.rdoproject.org/queens" onclick="window.location.href='http://dashboards.rdoproject.org/queens'">Queens-promotion</a>'''): [  # noqa
         'legacy-periodic-tripleo-centos-7-queens-containers-build',
         'legacy-periodic-tripleo-centos-7-queens-promote-consistent-to-tripleo-ci-testing',
         'legacy-periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset010-queens',
@@ -164,7 +167,7 @@ COLUMNED_TRACKED_JOBS = {
         'legacy-periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset035-queens',
 
     ],
-    Markup('''<a href="http://dashboards.rdoproject.org/pike" onclick="window.location.href='http://dashboards.rdoproject.org/pike'">Pike-promotion</a>'''): [
+    Markup('''<a href="http://dashboards.rdoproject.org/pike" onclick="window.location.href='http://dashboards.rdoproject.org/pike'">Pike-promotion</a>'''): [  # noqa
         'legacy-periodic-tripleo-centos-7-pike-containers-build',
         'legacy-periodic-tripleo-centos-7-pike-promote-consistent-to-tripleo-ci-testing',
         'legacy-periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset010-pike',
@@ -179,7 +182,7 @@ COLUMNED_TRACKED_JOBS = {
         'legacy-periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset022-pike',
         'legacy-periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike',
     ],
-    Markup('''<a href="http://dashboards.rdoproject.org/ocata" onclick="window.location.href='http://dashboards.rdoproject.org/ocata'">Ocata-promotion</a>'''): [
+    Markup('''<a href="http://dashboards.rdoproject.org/ocata" onclick="window.location.href='http://dashboards.rdoproject.org/ocata'">Ocata-promotion</a>'''): [  # noqa
         'legacy-periodic-tripleo-centos-7-ocata-promote-consistent-to-tripleo-ci-testing',
         'legacy-periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset002-ocata-upload',
         'legacy-periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-ocata',
