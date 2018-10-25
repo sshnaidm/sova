@@ -203,6 +203,7 @@ COLUMNED_TRACKED_JOBS = {
         'tripleo-ci-centos-7-multinode-1ctlr-featureset018',
         'tripleo-ci-centos-7-multinode-1ctlr-featureset019-master',
         'tripleo-ci-centos-7-multinode-1ctlr-featureset019',
+        'tripleo-ci-centos-7-multinode-1ctlr-featureset010',
         ('tripleo-ci-centos-7-multinode-1ctlr-featureset036-oc-ffu-'
          'queens'),
         ('tripleo-ci-centos-7-multinode-1ctlr-featureset037-updates-'
