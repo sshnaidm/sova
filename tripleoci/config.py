@@ -97,7 +97,7 @@ GERRIT_USER = "robo"
 GERRIT_BRANCHES = ("master", "stable/pike",
                    "stable/queens", "stable/rocky")
 PERIODIC_DAYS = 14
-PERIODIC_PAGES = 10
+PERIODIC_PAGES = 25
 GATE_DAYS = 7
 CIRCLE = 3
 
