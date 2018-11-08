@@ -2,11 +2,8 @@
 
 function install_crontab {
     pkill crond
-    crontab -l > /tmp/all_crontab
-    if [[ ! $(grep -Fxq "$(cat /app/crontab)" /tmp/all_crontab) ]]; then
-        cat /app/crontab >> /tmp/all_crontab
-        cat /tmp/all_crontab | crontab -
-    fi
+    crontab -l > /tmp/old_crontab
+    diff -q >/dev/null /app/crontab /tmp/old_crontab || cat /app/crontab | crontab -
     crond -L /cidata/logs/cron.log
 }
 
