@@ -145,7 +145,8 @@ COLUMNED_TRACKED_JOBS = {
     "Images": [
         "tripleo-buildimage-overcloud-full-centos-7",
         "tripleo-buildimage-ironic-python-agent-centos-7",
-        "tripleo-buildimage-overcloud-hardened-full-centos-7"
+        "tripleo-buildimage-overcloud-hardened-full-centos-7",
+        "tripleo-build-containers-centos-7"
     ],
     "Branches": [
         "tripleo-ci-centos-7-containers-multinode-rocky",
