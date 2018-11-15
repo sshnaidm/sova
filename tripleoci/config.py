@@ -105,6 +105,7 @@ COLUMNED_TRACKED_JOBS = {
         'tripleo-ci-centos-7-scenario009-multinode-oooq',
     ],
     "Containers": [
+        "tripleo-ci-centos-7-standalone",
         "tripleo-ci-centos-7-containers-multinode",
         "tripleo-ci-centos-7-scenario001-multinode-oooq-container",
         "tripleo-ci-centos-7-scenario002-multinode-oooq-container",
@@ -125,6 +126,12 @@ COLUMNED_TRACKED_JOBS = {
         "puppet-openstack-lint",
         "puppet-openstack-syntax-4",
         "puppet-tripleo-puppet-unit-4.8-centos-7",
+        "puppet-openstack-unit-5.5-centos-7",
+        "puppet-neutron-tripleo-standalone",
+        "puppet-nova-tripleo-standalone",
+        "puppet-keystone-tripleo-standalone",
+        "puppet-glance-tripleo-standalone",
+        "puppet-cinder-tripleo-standalone",
     ],
     "Update/Upgrades": [
         "tripleo-ci-centos-7-scenario000-multinode-oooq-container-updates",
