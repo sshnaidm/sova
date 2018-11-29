@@ -87,7 +87,7 @@ GERRIT_PATCH_LIMIT = 200
 GERRIT_HOST = "review.openstack.org"
 GERRIT_PORT = 29418
 GERRIT_USER = "robo"
-GERRIT_BRANCHES = ("master", "stable/newton", "stable/ocata", "stable/pike",
+GERRIT_BRANCHES = ("master", "stable/pike", "stable/rocky",
                    "stable/queens")
 PERIODIC_DAYS = 14
 GATE_DAYS = 8
@@ -104,8 +104,12 @@ COLUMNED_TRACKED_JOBS = {
         'tripleo-ci-centos-7-scenario008-multinode-oooq',
         'tripleo-ci-centos-7-scenario009-multinode-oooq',
     ],
-    "Containers": [
+    "Standalone": [
         "tripleo-ci-centos-7-standalone",
+        "tripleo-ci-fedora-28-standalone",
+        "tripleo-ci-centos-7-standalone-upgrade",
+    ],
+    "Containers": [
         "tripleo-ci-centos-7-containers-multinode",
         "tripleo-ci-centos-7-scenario001-multinode-oooq-container",
         "tripleo-ci-centos-7-scenario002-multinode-oooq-container",
