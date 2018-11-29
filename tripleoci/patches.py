@@ -7,10 +7,12 @@ import tripleoci.config as config
 from tripleoci.utils import Web
 
 
+ZUUL_STATUSES = ["SUCCESS", "FAILURE", "RETRY_LIMIT", "POST_FAILURE",
+                 "TIMED_OUT"]
 JOB_RE = re.compile(r"(\S+) (http://logs.openstack.org/\S+) "
-                    r": (FAILURE|SUCCESS) in ([hms \d]+)")
+                    r": (%s) in ([hms \d]+)" % "|".join(ZUUL_STATUSES))
 JOB_RE2 = re.compile(r"(\S+) (https://review.rdoproject.org/\S+) "
-                     r": (FAILURE|SUCCESS) in ([hms \d]+)")
+                     r": (%s) in ([hms \d]+)" % "|".join(ZUUL_STATUSES))
 PATCH_RE = re.compile(r"Patch Set (\d+):")
 TIME_RE = re.compile(r"((?P<hour>\d+)h)? *((?P<min>\d+)m)? *((?P<sec>\d+)s)?")
 RDO_RE = re.compile(r'Logs have been uploaded and are available at:'
