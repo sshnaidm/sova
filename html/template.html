@@ -27,6 +27,31 @@
       google.charts.load("current", {packages:["corechart"]});
 
 </script>
+<style>
+    #header {
+        height: auto;
+        margin-left: 0.5em;
+    }
+    #header h1#logo {
+        width: 64px;
+        height: 32px;
+    }
+    .page-header {
+        margin: 0 0 0 0;
+        border-bottom: none;
+    }
+    .page-header span {
+        margin: 0.1em 0.1em 0.1em 0.1em;
+        width: 14em;
+        display: block;
+        float: left;
+        font-size: 120%;
+        text-shadow: 1px 1px 1px #000000;
+    }
+    br {
+        clear:left;
+    }
+</style>
 
 </head>
 <body>
@@ -37,26 +62,23 @@
 
 
 <div class="page-header" align="center">
-    <h3>
-        <a href="http://cistatus.tripleo.org/gates/">TripleO CI gate jobs</a>
-    </h3>
-    <h3>
-        <a href="http://cistatus.tripleo.org/promotion/">TripleO CI promotion jobs</a>
-    </h3>
-    <h3>
-        <a href="http://cistatus.tripleo.org/promotion/">TripleO CI upgrades jobs</a>
-    </h3>
-    <h3>
-        <a href="http://cistatus.tripleo.org/phase1/">RDO CI phase1 promotion jobs</a>
-    </h3>
-    <h3>
-        <a href="http://cistatus.tripleo.org/phase2/ ">RDO CI phase2 promotion jobs</a>
-    </h3>
-    <br>
-    <h2><u>
-        TripleO CI check jobs
-    </u></h2>
-</div>
+    <span>
+        <a href="/gates/">TripleO CI gate</a>
+    </span>
+    <span>
+        <a href="/promotion/">TripleO CI promotion</a>
+    </span>
+    <span>
+        <a href="/promotion/">TripleO CI upgrades</a>
+    </span>
+    <span>
+        <a href="/phase1/">RDO CI phase1 promotion</a>
+    </span>
+    <span>
+        <a href="/phase2/ ">RDO CI phase2 promotion</a>
+    </span>
+    <span>TripleO CI check</span>
+</div><br>
 
 <div class="tabbable boxed parentTabs">
 
