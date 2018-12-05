@@ -61,6 +61,8 @@ regexes:
     name: "convert_fail_re"
   - regex: 'ERROR:kolla.common.utils:([^\s]+) Failed with status: error'
     name: kolla_fail_re
+  - regex: 'toci_gate_test.sh:.*sudo kill -9 \d+'
+    name: ovb_kill9_re
 patterns:
   "console":
     - id: 1
@@ -458,6 +460,11 @@ patterns:
       pattern: "The Workflow finished successfully but no messages were received before the WebSocket timed out"
       tag: "code"
       logstash: "The Workflow finished successfully but no messages were received before the WebSocket timed out"
+    - id: 81
+      msg: "Timeout to get OVB stack from te-broker"
+      pattern: "ovb_kill9_re"
+      tag: "infra"
+      logstash: "sudo kill -9"
   "postci":
     - id: 200
       logstash: "puppet_re"
