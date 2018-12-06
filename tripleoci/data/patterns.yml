@@ -552,3 +552,8 @@ patterns:
       msg: "Failed to connect to endpoints of overcloud."
       pattern: "Failed to contact the endpoint at http"
       tag: "code"
+    - id: 505
+      logstash: 'Ansible failed, check log at /var/lib/mistral/overcloud/ansible.log'
+      msg: 'Overcloud deploy failed.'
+      tag: 'code'
+      pattern: 'Ansible failed, check log at /var/lib/mistral/overcloud/ansible.log'
