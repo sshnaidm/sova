@@ -61,6 +61,8 @@ regexes:
     name: "convert_fail_re"
   - regex: 'ERROR:kolla.common.utils:([^\s]+) Failed with status: error'
     name: kolla_fail_re
+  - regex: "exec user process caused \"no such file or directory"
+    name: "container_no_such_file_err"
 patterns:
   "console":
     - id: 1
