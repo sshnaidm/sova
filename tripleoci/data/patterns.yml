@@ -63,6 +63,8 @@ regexes:
     name: kolla_fail_re
   - regex: 'toci_gate_test.sh:.*sudo kill -9 \d+'
     name: ovb_kill9_re
+  - regex: "exec user process caused \"no such file or directory"
+    name: "container_no_such_file_err"
 patterns:
   "console":
     - id: 1
