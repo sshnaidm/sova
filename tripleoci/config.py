@@ -94,7 +94,7 @@ GERRIT_PATCH_LIMIT = 200
 GERRIT_HOST = "review.openstack.org"
 GERRIT_PORT = 29418
 GERRIT_USER = "robo"
-GERRIT_BRANCHES = ("master", "stable/ocata", "stable/pike",
+GERRIT_BRANCHES = ("master", "stable/pike",
                    "stable/queens", "stable/rocky")
 PERIODIC_DAYS = 14
 PERIODIC_PAGES = 2
@@ -112,8 +112,12 @@ COLUMNED_TRACKED_JOBS = {
         'tripleo-ci-centos-7-scenario008-multinode-oooq',
         'tripleo-ci-centos-7-scenario009-multinode-oooq',
     ],
-    "Containers": [
+    "Standalone": [
         "tripleo-ci-centos-7-standalone",
+        "tripleo-ci-fedora-28-standalone",
+        "tripleo-ci-centos-7-standalone-upgrade",
+    ],
+    "Containers": [
         "tripleo-ci-centos-7-containers-multinode",
         "tripleo-ci-centos-7-scenario001-multinode-oooq-container",
         "tripleo-ci-centos-7-scenario002-multinode-oooq-container",
@@ -145,7 +149,8 @@ COLUMNED_TRACKED_JOBS = {
     "Images": [
         "tripleo-buildimage-overcloud-full-centos-7",
         "tripleo-buildimage-ironic-python-agent-centos-7",
-        "tripleo-buildimage-overcloud-hardened-full-centos-7"
+        "tripleo-buildimage-overcloud-hardened-full-centos-7",
+        "tripleo-build-containers-centos-7"
     ],
     "Branches": [
         "tripleo-ci-centos-7-containers-multinode-rocky",
@@ -155,11 +160,16 @@ COLUMNED_TRACKED_JOBS = {
     ],
     "OVB": [
         'tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-ocata',
+        'tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024',
         'tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-pike',
         'tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-master',
+        'tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020',
         'tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset022-pike',
+        'tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset022',
         ('tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039-'
          'master'),
+        'tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039',
+        'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001',
         'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master',
         'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata',
         ('tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata-'
@@ -172,34 +182,47 @@ COLUMNED_TRACKED_JOBS = {
         'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-rocky',
         ('tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-rocky-'
          'branch'),
+        'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021',
         'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-master',
         'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-ocata',
         'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-pike',
         'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-queens',
+        'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset035',
         'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset035-master',
         'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset035-queens',
         'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset035-rocky',
+        'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042',
         'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-master',
         'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-master-tht',
         'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-queens',
         'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-queens-tht',
         'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset053-master',
+        'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset053',
+        'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master-vexxhost',
+        'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-rocky-vexxhost',
     ],
     "RDO cloud multinode": [
         'tripleo-ci-centos-7-multinode-1ctlr-featureset016-master',
+        'tripleo-ci-centos-7-multinode-1ctlr-featureset016',
         'tripleo-ci-centos-7-multinode-1ctlr-featureset017-master',
+        'tripleo-ci-centos-7-multinode-1ctlr-featureset017',
         'tripleo-ci-centos-7-multinode-1ctlr-featureset018-master',
+        'tripleo-ci-centos-7-multinode-1ctlr-featureset018',
         'tripleo-ci-centos-7-multinode-1ctlr-featureset019-master',
+        'tripleo-ci-centos-7-multinode-1ctlr-featureset019',
+        'tripleo-ci-centos-7-multinode-1ctlr-featureset010',
         ('tripleo-ci-centos-7-multinode-1ctlr-featureset036-oc-ffu-'
          'queens'),
         ('tripleo-ci-centos-7-multinode-1ctlr-featureset037-updates-'
          'master'),
+        'tripleo-ci-centos-7-multinode-1ctlr-featureset037-updates',
     ],
     "RDO cloud upgrades": [
         'tripleo-ci-centos-7-containers-multinode-upgrades-pike',
         'tripleo-ci-centos-7-containers-multinode-upgrades-pike-branch',
         ('tripleo-ci-centos-7-container-to-container-featureset051-'
          'upgrades-master'),
+        'tripleo-ci-centos-7-container-to-container-featureset051-upgrades',
         'tripleo-ci-centos-7-container-to-container-upgrades-master',
         'tripleo-ci-centos-7-container-to-container-upgrades-queens',
     ]
