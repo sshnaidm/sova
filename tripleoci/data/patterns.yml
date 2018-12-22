@@ -467,6 +467,11 @@ patterns:
       pattern: "ovb_kill9_re"
       tag: "infra"
       logstash: "sudo kill -9"
+    - id: 82
+      msg: "selinux / container issue, libpod/issues/1844 "
+      pattern: "container_no_such_file_err"
+      tag: "code"
+      logstash: ""
   "postci":
     - id: 200
       logstash: "puppet_re"
