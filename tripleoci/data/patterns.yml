@@ -63,8 +63,6 @@ regexes:
     name: kolla_fail_re
   - regex: 'toci_gate_test.sh:.*sudo kill -9 \d+'
     name: ovb_kill9_re
-  - regex: "exec user process caused \"no such file or directory"
-    name: "container_no_such_file_err"
 patterns:
   "console":
     - id: 1
@@ -467,6 +465,11 @@ patterns:
       pattern: "ovb_kill9_re"
       tag: "infra"
       logstash: "sudo kill -9"
+    - id: 82
+      msg: 'No such file in container.'
+      pattern: 'exec user process caused "no such file or directory'
+      logstash: 'exec user process caused "no such file or directory'
+      tag: 'code'
   "postci":
     - id: 200
       logstash: "puppet_re"
