@@ -241,6 +241,10 @@ RDOCI_JOBS = (
     PERIODIC_4H + 'periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset002-pike',
     PERIODIC_4H + 'periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset002-pike-upload',
     PERIODIC_4H + 'periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset002-pike-uploader',
+    PERIODIC_4H + 'periodic-tripleo-ci-centos-7-scenario001-standalone-master',
+    PERIODIC_4H + 'periodic-tripleo-ci-centos-7-scenario002-standalone-master',
+    PERIODIC_4H + 'periodic-tripleo-ci-centos-7-scenario003-standalone-master',
+    PERIODIC_4H + 'periodic-tripleo-ci-centos-7-scenario004-standalone-master',
 )
 TRIPLEOCI = {
     'console': '/console.html',
