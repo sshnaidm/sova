@@ -117,13 +117,9 @@ COLUMNED_TRACKED_JOBS = {
         "tripleo-ci-fedora-28-standalone",
         "tripleo-ci-centos-7-standalone-upgrade",
         "tripleo-ci-centos-7-scenario001-standalone",
-        "tripleo-ci-centos-7-scenario001-standalone-master",
         "tripleo-ci-centos-7-scenario002-standalone",
-        "tripleo-ci-centos-7-scenario001-standalone-master",
         "tripleo-ci-centos-7-scenario003-standalone",
-        "tripleo-ci-centos-7-scenario003-standalone-master",
         "tripleo-ci-centos-7-scenario004-standalone",
-        "tripleo-ci-centos-7-scenario004-standalone-master",
     ],
     "Containers": [
         "tripleo-ci-centos-7-containers-multinode",
