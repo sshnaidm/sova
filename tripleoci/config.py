@@ -133,6 +133,14 @@ COLUMNED_TRACKED_JOBS = {
         'periodic-tripleo-ci-centos-7-singlenode-featureset027-master',
         'periodic-tripleo-ci-centos-7-singlenode-featureset050-upgrades-master',
         'periodic-tripleo-ci-centos-7-standalone-master',
+        'periodic-tripleo-ci-centos-7-scenario001-standalone-master',
+        'periodic-tripleo-ci-centos-7-scenario002-standalone-master',
+        'periodic-tripleo-ci-centos-7-scenario003-standalone-master',
+        'periodic-tripleo-ci-centos-7-scenario004-standalone-master',
+        'periodic-tripleo-ci-fedora-28-centos-7-containers-standalone-master',
+        'periodic-tripleo-ci-fedora-28-ovb-1ctlr_1comp-featureset002-master-upload',
+        'periodic-tripleo-ci-fedora-28-standalone-master',
+        'periodic-tripleo-fedora-28-master-containers-build'
 
     ],
     Markup('''<a href="http://dashboards.rdoproject.org/rocky" onclick="window.location.href='http://dashboards.rdoproject.org/rocky'">Rocky-promotion</a>'''): [  # noqa
