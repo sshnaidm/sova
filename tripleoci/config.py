@@ -204,6 +204,9 @@ COLUMNED_TRACKED_JOBS = {
         'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset053',
         'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master-vexxhost',
         'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-rocky-vexxhost',
+        'tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039',
+        'tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039-ovb-master',
+        'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ovb-master',
     ],
     "RDO cloud multinode": [
         'tripleo-ci-centos-7-multinode-1ctlr-featureset016-master',
