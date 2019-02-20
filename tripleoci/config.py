@@ -130,6 +130,7 @@ COLUMNED_TRACKED_JOBS = {
         'periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset021-master',
         'periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master',
         'periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset035-master',
+        'periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039-master',
         'periodic-tripleo-ci-centos-7-singlenode-featureset027-master',
         'periodic-tripleo-ci-centos-7-singlenode-featureset050-upgrades-master',
         'periodic-tripleo-ci-centos-7-standalone-master',
@@ -158,6 +159,7 @@ COLUMNED_TRACKED_JOBS = {
         'periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset021-rocky',
         'periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-rocky',
         'periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset035-rocky',
+        'periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039-rocky',
         'periodic-tripleo-ci-centos-7-singlenode-featureset027-rocky',
         'periodic-tripleo-ci-centos-7-singlenode-featureset050-upgrades-rocky'
     ],
@@ -176,7 +178,7 @@ COLUMNED_TRACKED_JOBS = {
         'periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset021-queens',
         'periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens',
         'periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset035-queens',
-
+        'periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039-queens',
     ],
     Markup('''<a href="http://dashboards.rdoproject.org/pike" onclick="window.location.href='http://dashboards.rdoproject.org/pike'">Pike-promotion</a>'''): [  # noqa
         'periodic-tripleo-centos-7-pike-containers-build',
