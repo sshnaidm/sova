@@ -540,3 +540,10 @@ patterns:
       msg: "Failed to connect to endpoints of overcloud."
       pattern: "Failed to contact the endpoint at http"
       tag: "code"
+  "bmc":
+      id: 600
+      logstash: 'socket.error: [Errno 99] Cannot assign requested address'
+      msg: 'Introspection failed, cannot get IP address'
+      tag: 'infra'
+      pattern: 'socket.error: [Errno 99] Cannot assign requested address'
+
