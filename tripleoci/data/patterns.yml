@@ -568,3 +568,8 @@ patterns:
       msg: 'Introspection failed, cannot get IP address'
       tag: 'infra'
       pattern: 'socket.error: [Errno 99] Cannot assign requested address'
+    - id: 506
+      logstash: ""
+      msg: 'Overcloud image create failed.'
+      tag: 'code'
+      pattern: "CalledProcessError: Command '['disk-image-create'"
