@@ -546,7 +546,7 @@ patterns:
       tag: 'code'
       pattern: "CalledProcessError: Command '['disk-image-create'"
   "bmc":
-      id: 600
+    - id: 600
       logstash: 'socket.error: [Errno 99] Cannot assign requested address'
       msg: 'Introspection failed, cannot get IP address'
       tag: 'infra'
