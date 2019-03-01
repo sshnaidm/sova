@@ -236,7 +236,7 @@ class JobFile(object):
     def get_regular_file(self):
         log.debug("Get regular file {}".format(self.file_link))
         self.file_name = os.path.basename(
-            self.file_link).rstrip(".gz") + ".gz"
+            self.file_link).split(".gz")[0] + ".gz"
         self.file_path = os.path.join(self.job_dir, self.file_name)
         if os.path.exists(self.file_path):
             log.debug("File {} is already downloaded".format(self.file_path))
