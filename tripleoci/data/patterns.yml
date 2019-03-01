@@ -562,14 +562,15 @@ patterns:
       msg: 'Overcloud deploy failed.'
       tag: 'code'
       pattern: 'Ansible failed, check log at /var/lib/mistral/overcloud/ansible.log'
-    - id: 506
-      logstash: ""
-      msg: 'Overcloud image create failed.'
-      tag: 'code'
-      pattern: "CalledProcessError: Command '['disk-image-create'"
   "bmc":
     - id: 600
       logstash: 'socket.error: [Errno 99] Cannot assign requested address'
       msg: 'Introspection failed, cannot get IP address'
       tag: 'infra'
       pattern: 'socket.error: [Errno 99] Cannot assign requested address'
+  "bm-images":
+    - id: 700
+      logstash: ""
+      msg: 'Overcloud image create failed.'
+      tag: 'code'
+      pattern: "CalledProcessError: Command '['disk-image-create'"
