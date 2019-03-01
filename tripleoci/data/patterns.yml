@@ -77,7 +77,7 @@ patterns:
       tag: "info"
     - id: 3
       logstash: "No valid host was found. There are not enough hosts"
-      msg: "No valid host was found."
+      msg: "No valid host was found, not enough hosts avail"
       pattern: "No valid host was found. There are not enough hosts"
       tag: "code"
     - id: 4
