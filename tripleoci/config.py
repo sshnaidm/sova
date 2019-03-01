@@ -204,7 +204,7 @@ RDOCI = {
     'syslog': '/logs/undercloud/var/log/journal.txt.gz',
     'logstash': '/logs/undercloud/var/log/extra/logstash.txt.gz',
     'errors': '/logs/undercloud/var/log/extra/errors.txt.gz',
-    'bmc': '/logs/bmc-console.log',
+    'bmc': '/logs/bmc-console.log.gz',
 
 }
 
