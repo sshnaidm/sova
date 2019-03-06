@@ -540,3 +540,8 @@ patterns:
       msg: "Failed to connect to endpoints of overcloud."
       pattern: "Failed to contact the endpoint at http"
       tag: "code"
+    - id: 505
+      logstash: ""
+      msg: 'Container not found.'
+      tag: 'infra'
+      pattern: "ImageNotFoundException: Not found image: docker:"
