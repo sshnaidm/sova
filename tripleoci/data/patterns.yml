@@ -540,11 +540,16 @@ patterns:
       msg: "Failed to connect to endpoints of overcloud."
       pattern: "Failed to contact the endpoint at http"
       tag: "code"
-    - id: 506
+    - id: 505
       logstash: ""
       msg: 'Overcloud image create failed.'
       tag: 'code'
       pattern: "CalledProcessError: Command '['disk-image-create'"
+    - id: 506
+      logstash: ""
+      msg: 'Container not found.'
+      tag: 'infra'
+      pattern: "ImageNotFoundException: Not found image: docker:"
   "bmc":
     - id: 600
       logstash: 'socket.error: [Errno 99] Cannot assign requested address'
