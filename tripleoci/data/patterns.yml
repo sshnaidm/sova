@@ -545,3 +545,8 @@ patterns:
       msg: 'Container not found.'
       tag: 'infra'
       pattern: "ImageNotFoundException: Not found image: docker:"
+    - id: 506
+      logstash: "Found ansible errors for undercloud deployment"
+      msg: "Undercloud install failed."
+      pattern: "Found ansible errors for undercloud deployment"
+      tag: "code"
