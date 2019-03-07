@@ -589,6 +589,11 @@ patterns:
       msg: "Hiera key {} is undefined."
       pattern: "hiera_key_undefined_re"
       tag: "code"
+    - id: 511
+      logstash: "Found ansible errors for undercloud deployment"
+      msg: "Undercloud install failed."
+      pattern: "Found ansible errors for undercloud deployment"
+      tag: "code"
   "bmc":
     - id: 600
       logstash: 'socket.error: [Errno 99] Cannot assign requested address'
