@@ -61,6 +61,8 @@ regexes:
     name: "convert_fail_re"
   - regex: 'ERROR:kolla.common.utils:([^\s]+) Failed with status: error'
     name: kolla_fail_re
+  - regex: 'Error: .*The (.+) hiera key is undefined'
+    name: hiera_key_undefined_re
 patterns:
   "console":
     - id: 1
@@ -560,6 +562,11 @@ patterns:
       msg: 'IPMI to nodes failed.'
       tag: 'infra'
       pattern: "Failed to prepare to deploy: IPMI call failed:"
+    - id: 509
+      logstash: ""
+      msg: "Hiera key {} is undefined."
+      pattern: "hiera_key_undefined_re"
+      tag: "code"
   "bmc":
     - id: 600
       logstash: 'socket.error: [Errno 99] Cannot assign requested address'
