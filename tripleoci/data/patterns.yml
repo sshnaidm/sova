@@ -550,6 +550,11 @@ patterns:
       msg: 'Container not found.'
       tag: 'infra'
       pattern: "ImageNotFoundException: Not found image: docker:"
+    - id: 507
+      logstash: ""
+      msg: 'Ironic node provision failed.'
+      tag: 'infra'
+      pattern: "error: Failed to prepare node"
   "bmc":
     - id: 600
       logstash: 'socket.error: [Errno 99] Cannot assign requested address'
