@@ -472,6 +472,11 @@ patterns:
       pattern: 'exec user process caused "no such file or directory'
       logstash: 'exec user process caused "no such file or directory'
       tag: 'code'
+    - id: 83
+      msg: "Job timeout."
+      pattern: "RUN END RESULT_TIMED_OUT:"
+      tag: "infra"
+      logstash: "RUN END RESULT_TIMED_OUT:"
   "postci":
     - id: 200
       logstash: "puppet_re"
