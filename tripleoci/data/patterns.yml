@@ -599,6 +599,11 @@ patterns:
       msg: "Undercloud install failed."
       pattern: "Found ansible errors for undercloud deployment"
       tag: "code"
+    - id: 512
+      logstash: ""
+      msg: "IPMI to nodes failed."
+      pattern: "Error: IPMI call failed: power status"
+      tag: "infra"
   "bmc":
     - id: 600
       logstash: 'socket.error: [Errno 99] Cannot assign requested address'
