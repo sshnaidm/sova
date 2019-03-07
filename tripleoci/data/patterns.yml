@@ -555,6 +555,11 @@ patterns:
       msg: 'Ironic node provision failed.'
       tag: 'infra'
       pattern: "error: Failed to prepare node"
+    - id: 508
+      logstash: ""
+      msg: 'IPMI to nodes failed.'
+      tag: 'infra'
+      pattern: "Failed to prepare to deploy: IPMI call failed:"
   "bmc":
     - id: 600
       logstash: 'socket.error: [Errno 99] Cannot assign requested address'
