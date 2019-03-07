@@ -455,6 +455,11 @@ patterns:
       pattern: "The Workflow finished successfully but no messages were received before the WebSocket timed out"
       tag: "code"
       logstash: "The Workflow finished successfully but no messages were received before the WebSocket timed out"
+    - id: 81
+      msg: "Job timeout."
+      pattern: "RUN END RESULT_TIMED_OUT:"
+      tag: "infra"
+      logstash: "RUN END RESULT_TIMED_OUT:"
   "postci":
     - id: 200
       logstash: "puppet_re"
