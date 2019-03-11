@@ -65,6 +65,8 @@ regexes:
     name: ovb_kill9_re
   - regex: 'Error: .*The (.+) hiera key is undefined'
     name: hiera_key_undefined_re
+  - regex: 'Stack "overcloud" .+ Timed out'
+    name: stack_oc_timeout_re
 patterns:
   "console":
     - id: 1
@@ -477,6 +479,11 @@ patterns:
       pattern: "RUN END RESULT_TIMED_OUT:"
       tag: "infra"
       logstash: "RUN END RESULT_TIMED_OUT:"
+    - id: 84
+      msg: "Timeout to create overcloud stack."
+      pattern: "stack_oc_timeout_re"
+      tag: "infra"
+      logstash: ""
   "postci":
     - id: 200
       logstash: "puppet_re"
