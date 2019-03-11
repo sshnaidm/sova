@@ -589,6 +589,11 @@ patterns:
       msg: "IPMI to nodes failed."
       pattern: "Error: IPMI call failed: power status"
       tag: "infra"
+    - id: 512
+      logstash: ""
+      msg: "Nova failure: no valid host was found."
+      pattern: 'ResourceInError: resources.NovaCompute: Went to status ERROR due to "Message: No valid host was found. , Code: 500'
+      tag: "infra"
   "bmc":
     - id: 600
       logstash: 'socket.error: [Errno 99] Cannot assign requested address'
