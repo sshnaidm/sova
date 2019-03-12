@@ -141,8 +141,8 @@ COLUMNED_TRACKED_JOBS = {
         'periodic-tripleo-ci-fedora-28-centos-7-containers-standalone-master',
         'periodic-tripleo-ci-fedora-28-ovb-1ctlr_1comp-featureset002-master-upload',
         'periodic-tripleo-ci-fedora-28-standalone-master',
-        'periodic-tripleo-fedora-28-master-containers-build'
-
+        'periodic-tripleo-fedora-28-master-containers-build',
+        'periodic-tripleo-centos-7-master-containers-build-push',
     ],
     Markup('''<a href="http://dashboards.rdoproject.org/rocky" onclick="window.location.href='http://dashboards.rdoproject.org/rocky'">Rocky-promotion</a>'''): [  # noqa
         'periodic-tripleo-centos-7-rocky-containers-build',
