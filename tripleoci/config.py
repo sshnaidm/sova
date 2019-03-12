@@ -120,6 +120,8 @@ COLUMNED_TRACKED_JOBS = {
         "tripleo-ci-centos-7-scenario002-standalone",
         "tripleo-ci-centos-7-scenario003-standalone",
         "tripleo-ci-centos-7-scenario004-standalone",
+        "tripleo-ci-centos-7-scenario012-standalone",
+        "tripleo-ci-centos-7-standalone-os-tempest"
     ],
     "Containers": [
         "tripleo-ci-centos-7-containers-multinode",
@@ -134,7 +136,8 @@ COLUMNED_TRACKED_JOBS = {
         "tripleo-ci-centos-7-scenario008-multinode-oooq-container",
         "tripleo-ci-centos-7-scenario009-multinode-oooq-container",
         "tripleo-ci-centos-7-scenario010-multinode-oooq-container",
-        "tripleo-ci-centos-7-scenario011-multinode-oooq-container"
+        "tripleo-ci-centos-7-scenario011-multinode-oooq-container",
+        "tripleo-ci-centos-7-scenario012-multinode-oooq-container"
     ],
     "Multinode": [
         "tripleo-ci-centos-7-nonha-multinode-oooq",
@@ -154,7 +157,8 @@ COLUMNED_TRACKED_JOBS = {
         "tripleo-buildimage-overcloud-full-centos-7",
         "tripleo-buildimage-ironic-python-agent-centos-7",
         "tripleo-buildimage-overcloud-hardened-full-centos-7",
-        "tripleo-build-containers-centos-7"
+        "tripleo-build-containers-centos-7",
+        "tripleo-build-containers-centos-7-buildah"
     ],
     "Branches": [
         "tripleo-ci-centos-7-containers-multinode-rocky",
