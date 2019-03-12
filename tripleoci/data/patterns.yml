@@ -467,6 +467,11 @@ patterns:
       pattern: "stack_oc_timeout_re"
       tag: "infra"
       logstash: ""
+    - id: 83
+      msg: "Failed to create OVB stack."
+      pattern: "RuntimeError: Failed to create stack baremetal"
+      tag: "infra"
+      logstash: ""
   "postci":
     - id: 200
       logstash: "puppet_re"
