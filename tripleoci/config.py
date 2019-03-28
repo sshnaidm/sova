@@ -95,7 +95,7 @@ GERRIT_HOST = "review.openstack.org"
 GERRIT_PORT = 29418
 GERRIT_USER = "robo"
 GERRIT_BRANCHES = ("master", "stable/pike",
-                   "stable/queens", "stable/rocky")
+                   "stable/queens", "stable/rocky", "stable/stein")
 PERIODIC_DAYS = 14
 PERIODIC_PAGES = 2
 GATE_DAYS = 8
@@ -161,65 +161,45 @@ COLUMNED_TRACKED_JOBS = {
         "tripleo-build-containers-centos-7-buildah"
     ],
     "Branches": [
+        "tripleo-ci-centos-7-containers-multinode-stein",
         "tripleo-ci-centos-7-containers-multinode-rocky",
         "tripleo-ci-centos-7-containers-multinode-queens",
         "tripleo-ci-centos-7-containers-multinode-pike",
 
     ],
     "OVB": [
-        'tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-ocata',
         'tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024',
-        'tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024-pike',
         'tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-master',
         'tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020',
-        'tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset022-pike',
         'tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset022',
         ('tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039-'
          'master'),
         'tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039',
         'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001',
-        'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master',
-        'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata',
         ('tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata-'
          'branch'),
-        'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike',
         'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike-branch',
-        'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens',
         ('tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens-'
          'branch'),
-        'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-rocky',
         ('tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-rocky-'
          'branch'),
+        ('tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-stein-'
+         'branch'),
         'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021',
-        'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-master',
-        'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-ocata',
-        'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-pike',
-        'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021-queens',
         'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset035',
-        'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset035-master',
-        'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset035-queens',
-        'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset035-rocky',
         'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042',
-        'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-master',
-        'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-master-tht',
-        'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-queens',
-        'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042-queens-tht',
-        'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset053-master',
         'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset053',
         'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-master-vexxhost',
+        'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-stein-vexxhost',
         'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-rocky-vexxhost',
         'tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039',
         'tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039-ovb-master',
         'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ovb-master',
     ],
     "RDO cloud multinode": [
-        'tripleo-ci-centos-7-multinode-1ctlr-featureset016-master',
         'tripleo-ci-centos-7-multinode-1ctlr-featureset016',
-        'tripleo-ci-centos-7-multinode-1ctlr-featureset017-master',
         'tripleo-ci-centos-7-multinode-1ctlr-featureset017',
-        'tripleo-ci-centos-7-multinode-1ctlr-featureset018-master',
         'tripleo-ci-centos-7-multinode-1ctlr-featureset018',
-        'tripleo-ci-centos-7-multinode-1ctlr-featureset019-master',
         'tripleo-ci-centos-7-multinode-1ctlr-featureset019',
         'tripleo-ci-centos-7-multinode-1ctlr-featureset010',
         ('tripleo-ci-centos-7-multinode-1ctlr-featureset036-oc-ffu-'
