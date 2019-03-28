@@ -95,7 +95,7 @@ GERRIT_HOST = "review.openstack.org"
 GERRIT_PORT = 29418
 GERRIT_USER = "robo"
 GERRIT_BRANCHES = ("master", "stable/pike",
-                   "stable/queens", "stable/rocky")
+                   "stable/queens", "stable/rocky", "stable/stein")
 PERIODIC_DAYS = 14
 PERIODIC_PAGES = 25
 GATE_DAYS = 7
@@ -143,6 +143,35 @@ COLUMNED_TRACKED_JOBS = {
         'periodic-tripleo-ci-fedora-28-standalone-master',
         'periodic-tripleo-fedora-28-master-containers-build',
         'periodic-tripleo-centos-7-master-containers-build-push',
+    ],
+    Markup('''<a href="http://dashboards.rdoproject.org/stein" onclick="window.location.href='http://dashboards.rdoproject.org/stein'">Stein-promotion</a>'''): [  # noqa
+        'periodic-tripleo-centos-7-stein-containers-build',
+        'periodic-tripleo-centos-7-stein-promote-consistent-to-tripleo-ci-testing',
+        'periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset010-stein',
+        'periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset016-stein',
+        'periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset017-stein',
+        'periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset018-stein',
+        'periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset019-stein',
+        'periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset030-stein',
+        'periodic-tripleo-ci-centos-7-multinode-1ctlr-featureset037-updates-stein',
+        'periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset002-stein-upload',
+        'periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-stein',
+        'periodic-tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset021-stein',
+        'periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-stein',
+        'periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset035-stein',
+        'periodic-tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039-stein',
+        'periodic-tripleo-ci-centos-7-singlenode-featureset027-stein',
+        'periodic-tripleo-ci-centos-7-singlenode-featureset050-upgrades-stein',
+        'periodic-tripleo-ci-centos-7-standalone-stein',
+        'periodic-tripleo-ci-centos-7-scenario001-standalone-stein',
+        'periodic-tripleo-ci-centos-7-scenario002-standalone-stein',
+        'periodic-tripleo-ci-centos-7-scenario003-standalone-stein',
+        'periodic-tripleo-ci-centos-7-scenario004-standalone-stein',
+        'periodic-tripleo-ci-fedora-28-centos-7-containers-standalone-stein',
+        'periodic-tripleo-ci-fedora-28-ovb-1ctlr_1comp-featureset002-stein-upload',
+        'periodic-tripleo-ci-fedora-28-standalone-stein',
+        'periodic-tripleo-fedora-28-stein-containers-build',
+        'periodic-tripleo-centos-7-stein-containers-build-push',
     ],
     Markup('''<a href="http://dashboards.rdoproject.org/rocky" onclick="window.location.href='http://dashboards.rdoproject.org/rocky'">Rocky-promotion</a>'''): [  # noqa
         'periodic-tripleo-centos-7-rocky-containers-build',
