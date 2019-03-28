@@ -36,6 +36,7 @@ PROJECTS = (
     'openstack/tripleo-ui',
     'openstack/tripleo-upgrade',
     'openstack/tripleo-validations',
+    'openstack/tripleo-repos',
     '^openstack/puppet-.*',
     # Non-TripleO repositories
     # 'openstack/neutron',
@@ -158,7 +159,9 @@ COLUMNED_TRACKED_JOBS = {
         "tripleo-buildimage-ironic-python-agent-centos-7",
         "tripleo-buildimage-overcloud-hardened-full-centos-7",
         "tripleo-build-containers-centos-7",
-        "tripleo-build-containers-centos-7-buildah"
+        "tripleo-build-containers-centos-7-rocky",
+        "tripleo-build-containers-centos-7-stein",
+        "tripleo-build-containers-centos-7-buildah",
     ],
     "Branches": [
         "tripleo-ci-centos-7-containers-multinode-stein",
@@ -197,22 +200,9 @@ COLUMNED_TRACKED_JOBS = {
         'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ovb-master',
     ],
     "RDO cloud multinode": [
-        'tripleo-ci-centos-7-multinode-1ctlr-featureset016',
-        'tripleo-ci-centos-7-multinode-1ctlr-featureset017',
-        'tripleo-ci-centos-7-multinode-1ctlr-featureset018',
-        'tripleo-ci-centos-7-multinode-1ctlr-featureset019',
         'tripleo-ci-centos-7-multinode-1ctlr-featureset010',
-        ('tripleo-ci-centos-7-multinode-1ctlr-featureset036-oc-ffu-'
-         'queens'),
-        ('tripleo-ci-centos-7-multinode-1ctlr-featureset037-updates-'
-         'master'),
-        'tripleo-ci-centos-7-multinode-1ctlr-featureset037-updates',
     ],
     "RDO cloud upgrades": [
-        'tripleo-ci-centos-7-containers-multinode-upgrades-pike',
-        'tripleo-ci-centos-7-containers-multinode-upgrades-pike-branch',
-        ('tripleo-ci-centos-7-container-to-container-featureset051-'
-         'upgrades-master'),
         'tripleo-ci-centos-7-container-to-container-featureset051-upgrades',
         'tripleo-ci-centos-7-container-to-container-upgrades-master',
         'tripleo-ci-centos-7-container-to-container-upgrades-queens',
