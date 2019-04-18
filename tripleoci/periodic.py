@@ -37,8 +37,8 @@ class Periodic(object):
                 web = Web(url=url)
                 req = web.get()
                 if req is None or int(req.status_code) != 200:
-                    log.warning(
-                        "Trying again to download periodic page ".format(url))
+                    log.warning("Trying again to download periodic page {}"
+                                "".format(url))
                     req = web.get()
                     if req is None or int(req.status_code) != 200:
                         log.error(

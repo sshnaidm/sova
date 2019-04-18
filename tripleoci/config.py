@@ -65,6 +65,10 @@ PERIODIC_LOGS_URL = [
      'builds?pipeline=openstack-periodic'),
     ('https://review.rdoproject.org/zuul/api/'
      'builds?pipeline=openstack-periodic-24hr'),
+    ('https://review.rdoproject.org/zuul/api/'
+     'builds?pipeline=openstack-periodic-master'),
+    ('https://review.rdoproject.org/zuul/api/'
+     'builds?pipeline=openstack-periodic-latest-released'),
 ]
 PERIODIC_URLS = []
 
