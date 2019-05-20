@@ -117,7 +117,6 @@ COLUMNED_TRACKED_JOBS = {
     "Standalone": [
         "tripleo-ci-centos-7-standalone",
         "tripleo-ci-fedora-28-standalone",
-        "tripleo-ci-centos-7-standalone-upgrade",
         "tripleo-ci-centos-7-scenario001-standalone",
         "tripleo-ci-centos-7-scenario002-standalone",
         "tripleo-ci-centos-7-scenario003-standalone",
@@ -154,7 +153,9 @@ COLUMNED_TRACKED_JOBS = {
         "tripleo-ci-centos-7-scenario000-multinode-oooq-container-updates",
         "tripleo-ci-centos-7-containerized-undercloud-upgrades",
         "tripleo-ci-centos-7-undercloud-upgrades",
-        "tripleo-ci-centos-7-scenario000-multinode-oooq-container-upgrades"
+        "tripleo-ci-centos-7-scenario000-multinode-oooq-container-upgrades",
+        "tripleo-ci-centos-7-standalone-upgrade-stein",
+        "tripleo-ci-centos-7-standalone-upgrade",
     ],
     "Images": [
         "tripleo-buildimage-overcloud-full-centos-7",
