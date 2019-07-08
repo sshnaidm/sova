@@ -34,7 +34,7 @@ PROJECTS = (
     'openstack/tripleo-docs',
     'openstack/tripleo-quickstart',
     'openstack/tripleo-specs',
-    'openstack/tripleo-ui',
+    'openstack/tripleo-ansible',
     'openstack/tripleo-upgrade',
     'openstack/tripleo-validations',
     'openstack/tripleo-repos',
