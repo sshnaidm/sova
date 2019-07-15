@@ -167,7 +167,7 @@ COLUMNED_TRACKED_JOBS = {
         "tripleo-build-containers-centos-7-rocky",
         "tripleo-build-containers-centos-7-stein",
         "tripleo-build-containers-centos-7-buildah",
-        "tripleo-build-containers-centos-7-buildah",
+        "tripleo-build-containers-centos-7-buildah-stein",
     ],
     "Branches": [
         "tripleo-ci-centos-7-containers-multinode-stein",
