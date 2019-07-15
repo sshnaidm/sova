@@ -93,17 +93,6 @@ PERIODIC_DAYS = 14
 GATE_DAYS = 8
 CIRCLE = 3
 COLUMNED_TRACKED_JOBS = {
-    "Scenarios": [
-        "tripleo-ci-centos-7-scenario001-multinode-oooq",
-        "tripleo-ci-centos-7-scenario002-multinode-oooq",
-        "tripleo-ci-centos-7-scenario003-multinode-oooq",
-        "tripleo-ci-centos-7-scenario004-multinode-oooq",
-        "tripleo-ci-centos-7-scenario005-multinode-oooq",
-        "tripleo-ci-centos-7-scenario006-multinode-oooq",
-        'tripleo-ci-centos-7-scenario007-multinode-oooq',
-        'tripleo-ci-centos-7-scenario008-multinode-oooq',
-        'tripleo-ci-centos-7-scenario009-multinode-oooq',
-    ],
     "Standalone": [
         "tripleo-ci-centos-7-standalone",
         "tripleo-ci-fedora-28-standalone",
@@ -117,11 +106,6 @@ COLUMNED_TRACKED_JOBS = {
     ],
     "Containers": [
         "tripleo-ci-centos-7-containers-multinode",
-        "tripleo-ci-centos-7-scenario001-multinode-oooq-container",
-        "tripleo-ci-centos-7-scenario002-multinode-oooq-container",
-        "tripleo-ci-centos-7-scenario003-multinode-oooq-container",
-        "tripleo-ci-centos-7-scenario004-multinode-oooq-container",
-        "tripleo-ci-centos-7-scenario007-multinode-oooq-container",
         "tripleo-ci-centos-7-scenario009-multinode-oooq-container",
         "tripleo-build-containers-centos-7-rocky",
         "tripleo-build-containers-centos-7-buildah",
@@ -129,20 +113,11 @@ COLUMNED_TRACKED_JOBS = {
         "tripleo-build-containers-centos-7-buildah-stein",
         "tripleo-build-containers-centos-7-stein",
     ],
-    "Multinode": [
-        "tripleo-ci-centos-7-nonha-multinode-oooq",
-        "tripleo-ci-centos-7-3nodes-multinode"
-    ],
     "Undercloud": [
         "tripleo-ci-centos-7-undercloud-oooq",
         "tripleo-ci-centos-7-undercloud-containers",
     ],
     "Puppet": [
-        "puppet-openstack-unit-4.8-centos-7",
-        "puppet-openstack-lint",
-        "puppet-openstack-syntax-4",
-        "puppet-tripleo-puppet-unit-4.8-centos-7",
-        "puppet-openstack-unit-5.5-centos-7",
         "puppet-neutron-tripleo-standalone",
         "puppet-nova-tripleo-standalone",
         "puppet-keystone-tripleo-standalone",
