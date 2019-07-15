@@ -108,7 +108,6 @@ COLUMNED_TRACKED_JOBS = {
         "tripleo-ci-centos-7-scenario002-multinode-oooq",
         "tripleo-ci-centos-7-scenario003-multinode-oooq",
         "tripleo-ci-centos-7-scenario004-multinode-oooq",
-        "tripleo-ci-centos-7-scenario005-multinode-oooq",
         "tripleo-ci-centos-7-scenario006-multinode-oooq",
         'tripleo-ci-centos-7-scenario007-multinode-oooq',
         'tripleo-ci-centos-7-scenario008-multinode-oooq',
@@ -133,7 +132,6 @@ COLUMNED_TRACKED_JOBS = {
         "tripleo-ci-centos-7-scenario002-multinode-oooq-container-refstack",
         "tripleo-ci-centos-7-scenario003-multinode-oooq-container",
         "tripleo-ci-centos-7-scenario004-multinode-oooq-container",
-        "tripleo-ci-centos-7-scenario005-multinode-oooq-container",
         "tripleo-ci-centos-7-scenario006-multinode-oooq-container",
         "tripleo-ci-centos-7-scenario007-multinode-oooq-container",
         "tripleo-ci-centos-7-scenario008-multinode-oooq-container",
@@ -145,7 +143,6 @@ COLUMNED_TRACKED_JOBS = {
     ],
     "Multinode": [
         "tripleo-ci-centos-7-nonha-multinode-oooq",
-        "tripleo-ci-centos-7-3nodes-multinode",
     ],
     "Undercloud": [
         "tripleo-ci-centos-7-undercloud-oooq",
@@ -168,6 +165,8 @@ COLUMNED_TRACKED_JOBS = {
         "tripleo-build-containers-centos-7-stein",
         "tripleo-build-containers-centos-7-buildah",
         "tripleo-build-containers-centos-7-buildah-stein",
+        "tripleo-build-containers-fedora-28-stein",
+        "tripleo-build-containers-fedora-28-master",
     ],
     "Branches": [
         "tripleo-ci-centos-7-containers-multinode-stein",
@@ -177,24 +176,16 @@ COLUMNED_TRACKED_JOBS = {
 
     ],
     "OVB": [
-        'tripleo-ci-centos-7-ovb-1ctlr_1comp_1ceph-featureset024',
-        'tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020-master',
-        'tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset020',
-        'tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset022',
         ('tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039-'
          'master'),
         'tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039',
         'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001',
-        ('tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ocata-'
-         'branch'),
-        'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-pike-branch',
         ('tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-queens-'
          'branch'),
         ('tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-rocky-'
          'branch'),
         ('tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-stein-'
          'branch'),
-        'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset021',
         'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset035',
         'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset042',
         'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset053',
@@ -204,15 +195,14 @@ COLUMNED_TRACKED_JOBS = {
         'tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039',
         'tripleo-ci-centos-7-ovb-3ctlr_1comp_1supp-featureset039-ovb-master',
         'tripleo-ci-centos-7-ovb-3ctlr_1comp-featureset001-ovb-master',
+        'tripleo-ci-centos-7-ovb-1ctlr_2comp-featureset021',
+        'tripleo-ci-centos-7-ovb-1ctlr_2comp-featureset020-queens',
+        'tripleo-ci-reproducer-fedora-28-libvirt-standalone-dryrun',
+        'tripleo-ci-centos-7-ovb-1ctlr_2comp-featureset020-rocky',
+        'tripleo-ci-centos-7-ovb-1ctlr_2comp-featureset020-pike',
+        'tripleo-ci-centos-7-ovb-1ctlr_2comp-featureset020',
+        'tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset001',
     ],
-    "RDO cloud multinode": [
-        'tripleo-ci-centos-7-multinode-1ctlr-featureset010',
-    ],
-    "RDO cloud upgrades": [
-        'tripleo-ci-centos-7-container-to-container-featureset051-upgrades',
-        'tripleo-ci-centos-7-container-to-container-upgrades-master',
-        'tripleo-ci-centos-7-container-to-container-upgrades-queens',
-    ]
 }
 TRIPLEOCI = {
     'console': '/job-output.txt',
