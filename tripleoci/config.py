@@ -125,6 +125,7 @@ COLUMNED_TRACKED_JOBS = {
         "tripleo-ci-centos-7-scenario010-standalone",
         "tripleo-ci-centos-7-standalone-os-tempest",
         "tripleo-ci-centos-7-standalone-rocky",
+        "tripleo-ci-rhel-8-standalone-rdo",
     ],
     "Containers": [
         "tripleo-ci-centos-7-containers-multinode",
