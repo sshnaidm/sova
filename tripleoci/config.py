@@ -125,6 +125,8 @@ COLUMNED_TRACKED_JOBS = {
         "tripleo-ci-centos-7-scenario010-standalone",
         "tripleo-ci-centos-7-standalone-os-tempest",
         "tripleo-ci-centos-7-standalone-rocky",
+        "periodic-tripleo-ci-rhel-8-standalone-master",
+        "tripleo-ci-rhel-8-standalone-rdo",
     ],
     "Containers": [
         "tripleo-ci-centos-7-containers-multinode",
@@ -168,6 +170,7 @@ COLUMNED_TRACKED_JOBS = {
         "tripleo-build-containers-centos-7-buildah-stein",
         "tripleo-build-containers-fedora-28-stein",
         "tripleo-build-containers-fedora-28-master",
+        "periodic-tripleo-rhel-8-master-containers-build-push",
     ],
     "Branches": [
         "tripleo-ci-centos-7-containers-multinode-stein",
