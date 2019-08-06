@@ -142,6 +142,8 @@ COLUMNED_TRACKED_JOBS = {
         'periodic-tripleo-ci-fedora-28-standalone-master',
         'periodic-tripleo-fedora-28-master-containers-build-push',
         'periodic-tripleo-centos-7-master-containers-build-push',
+        'periodic-tripleo-rhel-8-master-containers-build-push',
+        'periodic-tripleo-ci-rhel-8-standalone-master',
     ],
     Markup('''<a href="http://dashboards.rdoproject.org/stein" onclick="window.location.href='http://dashboards.rdoproject.org/stein'">Stein-promotion</a>'''): [  # noqa
         'periodic-tripleo-centos-7-stein-promote-consistent-to-tripleo-ci-testing',
