@@ -144,6 +144,10 @@ COLUMNED_TRACKED_JOBS = {
         'periodic-tripleo-centos-7-master-containers-build-push',
         'periodic-tripleo-rhel-8-master-containers-build-push',
         'periodic-tripleo-ci-rhel-8-standalone-master',
+        'periodic-tripleo-ci-rhel-8-ovb-3ctlr_1comp-featureset001-master',
+        'periodic-tripleo-rhel-8-buildimage-ironic-python-agent-master',
+        'periodic-tripleo-rhel-8-buildimage-overcloud-full-master',
+        'periodic-tripleo-rhel-8-buildimage-overcloud-hardened-full-master',
     ],
     Markup('''<a href="http://dashboards.rdoproject.org/stein" onclick="window.location.href='http://dashboards.rdoproject.org/stein'">Stein-promotion</a>'''): [  # noqa
         'periodic-tripleo-centos-7-stein-promote-consistent-to-tripleo-ci-testing',
