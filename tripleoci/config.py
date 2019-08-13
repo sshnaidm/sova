@@ -149,6 +149,7 @@ COLUMNED_TRACKED_JOBS = {
     "Undercloud": [
         "tripleo-ci-centos-7-undercloud-oooq",
         "tripleo-ci-centos-7-undercloud-containers",
+        "ripleo-ci-centos-7-containers-undercloud-minion",
     ],
     "Update/Upgrades": [
         "tripleo-ci-centos-7-scenario000-multinode-oooq-container-updates",
@@ -169,6 +170,7 @@ COLUMNED_TRACKED_JOBS = {
         "tripleo-build-containers-centos-7-buildah-stein",
         "tripleo-build-containers-fedora-28-stein",
         "tripleo-build-containers-fedora-28-master",
+        "tripleo-build-containers-rhel-8-master",
         "tripleo-rhel-8-buildimage-ironic-python-agent",
         "tripleo-rhel-8-buildimage-overcloud-full",
         "tripleo-rhel-8-buildimage-overcloud-hardened-full",
