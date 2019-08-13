@@ -112,6 +112,9 @@ COLUMNED_TRACKED_JOBS = {
         "tripleo-build-containers-centos-7",
         "tripleo-build-containers-centos-7-buildah-stein",
         "tripleo-build-containers-centos-7-stein",
+        "tripleo-ci-centos-7-containers-multinode-stein",
+        "tripleo-ci-centos-7-containers-multinode-queens",
+        "tripleo-ci-centos-7-containers-multinode-rocky",
     ],
     "Undercloud": [
         "tripleo-ci-centos-7-undercloud-oooq",
