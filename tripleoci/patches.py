@@ -3,21 +3,27 @@ import gzip
 import os
 import re
 import time
+from tripleoci.config import log
+from tripleoci.utils import Web
+
 import tripleoci.config as config
 from tripleoci.utils import Web
 
 
 ZUUL_STATUSES = ["SUCCESS", "FAILURE", "RETRY_LIMIT", "POST_FAILURE",
                  "TIMED_OUT"]
-JOB_RE = re.compile(r"(\S+) (http://logs.openstack.org/\S+) "
-                    r": (%s) in ([hms \d]+)" % "|".join(ZUUL_STATUSES))
-JOB_RE2 = re.compile(r"(\S+) (https://review.rdoproject.org/\S+) "
-                     r": (%s) in ([hms \d]+)" % "|".join(ZUUL_STATUSES))
+JOB_REGEX = (
+    re.compile(r"(\S+) (https://zuul.opendev.org/t/openstack/build/\S+) "
+               r": (%s) in ([hms \d]+)" % "|".join(ZUUL_STATUSES)),
+    re.compile(r"(\S+) (http://logs.rdoproject.org/\S+) "
+               r": (%s) in ([hms \d]+)" % "|".join(ZUUL_STATUSES))
+)
 PATCH_RE = re.compile(r"Patch Set (\d+):")
 TIME_RE = re.compile(r"((?P<hour>\d+)h)? *((?P<min>\d+)m)? *((?P<sec>\d+)s)?")
 RDO_RE = re.compile(r'Logs have been uploaded and are available at:'
                     r'.*(https://logs.rdoproject.org/[^<>\s]+)', re.DOTALL)
 PIPE_RE = re.compile(r"([^ \(\)]+) pipeline")
+BUILD_ID = re.compile(r'https://zuul.opendev.org/t/openstack/build/(\S+)')
 
 
 def utc_delta():
@@ -28,6 +34,40 @@ def utc_delta():
 
 
 UTC_OFFSET = utc_delta()
+
+
+def retrieve_log_from_swift(log_string):
+    # RDO Zuul doesn't store in SWIFT, so it's a direct link to logs
+    if "logs.rdoproject.org" in log_string:
+        return log_string
+    elif "zuul.opendev.org" in log_string:
+        # retrieve JSON info from current link
+        build_re = BUILD_ID.search(log_string)
+        if build_re:
+            build_id = build_re.group(1)
+        else:
+            # failed to parse URL
+            log.error("Failed to parse URL=%s", log_string)
+            return None
+        log_url = ("https://zuul.opendev.org/api/tenant/openstack/build/%s"
+                   % build_id)
+        web = Web(log_url)
+        req = web.get()
+        try:
+            json_data = req.json()
+        except Exception as e:
+            log.error("Exception when decoding JSON from SWIFT URL of Zuul"
+                      " %s: %s", log_url, str(e))
+            return None
+        job_log_url = json_data.get('log_url')
+        if not job_log_url:
+            log.error('log_url is not in data %s: %s', log_url, json_data)
+            return None
+        return job_log_url
+    else:
+        # unknown log link
+        log.error("Unknown log link: %s", log_string)
+        return None
 
 
 class Patch(object):
@@ -66,66 +106,19 @@ class Patch(object):
             # Resolution in minutes
             return 60 * hour + minute
 
-        def _get_jenkins_console(x):
-            consoles_dir = os.path.join(config.DOWNLOAD_PATH, "jenkins_cons")
-            if not os.path.exists(consoles_dir):
-                os.makedirs(consoles_dir)
-            file_path = os.path.join(
-                consoles_dir,
-                "_".join((x.rstrip("/").split("/")[-2:])) + ".gz")
-            if os.path.exists(file_path):
-                with gzip.open(file_path, "rt") as f:
-                    return f.read()
-            elif os.path.exists(file_path + "_404"):
-                return None
-            full_url = x + "/" + "consoleFull"
-            www = Web(full_url, timeout=5)
-            page = www.get()
-            if page.status_code == 404:
-                open(file_path + "_404", 'a').close()
-            elif page:
-                with gzip.open(file_path, "wt") as f:
-                    f.write(page.text)
-                return page.content.decode('utf-8')
-
-        def _extract_log_url(text):
-            if RDO_RE.search(text):
-                return RDO_RE.search(text).group(1)
-
         jobs = []
         text = comment['message']
         timestamp = datetime.datetime.fromtimestamp(comment['timestamp'])
         pipeline = (PIPE_RE.search(text).group(1)
                     if PIPE_RE.search(text) else '')
-        data = JOB_RE.findall(text)
-        if data:
-            patch_num = PATCH_RE.search(text).group(1)
-            patchset = [s for s in self.sets if s.number == int(patch_num)][0]
-            for j in data:
-                job = Job(
-                    name=j[0],
-                    log_url=j[1],
-                    status=j[2],
-                    length=parse_time(j[3]),
-                    patch=self,
-                    patchset=patchset,
-                    timestamp=timestamp,
-                    pipeline=pipeline
-                )
-                jobs.append(job)
-        if config.PLUGIN != config.TRIPLEOCI:
-            data2 = JOB_RE2.findall(text)
-            if data2:
+        for regex in JOB_REGEX:
+            data = regex.findall(text)
+            if data:
                 patch_num = PATCH_RE.search(text).group(1)
-                patchset = [
-                    s for s in self.sets if s.number == int(patch_num)][0]
-                for j in data2:
-                    log_console = _get_jenkins_console(j[1])
-                    if not log_console:
-                        continue
-                    log_url = _extract_log_url(log_console)
-                    if not log_url:
-                        continue
+                patchset = [s for s in self.sets
+                            if s.number == int(patch_num)][0]
+                for j in data:
+                    log_url = retrieve_log_from_swift(j[1]) or ''
                     job = Job(
                         name=j[0],
                         log_url=log_url,
