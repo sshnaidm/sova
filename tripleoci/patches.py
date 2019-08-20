@@ -1,11 +1,14 @@
 import datetime
 import re
 import time
+from tripleoci.config import log
+from tripleoci.utils import Web
+
 
 ZUUL_STATUSES = ["SUCCESS", "FAILURE", "RETRY_LIMIT", "POST_FAILURE",
                  "TIMED_OUT"]
 JOB_REGEX = (
-    re.compile(r"(\S+) (http://logs.openstack.org/\S+) "
+    re.compile(r"(\S+) (https://zuul.opendev.org/t/openstack/build/\S+) "
                r": (%s) in ([hms \d]+)" % "|".join(ZUUL_STATUSES)),
     re.compile(r"(\S+) (http://logs.rdoproject.org/\S+) "
                r": (%s) in ([hms \d]+)" % "|".join(ZUUL_STATUSES))
@@ -15,6 +18,7 @@ TIME_RE = re.compile(r"((?P<hour>\d+)h)? *((?P<min>\d+)m)? *((?P<sec>\d+)s)?")
 RDO_RE = re.compile(r'Logs have been uploaded and are available at:'
                     r'.*(https://logs.rdoproject.org/[^<>\s]+)', re.DOTALL)
 PIPE_RE = re.compile(r"([^ \(\)]+) pipeline")
+BUILD_ID = re.compile(r'https://zuul.opendev.org/t/openstack/build/(\S+)')
 
 
 def utc_delta():
@@ -25,6 +29,40 @@ def utc_delta():
 
 
 UTC_OFFSET = utc_delta()
+
+
+def retrieve_log_from_swift(log_string):
+    # RDO Zuul doesn't store in SWIFT, so it's a direct link to logs
+    if "logs.rdoproject.org" in log_string:
+        return log_string
+    elif "zuul.opendev.org" in log_string:
+        # retrieve JSON info from current link
+        build_re = BUILD_ID.search(log_string)
+        if build_re:
+            build_id = build_re.group(1)
+        else:
+            # failed to parse URL
+            log.error("Failed to parse URL=%s", log_string)
+            return None
+        log_url = ("https://zuul.opendev.org/api/tenant/openstack/build/%s"
+                   % build_id)
+        web = Web(log_url)
+        req = web.get()
+        try:
+            json_data = req.json()
+        except Exception as e:
+            log.error("Exception when decoding JSON from SWIFT URL of Zuul"
+                      " %s: %s", log_url, str(e))
+            return None
+        job_log_url = json_data.get('log_url')
+        if not job_log_url:
+            log.error('log_url is not in data %s: %s', log_url, json_data)
+            return None
+        return job_log_url
+    else:
+        # unknown log link
+        log.error("Unknown log link: %s", log_string)
+        return None
 
 
 class Patch(object):
@@ -74,9 +112,10 @@ class Patch(object):
                 patchset = [s for s in self.sets
                             if s.number == int(patch_num)][0]
                 for j in data:
+                    log_url = retrieve_log_from_swift(j[1]) or ''
                     job = Job(
                         name=j[0],
-                        log_url=j[1],
+                        log_url=log_url,
                         status=j[2],
                         length=parse_time(j[3]),
                         patch=self,
