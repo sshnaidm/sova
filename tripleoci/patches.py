@@ -1,12 +1,7 @@
 import datetime
-import gzip
-import os
 import re
 import time
 from tripleoci.config import log
-from tripleoci.utils import Web
-
-import tripleoci.config as config
 from tripleoci.utils import Web
 
 
