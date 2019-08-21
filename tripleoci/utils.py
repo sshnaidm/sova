@@ -1,5 +1,6 @@
 import contextlib
 import datetime
+import diskcache
 import gzip
 import json
 import os
@@ -18,6 +19,9 @@ from tripleoci.config import log
 
 
 requests.packages.urllib3.disable_warnings()
+
+cache = diskcache.Cache(config.CACHE_DIR)
+cache.expire()
 
 
 class SSH(object):

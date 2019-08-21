@@ -102,6 +102,8 @@ PERIODIC_DAYS = 14
 PERIODIC_PAGES = 2
 GATE_DAYS = 8
 CIRCLE = 3
+CACHE_TIMEOUT = max(PERIODIC_DAYS, GATE_DAYS) * 86400
+CACHE_DIR = os.path.join(DOWNLOAD_PATH, "cachedb")
 COLUMNED_TRACKED_JOBS = {
     "Scenarios": [
         "tripleo-ci-centos-7-scenario001-multinode-oooq",
