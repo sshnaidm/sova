@@ -555,3 +555,8 @@ patterns:
       msg: "Undercloud install failed."
       pattern: "Found ansible errors for undercloud deployment"
       tag: "code"
+    - id: 507
+      logstash: "DeploymentError: Stack create failed"
+      msg: "Standalone Heat stack failed."
+      pattern: "DeploymentError: Stack create failed"
+      tag: "code"
