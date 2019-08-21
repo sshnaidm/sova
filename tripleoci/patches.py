@@ -1,8 +1,8 @@
 import datetime
 import re
 import time
-from tripleoci.config import log
-from tripleoci.utils import Web
+from tripleoci.config import log, CACHE_TIMEOUT
+from tripleoci.utils import Web, cache
 
 
 ZUUL_STATUSES = ["SUCCESS", "FAILURE", "RETRY_LIMIT", "POST_FAILURE",
@@ -31,6 +31,19 @@ def utc_delta():
 UTC_OFFSET = utc_delta()
 
 
+def add_log_url_to_cache(key, value):
+    cache.set(key, value, expire=CACHE_TIMEOUT)
+    log.debug("Added to cache URL %s", value)
+
+
+def get_log_url_from_cache(key):
+    if key in cache:
+        url = cache[key]
+        log.debug("Getting from cache URL %s", url)
+        return url
+    return None
+
+
 def retrieve_log_from_swift(log_string):
     # RDO Zuul doesn't store in SWIFT, so it's a direct link to logs
     if "logs.rdoproject.org" in log_string:
@@ -46,6 +59,9 @@ def retrieve_log_from_swift(log_string):
             return None
         log_url = ("https://zuul.opendev.org/api/tenant/openstack/build/%s"
                    % build_id)
+        from_cache = get_log_url_from_cache(log_url)
+        if from_cache:
+            return from_cache
         web = Web(log_url)
         req = web.get()
         try:
@@ -58,6 +74,7 @@ def retrieve_log_from_swift(log_string):
         if not job_log_url:
             log.error('log_url is not in data %s: %s', log_url, json_data)
             return None
+        add_log_url_to_cache(log_url, job_log_url)
         return job_log_url
     else:
         # unknown log link
@@ -71,7 +88,6 @@ class Patch(object):
         Class that creates Patch object from patch data from gerrit.
         It contains various info the could be useful for reports.
     """
-
     def __init__(self, data):
         self.data = data
         self.branch = data['branch']
@@ -140,7 +156,6 @@ class Patchset(object):
         Class that creates Patchset object from patchset data from gerrit.
         It contains various info the could be useful for reports.
     """
-
     def __init__(self, data, patch):
         self.number = int(data['number'])
         self.patchset_ctime = datetime.datetime.fromtimestamp(

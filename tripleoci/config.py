@@ -16,10 +16,11 @@ PROJECTS = (
     'openstack/tripleo-quickstart',
     'openstack/tripleo-quickstart-extras',
     'openstack/tripleo-heat-templates',
+    'openstack/ansible-role-container-registry',
+    'openstack/ansible-role-tripleo-modify-image',
     'openstack/dib-utils',
     'openstack/diskimage-builder',
-    'openstack/instack',
-    'openstack/instack-undercloud',
+    'openstack/openstack-ansible-os_tempest',
     'openstack/os-apply-config',
     'openstack/os-cloud-config',
     'openstack/os-collect-config',
@@ -29,12 +30,14 @@ PROJECTS = (
     'openstack-infra/tripleo-ci',
     'openstack/tripleo-common',
     'openstack/tripleo-image-elements',
-    'openstack/tripleo-incubator',
     'openstack/tripleo-puppet-elements',
     'openstack/tripleo-docs',
     'openstack/tripleo-quickstart',
     'openstack/tripleo-specs',
     'openstack/tripleo-ansible',
+    'openstack/tripleo-upgrade',
+    'openstack/tripleo-validations',
+    'openstack/tripleo-repos',
     '^openstack/puppet-.*',
     # Non-TripleO repositories
     # 'openstack/neutron',
@@ -58,7 +61,13 @@ PROJECTS = (
     # 'openstack/zaqar',
 )
 
-PERIODIC_LOGS_URL = 'http://logs.openstack.org/periodic'
+
+PERIODIC_LOGS_URL = [
+    ('https://review.rdoproject.org/zuul/api/'
+     'builds?pipeline=openstack-periodic'),
+    ('https://review.rdoproject.org/zuul/api/'
+     'builds?pipeline=openstack-periodic-24hr'),
+]
 PERIODIC_URLS = []
 
 DOWNLOAD_PATH = os.environ.get('OPENSHIFT_DATA_DIR',
@@ -87,12 +96,27 @@ GERRIT_PATCH_LIMIT = 200
 GERRIT_HOST = "review.openstack.org"
 GERRIT_PORT = 29418
 GERRIT_USER = "robo"
-GERRIT_BRANCHES = ("master", "stable/pike", "stable/rocky",
-                   "stable/queens")
+GERRIT_BRANCHES = (
+    "master",
+    "stable/queens", "stable/rocky", "stable/stein"
+)
 PERIODIC_DAYS = 14
+PERIODIC_PAGES = 2
 GATE_DAYS = 8
 CIRCLE = 3
+CACHE_TIMEOUT = max(PERIODIC_DAYS, GATE_DAYS) * 86400
+CACHE_DIR = os.path.join(DOWNLOAD_PATH, "cachedb")
 COLUMNED_TRACKED_JOBS = {
+    "Scenarios": [
+        "tripleo-ci-centos-7-scenario001-multinode-oooq",
+        "tripleo-ci-centos-7-scenario002-multinode-oooq",
+        "tripleo-ci-centos-7-scenario003-multinode-oooq",
+        "tripleo-ci-centos-7-scenario004-multinode-oooq",
+        "tripleo-ci-centos-7-scenario006-multinode-oooq",
+        'tripleo-ci-centos-7-scenario007-multinode-oooq',
+        'tripleo-ci-centos-7-scenario008-multinode-oooq',
+        'tripleo-ci-centos-7-scenario009-multinode-oooq',
+    ],
     "Standalone": [
         "tripleo-ci-centos-7-standalone",
         "tripleo-ci-fedora-28-standalone",
@@ -102,48 +126,78 @@ COLUMNED_TRACKED_JOBS = {
         "tripleo-ci-centos-7-scenario002-standalone",
         "tripleo-ci-centos-7-scenario003-standalone",
         "tripleo-ci-centos-7-scenario004-standalone",
+        "tripleo-ci-centos-7-scenario007-standalone",
+        "tripleo-ci-centos-7-scenario012-standalone",
         "tripleo-ci-centos-7-scenario010-standalone",
+        "tripleo-ci-centos-7-standalone-os-tempest",
+        "tripleo-ci-centos-7-standalone-rocky",
+        "tripleo-ci-rhel-8-standalone-rdo",
     ],
     "Containers": [
         "tripleo-ci-centos-7-containers-multinode",
+        "tripleo-ci-centos-7-scenario001-multinode-oooq-container",
+        "tripleo-ci-centos-7-scenario002-multinode-oooq-container",
+        "tripleo-ci-centos-7-scenario002-multinode-oooq-container-refstack",
+        "tripleo-ci-centos-7-scenario003-multinode-oooq-container",
+        "tripleo-ci-centos-7-scenario004-multinode-oooq-container",
+        "tripleo-ci-centos-7-scenario006-multinode-oooq-container",
+        "tripleo-ci-centos-7-scenario007-multinode-oooq-container",
+        "tripleo-ci-centos-7-scenario008-multinode-oooq-container",
         "tripleo-ci-centos-7-scenario009-multinode-oooq-container",
-        "tripleo-build-containers-centos-7-rocky",
-        "tripleo-build-containers-centos-7-buildah",
-        "tripleo-build-containers-centos-7",
-        "tripleo-build-containers-centos-7-buildah-stein",
-        "tripleo-build-containers-centos-7-stein",
-        "tripleo-ci-centos-7-containers-multinode-stein",
-        "tripleo-ci-centos-7-containers-multinode-queens",
-        "tripleo-ci-centos-7-containers-multinode-rocky",
+        "tripleo-ci-centos-7-scenario010-multinode-oooq-container",
+        "tripleo-ci-centos-7-scenario011-multinode-oooq-container",
+        "tripleo-ci-centos-7-scenario012-multinode-oooq-container",
+        "networking-ovn-tripleo-ci-centos-7-containers-multinode",
+    ],
+    "Multinode": [
+        "tripleo-ci-centos-7-nonha-multinode-oooq",
     ],
     "Undercloud": [
         "tripleo-ci-centos-7-undercloud-oooq",
         "tripleo-ci-centos-7-undercloud-containers",
-    ],
-    "Puppet": [
-        "puppet-neutron-tripleo-standalone",
-        "puppet-nova-tripleo-standalone",
-        "puppet-keystone-tripleo-standalone",
-        "puppet-glance-tripleo-standalone",
-        "puppet-cinder-tripleo-standalone",
+        "ripleo-ci-centos-7-containers-undercloud-minion",
     ],
     "Update/Upgrades": [
         "tripleo-ci-centos-7-scenario000-multinode-oooq-container-updates",
         "tripleo-ci-centos-7-containerized-undercloud-upgrades",
+        "tripleo-ci-centos-7-undercloud-upgrades",
+        "tripleo-ci-centos-7-scenario000-multinode-oooq-container-upgrades",
+        "tripleo-ci-centos-7-standalone-upgrade-stein",
+        "tripleo-ci-centos-7-standalone-upgrade",
     ],
     "Images": [
         "tripleo-buildimage-overcloud-full-centos-7",
         "tripleo-buildimage-ironic-python-agent-centos-7",
-        "tripleo-buildimage-overcloud-hardened-full-centos-7"
-    ]
+        "tripleo-buildimage-overcloud-hardened-full-centos-7",
+        "tripleo-build-containers-centos-7",
+        "tripleo-build-containers-centos-7-rocky",
+        "tripleo-build-containers-centos-7-stein",
+        "tripleo-build-containers-centos-7-buildah",
+        "tripleo-build-containers-centos-7-buildah-stein",
+        "tripleo-build-containers-fedora-28-stein",
+        "tripleo-build-containers-fedora-28-master",
+        "tripleo-build-containers-rhel-8-master",
+        "tripleo-rhel-8-buildimage-ironic-python-agent",
+        "tripleo-rhel-8-buildimage-overcloud-full",
+        "tripleo-rhel-8-buildimage-overcloud-hardened-full",
+    ],
+    "Branches": [
+        "tripleo-ci-centos-7-containers-multinode-stein",
+        "tripleo-ci-centos-7-containers-multinode-rocky",
+        "tripleo-ci-centos-7-containers-multinode-queens",
 
+    ],
 }
 TRIPLEOCI = {
     'console': '/job-output.txt',
-    'postci': '/logs/postci.txt',
-    'ironic-conductor': '/logs/undercloud/var/log/ironic/ironic-conductor.txt',
-    'syslog': '/logs/undercloud/var/log/messages',
-    'logstash': '/logs/undercloud/var/log/extra/logstash.txt'
+    "postci": '/logs/undercloud/var/log/extra/logstash.txt.gz',
+    'ironic-conductor': ('/logs/undercloud/var/log/containers/ironic-inspector'
+                         '/ironic-inspector.log.txt.gz'),
+    'syslog': '/logs/undercloud/var/log/journal.txt.gz',
+    'logstash': '/logs/undercloud/var/log/extra/logstash.txt.gz',
+    'errors': '/logs/undercloud/var/log/extra/errors.txt.txt.gz',
+    'bmc': '/logs/bmc-console.log',
+
 }
 
 PLUGIN = TRIPLEOCI
@@ -152,7 +206,7 @@ PLUGIN_JOBS = TRACKED_JOBS
 
 
 class PLUGIN_TRIPLEOCI_CONFIG(object):
-    console_name = 'job-output.txt.gz'
+    console_name = ['job-output.txt.gz', 'job-output.txt']
 
 
 ACTIVE_PLUGIN_CONFIG = PLUGIN_TRIPLEOCI_CONFIG
