@@ -216,7 +216,6 @@ COLUMNED_TRACKED_JOBS = {
 }
 TRIPLEOCI = {
     'console': '/job-output.txt',
-    "postci": '/logs/undercloud/var/log/extra/logstash.txt.gz',
     'ironic-conductor': ('/logs/undercloud/var/log/containers/ironic-inspector'
                          '/ironic-inspector.log.txt.gz'),
     'syslog': '/logs/undercloud/var/log/journal.txt.gz',

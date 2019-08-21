@@ -67,6 +67,8 @@ regexes:
     name: hiera_key_undefined_re
   - regex: 'Stack "overcloud" .+ Timed out'
     name: stack_oc_timeout_re
+  - regex: '(\S+): unbound variable'
+    name: unbound_var_re
 patterns:
   "console":
     - id: 1
@@ -489,47 +491,22 @@ patterns:
       pattern: "RuntimeError: Failed to create stack baremetal"
       tag: "infra"
       logstash: ""
-  "postci":
+    - id: 86
+      msg: "Unbound variable {}."
+      pattern: 'unbound_var_re'
+      tag: "code"
+      logstash: ": unbound variable"
+  "errors":
     - id: 200
-      logstash: "puppet_re"
-      msg: "Puppet {} FAIL."
-      pattern: "puppet_re"
-      tag: "code"
-    - id: 201
-      logstash: "Can't connect to local MySQL server through socket"
-      msg: "MySQL failure."
-      pattern: "Can't connect to local MySQL server through socket"
-      tag: "code"
-    - id: 202
-      logstash: "Could not evaluate: Cannot allocate memory - fork"
-      msg: "Puppet memory fail."
-      pattern: "Could not evaluate: Cannot allocate memory - fork(2)"
+      logstash: 'Image prepare failed: Pulling image failed:'
+      msg: "Buildah pull image failed."
+      pattern: 'Image prepare failed: Pulling image failed: cmd "buildah'
       tag: "infra"
-    - id: 203
-      logstash: "hiera_re"
-      msg: "No {} in Hiera."
-      pattern: "hiera_re"
-      tag: "code"
-    - id: 204
-      logstash: "hiera_re"
-      msg: "No {} in Hiera."
-      pattern: "hiera_re"
-      tag: "code"
-    - id: 205
-      logstash: "puppetexec_re"
-      msg: "{} FAIL."
-      pattern: "puppetexec_re"
-      tag: "code"
-    - id: 206
-      logstash: "pup_module_re"
-      msg: "Puppet module '{}' FAIL."
-      pattern: "pup_module_re"
-      tag: "code"
-    - id: 207
-      logstash: "fail_refresh_re"
-      msg: "{} FAIL."
-      pattern: "fail_refresh_re"
-      tag: "code"
+    - id: 201
+      logstash: '"code":"UNAUTHORIZED","message":"authentication required"'
+      msg: "Unauthorized error from container registry."
+      pattern: '"code":"UNAUTHORIZED","message":"authentication required"'
+      tag: "infra"
   "ironic-conductor":
     - id: 300
       logstash: "Timeout reached while waiting for callback for node"
@@ -625,6 +602,46 @@ patterns:
       logstash: "DeploymentError: Stack create failed"
       msg: "Standalone Heat stack failed."
       pattern: "DeploymentError: Stack create failed"
+      tag: "code"
+    - id: 515
+      logstash: "puppet_re"
+      msg: "Puppet {} FAIL."
+      pattern: "puppet_re"
+      tag: "code"
+    - id: 516
+      logstash: "Can't connect to local MySQL server through socket"
+      msg: "MySQL failure."
+      pattern: "Can't connect to local MySQL server through socket"
+      tag: "code"
+    - id: 517
+      logstash: "Could not evaluate: Cannot allocate memory - fork"
+      msg: "Puppet memory fail."
+      pattern: "Could not evaluate: Cannot allocate memory - fork(2)"
+      tag: "infra"
+    - id: 518
+      logstash: "hiera_re"
+      msg: "No {} in Hiera."
+      pattern: "hiera_re"
+      tag: "code"
+    - id: 519
+      logstash: "hiera_re"
+      msg: "No {} in Hiera."
+      pattern: "hiera_re"
+      tag: "code"
+    - id: 520
+      logstash: "puppetexec_re"
+      msg: "{} FAIL."
+      pattern: "puppetexec_re"
+      tag: "code"
+    - id: 521
+      logstash: "pup_module_re"
+      msg: "Puppet module '{}' FAIL."
+      pattern: "pup_module_re"
+      tag: "code"
+    - id: 522
+      logstash: "fail_refresh_re"
+      msg: "{} FAIL."
+      pattern: "fail_refresh_re"
       tag: "code"
   "bmc":
     - id: 600
