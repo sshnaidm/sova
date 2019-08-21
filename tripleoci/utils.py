@@ -17,6 +17,11 @@ from six.moves.urllib.parse import quote
 import tripleoci.config as config
 from tripleoci.config import log
 
+try:
+    from urlparse import urljoin
+except ImportError:
+    from urllib.parse import urljoin
+
 
 requests.packages.urllib3.disable_warnings()
 
@@ -187,7 +192,8 @@ class JobFile(object):
             os.makedirs(self.job_dir)
         # /logs/undercloud.tar.gz//var/log/nova/nova-compute.log
         self.file_link = file_link
-        self.file_url = job.log_url + "/" + self.file_link.split("//")[0]
+        self.file_url = urljoin(job.log_url,
+                                self.file_link.split("//")[0].lstrip("/"))
         self.file_path = None
         self.build = build
         self.file_name = None
@@ -241,10 +247,13 @@ class JobFile(object):
         log.debug("Get regular file {}".format(self.file_link))
         self.file_name = os.path.basename(
             self.file_link).split(".gz")[0] + ".gz"
+        self.file_original_path = os.path.join(
+            self.job_dir,
+            os.path.basename(self.file_link))
         self.file_path = os.path.join(self.job_dir, self.file_name)
         if os.path.exists(self.file_path):
             log.debug("File {} is already downloaded".format(self.file_path))
-        elif os.path.exists(self.file_path + "_404"):
+        elif os.path.exists(self.file_original_path + "_404"):
             log.debug("File {} was saved as 404".format(self.file_path))
             return None
         else:
@@ -267,7 +276,7 @@ class JobFile(object):
                     log.warn("Failed to retrieve URL, tried once: {}".format(
                         file_try1))
                     if req is not None:
-                        open(self.file_path + "_404", "a").close()
+                        open(self.file_original_path + "_404", "a").close()
                     return None
                 web = Web(url=file_try2)
                 log.debug("Trying to download raw file {}".format(file_try2))
@@ -276,7 +285,7 @@ class JobFile(object):
                     log.warn("Failed to retrieve URL, tried twice: {}".format(
                         file_try2))
                     if req is not None and int(req.status_code) == 404:
-                        open(self.file_path + "_404", "a").close()
+                        open(self.file_original_path + "_404", "a").close()
                     return None
             elif int(req.status_code) not in (200, 404):
                 log.warn(

@@ -93,6 +93,7 @@ def analyze(job, down_path, num):
         message['text'] = 'Failed to fetch logs'
         message['msg'] = {'Failed to fetch logs': 'infra'}
         message['tags'] = ['infra']
+        log.debug("Failed to fetch logs %s", job.log_url)
         return message
     file_pointers = PATTERNS.keys()
     files = [PLUGIN[f] for f in file_pointers]

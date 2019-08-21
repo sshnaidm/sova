@@ -96,8 +96,10 @@ GERRIT_PATCH_LIMIT = 200
 GERRIT_HOST = "review.openstack.org"
 GERRIT_PORT = 29418
 GERRIT_USER = "robo"
-GERRIT_BRANCHES = ("master", "stable/pike",
-                   "stable/queens", "stable/rocky", "stable/stein")
+GERRIT_BRANCHES = (
+    "master",
+    "stable/queens", "stable/rocky", "stable/stein"
+)
 PERIODIC_DAYS = 14
 PERIODIC_PAGES = 2
 GATE_DAYS = 8
@@ -181,7 +183,6 @@ COLUMNED_TRACKED_JOBS = {
         "tripleo-ci-centos-7-containers-multinode-stein",
         "tripleo-ci-centos-7-containers-multinode-rocky",
         "tripleo-ci-centos-7-containers-multinode-queens",
-        "tripleo-ci-centos-7-containers-multinode-pike",
 
     ],
     "OVB": [
@@ -208,7 +209,6 @@ COLUMNED_TRACKED_JOBS = {
         'tripleo-ci-centos-7-ovb-1ctlr_2comp-featureset020-queens',
         'tripleo-ci-reproducer-fedora-28-libvirt-standalone-dryrun',
         'tripleo-ci-centos-7-ovb-1ctlr_2comp-featureset020-rocky',
-        'tripleo-ci-centos-7-ovb-1ctlr_2comp-featureset020-pike',
         'tripleo-ci-centos-7-ovb-1ctlr_2comp-featureset020',
         'tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset001',
         'tripleo-ci-rhel-8-ovb-3ctlr_1comp-featureset001',
@@ -217,11 +217,11 @@ COLUMNED_TRACKED_JOBS = {
 TRIPLEOCI = {
     'console': '/job-output.txt',
     "postci": '/logs/undercloud/var/log/extra/logstash.txt.gz',
-    'ironic-conductor': ('/logs/undercloud/var/log/ironic/ironic-conductor.'
-                         'txt.gz'),
+    'ironic-conductor': ('/logs/undercloud/var/log/containers/ironic-inspector'
+                         '/ironic-inspector.log.txt.gz'),
     'syslog': '/logs/undercloud/var/log/journal.txt.gz',
     'logstash': '/logs/undercloud/var/log/extra/logstash.txt.gz',
-    'errors': '/logs/undercloud/var/log/extra/errors.txt.gz',
+    'errors': '/logs/undercloud/var/log/extra/errors.txt.txt.gz',
     'bmc': '/logs/bmc-console.log',
 
 }
@@ -232,7 +232,7 @@ PLUGIN_JOBS = TRACKED_JOBS
 
 
 class PLUGIN_TRIPLEOCI_CONFIG(object):
-    console_name = 'job-output.txt.gz'
+    console_name = ['job-output.txt.gz', 'job-output.txt']
 
 
 ACTIVE_PLUGIN_CONFIG = PLUGIN_TRIPLEOCI_CONFIG

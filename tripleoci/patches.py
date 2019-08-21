@@ -33,10 +33,15 @@ UTC_OFFSET = utc_delta()
 
 def add_log_url_to_cache(key, value):
     cache.set(key, value, expire=CACHE_TIMEOUT)
+    log.debug("Added to cache URL %s", value)
 
 
 def get_log_url_from_cache(key):
-    return cache[key]
+    if key in cache:
+        url = cache[key]
+        log.debug("Getting from cache URL %s", url)
+        return url
+    return None
 
 
 def retrieve_log_from_swift(log_string):
