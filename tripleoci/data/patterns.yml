@@ -551,11 +551,11 @@ patterns:
       pattern: "service_fail_re"
       tag: "command_exe"
   "logstash":
-#    - id: 500
-#      logstash: " is not pingable."
-#      msg: "Ping timeout when deploying OC."
-#      pattern: " is not pingable."
-#      tag: "infra"
+    - id: 500
+      logstash: " is not pingable."
+      msg: "Ping timeout when deploying OC."
+      pattern: " is not pingable."
+      tag: "infra"
     - id: 501
       logstash: ""
       msg: "Yum download network failure."
@@ -621,6 +621,11 @@ patterns:
       msg: "Nova failure: no valid host was found."
       pattern: 'ResourceInError: resources.NovaCompute: Went to status ERROR due to "Message: No valid host was found. , Code: 500'
       tag: "infra"
+    - id: 514
+      logstash: "DeploymentError: Stack create failed"
+      msg: "Standalone Heat stack failed."
+      pattern: "DeploymentError: Stack create failed"
+      tag: "code"
   "bmc":
     - id: 600
       logstash: 'socket.error: [Errno 99] Cannot assign requested address'
