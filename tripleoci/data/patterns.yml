@@ -69,6 +69,8 @@ regexes:
     name: stack_oc_timeout_re
   - regex: '(\S+): unbound variable'
     name: unbound_var_re
+  - regex: 'Error, some other host \(.+\) already uses address .+'
+    name: same_host_re
 patterns:
   "console":
     - id: 1
@@ -643,6 +645,11 @@ patterns:
       msg: "{} FAIL."
       pattern: "fail_refresh_re"
       tag: "code"
+    - id: 523
+      logstash: "already uses address"
+      msg: "MAC conflict between hosts."
+      pattern: "same_host_re"
+      tag: "infra"
   "bmc":
     - id: 600
       logstash: 'socket.error: [Errno 99] Cannot assign requested address'
