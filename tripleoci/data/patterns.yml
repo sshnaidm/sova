@@ -61,10 +61,16 @@ regexes:
     name: "convert_fail_re"
   - regex: 'ERROR:kolla.common.utils:([^\s]+) Failed with status: error'
     name: kolla_fail_re
+  - regex: 'toci_gate_test.sh:.*sudo kill -9 \d+'
+    name: ovb_kill9_re
   - regex: 'Error: .*The (.+) hiera key is undefined'
     name: hiera_key_undefined_re
   - regex: 'Stack "overcloud" .+ Timed out'
     name: stack_oc_timeout_re
+  - regex: '(\S+): unbound variable'
+    name: unbound_var_re
+  - regex: 'Error, some other host \(.+\) already uses address .+'
+    name: same_host_re
 patterns:
   "console":
     - id: 1
@@ -417,11 +423,11 @@ patterns:
       pattern: "testenv-client - INFO - Received job : Failed creating OVB stack"
       tag: "infra"
       logstash: "testenv-client - INFO - Received job : Failed creating OVB stack"
-#    - id: 73
-#      msg: "{} file missing."
-#      pattern: "missing_file"
-#      tag: "infra"
-#      logstash: "can't read {}: No such file or directory"
+    - id: 73
+      msg: "{} file missing."
+      pattern: "missing_file"
+      tag: "infra"
+      logstash: "can't read {}: No such file or directory"
     - id: 74
       msg: "Pip install FAIL."
       pattern: "pip_install_fail"
@@ -458,26 +464,41 @@ patterns:
       tag: "code"
       logstash: "The Workflow finished successfully but no messages were received before the WebSocket timed out"
     - id: 81
+      msg: "Timeout to get OVB stack from te-broker"
+      pattern: "ovb_kill9_re"
+      tag: "infra"
+      logstash: "sudo kill -9"
+    - id: 82
+      msg: 'No such file in container.'
+      pattern: 'exec user process caused "no such file or directory'
+      logstash: 'exec user process caused "no such file or directory'
+      tag: 'code'
+    - id: 83
       msg: "Job timeout."
       pattern: "RUN END RESULT_TIMED_OUT:"
       tag: "infra"
       logstash: "RUN END RESULT_TIMED_OUT:"
-    - id: 82
+    - id: 84
       msg: "Timeout to create overcloud stack."
       pattern: "stack_oc_timeout_re"
       tag: "infra"
       logstash: ""
-    - id: 83
+    - id: 85
       msg: "Failed to create OVB stack."
       pattern: "RuntimeError: Failed to create stack baremetal"
       tag: "infra"
       logstash: ""
-  "postci":
-    - id: 200
-      logstash: "puppet_re"
-      msg: "Puppet {} FAIL."
-      pattern: "puppet_re"
+    - id: 86
+      msg: "Unbound variable {}."
+      pattern: 'unbound_var_re'
       tag: "code"
+      logstash: ": unbound variable"
+  "errors":
+    - id: 200
+      logstash: 'Image prepare failed: Pulling image failed:'
+      msg: "Buildah pull image failed."
+      pattern: 'Image prepare failed: Pulling image failed: cmd "buildah'
+      tag: "infra"
     - id: 201
       logstash: "Can't connect to local MySQL server through socket"
       msg: "MySQL failure."
@@ -534,11 +555,11 @@ patterns:
       pattern: "service_fail_re"
       tag: "command_exe"
   "logstash":
-#    - id: 500
-#      logstash: " is not pingable."
-#      msg: "Ping timeout when deploying OC."
-#      pattern: " is not pingable."
-#      tag: "infra"
+    - id: 500
+      logstash: " is not pingable."
+      msg: "Ping timeout when deploying OC."
+      pattern: " is not pingable."
+      tag: "infra"
     - id: 501
       logstash: ""
       msg: "Yum download network failure."
@@ -560,44 +581,99 @@ patterns:
       pattern: "Failed to contact the endpoint at http"
       tag: "code"
     - id: 505
+      logstash: 'Ansible failed, check log at /var/lib/mistral/overcloud/ansible.log'
+      msg: 'Overcloud deploy failed.'
+      tag: 'code'
+      pattern: 'Ansible failed, check log at /var/lib/mistral/overcloud/ansible.log'
+    - id: 506
       logstash: ""
       msg: 'Overcloud image create failed.'
       tag: 'code'
       pattern: "CalledProcessError: Command '['disk-image-create'"
-    - id: 506
+    - id: 507
       logstash: ""
       msg: 'Container not found.'
       tag: 'infra'
       pattern: "ImageNotFoundException: Not found image: docker:"
-    - id: 507
+    - id: 508
       logstash: ""
       msg: 'Ironic node provision failed.'
       tag: 'infra'
       pattern: "error: Failed to prepare node"
-    - id: 508
+    - id: 509
       logstash: ""
       msg: 'IPMI to nodes failed.'
       tag: 'infra'
       pattern: "Failed to prepare to deploy: IPMI call failed:"
-    - id: 509
+    - id: 510
       logstash: ""
       msg: "Hiera key {} is undefined."
       pattern: "hiera_key_undefined_re"
       tag: "code"
-    - id: 510
+    - id: 511
       logstash: "Found ansible errors for undercloud deployment"
       msg: "Undercloud install failed."
       pattern: "Found ansible errors for undercloud deployment"
       tag: "code"
-    - id: 511
+    - id: 512
       logstash: ""
       msg: "IPMI to nodes failed."
       pattern: "Error: IPMI call failed: power status"
       tag: "infra"
-    - id: 512
+    - id: 513
       logstash: ""
       msg: "Nova failure: no valid host was found."
       pattern: 'ResourceInError: resources.NovaCompute: Went to status ERROR due to "Message: No valid host was found. , Code: 500'
+      tag: "infra"
+    - id: 514
+      logstash: "DeploymentError: Stack create failed"
+      msg: "Standalone Heat stack failed."
+      pattern: "DeploymentError: Stack create failed"
+      tag: "code"
+    - id: 515
+      logstash: "puppet_re"
+      msg: "Puppet {} FAIL."
+      pattern: "puppet_re"
+      tag: "code"
+    - id: 516
+      logstash: "Can't connect to local MySQL server through socket"
+      msg: "MySQL failure."
+      pattern: "Can't connect to local MySQL server through socket"
+      tag: "code"
+    - id: 517
+      logstash: "Could not evaluate: Cannot allocate memory - fork"
+      msg: "Puppet memory fail."
+      pattern: "Could not evaluate: Cannot allocate memory - fork(2)"
+      tag: "infra"
+    - id: 518
+      logstash: "hiera_re"
+      msg: "No {} in Hiera."
+      pattern: "hiera_re"
+      tag: "code"
+    - id: 519
+      logstash: "hiera_re"
+      msg: "No {} in Hiera."
+      pattern: "hiera_re"
+      tag: "code"
+    - id: 520
+      logstash: "puppetexec_re"
+      msg: "{} FAIL."
+      pattern: "puppetexec_re"
+      tag: "code"
+    - id: 521
+      logstash: "pup_module_re"
+      msg: "Puppet module '{}' FAIL."
+      pattern: "pup_module_re"
+      tag: "code"
+    - id: 522
+      logstash: "fail_refresh_re"
+      msg: "{} FAIL."
+      pattern: "fail_refresh_re"
+      tag: "code"
+    - id: 523
+      logstash: "already uses address"
+      msg: "MAC conflict between hosts."
+      pattern: "same_host_re"
       tag: "infra"
   "bmc":
     - id: 600
