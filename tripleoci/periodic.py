@@ -55,7 +55,8 @@ class Periodic(object):
 
     def parse_jobs(self, jobs_list):
         # Filter out jobs without logs
-        filtered_jobs_list = [i for i in jobs_list if 'http' in i['log_url']]
+        filtered_jobs_list = [i for i in jobs_list if i.get('log_url') and
+                              'http' in i['log_url']]
         jobs = [
             {
                 'name': job['job_name'],

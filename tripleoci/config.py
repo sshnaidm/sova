@@ -61,14 +61,14 @@ PROJECTS = (
 
 
 PERIODIC_LOGS_URL = [
-    ('https://review.rdoproject.org/zuul/api/'
-     'builds?pipeline=openstack-periodic'),
-    ('https://review.rdoproject.org/zuul/api/'
-     'builds?pipeline=openstack-periodic-24hr'),
+    # ('https://review.rdoproject.org/zuul/api/'
+    #  'builds?pipeline=openstack-periodic'),
+    # ('https://review.rdoproject.org/zuul/api/'
+    #  'builds?pipeline=openstack-periodic-24hr'),
     ('https://review.rdoproject.org/zuul/api/'
      'builds?pipeline=openstack-periodic-master'),
-    ('https://review.rdoproject.org/zuul/api/'
-     'builds?pipeline=openstack-periodic-latest-released'),
+    # ('https://review.rdoproject.org/zuul/api/'
+    #  'builds?pipeline=openstack-periodic-latest-released'),
 ]
 PERIODIC_URLS = []
 
@@ -100,8 +100,8 @@ GERRIT_PORT = 29418
 GERRIT_USER = "robo"
 GERRIT_BRANCHES = ("master", "stable/pike",
                    "stable/queens", "stable/rocky", "stable/stein")
-PERIODIC_DAYS = 14
-PERIODIC_PAGES = 25
+PERIODIC_DAYS = 1
+PERIODIC_PAGES = 2
 GATE_DAYS = 7
 CIRCLE = 3
 
