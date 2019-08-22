@@ -597,7 +597,7 @@ patterns:
       tag: "infra"
     - id: 514
       logstash: "DeploymentError: Stack create failed"
-      msg: "Standalone Heat stack failed."
+      msg: "Standalone/Undercloud Heat stack failed."
       pattern: "DeploymentError: Stack create failed"
       tag: "code"
     - id: 515
