@@ -221,7 +221,6 @@ COLUMNED_TRACKED_JOBS = {
 
 RDOCI = {
     'console': '/job-output.txt',
-    "postci": '/logs/undercloud/var/log/extra/logstash.txt.gz',
     'ironic-conductor': '/logs/undercloud/var/log/ironic/ironic-conductor.txt.gz',
     'syslog': '/logs/undercloud/var/log/journal.txt.gz',
     'logstash': '/logs/undercloud/var/log/extra/logstash.txt.gz',
