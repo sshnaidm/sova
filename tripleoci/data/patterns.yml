@@ -71,6 +71,8 @@ regexes:
     name: unbound_var_re
   - regex: 'Error, some other host \(.+\) already uses address .+'
     name: same_host_re
+  - regex: 'Failed to start (.+) container'
+    name: failed_container_re
 patterns:
   "console":
     - id: 1
@@ -529,6 +531,11 @@ patterns:
       msg: "{} service FAIL."
       pattern: "service_fail_re"
       tag: "command_exe"
+    - id: 401
+      logstash: "Failed to start"
+      msg: "Failed to start {} container"
+      pattern: "failed_container_re"
+      tag: "infra"
   "logstash":
     - id: 500
       logstash: " is not pingable."
