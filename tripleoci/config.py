@@ -172,8 +172,10 @@ COLUMNED_TRACKED_JOBS = {
         "tripleo-build-containers-centos-7",
         "tripleo-build-containers-centos-7-rocky",
         "tripleo-build-containers-centos-7-stein",
+        "tripleo-build-containers-centos-7-train",
         "tripleo-build-containers-centos-7-buildah",
         "tripleo-build-containers-centos-7-buildah-stein",
+        "tripleo-build-containers-centos-7-buildah-train",
         "tripleo-build-containers-fedora-28-stein",
         "tripleo-build-containers-fedora-28-master",
         "tripleo-build-containers-rhel-8-master",
@@ -182,6 +184,7 @@ COLUMNED_TRACKED_JOBS = {
         "tripleo-rhel-8-buildimage-overcloud-hardened-full",
     ],
     "Branches": [
+        "tripleo-ci-centos-7-containers-multinode-train",
         "tripleo-ci-centos-7-containers-multinode-stein",
         "tripleo-ci-centos-7-containers-multinode-rocky",
         "tripleo-ci-centos-7-containers-multinode-queens",
