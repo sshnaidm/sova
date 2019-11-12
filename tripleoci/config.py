@@ -132,6 +132,12 @@ COLUMNED_TRACKED_JOBS = {
         "tripleo-ci-centos-7-scenario010-standalone",
         "tripleo-ci-centos-7-standalone-os-tempest",
         "tripleo-ci-centos-7-standalone-rocky",
+    ],
+    "RHEL Standalone": [
+        "tripleo-ci-rhel-8-scenario001-standalone-rdo",
+        "tripleo-ci-rhel-8-scenario002-standalone-rdo",
+        "tripleo-ci-rhel-8-scenario003-standalone-rdo",
+        "tripleo-ci-rhel-8-scenario004-standalone-rdo",
         "tripleo-ci-rhel-8-standalone-rdo",
     ],
     "Containers": [
@@ -156,7 +162,7 @@ COLUMNED_TRACKED_JOBS = {
     "Undercloud": [
         "tripleo-ci-centos-7-undercloud-oooq",
         "tripleo-ci-centos-7-undercloud-containers",
-        "ripleo-ci-centos-7-containers-undercloud-minion",
+        "tripleo-ci-centos-7-containers-undercloud-minion",
     ],
     "Update/Upgrades": [
         "tripleo-ci-centos-7-scenario000-multinode-oooq-container-updates",
@@ -165,6 +171,7 @@ COLUMNED_TRACKED_JOBS = {
         "tripleo-ci-centos-7-scenario000-multinode-oooq-container-upgrades",
         "tripleo-ci-centos-7-standalone-upgrade-stein",
         "tripleo-ci-centos-7-standalone-upgrade",
+        "tripleo-ci-centos-7-standalone-upgrade-train",
     ],
     "Images": [
         "tripleo-buildimage-overcloud-full-centos-7",
@@ -175,17 +182,23 @@ COLUMNED_TRACKED_JOBS = {
         "tripleo-build-containers-centos-7-stein",
         "tripleo-build-containers-centos-7-buildah",
         "tripleo-build-containers-centos-7-buildah-stein",
-        "tripleo-build-containers-fedora-28-stein",
-        "tripleo-build-containers-fedora-28-master",
+        "tripleo-build-containers-centos-7-buildah-train",
+        "tripleo-build-containers-centos-7-train",
+    ],
+    "RHEL Images": [
         "tripleo-build-containers-rhel-8-master",
+        "tripleo-build-containers-rhel-8-train",
+        "tripleo-build-containers-rhel-8-train-branch",
         "tripleo-rhel-8-buildimage-ironic-python-agent",
         "tripleo-rhel-8-buildimage-overcloud-full",
         "tripleo-rhel-8-buildimage-overcloud-hardened-full",
     ],
     "Branches": [
+        "tripleo-ci-centos-7-containers-multinode-train",
         "tripleo-ci-centos-7-containers-multinode-stein",
         "tripleo-ci-centos-7-containers-multinode-rocky",
         "tripleo-ci-centos-7-containers-multinode-queens",
+        "tripleo-ci-centos-7-containers-multinode-pike",
 
     ],
     "OVB": [
@@ -215,6 +228,7 @@ COLUMNED_TRACKED_JOBS = {
         'tripleo-ci-centos-7-ovb-1ctlr_2comp-featureset020',
         'tripleo-ci-centos-7-ovb-1ctlr_1comp-featureset001',
         'tripleo-ci-rhel-8-ovb-3ctlr_1comp-featureset001',
+        "tripleo-ci-centos-7-ovb-1ctlr_2comp-featureset020-train",
     ],
 }
 TRIPLEOCI = {
